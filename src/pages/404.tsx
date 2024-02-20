@@ -57,7 +57,7 @@ export default function Home() {
           isNetworkSwitchHighlighted ? styles.highlightSelected : ``
         }`}
       >
-       {/*  <w3m-network-button /> */} 
+        <w3m-network-button />
       </div>
       <div
         onClick={closeAll}
@@ -75,10 +75,10 @@ export default function Home() {
 
 
 
-<div className={styles.mainContainer}>
+
     <Soon/>
-    {/* Other content can also go here */}
-</div>
+
+
 
 		</>
 	);

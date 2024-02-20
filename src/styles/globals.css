@@ -44,7 +44,7 @@ body {
 	font-family: var(--font-base);
 	color: var(--color-grey-100);
 	background-color: var(--color-bg);
-	background-image: radial-gradient(circle, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 1) 100%), url("/pattern.png");
+	background-image: radial-gradient(circle, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 1) 100%), url("/pattern.png");
 	background-repeat: no-repeat, repeat; /* No repeat for gradient, repeat for image */
 	background-position: center, top left; /* Center the gradient, start image from top left */
 	background-size: cover, auto; /* Cover for gradient, auto for image to maintain tiling */

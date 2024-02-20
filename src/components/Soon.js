@@ -9,10 +9,10 @@ const Soon = () => {
       
 
       
-        <div className={styles.soonWrapper}>
-      <h2 className={styles.soonTitle}>Coming Soon</h2>
+       
+      <h2 className={styles.soonWrapper}>Coming Soon</h2>
 
-      </div>
+      
       
     </div>
   );

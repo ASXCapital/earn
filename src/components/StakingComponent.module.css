@@ -85,6 +85,13 @@
     color: #2196F3;
     text-decoration: none;
   }
+.container {
+  display: flex;
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
+  height: calc(100vh - 100px); /* Adjust 100px to your header's actual height */
+  padding-top: 100px; /* Again, adjust this value to your header's actual height */
+}
   .stakingWrapper {
     display: flex;
     flex-direction: column;
@@ -96,7 +103,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin: 300px auto; /* Center in the viewport */
+    margin:  auto; /* Center in the viewport */
     position: relative;
     overflow: visible; /* Ensures the pseudo-element doesn't overflow */
     /* Other styles remain unchanged */
