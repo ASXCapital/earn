@@ -10,10 +10,11 @@ import styles from '../styles/StakingPage.module.css';
 import { PoolConfig } from '../config/poolsConfig';
 import useTokenPrices from '../hooks/useTokenPrices';
 import { BigNumberish, BigNumber} from 'ethers';
-import { contracts } from '../config/contracts';
+import { contracts } from './config/contracts';
 import useLPReserves from '../hooks/useLPReserves';
 import { useTotalSupply } from '../hooks/useTotalSupply';
 import { useRewardData } from '../hooks/useRewardData';
+import useStaking from '../hooks/useStake';
 
 
 
@@ -27,6 +28,8 @@ interface PoolCardProps {
 
 const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDChange, onClaimableRewardsUSDChange }) => {
   const ASXTokenAddress = contracts.bscTokens.ASX;
+
+  
 
   const SECONDS_IN_A_YEAR = 365 * 24 * 60 * 60; // Define the constant
 

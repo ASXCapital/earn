@@ -1,6 +1,6 @@
 // asx/src/config/poolsConfig.ts
 
-import { contracts } from './contracts';
+import { contracts } from '../components/config/contracts';
 import { ASXStakingABI } from '../abis/ASXStakingABI';
 import { PancakeV2LPABI } from '../abis/PancakeV2LPABI';
 import { ASXABI } from '../abis/ASXABI';
