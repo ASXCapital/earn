@@ -1,0 +1,82 @@
+@keyframes moveLight {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: #000000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #00fff7;
+  overflow: hidden;
+  box-sizing: border-box; /* Make sure padding is included in the width */
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  left: -150%; /* Start off-screen */
+  width: 300%; /* Ensure it covers the entire header width during animation */
+  background: linear-gradient(90deg, transparent, #00ffbf, transparent);
+  animation: moveLight 20s infinite linear;
+}
+
+.navbar, .navLinks, .navLinks a {
+  box-sizing: border-box; /* Apply border-box to child elements */
+}
+
+/* Example media query for smaller screens */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem; /* Reduce padding on smaller screens */
+  }
+
+  .navLinks {
+    gap: 10px; /* Reduce gap between nav links */
+  }
+
+  .navLinks a {
+    padding: 0.5rem; /* Adjust padding for nav links */
+  }
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navLinks {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.navLinks a {
+  color: #adb5bd;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navLinks a:hover {
+  background-color: #0bf3e7;
+  color: #1a202c;
+}

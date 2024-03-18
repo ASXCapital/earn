@@ -1,0 +1,84 @@
+.footer {
+  background-color: #1a1f24; /* Dark background for the footer */
+  color: #fff; /* White text color */
+  padding: 40px 20px; /* Padding around the footer */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Professional font */
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: row; /* Stack the sections next to each other */
+  justify-content: space-around; /* Evenly distribute space around the sections */
+  align-items: center; /* Align items vertically */
+  flex-wrap: wrap; /* Wrap on smaller screens */
+
+  max-width: 1200px; /* Increased width of the footer */
+  margin: 0 auto 40px; /* Center the footer and add spacing at the bottom */
+  padding: 0 20px; /* Padding around the footer */
+
+  color: #fff; /* White text color */
+  font-size: 16px; /* Larger font size for text */
+  line-height: 1.5; /* Line height for text */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Professional font */
+  text-align: left; /* Align text to the left */
+}
+
+
+.footerSection {
+  flex: 1;
+  min-width: 220px; /* Minimum width for sections */
+  padding: 0 40px; /* Add padding to individual sections */
+}
+
+.footerSection h4 {
+  margin-bottom: 20px; /* Space below headings */
+  font-size: 18px; /* Larger font size for headings */
+}
+
+.footerSection ul {
+  list-style: none; /* Remove bullet points */
+  padding: 0; /* Remove padding */
+}
+
+.footerSection li {
+  margin-bottom: 10px; /* Space between list items */
+}
+
+.footerSection li a {
+  color: #0bf3e7; /* Bright color for links */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.footerSection li a:hover {
+  color: #ffffff; /* White color on hover */
+  text-decoration: underline; /* Underline on hover */
+}
+
+.footerBottom {
+  display: flex;
+  justify-content: space-between; /* Space between follow us and rights */
+  align-items: center; /* Align items vertically */
+  flex-wrap: wrap; /* Wrap on smaller screens */
+  border-top: 1px solid #2e353c; /* Separator */
+  padding-top: 20px; /* Padding above the separator */
+}
+
+.followUs {
+  text-align: left; /* Align follow us section to the left */
+}
+
+.rights {
+  text-align: right; /* Align rights reserved to the right */
+  font-size: 14px; /* Smaller font size for the copyright text */
+}
+
+.socialLinks a {
+  margin-right: 15px; /* Space between social links */
+  display: inline-block; /* Allow margins to take effect */
+  transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.socialLinks a:hover {
+  color: #ffffff; /* White color on hover */
+}

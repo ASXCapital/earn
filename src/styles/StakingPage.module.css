@@ -1,0 +1,142 @@
+.poolListContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: 12px 0; /* Combined margin-top and margin-bottom */
+  min-width: 100px;
+}
+
+.poolCard {
+  background: #20202074;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+  color: #5fadab;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s; /* Added transition for box-shadow */
+  margin-bottom: 1rem;
+  max-width: 900px;
+  width: 100%;
+}
+
+.poolCard:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.cardHeader {
+  display: flex;
+  
+  align-items: center;
+  padding: 12px;
+}
+
+.titleAndTvl, .apr, .spacer {
+   color: #00ffee;; /* Changed from '1' to 'stretch' */
+}
+
+.logoContainer {
+  /* Center the logo container */
+  display: flex;
+  
+  justify-content: center;
+  flex: 1; /* Prevents the logo container from growing */
+}
+
+.spacer {
+  /* Invisible spacer for balancing, if necessary */
+  visibility: hidden;
+}
+
+.titleAndTvl {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Changed for .apr to match .titleAndTvl */
+}
+
+.apr {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Changed for .apr to match .titleAndTvl */
+}
+
+.titleAndTvl {
+  flex-grow: 1;
+  margin-left: 12px;
+}
+
+.poolTitle {
+  margin: 0;
+  font-family: Tahoma; /* Changed 'font' to 'font-family' */
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.cardBody, .actionSection {
+  padding: 5px;
+  display: flex;
+  flex-direction: column; /* Added for .cardBody */
+  background-color: #1e1e1ebd;
+  margin-inline: 10px;
+  padding-inline: 10px;
+}
+
+.poolInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 10px; /* Adjust the gap to bring the amounts closer */
+  
+}
+
+.actionSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Aligns items vertically in the center */
+  gap: 10px; /* Space between the input and buttons */
+}
+
+.stakeInput {
+  flex-grow: 1; /* Allows the input to take up the remaining space */
+  padding: 7px;
+  border-radius: 2px;
+  border: 1px solid #4b5563;
+  color: #d1d5db;
+  background: transparent;
+}
+
+.actionButton {
+  padding: 8px 12px; /* Adjust padding as needed */
+  background: #01646b;
+  border: none;
+  border-radius: 2px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.actionButton:hover {
+  background: #09887c;
+}
+
+
+.cardFooter {
+  text-align: center;
+  padding: 8px;
+}
+
+.cardFooter a {
+  text-decoration: none;
+}
