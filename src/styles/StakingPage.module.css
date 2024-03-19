@@ -1,11 +1,28 @@
+.stakingWrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #0b0b0b;
+  border-radius: 20px;
+  box-shadow:  26px 26px 52px #000000,
+             -26px -26px 52px #000000;
+
+
+  color: #5fadab;
+  margin-top: 40px;
+  border: #00ffee 1px solid;
+  
+
+}
+
 .poolListContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
-  gap: 20px;
+ ;
 }
 
 .logoContainer {
@@ -17,7 +34,7 @@
 }
 
 .poolCard {
-  background: #20202074;
+  background: #151515cf;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
   color: #5fadab;
@@ -28,11 +45,25 @@
   margin-bottom: 1rem;
   max-width: 900px;
   width: 100%;
+  height: 100%;
+  scroll-padding: 1rem;
+
 }
 
-.poolCard:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+
+
+
+
+.poolCardHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  padding: 12px;
+  margin-bottom: 50px;
 }
+
+
 
 .cardHeader {
   display: flex;
@@ -95,15 +126,14 @@
 .poolInfo {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
-  gap: 10px; /* Adjust the gap to bring the amounts closer */
+
   
 }
 
 .actionSection {
   display: flex;
   flex-direction: row;
-  align-items: center; /* Aligns items vertically in the center */
+  justify-content: space-between;
   gap: 10px; /* Space between the input and buttons */
 }
 
@@ -118,10 +148,10 @@
 
 .actionButton {
   padding: 8px 12px; /* Adjust padding as needed */
-  background: #01646b;
+  background: #07b5c1;
   border: none;
   border-radius: 2px;
-  color: #ffffff;
+  color: #000000;
   cursor: pointer;
   transition: background-color 0.2s;
   white-space: nowrap; /* Prevents text from wrapping */
@@ -134,9 +164,17 @@
 
 .cardFooter {
   text-align: center;
-  padding: 8px;
+  padding: 4px;
+  font-weight: 200;
+  color: #42817e;
 }
 
 .cardFooter a {
   text-decoration: none;
+  color: #42817e;
+}
+
+.cardFooter a:hover {
+  text-decoration: underline;
+
 }

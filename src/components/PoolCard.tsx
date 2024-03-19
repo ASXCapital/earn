@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-
-import Image from 'next/image';
 import { formatUnits } from 'ethers/lib/utils';
+import Image from 'next/image';
+import { BigNumberish, BigNumber} from 'ethers';
+
+import styles from '../styles/StakingPage.module.css';
 import { useStakedAmount } from '../hooks/useStakedAmount';
 import { useClaimableRewards } from '../hooks/useClaimableRewards';
 import { useTokenBalance } from '../hooks/useTokenBalance';
-import styles from '../styles/StakingPage.module.css';
 import { PoolConfig } from '../config/poolsConfig';
 import useTokenPrices from '../hooks/useTokenPrices';
-import { BigNumberish, BigNumber} from 'ethers';
-import { contracts } from './config/contracts';
+import { contracts } from '../config/contracts';
 import useLPReserves from '../hooks/useLPReserves';
 import { useTotalSupply } from '../hooks/useTotalSupply';
 import { useRewardData } from '../hooks/useRewardData';
-import useStaking from '../hooks/useStake';
-
+import { useStake } from '../hooks/useStake';
+import { Signer } from 'ethers';
 
 
 
@@ -28,6 +28,8 @@ interface PoolCardProps {
 
 const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDChange, onClaimableRewardsUSDChange }) => {
   const ASXTokenAddress = contracts.bscTokens.ASX;
+
+
 
   
 
@@ -100,42 +102,40 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
   }, [stakedAmountResult, claimableRewardsResult, tokenBalanceResult]);
 
   useEffect(() => {
-    if (
-      rewardData &&
-      totalSupply.data &&
-      prices[pool.stakingToken.address] &&
-      prices[pool.rewardToken.address]
-    ) {
+    if (rewardData && totalSupply.data && prices[pool.stakingToken.address] && prices[pool.rewardToken.address]) {
       try {
+        // Assume prices are already in BigNumber format or convert them beforehand
         const rewardTokenPriceInWei = ethers.utils.parseUnits(prices[pool.rewardToken.address].toString(), 'ether');
         const stakingTokenPriceInWei = ethers.utils.parseUnits(prices[pool.stakingToken.address].toString(), 'ether');
   
-        const rewardRatePerYear = rewardData.rewardRate.mul(SECONDS_IN_A_YEAR);
-        const totalRewardsPerYearInWei = rewardRatePerYear.mul(rewardTokenPriceInWei);
+        // Total rewards distributed per year in terms of the reward token (in wei to avoid precision loss)
+        const totalRewardsPerYear = rewardData.rewardRate.mul(SECONDS_IN_A_YEAR);
   
+        // Value of the rewards per year in USD (still in wei)
+        const totalRewardsPerYearInUSD = totalRewardsPerYear.mul(rewardTokenPriceInWei);
+  
+        // Total staked in the pool in terms of the staking token (in wei)
         const totalStakedInWei = BigNumber.from(totalSupply.data.toString());
-        const totalStakedInUSD = totalStakedInWei.mul(stakingTokenPriceInWei);
   
-        let aprValue = BigNumber.from(0); // Initialize aprValue as a BigNumber
+        // Total value locked in the pool in USD (still in wei)
+        const totalTVLInUSD = totalStakedInWei.mul(stakingTokenPriceInWei);
   
-        if (!totalStakedInUSD.isZero()) {
-          console.log ('totalStakedInUSD:', totalStakedInUSD.toString());
-          console.log ('totalRewardsPerYearInWei:', totalRewardsPerYearInWei.toString());
-          
-          // Calculate APR using BigNumber operations
-          aprValue = totalRewardsPerYearInWei.mul(10000).div(totalStakedInUSD); // APR in basis points for better precision
+        let aprValue = BigNumber.from(0);
+  
+        if (!totalTVLInUSD.isZero() && !totalRewardsPerYearInUSD.isZero()) {
+          aprValue = totalRewardsPerYearInUSD.mul(ethers.utils.parseUnits('100', 'ether')).div(totalTVLInUSD);
         }
   
-        // Convert APR from basis points to percentage for display, converting to string to handle large numbers
-        const aprPercentage = aprValue.div(100).toNumber(); // Convert to number
-        setApr(aprPercentage);
-        setAprStatus(`${aprPercentage.toFixed(2)}%`); // Set the status to the calculated APR
+        // Convert APR to a human-readable percentage format for display
+        const aprPercentage = ethers.utils.formatUnits(aprValue, 'ether');
+        setApr(parseFloat(aprPercentage));
+        setAprStatus(`${parseFloat(aprPercentage).toFixed(2)}%`);
       } catch (error) {
         console.error("Error calculating APR:", error);
-        setAprStatus('Error'); // Indicate an error state
+        setAprStatus('Error');
       }
     } else {
-      setAprStatus('Calculating...'); // Data not ready
+      setAprStatus('Calculating...');
     }
   }, [rewardData, totalSupply.data, prices, pool.stakingToken.address, pool.rewardToken.address, SECONDS_IN_A_YEAR]);
   

@@ -7,18 +7,18 @@
 
 @keyframes moveLight {
   0%, 100% {
-    text-shadow: -10px 0 10px #00e6e6, -20px 0 20px #00ffff, -30px 0 30px #00e6c0, -40px 0 40px #00e6e6, -50px 0 50px #00e6e6, -60px 0 60px #00e6e6, -70px 0 70px #c000e6c1;
+    text-shadow: -10px 0 10px #00e65c, -20px 0 20px #00ffff, -30px 0 30px #00e6c0, -40px 0 40px #00e6e6, -50px 0 50px #00e6e6, -60px 0 60px #00e6e6, -70px 0 70px #c000e6c1;
   }
   50% {
-    text-shadow: 10px 0 10px #00e6e6, 20px 0 20px #00ffff, 30px 0 30px #00e6c0, 40px 0 40px #00e6e6, 50px 0 50px #00e6e6, 60px 0 60px #00e6e6, 70px 0 70px #c000e6c1;
+    text-shadow: 10px 0 10px #00e6e6, 20px 0 20px #d400ff, 30px 0 30px #00e6c0, 40px 0 40px #00e6e6, 50px 0 50px #00e6e6, 60px 0 60px #00e6e6, 70px 0 70px #c000e6c1;
   }
 }
 
 .tronFont {
-  font-family: 'TRON', sans-serif; /* Fallback to sans-serif if TRON is not available */
+  font: 4rem 'TRON', sans-serif; /* Fallback to sans-serif if TRON is not available */
   color: black; /* Changed text color to black */
   font-size: 3rem;
-  animation: moveLight 5s ease-in-out infinite;
+  animation: moveLight 44s linear infinite;
 }
 
 

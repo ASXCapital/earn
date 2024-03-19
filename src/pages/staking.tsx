@@ -34,10 +34,13 @@ const StakingPage = () => {
   const accountAddress = address || '';
   return (
     <div className={styles.stakingWrapper}>
+      <div className={styles.poolCardHeader}>
       <h1>Staking Pools</h1>
       <div>Total USD Staked: {totalStakedUSD} USD</div>
       <div>Total USD in Claimable Rewards: {totalClaimableRewardsUSD} USD</div>
+      </div>
       <div className={styles.poolsContainer}>
+
         {pools.map((pool) => (
           <PoolCard
             key={pool.id}
