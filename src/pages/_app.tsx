@@ -6,8 +6,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider } from 'wagmi';
 import { bsc, base, mainnet, polygon, optimism, arbitrum, sepolia } from 'wagmi/chains';
 
-import { metaMask, coinbaseWallet, walletConnect, safe } from 'wagmi/connectors';
-
 import { DisclaimerComponent, getDefaultConfig, RainbowKitProvider, midnightTheme, WalletList, connectorsForWallets } from '@rainbow-me/rainbowkit';
 
 import Layout from '../components/Layout';
