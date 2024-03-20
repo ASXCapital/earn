@@ -37,12 +37,12 @@ console.log(config);
 
 const Disclaimer: DisclaimerComponent = ({ Text, Link }) => (
   <Text>
-    By connecting your wallet, you agree to the{' '}
-    <Link href="https://www.asx.capital/terms">Terms and Conditions</Link> and
-    acknowledge you are not a 'Restricted Person' as defined in part 11 of the
-    terms and conditions under 'The Purchaser' section{' '}
-    <Link href="https://www.asx.capital/terms">here.</Link>
-  </Text>
+  By connecting your wallet, you agree to the{' '}
+  <Link href="https://www.asx.capital/terms">Terms and Conditions</Link> and
+  acknowledge you are not a Restricted Person as defined in part 11 of the T&Cs under
+  The Purchaser section{' '}
+  <Link href="https://www.asx.capital/terms">here.</Link>
+</Text>
 );
 
 const queryClient = new QueryClient();
