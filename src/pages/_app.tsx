@@ -8,7 +8,16 @@ import { bsc, base, mainnet, polygon, optimism, arbitrum, sepolia } from 'wagmi/
 
 import { walletConnect } from 'wagmi/connectors';
 
+import {
+  coinbaseWallet,
+  zerionWallet,
+  trustWallet,
+  ledgerWallet,
+  safeWallet
+} from '@rainbow-me/rainbowkit/wallets';
+
 import { 
+  getDefaultWallets,
   DisclaimerComponent, 
   getDefaultConfig, 
   RainbowKitProvider, 
@@ -24,11 +33,18 @@ import '@rainbow-me/rainbowkit/styles.css';
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 
-
+const { wallets } = getDefaultWallets();
 
 const config = getDefaultConfig({
   appName: 'ASX',
   projectId: '3d9fa35fb220fd48a2ede5c61b71ca78',
+  wallets: [
+    ...wallets,
+    {
+      groupName: 'Explore more',
+      wallets: [coinbaseWallet, zerionWallet, trustWallet, ledgerWallet,]
+    }
+  ],
   chains: [
     bsc,
     base,
@@ -39,7 +55,7 @@ const config = getDefaultConfig({
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
   ],
  
-  ssr: true, // Set to true if using server side rendering
+  ssr: false, // Set to true if using server side rendering
   
 });
 console.log(config);

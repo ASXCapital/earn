@@ -1,0 +1,10 @@
+{
+    "headers": [
+        {
+            "source": "/.well-known/did.json",
+            "headers": [
+                { "key": "Access-Control-Allow-Origin", "value": "*" }
+            ]
+        }
+    ]
+}
