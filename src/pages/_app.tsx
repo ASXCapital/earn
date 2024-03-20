@@ -3,12 +3,15 @@
 import React from 'react';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WagmiProvider } from 'wagmi';
-import { bsc, base, mainnet, polygon, optimism, arbitrum, sepolia } from 'wagmi/chains';
+import { WagmiProvider, http } from 'wagmi';
+import { bsc, /* base, mainnet, polygon, optimism, arbitrum, sepolia */ } from 'wagmi/chains';
 
-import { walletConnect } from 'wagmi/connectors';
+import { injected, walletConnect } from 'wagmi/connectors';
 
-import styles from '../styles/Home.module.css';
+
+
+import '@rainbow-me/rainbowkit/styles.css'
+
 
 
 import {
@@ -16,7 +19,6 @@ import {
   zerionWallet,
   trustWallet,
   ledgerWallet,
-  safeWallet
 } from '@rainbow-me/rainbowkit/wallets';
 
 import { 
@@ -34,12 +36,15 @@ import '../styles/globals.css';
 import '../styles/Home.module.css';
 import '@rainbow-me/rainbowkit/styles.css';
 
-const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+const projectId = '3d9fa35fb220fd48a2ede5c61b71ca78';
 
 const { wallets } = getDefaultWallets();
 
+
+
 const config = getDefaultConfig({
   appName: 'ASX',
+  appIcon: './logo.png',
   projectId: '3d9fa35fb220fd48a2ede5c61b71ca78',
   wallets: [
     ...wallets,
@@ -50,18 +55,24 @@ const config = getDefaultConfig({
   ],
   chains: [
     bsc,
+    /*
     base,
     mainnet,
     polygon,
     optimism,
     arbitrum,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
+    */
   ],
+  
+    
+
  
   ssr: true, // Set to true if using server side rendering
   
 });
 console.log(config);
+
 
 const Disclaimer: DisclaimerComponent = ({ Text, Link }) => (
   <Text>
@@ -90,7 +101,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           showRecentTransactions={true}
           appInfo={{
             appName: 'ASX',
-            disclaimer: Disclaimer
+            disclaimer: Disclaimer,
+            
+          
           }}
           coolMode
           locale='en'

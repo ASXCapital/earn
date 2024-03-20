@@ -255,7 +255,7 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
   onChange={(e) => setStakeAmount(e.target.value)}
 />
 <button className={styles.actionButton} onClick={handleStake}>Stake</button>
-          <button className={styles.actionButton}>Unstake</button>
+          <button className={styles.actionButton}>Withdraw</button>
           <button className={styles.actionButton}>Claim</button>
           <button className={styles.actionButton}>Revoke</button>
         </div>

@@ -70,7 +70,7 @@
 }
 
 .poolCard {
-  background: #00ffd509;
+  background: #151515;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
   color: #5fadab;
@@ -78,7 +78,7 @@
   flex-direction: column;
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s; /* Added transition for box-shadow */
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   max-width: 900px;
   width: 100%;
   height: 100%;
