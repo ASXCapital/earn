@@ -11,6 +11,7 @@
 }
 
 .header {
+  
   position: fixed;
   width: 100%;
   top: 0;
@@ -22,8 +23,9 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #00fff7;
-  overflow: hidden;
+  overflow: visible;
   box-sizing: border-box; /* Make sure padding is included in the width */
+  
 }
 
 .header::after {
@@ -55,8 +57,30 @@
     padding: 0.5rem; /* Adjust padding for nav links */
   }
 }
+.burger {
+  cursor: pointer;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 50px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1; /* Add this line */
+}
+
+.dropdownItem {
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #000;
+}
 
 .navbar {
+  position: relative; /* Add this line */
   display: flex;
   justify-content: space-between;
   width: 100%;

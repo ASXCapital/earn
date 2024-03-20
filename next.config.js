@@ -1,4 +1,13 @@
 const nextConfig = {
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'assets.coingecko.com',
+      },
+    ],
+  },
   
   reactStrictMode: true,
   i18n: {

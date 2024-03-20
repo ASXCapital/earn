@@ -8,6 +8,9 @@ import { bsc, base, mainnet, polygon, optimism, arbitrum, sepolia } from 'wagmi/
 
 import { walletConnect } from 'wagmi/connectors';
 
+import styles from '../styles/Home.module.css';
+
+
 import {
   coinbaseWallet,
   zerionWallet,
@@ -55,7 +58,7 @@ const config = getDefaultConfig({
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
   ],
  
-  ssr: false, // Set to true if using server side rendering
+  ssr: true, // Set to true if using server side rendering
   
 });
 console.log(config);

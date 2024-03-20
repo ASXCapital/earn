@@ -22,7 +22,7 @@ const CoinGeckoWidget = () => {
       currency="usd"
       background-color="#030303"
       locale="en"
-      font-color="#00ffe1">
+      font-color="#00f999">
     </coingecko-coin-price-marquee-widget>
   );
 };
