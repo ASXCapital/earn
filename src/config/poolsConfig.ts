@@ -1,5 +1,7 @@
 // asx/src/config/poolsConfig.ts
 
+
+
 import { contracts } from './contracts';
 import { ASXStakingABI } from '../abis/ASXStakingABI';
 import { PancakeV2LPABI } from '../abis/PancakeV2LPABI';
@@ -27,6 +29,7 @@ export interface StakingToken {
   address: string;
   symbol: string;
   abi: any; // Replace 'any' with your ABI type if available
+  buyLink: string;
   constituents?: {
     token1: ConstituentToken;
     token2: ConstituentToken;
@@ -60,7 +63,8 @@ export const poolsConfig: PoolConfig[] = [
       address: contracts.bscTokens.ASX,
       symbol: 'ASX',
       abi: ASXABI,
-      image: undefined
+      buyLink: 'https://pancakeswap.finance/swap?outputCurrency=0xebD3619642d78F0C98c84f6Fa9a678653fB5A99B',
+      image: '/asxx5.png'
     },
     rewardToken: {
       address: ASX,
@@ -80,7 +84,8 @@ export const poolsConfig: PoolConfig[] = [
       address: contracts.bscLPs.ASXBNBLP,
       symbol: 'ASX-BNB LP',
       abi: PancakeV2LPABI,
-      image: undefined,
+      buyLink: 'https://pancakeswap.finance/add/0xebD3619642d78F0C98c84f6Fa9a678653fB5A99B/BNB',
+      image: '/logos/bnb-bnb-logo.svg',
       constituents: { // Specify the constituent tokens for the LP token
         token1: {
           address: ASX,
@@ -113,7 +118,8 @@ export const poolsConfig: PoolConfig[] = [
       address: contracts.bscLPs.ASXETHLP,
       symbol: 'ASX-ETH LP',
       abi: PancakeV2LPABI,
-      image: undefined,
+      buyLink:'https://pancakeswap.finance/add/0xebD3619642d78F0C98c84f6Fa9a678653fB5A99B/0x2170Ed0880ac9A755fd29B2688956BD959F933F8',
+      image: '/logos/ethereum-eth-logo.svg',
       constituents: {
         token1: {
           address: ASX,
@@ -145,7 +151,8 @@ export const poolsConfig: PoolConfig[] = [
       address: contracts.bscLPs.ASXBTCBLP,
       symbol: 'ASX-BTCB LP',
       abi: PancakeV2LPABI,
-      image: undefined,
+      buyLink:'https://pancakeswap.finance/add/0xebD3619642d78F0C98c84f6Fa9a678653fB5A99B/0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
+      image: '/logos/bitcoin-btc-logo.svg',
       constituents: {
         token1: {
           address: ASX,

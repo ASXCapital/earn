@@ -13,8 +13,8 @@
 
   /* Tunnel effect */
   background: linear-gradient(270deg, #073f45, #1c1d21, #0b0b0b, #04344c, #1c2021);
-  background-size: 400% 400%;
-  animation: tunnelAnimation 15s ease infinite;
+  background-size: 1000% 1000%;
+  animation: tunnelAnimation 15s linear infinite;
 
   position: relative;
   z-index: 1; /* Ensure it doesn't overlap everything */
@@ -40,9 +40,9 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(270deg, #0b3d91, #1c1d21, #0b0b0b, #312a6c, #1c1d21);
+  background: linear-gradient(270deg, #011110, #0e0f11, #09090d, #090b0b77, #080a0a);
   z-index: -1;
-  filter: blur(10px);
+  filter: blur(40px);
   border-radius: 20px;
 }
 .stakingWrapper::after {
@@ -56,16 +56,6 @@
   pointer-events: none; /* Allows clicks to pass through */
 }
 
-.stakingWrapper::before {
-  background: radial-gradient(circle at center, transparent 60%, #121212 70%);
-  mix-blend-mode: darken;
-}
-
-.stakingWrapper::after {
-  background: radial-gradient(circle at center, #00ffee, transparent 70%);
-  mix-blend-mode: overlay;
-  opacity: 0.5; /* Adjust opacity for a more subtle effect */
-}
 
 
 .poolListContainer {
@@ -79,15 +69,14 @@
 }
 
 .logoContainer {
+  flex: 0 1 auto; /* Prevent growth but allow shrinking, size based on content */
   display: flex;
   justify-content: center;
-  gap: 0;
-  margin: 12px 0; /* Combined margin-top and margin-bottom */
-  min-width: 100px;
+  align-items: center; /* Ensure the logo is centered */
 }
 
 .poolCard {
-  background: #151515f2;
+  background: #151515;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
   color: #5fadab;
@@ -123,13 +112,18 @@
 
 .cardHeader {
   display: flex;
-  
-  align-items: center;
-  padding: 12px;
+  justify-content: space-between; /* Space out children elements evenly */
+  align-items: center; /* Vertically center align items */
+  margin: 5px 16px;
+  height: 55px;
 }
 
-.titleAndTvl, .apr, .spacer {
-   color: #00ffee;; /* Changed from '1' to 'stretch' */
+
+.aprAndPrice {
+  flex: 1; /* Allow this section to grow and fill the space */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align text to the end (right) */
 }
 
 .logoContainer {
@@ -146,31 +140,35 @@
 }
 
 .titleAndTvl {
+  flex: 1; /* Allow this section to grow and fill the space */
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Changed for .apr to match .titleAndTvl */
+  align-items: flex-start; /* Align text to the start (left) */
 }
 
 .apr {
+  font-size: 22px;
   display: flex;
   flex-direction: column;
   align-items: flex-end; /* Changed for .apr to match .titleAndTvl */
+  color: #00ffb7;
 }
 
 .titleAndTvl {
   flex-grow: 1;
-  margin-left: 12px;
+
 }
 
 .poolTitle {
   margin: 0;
   font-family: Tahoma; /* Changed 'font' to 'font-family' */
   font-size: 1.5rem;
-  font-weight: bold;
-  color: #fff;
+  font-weight: 500;
+  color: #c3fdff;
 }
 
 .cardBody, .actionSection {
+  
   padding: 5px;
   display: flex;
   flex-direction: column; /* Added for .cardBody */
@@ -182,7 +180,7 @@
 .poolInfo {
   display: flex;
   justify-content: space-between;
-
+ 
   
 }
 
@@ -190,7 +188,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap: 10px; /* Space between the input and buttons */
+  gap: 4px; /* Space between the input and buttons */
+ 
 }
 
 .stakeInput {
@@ -211,10 +210,11 @@
   cursor: pointer;
   transition: background-color 0.2s;
   white-space: nowrap; /* Prevents text from wrapping */
+  min-width: 80px;
 }
 
 .actionButton:hover {
-  background: #09887c;
+  background: #10cebb;
 }
 
 
@@ -223,6 +223,7 @@
   padding: 4px;
   font-weight: 200;
   color: #42817e;
+  
 }
 
 .cardFooter a {

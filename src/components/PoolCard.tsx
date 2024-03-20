@@ -15,7 +15,8 @@ import useLPReserves from '../hooks/useLPReserves';
 import { useTotalSupply } from '../hooks/useTotalSupply';
 import { useRewardData } from '../hooks/useRewardData';
 import { useStake } from '../hooks/useStake';
-import { Signer } from 'ethers';
+import { type WagmiProviderProps } from 'wagmi';
+
 
 
 
@@ -30,13 +31,50 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
   const ASXTokenAddress = contracts.bscTokens.ASX;
 
 
+  const [imageSrc, setImageSrc] = useState(pool.stakingToken.image || '/default_image.png');
+  const handleImageError = () => {
+    setImageSrc('/default_image.png');
+  };
 
-  
+  const SECONDS_IN_A_YEAR = 365 * 24 * 60 * 60;
 
-  const SECONDS_IN_A_YEAR = 365 * 24 * 60 * 60; // Define the constant
+  const [stakeAmount, setStakeAmount] = useState('');
+  const providerOrSigner = (window as any).ethereum;
+  const stake = useStake(pool.stakingContract.address, providerOrSigner);
 
-  const defaultImagePath = '/default_image.png';
+  const [stakeStatus, setStakeStatus] = useState<string>(''); // Default to 'Calculating...' until the first calculation completes
+  const [stakeStatusColor, setStakeStatusColor] = useState<string>(''); // Default to 'Calculating...' until the first calculation completes
 
+  const [unstakeStatus, setUnstakeStatus] = useState<string>(''); // Default to 'Calculating...' until the first calculation completes
+  const [unstakeStatusColor, setUnstakeStatusColor] = useState<string>(''); // Default to 'Calculating...' until the first calculation completes
+
+  const [claimStatus, setClaimStatus] = useState<string>(''); // Default to 'Calculating...' until the first calculation completes
+  const [claimStatusColor, setClaimStatusColor] = useState<string>(''); // Default to 'Calculating...' until the first calculation completes
+
+  const [revokeStatus, setRevokeStatus] = useState<string>(''); // Default to 'Calculating...' until the first calculation completes
+  const [revokeStatusColor, setRevokeStatusColor] = useState<string>(''); // Default to 'Calculating...' until the first calculation completes
+
+  const handleStake = async () => {
+    if (stakeAmount === '') {
+      setStakeStatus('Please enter a valid amount');
+      setStakeStatusColor('red');
+      return;
+    }
+
+    try {
+      const tx: any = await stake(stakeAmount);
+      setStakeStatus('Transaction sent');
+      setStakeStatusColor('green');
+      await tx.wait();
+      setStakeStatus('Transaction confirmed');
+    } catch (error) {
+      console.error('Error staking:', error);
+      setStakeStatus('Error staking');
+      setStakeStatusColor('red');
+    }
+  }
+
+ 
   const [stakedAmount, setStakedAmount] = useState<bigint | null>(null);
   const [claimableRewards, setClaimableRewards] = useState<bigint | null>(null);
   const [tokenBalance, setTokenBalance] = useState<bigint | null>(null);
@@ -120,11 +158,16 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
         // Total value locked in the pool in USD (still in wei)
         const totalTVLInUSD = totalStakedInWei.mul(stakingTokenPriceInWei);
   
+
+        
+  
+
         let aprValue = BigNumber.from(0);
   
         if (!totalTVLInUSD.isZero() && !totalRewardsPerYearInUSD.isZero()) {
           aprValue = totalRewardsPerYearInUSD.mul(ethers.utils.parseUnits('100', 'ether')).div(totalTVLInUSD);
         }
+      
   
         // Convert APR to a human-readable percentage format for display
         const aprPercentage = ethers.utils.formatUnits(aprValue, 'ether');
@@ -169,12 +212,16 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
         </div>
         {/* Logo */}
         <div className={styles.logoContainer}>
-          <Image src={defaultImagePath} alt="Token Logo" width={40} height={40} priority />
+          
+          <Image src={imageSrc} alt="Token Logo" width={40} height={40} priority onError={handleImageError} />
+        
         </div>
         {/* APR & LP Token Price */}
         <div className={styles.aprAndPrice}>
-          <div>{aprStatus} APR</div> {/* Adjusted line */}
-          
+          <div className={styles.apr}> 
+            
+        <div>{aprStatus} APR</div> {/* Adjusted line */}
+        </div>
       
           <div>{pool.title} Price: $ {lpTokenPriceDisplay}</div> {/* Adjusted line */}
         </div>
@@ -198,14 +245,21 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
           <span><strong>{displayFormattedAmount(claimableRewards, ASXTokenAddress, '$ASX')}</strong></span>
         </div>
         {/* Actions */}
+        </div>
         <div className={styles.actionSection}>
-          <input className={styles.stakeInput} type="number" placeholder="0" />
-          <button className={styles.actionButton}>Stake</button>
+        <input
+  className={styles.stakeInput}
+  type="number"
+  placeholder="0"
+  value={stakeAmount}
+  onChange={(e) => setStakeAmount(e.target.value)}
+/>
+<button className={styles.actionButton} onClick={handleStake}>Stake</button>
           <button className={styles.actionButton}>Unstake</button>
           <button className={styles.actionButton}>Claim</button>
           <button className={styles.actionButton}>Revoke</button>
         </div>
-      </div>
+      
 
       {/* Footer */}
       <div className={styles.cardFooter}>
