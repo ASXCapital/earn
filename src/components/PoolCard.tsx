@@ -24,7 +24,12 @@ interface PoolCardProps {
   accountAddress: string;
   onStakedUSDChange: (amount: number) => void;
   onClaimableRewardsUSDChange: (amount: number) => void;
+  id?: number;
 }
+
+
+
+
 
 
 const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDChange, onClaimableRewardsUSDChange }) => {
@@ -205,13 +210,12 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
     {inputStatus === 'clear' && 'Set to Wallet'}
   </button>
   <input
-          className={styles.stakeInput}
-          type="number"
-          value={stakeAmount}
-          onChange={(e) => setStakeAmount(e.target.value)}
-          placeholder="Token Amount"
-        
-        />
+  className={styles.stakeInput}
+  type="number"
+  value={stakeAmount}
+  onChange={(e) => setStakeAmount(e.target.value)}
+  placeholder="Token Amount"
+/>
 
 <StakeButton
           tokenAddress={pool.stakingToken.address}
