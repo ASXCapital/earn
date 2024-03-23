@@ -4,7 +4,7 @@ import React from 'react';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider, http } from 'wagmi';
-import { bsc, base, mainnet, polygon /*polygon, optimism, arbitrum, sepolia */ } from 'wagmi/chains';
+import { bsc, arbitrum, base, mainnet, polygon, goerli, bscTestnet } from 'wagmi/chains';
 
 
 
@@ -16,8 +16,6 @@ import {
   RainbowKitProvider, 
   midnightTheme, 
   useAddRecentTransaction,
-  
-  
  } from '@rainbow-me/rainbowkit';
 
 import Layout from '../components/Layout';
@@ -39,8 +37,9 @@ const config = getDefaultConfig({
   appName: 'ASX',
   
   projectId: projectId,
-  chains: [bsc, base, mainnet, polygon],
-  ssr: true,
+  chains: [bsc, arbitrum, bscTestnet],
+  
+  ssr: false,
 
 
 });
@@ -62,7 +61,7 @@ const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <PoolDataProvider> 
+     
     <WagmiProvider 
     
     config={config}
@@ -89,15 +88,15 @@ function MyApp({ Component, pageProps }: AppProps) {
             fontStack: 'system',
             overlayBlur: 'small',
           })}>
-            
+            <PoolDataProvider>
             <Layout>
               <Component {...pageProps} />
             </Layout>
-            
+            </PoolDataProvider>
           </RainbowKitProvider>
         </QueryClientProvider>
       </WagmiProvider>
-    </PoolDataProvider>
+   
   );
 }
 
