@@ -19,7 +19,7 @@ import { PoolDataProvider } from '../contexts/PoolDataContext';
 import '../styles/globals.css';
 import '../styles/Home.module.css';
 import '@rainbow-me/rainbowkit/styles.css';
-
+import { UseConfigParameters } from 'wagmi';
 import { coinbaseWallet, ledgerWallet, zerionWallet,
   trustWallet, metaMaskWallet, rainbowWallet, roninWallet,
 braveWallet, uniswapWallet, phantomWallet, injectedWallet/*FALLBACK*/ } from '@rainbow-me/rainbowkit/wallets';
@@ -48,7 +48,7 @@ const config = getDefaultConfig({
   appName: 'ASX',
   projectId: projectId,
   chains: [bsc, arbitrum, bscTestnet],
-  connectors: connectors,
+  
   ssr: false,
 });
 
