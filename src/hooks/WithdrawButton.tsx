@@ -1,3 +1,6 @@
+{/*
+
+
 import React, { useState } from 'react';
 import { useWriteContract } from 'wagmi';
 import { ethers } from 'ethers';
@@ -31,12 +34,12 @@ const WithdrawButton: React.FC<WithdrawButtonProps> = ({ stakingContractAddress,
     },
   });
 
-  const handleWithdraw = async () => {
+const handleWithdraw = async () => {
     if (!amount || isLoading) return;
     setIsWithdrawing(true);
     setWithdrawError('');
-    await writeContract();
-  };
+    writeContract({});
+};
 
   return (
     <div>
@@ -56,3 +59,5 @@ const WithdrawButton: React.FC<WithdrawButtonProps> = ({ stakingContractAddress,
 };
 
 export default WithdrawButton;
+
+*/}

@@ -40,10 +40,9 @@ const StakingPage = () => {
       <div>Total USD in Claimable Rewards: {totalClaimableRewardsUSD} USD</div>
       </div>
       <div className={styles.poolsContainer}>
-
         {pools.map((pool) => (
           <PoolCard
-            key={pool.id}
+            key={pool.id} // The `key` prop here is used by React and isn't passed down to your component
             pool={pool}
             accountAddress={accountAddress}
             onStakedUSDChange={handleStakedUSDChange}

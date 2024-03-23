@@ -215,6 +215,29 @@
   background: #10cebb;
 }
 
+.actionButtonMAX{
+  padding: 8px 4px; /* Adjust padding as needed */
+  background: #07c177;
+  border: none;
+  border-radius: 2px;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap; /* Prevents text from wrapping */
+  width: 90px;
+
+}
+
+.disabledButton{
+  background-color: #727272;
+
+  cursor: not-allowed;
+}
+.disabledButton:hover{
+  background-color: #727272;
+
+  cursor: not-allowed;
+}
 
 .cardFooter {
   text-align: center;

@@ -7,6 +7,7 @@ import { WagmiProvider, http } from 'wagmi';
 import { bsc, base, mainnet, polygon /*polygon, optimism, arbitrum, sepolia */ } from 'wagmi/chains';
 
 
+
 import '@rainbow-me/rainbowkit/styles.css'
 
 import { 
@@ -14,6 +15,8 @@ import {
   getDefaultConfig, 
   RainbowKitProvider, 
   midnightTheme, 
+  useAddRecentTransaction,
+  
   
  } from '@rainbow-me/rainbowkit';
 
@@ -36,31 +39,11 @@ const config = getDefaultConfig({
   appName: 'ASX',
   
   projectId: projectId,
-  chains: [bsc, base, mainnet, polygon,
-    /*
-    polygon,
-    optimism,
-    arbitrum,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
-    */
-  ],
-  transports: {
-    [bsc.id]: http('https://bsc-dataseed.binance.org'), // BSC
-    [base.id]: http(), // ASX Testnet
-    [mainnet.id]: http(), // ASX Mainnet
-  },
-  ssr: false,
+  chains: [bsc, base, mainnet, polygon],
+  ssr: true,
 
 
 });
-
-
-
-
-
-
-
-
 
 
 // Disclaimer component for RainbowKit

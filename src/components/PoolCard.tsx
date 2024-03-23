@@ -26,10 +26,12 @@ interface PoolCardProps {
   onClaimableRewardsUSDChange: (amount: number) => void;
 }
 
+
 const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDChange, onClaimableRewardsUSDChange }) => {
   const ASXTokenAddress = contracts.bscTokens.ASX;
-  const [stakeAmount, setStakeAmount] = useState<string>('');
+  const [stakeAmount, setStakeAmount] = useState<string>('0.01');
   const [imageSrc, setImageSrc] = useState(pool.stakingToken.image || '/default_image.png');
+
   const handleImageError = () => {
     setImageSrc('/default_image.png');
   };
@@ -193,29 +195,31 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
         </div>
         </div>
         <div className={styles.actionSection}>
-  <input
-    className={styles.stakeInput}
-    type="number"
-    value={stakeAmount}
-    onChange={(e) => setStakeAmount(e.target.value)}
-    placeholder="Token Amount"
-  />
-  <button
-    className={styles.actionButton} 
+        <button
+    className={styles.actionButtonMAX} 
     onClick={handleInputStatusChange}
   >
-    {inputStatus === 'empty' && 'Set to Wallet'}
-    {inputStatus === 'wallet' && 'Set to Staked'}
+    {inputStatus === 'empty' && 'Max Wallet'}
+    {inputStatus === 'wallet' && 'Max Staked'}
     {inputStatus === 'staked' && 'Clear'}
     {inputStatus === 'clear' && 'Set to Wallet'}
   </button>
-  <StakeButton
-    tokenAddress={pool.stakingToken.address}
-    stakingContractAddress={pool.stakingContract.address}
-    accountAddress={accountAddress}
-    amount={stakeAmount}
-    onUpdate={handleStakeUpdate} 
-  />  
+  <input
+          className={styles.stakeInput}
+          type="number"
+          value={stakeAmount}
+          onChange={(e) => setStakeAmount(e.target.value)}
+          placeholder="Token Amount"
+        
+        />
+
+<StakeButton
+          tokenAddress={pool.stakingToken.address}
+          stakingContractAddress={pool.stakingContract.address}
+          accountAddress={accountAddress}
+          amount={stakeAmount}
+          onUpdate={handleStakeUpdate}
+        />  
           <button className={styles.actionButton}>Withdraw</button>
           <button className={styles.actionButton}>Claim</button>
           <button className={styles.actionButton}>Revoke</button>
