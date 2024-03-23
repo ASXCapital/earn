@@ -233,3 +233,17 @@
   text-decoration: underline;
 
 }
+
+.numberValue {
+  font-size: 1.2em; /* Adjust size as needed */
+  font-weight: bold;
+}
+
+.textValue {
+  font-size: 0.6em; /* About half the size of the numbers */
+}
+
+.usdValue {
+  color: rgb(0, 252, 214);
+  font-size: 1em; /* About half the size of the numbers */
+}

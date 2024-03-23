@@ -4,29 +4,17 @@ import React from 'react';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider, http } from 'wagmi';
-import { bsc, /* base, mainnet, polygon, optimism, arbitrum, sepolia */ } from 'wagmi/chains';
-
-import { injected, walletConnect } from 'wagmi/connectors';
-
+import { bsc, base, mainnet, polygon /*polygon, optimism, arbitrum, sepolia */ } from 'wagmi/chains';
 
 
 import '@rainbow-me/rainbowkit/styles.css'
 
-
-
-import {
-  coinbaseWallet,
-  zerionWallet,
-  trustWallet,
-  ledgerWallet,
-} from '@rainbow-me/rainbowkit/wallets';
-
 import { 
-  getDefaultWallets,
   DisclaimerComponent, 
   getDefaultConfig, 
   RainbowKitProvider, 
   midnightTheme, 
+  
  } from '@rainbow-me/rainbowkit';
 
 import Layout from '../components/Layout';
@@ -36,43 +24,46 @@ import '../styles/globals.css';
 import '../styles/Home.module.css';
 import '@rainbow-me/rainbowkit/styles.css';
 
-const projectId = '3d9fa35fb220fd48a2ede5c61b71ca78';
-
-const { wallets } = getDefaultWallets();
 
 
+const projectId = "3d9fa35fb220fd48a2ede5c61b71ca78";
+
+
+
+// RainbowKit configuration
 
 const config = getDefaultConfig({
   appName: 'ASX',
-  appIcon: './logo.png',
-  projectId: '3d9fa35fb220fd48a2ede5c61b71ca78',
-  wallets: [
-    ...wallets,
-    {
-      groupName: 'Explore more',
-      wallets: [coinbaseWallet, zerionWallet, trustWallet, ledgerWallet,]
-    }
-  ],
-  chains: [
-    bsc,
+  
+  projectId: projectId,
+  chains: [bsc, base, mainnet, polygon,
     /*
-    base,
-    mainnet,
     polygon,
     optimism,
     arbitrum,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
     */
   ],
-  
-    
+  transports: {
+    [bsc.id]: http('https://bsc-dataseed.binance.org'), // BSC
+    [base.id]: http(), // ASX Testnet
+    [mainnet.id]: http(), // ASX Mainnet
+  },
+  ssr: false,
 
- 
-  ssr: true, // Set to true if using server side rendering
-  
+
 });
-console.log(config);
 
+
+
+
+
+
+
+
+
+
+// Disclaimer component for RainbowKit
 
 const Disclaimer: DisclaimerComponent = ({ Text, Link }) => (
   <Text>
@@ -88,25 +79,26 @@ const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    
+    <PoolDataProvider> 
     <WagmiProvider 
+    
     config={config}
+
     >
     
       
       <QueryClientProvider 
       client={queryClient}>
         <RainbowKitProvider
+          
           initialChain={56}
           showRecentTransactions={true}
           appInfo={{
             appName: 'ASX',
             disclaimer: Disclaimer,
-            
-          
           }}
           coolMode
-          locale='en'
+          
           theme={midnightTheme({
             accentColor: '#0BF3E7',
             accentColorForeground: 'black',
@@ -114,16 +106,18 @@ function MyApp({ Component, pageProps }: AppProps) {
             fontStack: 'system',
             overlayBlur: 'small',
           })}>
-            <PoolDataProvider> 
+            
             <Layout>
               <Component {...pageProps} />
             </Layout>
-            </PoolDataProvider>
+            
           </RainbowKitProvider>
         </QueryClientProvider>
       </WagmiProvider>
-    
+    </PoolDataProvider>
   );
 }
 
 export default MyApp;
+
+

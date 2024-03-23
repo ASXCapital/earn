@@ -1,29 +1,49 @@
-import { writeContract } from '@wagmi/core';
-import { ethers, Signer } from 'ethers';
-import { ASXStakingABI } from '../abis/ASXStakingABI';
-import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 
+/*
+import { useWriteContract, useReadContract } from 'wagmi';
+import { ethers } from 'ethers';
+import { ASXStakingABI as abi } from '../abis/ASXStakingABI';
 
-export const useStake = (stakingContractAddress: string, providerOrSigner: Signer | ethers.providers.Provider) => {
-  const stakeTokens = async (amount: string) => {
-    const amountToStake = ethers.utils.parseUnits(amount, 'ether');
+interface UseStakeTokenProps {
+  stakingContractAddress: string;
+  stakeAmount: string;
+}
 
-    const config = {
+const useStakeToken = ({ tokenAddress, stakingContractAddress, stakeAmount }) => {
+  // State to track whether approval is needed
+  const [needsApproval, setNeedsApproval] = useState(false);
+
+  // Check the current allowance
+  const { data: allowance } = useContractRead({
+    addressOrName: tokenAddress,
+    contractInterface: ERC20ABI,
+    functionName: 'allowance',
+    args: [/* User Address *//*, stakingContractAddress],
+  });
+
+  // Effect to update needsApproval based on allowance and stakeAmount
+  useEffect(() => {
+    const currentAllowance = allowance ? ethers.BigNumber.from(allowance) : ethers.BigNumber.from(0);
+    const requiredAmount = ethers.utils.parseEther(stakeAmount);
+    setNeedsApproval(currentAllowance.lt(requiredAmount));
+  }, [allowance, stakeAmount]);
+
+  // Approve function
+  const { write: approve, isLoading: isApproving } = useContractWrite({
+    addressOrName: tokenAddress,
+    contractInterface: ERC20ABI,
+    functionName: 'approve',
+    args: [stakingContractAddress, ethers.constants.MaxUint256], // Approving max amount for convenience
+  });
+
+  // Stake function
+    const { write: stake, isLoading: isStaking } = useContractWrite({
       addressOrName: stakingContractAddress,
-      contractInterface: ASXStakingABI,
+      contractInterface: stakingAbi,
       functionName: 'stake',
-      args: [amountToStake],
-    };
+      args: [ethers.utils.parseEther(stakeAmount)],
+    });
 
-    try {
-      const result = await writeContract(getDefaultConfig(config as any), providerOrSigner as any);
-      console.log('Stake transaction result:', result);
-      return result;
-    } catch (error) {
-      console.error('Error staking tokens:', error);
-      throw error;
-    }
+    return { approve, stake, isApproving, isStaking, needsApproval };
   };
-
-  return stakeTokens;
-};
+*/
