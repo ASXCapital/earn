@@ -18,6 +18,7 @@ import useLPReserves from '../hooks/useLPReserves';
 import StakeButton from '../hooks/StakeButton'
 
 
+
 // INTERFACE/S
 interface PoolCardProps {
   pool: PoolConfig;
@@ -158,14 +159,32 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
     }).format(value);
 
     const displayFormattedAmount = (amountInWei: BigNumberish | null, tokenAddress: string, symbol: string) => {
-      if (amountInWei === null) return 'Loading...';
+      if (amountInWei === null) return <span>Loading...</span>;
       const amountInEther = parseFloat(formatUnits(amountInWei, 18));
       let price = prices[tokenAddress] || 0;
-      if (pool.type === 'lp' && tokenAddress === pool.stakingToken.address) {
-        price = parseFloat(lpTokenPriceDisplay);
-      }
       const amountInUSD = amountInEther * price;
-      return `${formatNumber(amountInEther)} (${formatNumber(amountInUSD)} USD) ${symbol}`;
+    
+      return (
+        <>
+          <span className={styles.numberValue}>{formatNumber(amountInEther)}</span>
+          {' '}
+          <span>{symbol}</span>
+          {' ('}
+          <span className={styles.usdValue}>{formatNumber(amountInUSD)} USD</span>
+          {')'}
+        </>
+      );
+    };
+    
+    
+    const handleStakeAmountChange = (e) => {
+      const value = e.target.value;
+      // Regular expression to match a number with up to 18 decimal places
+      const regex = /^\d*\.?\d{0,18}$/;
+    
+      if (value === '' || regex.test(value)) {
+        setStakeAmount(value);
+      }
     };
 
   return (
@@ -186,18 +205,21 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
         </div>
       </div>
       <div className={styles.cardBody}>
-        <div className={styles.poolInfo}>
-          <span>{pool.title} in Wallet:</span>
-          <span><strong>{displayFormattedAmount(tokenBalance, pool.stakingToken.address, pool.stakingToken.symbol)}</strong></span>
-        </div>
-        <div className={styles.poolInfo}>
-          <span>Staked:</span>
-          <span><strong>{displayFormattedAmount(stakedAmount, pool.stakingToken.address, pool.stakingToken.symbol)}</strong></span>
-        </div>
-        <div className={styles.poolInfo}>
-          <span>Claimable Rewards:</span>
-          <span><strong>{displayFormattedAmount(claimableRewards, ASXTokenAddress, '$ASX')}</strong></span>
-        </div>
+      <div className={styles.poolInfo}>
+  <span>{pool.title} in Wallet:</span>
+  <span>{displayFormattedAmount(tokenBalance, pool.stakingToken.address, pool.stakingToken.symbol)}</span>
+</div>
+<div className={styles.poolInfo}>
+  <span>Staked:</span>
+  <span>{displayFormattedAmount(stakedAmount, pool.stakingToken.address, pool.stakingToken.symbol)}</span>
+</div>
+<div className={styles.poolInfo}>
+  <span>Claimable Rewards:</span>
+  <span>{displayFormattedAmount(claimableRewards, ASXTokenAddress, '$ASX')}</span>
+</div>
+
+
+
         </div>
         <div className={styles.actionSection}>
         <button
@@ -210,12 +232,12 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
     {inputStatus === 'clear' && 'Set to Wallet'}
   </button>
   <input
-  className={styles.stakeInput}
-  type="number"
-  value={stakeAmount}
-  onChange={(e) => setStakeAmount(e.target.value)}
-  placeholder="Token Amount"
-/>
+    className={styles.stakeInput}
+    type="text" // Change to "text" to prevent default number input behavior
+    value={stakeAmount}
+    onChange={handleStakeAmountChange}
+    placeholder="Token Amount"
+  />
 
 <StakeButton
           tokenAddress={pool.stakingToken.address}
@@ -228,11 +250,17 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
           <button className={styles.actionButton}>Claim</button>
           <button className={styles.actionButton}>Revoke</button>
         </div>
-      <div className={styles.cardFooter}>
-        <a href={`https://bscscan.com/address/${pool.stakingContract.address}`} target="_blank" rel="noopener noreferrer">
-          Contract Address
-        </a>
-      </div>
+        <div className={styles.cardFooter}>
+  Contract Address (
+  <a
+    href={`https://bscscan.com/address/${pool.stakingContract.address}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {`${pool.stakingContract.address.slice(0, 6)}...${pool.stakingContract.address.slice(-4)}`}
+  </a>
+  )
+</div>
     </div>
   );
 };

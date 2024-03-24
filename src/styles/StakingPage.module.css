@@ -8,30 +8,20 @@
   border-radius: 20px;
   color: #5fadab;
   border: 1px solid #00ffee;
-  box-shadow: 0 8px 32px 0 rgba(116, 26, 164, 0.37);
-  backdrop-filter: blur(8.5px);
-  -webkit-backdrop-filter: blur(8.5px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(139, 26, 164, 0.37);
+  backdrop-filter: blur(8.5px) ;
+  
+
+  border: 1px solid rgba(2, 247, 186, 0.18);
 
   /* Tunnel effect */
-  background: linear-gradient(270deg, #073f453c, #1c1d2146, #0b0b0b48, #04344c4c, #1c202141);
+  background: linear-gradient(270deg, #0220233c, #1c1d2146, #0b0b0b48, #33044c4c, #1c202141);
   background-size: 1000% 1000%;
-  animation: tunnelAnimation 15s linear infinite;
+
 
   position: relative;
   z-index: 1; /* Ensure it doesn't overlap everything */
-}
 
-@keyframes tunnelAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }
 
 /* You might add some pseudo-elements for more visual effects like light flares or additional depth */
@@ -42,7 +32,7 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(270deg, #011110, #0e0f11, #09090d, #090b0b77, #080a0a);
+  background: rgba(85, 162, 147, 0);
   z-index: -1;
   filter: blur(40px);
   border-radius: 20px;
@@ -70,10 +60,10 @@
 }
 
 .poolCard {
-  background: #151515;
+  
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
-  color: #5fadab;
+  color: #5fada5;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -85,7 +75,7 @@
   scroll-padding: 1rem;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  
+  background: linear-gradient(270deg, #073f453c, #1c1d2146, #0b0b0b48, #33044c4c, #1c202141);
   
 }
 
@@ -152,10 +142,7 @@
   color: #00ffb7;
 }
 
-.titleAndTvl {
-  flex-grow: 1;
 
-}
 
 .poolTitle {
   margin: 0;
@@ -165,20 +152,24 @@
   color: #c3fdff;
 }
 
+
 .cardBody, .actionSection {
   
   padding: 5px;
+  background: linear-gradient(90deg, #073f453c, #1c1d2146, #0b0b0b48, #33044c4c, #1c202141);
   display: flex;
   flex-direction: column; /* Added for .cardBody */
-  background-color: #1e1e1ebd;
-  margin-inline: 10px;
-  padding-inline: 10px;
+  
+  
+  margin-inline: 0px;
+  padding-inline: 20px;
+ 
 }
 
 .poolInfo {
   display: flex;
   justify-content: space-between;
- 
+
   
 }
 
@@ -201,18 +192,19 @@
 
 .actionButton {
   padding: 8px 12px; /* Adjust padding as needed */
-  background: #07b5c1;
+  background: #0ad9e3;
   border: none;
   border-radius: 2px;
-  color: #000000;
+  color: #232323;
   cursor: pointer;
   transition: background-color 0.2s;
   white-space: nowrap; /* Prevents text from wrapping */
   min-width: 80px;
+  font-weight: 600;
 }
 
 .actionButton:hover {
-  background: #10cebb;
+  background: #2ac5b5;
 }
 
 .actionButtonMAX{
@@ -258,8 +250,10 @@
 }
 
 .numberValue {
-  font-size: 1.2em; /* Adjust size as needed */
-  font-weight: bold;
+  font-size: 1rem; /* Adjust size as needed */
+  font-weight: 600;
+  color: #00ffb7;
+  
 }
 
 .textValue {
@@ -267,6 +261,6 @@
 }
 
 .usdValue {
-  color: rgb(0, 252, 214);
+  color: rgb(0, 252, 134);
   font-size: 1em; /* About half the size of the numbers */
 }

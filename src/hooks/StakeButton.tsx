@@ -24,36 +24,26 @@ const StakeButton = ({
     functionName: 'allowance',
     args: [accountAddress, stakingContractAddress],
   });
-  console.log('tokenAddress', tokenAddress)
-  console.log('stakingContractAddress', stakingContractAddress)
-  console.log('accountAddress', accountAddress)
-  console.log('amount', amount)
-  console.log('onUpdate', onUpdate)
 
 
   useEffect(() => {
     const checkAllowance = async () => {
-      console.log('[checkAllowance] Start: allowance, amount', allowance, amount); // Log at the start
   
       if (allowance !== undefined && amount) {
         const isValidAmount = !isNaN(parseFloat(amount)) && parseFloat(amount) > 0;
-        console.log('[checkAllowance] isValidAmount', isValidAmount); // Log the validity of the amount
   
         if (isValidAmount) {
           const formattedAllowance = ethers.BigNumber.from(allowance.toString());
           const requiredAmount = ethers.utils.parseEther(amount);
           const needsApproval = formattedAllowance.lt(requiredAmount);
   
-          console.log('[checkAllowance] formattedAllowance, requiredAmount, needsApproval', formattedAllowance.toString(), requiredAmount.toString(), needsApproval); // Log allowance-related values
         
           setButtonLabel(needsApproval ? 'Approve' : 'Stake');
           setButtonDisabled(false);
         } else {
-          console.log('[checkAllowance] Invalid Amount:', amount);
           setButtonDisabled(true);
         }
       } else {
-        console.log('[checkAllowance] Missing allowance or invalid amount:', allowance, amount);
         // Additional logic here for handling missing allowance or invalid amount
       }
     };
@@ -61,51 +51,43 @@ const StakeButton = ({
     checkAllowance();
   }, [allowance, amount, approvalUpdated]);
   
-
+  const [inputValue, setInputValue] = useState('');
   const { writeContract } = useWriteContract();
 
   const handleButtonClick = async () => {
     setIsProcessing(true);
-    console.log('[handleButtonClick] Start: buttonLabel, amount', buttonLabel, amount); // Log at the start
+    console.log('[handleButtonClick] Start: buttonLabel, amount', buttonLabel, amount);
   
     try {
-      // Destructuring to get the write function from the useWriteContract hook
-      const writeContractResult: any = writeContract({
-        address: buttonLabel === 'Approve' ? tokenAddress : stakingContractAddress,
+      const transactionResponse = writeContract({
         abi: buttonLabel === 'Approve' ? ERC20ABI : ASXStakingABI,
+        address: buttonLabel === 'Approve' ? tokenAddress : stakingContractAddress,
         functionName: buttonLabel === 'Approve' ? 'approve' : 'stake',
         args: buttonLabel === 'Approve'
           ? [stakingContractAddress, ethers.constants.MaxUint256]
           : [ethers.utils.parseEther(amount)],
       });
-      console.log( '[handleButtonClick] writeContractResult', writeContractResult)
-
-      const { write } = writeContractResult;
   
-      if (write) {
-        // Call the write function to execute the contract interaction
-        const transactionResponse = await write({
-          onSuccess: () => {
-            if (buttonLabel === 'Approve') {
-              setApprovalUpdated(!approvalUpdated);
-              refetchAllowance();
-            }
-            onUpdate();
-          },
-        });
+      console.log('[handleButtonClick] Transaction Response:', transactionResponse);
   
-        if (typeof transactionResponse === 'undefined') {
-          console.error("No transaction response returned");
+      if (transactionResponse !== undefined) {
+        if (buttonLabel === 'Approve') {
+          setApprovalUpdated(!approvalUpdated);
+          refetchAllowance();
         }
+        onUpdate();
       } else {
-        console.error("write function is not available");
+        console.error("[handleButtonClick] No transaction response returned.");
       }
     } catch (error) {
-      console.error("Transaction error:", error);
+      console.error("[handleButtonClick] Transaction error:", error);
     } finally {
       setIsProcessing(false);
     }
   };
+console.log({buttonLabel, amount, buttonDisabled, isProcessing, approvalUpdated})
+
+console.log('[StakeButton] Render: buttonLabel, amount, buttonDisabled, isProcessing', buttonLabel, amount, buttonDisabled, isProcessing)
   return (
     <div>
       <button
