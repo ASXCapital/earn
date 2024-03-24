@@ -12,7 +12,7 @@ html, body {
   overflow-x: hidden;
   min-height: 100%;
   scroll-behavior: smooth; /* Smooth scrolling */
-  backdrop-filter: blur(20px);
+  
 }
 
 /* Custom scrollbar styles */
