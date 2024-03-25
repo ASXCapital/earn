@@ -109,7 +109,37 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
     }
   }, [stakedAmountResult, claimableRewardsResult, tokenBalanceResult]);
 
+  const lpTokenPriceUSD = calculateLPPrice(); 
+  const totalStakedInUSD = stakedAmount ? parseFloat(formatUnits(stakedAmount, 18)) * parseFloat(lpTokenPriceUSD) : 0;
+  const formattedTotalStakedInUSD = totalStakedInUSD.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  
 
+  const formatNumber = (value: number | bigint) =>
+    new Intl.NumberFormat('en-US', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }).format(value);
+
+    const displayFormattedAmount = (amountInWei: BigNumberish | null, tokenAddress: string, symbol: string) => {
+      if (amountInWei === null) return <span>Loading...</span>;
+      const amountInEther = parseFloat(formatUnits(amountInWei, 18));
+      let price = prices[tokenAddress] || 0;
+      const amountInUSD = amountInEther * price;
+    
+      return (
+        <>
+          <span className={styles.numberValue}>{formatNumber(amountInEther)}</span>
+          {' '}
+          <span>{symbol}</span>
+          {' ('}
+          <span className={styles.usdValue}>{formatNumber(amountInUSD)} USD</span>
+          {')'}
+        </>
+      );
+    };
 
 
 
@@ -216,29 +246,7 @@ const handleStakeAmountChange = (e) => {
 
 
 
-  const formatNumber = (value: number | bigint) =>
-    new Intl.NumberFormat('en-US', {
-      maximumFractionDigits: 2,
-      minimumFractionDigits: 2,
-    }).format(value);
 
-    const displayFormattedAmount = (amountInWei: BigNumberish | null, tokenAddress: string, symbol: string) => {
-      if (amountInWei === null) return <span>Loading...</span>;
-      const amountInEther = parseFloat(formatUnits(amountInWei, 18));
-      let price = prices[tokenAddress] || 0;
-      const amountInUSD = amountInEther * price;
-    
-      return (
-        <>
-          <span className={styles.numberValue}>{formatNumber(amountInEther)}</span>
-          {' '}
-          <span>{symbol}</span>
-          {' ('}
-          <span className={styles.usdValue}>{formatNumber(amountInUSD)} USD</span>
-          {')'}
-        </>
-      );
-    };
     
 
 /// FRONTEND/RENDER ///////////////////
@@ -250,6 +258,7 @@ const handleStakeAmountChange = (e) => {
         <div className={styles.titleAndTvl}>
           <h1 className={styles.poolTitle}>{pool.title}</h1>
           <div className={styles.tvl}>TVL: <strong>Loading...</strong></div>
+            
         </div>
         <div className={styles.logoContainer}>
           <Image src={imageSrc} alt="Token Logo" width={40} height={40} priority onError={handleImageError} />
