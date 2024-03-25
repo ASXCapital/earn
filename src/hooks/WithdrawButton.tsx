@@ -1,52 +1,78 @@
-
-
-
-import React, { useState } from 'react';
-import { useWriteContract, UseWriteContractParameters, UseWriteContractReturnType } from 'wagmi';
+import React, { useState, useEffect } from 'react';
+import { useWriteContract, useReadContract, useWaitForTransactionReceipt } from 'wagmi';
 import { ethers } from 'ethers';
-import { ASXStakingABI } from '../abis/ASXStakingABI'; // Adjust the import path as necessary
+import { ASXStakingABI } from '../abis/ASXStakingABI';
+import styles from '../styles/StakingPage.module.css';
 
-// Define the parameters for the WithdrawButton component
+const WithdrawButton = ({ stakingContractAddress, accountAddress, amount, onUpdate }) => {
+  const [statusMessage, setStatusMessage] = useState('Withdraw');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-interface WithdrawButtonParameters extends UseWriteContractParameters {
-  amount: string;
-}
+  useEffect(() => {
+    const isAmountInvalid = !amount || amount === '0' || isNaN(amount);
+    setIsButtonDisabled(isAmountInvalid);
+  }, [amount]);
 
-// Start the WithdrawButton component
-const WithdrawButton: React.FC<WithdrawButtonParameters> = ({ amount, ...rest }) => {
-  const [buttonLabel, setButtonLabel] = useState('Withdraw');
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const { writeContractAsync } = useWriteContract();
+  const { data: transactionReceipt } = useWaitForTransactionReceipt();
 
-  const { writeContract } = useWriteContract();
+  useEffect(() => {
+    if (transactionReceipt) {
+      setStatusMessage('Tx. Sent');
+      setTimeout(() => {
+        setStatusMessage('Withdraw');
+      }, 5000);
+      onUpdate();
+    }
+  }, [transactionReceipt, onUpdate]);
 
-  const handleButtonClick = async () => {
-    setIsProcessing(true);
-    console.log('[handleButtonClick] Start: buttonLabel, amount', buttonLabel, amount);
+  const handleAction = async () => {
+    if (isButtonDisabled) return; // Prevent action if button is disabled
+
+    setIsButtonDisabled(true);
+    setStatusMessage('Withdrawing');
 
     try {
-      const tx = await writeContract({
-        ...rest,
-        functionName: 'withdraw',
-        args: [ethers.utils.parseEther(amount)],
+      const args = [ethers.utils.parseEther(amount)];
+      await writeContractAsync({
+        abi: ASXStakingABI,
+        address: stakingContractAddress,
+        functionName: 'withdraw', // Replace 'withdraw' with your contract's withdraw function name
+        args,
       });
 
-      console.log('[handleButtonClick] tx', tx);
-      setIsProcessing(false);
     } catch (error) {
-      console.error('[handleButtonClick] error', error);
-      setIsProcessing(false);
+      console.error('Withdrawal error:', error);
+      setStatusMessage('Error');
+      setTimeout(() => {
+        setStatusMessage('Withdraw');
+      }, 5000);
+    } finally {
+      setIsButtonDisabled(false);
     }
   };
 
-  return (
+
+return (
+  <div>
     <button
-      
-      onClick={handleButtonClick}
-      disabled={buttonDisabled || isProcessing}
+      className={`${styles.actionButton} ${isButtonDisabled ? styles.disabledButton : ''}`}
+      onClick={handleAction}
+      disabled={isButtonDisabled}
     >
-      {isProcessing ? 'Processing...' : buttonLabel}
+      {/* Wrapper div for button content using flexbox */}
+      <div className={styles.buttonContent}>
+        {/* Main text */}
+        <span className={styles.mainText}>{statusMessage}</span>
+        {/* Smaller note */}
+        <span className={styles.noteInsideButton}>(leave blank for max)</span>
+      </div>
     </button>
-  );
+  </div>
+);
+
+
+
 };
+
 export default WithdrawButton;

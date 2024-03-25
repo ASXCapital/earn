@@ -16,10 +16,15 @@ import { useTotalSupply } from '../hooks/useTotalSupply';
 import { useRewardData } from '../hooks/useRewardData';
 import useLPReserves from '../hooks/useLPReserves';
 import StakeButton from '../hooks/StakeButton'
-
-
+import WithdrawButton from '../hooks/WithdrawButton';
+import GetRewardButton from '../hooks/GetRewardButton';
 
 // INTERFACE/S
+
+
+
+
+
 interface PoolCardProps {
   pool: PoolConfig;
   accountAddress: string;
@@ -32,12 +37,18 @@ interface PoolCardProps {
 
 
 
+/// MAIN FUNCTION ///////////////////
+
+
+
+
+
 
 const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDChange, onClaimableRewardsUSDChange }) => {
   const ASXTokenAddress = contracts.bscTokens.ASX;
   const [stakeAmount, setStakeAmount] = useState<string>('0.01');
+  const [inputContent, setInputContent] = useState<string>('0.01'); // New state for tracking input field content
   const [imageSrc, setImageSrc] = useState(pool.stakingToken.image || '/default_image.png');
-
   const handleImageError = () => {
     setImageSrc('/default_image.png');
   };
@@ -62,6 +73,15 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
   const { rewardData } = useRewardData(pool.stakingContract.address, pool.rewardToken.address);
   const [apr, setApr] = useState<number | null>(null);
   const [aprStatus, setAprStatus] = useState<string>('Calculating...'); 
+
+
+
+
+  /// LP PRICE CALC ///////////////////
+
+
+
+
   const calculateLPPrice = () => {
     if (pool.type !== 'lp' || !pool.stakingToken.constituents || !totalSupply?.data) {
       return prices[ASXTokenAddress]?.toFixed(2) || 'Loading...';
@@ -89,6 +109,15 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
     }
   }, [stakedAmountResult, claimableRewardsResult, tokenBalanceResult]);
 
+
+
+
+
+/// REWARD DATA CALC ///////////////////
+
+
+
+
   useEffect(() => {
     if (rewardData && totalSupply.data && prices[pool.stakingToken.address] && prices[pool.rewardToken.address]) {
       try {
@@ -114,43 +143,78 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
     }
   }, [rewardData, totalSupply.data, prices, pool.stakingToken.address, pool.rewardToken.address, SECONDS_IN_A_YEAR]);
   
+
+
+
+
+
+/// STAKING UPDATE/REFRESH
+
+
+
+
+
+
   const handleStakeUpdate = () => {
     stakedAmountResult.refetch();
     claimableRewardsResult.refetch();
     tokenBalanceResult.refetch();
   };
   const [inputStatus, setInputStatus] = useState('empty'); 
-  const handleInputStatusChange = () => {
-    setInputStatus((prevStatus) => {
-      switch (prevStatus) {
-        case 'empty':
-          return 'wallet';
-        case 'wallet':
-          return 'staked'; 
-        case 'staked':
-          return 'clear'; 
-        default:
-          return 'empty'; 
-      }
-    });
-  };
+
+
+
+
+
+/// INPUT HANDLING ///////////////////
+
+
+
+const handleWithdraw = () => {
+  // Convert stakedAmount from BigNumber to a string in ethers format
+  const stakedAmountInEthers = stakedAmount ? ethers.utils.formatUnits(stakedAmount, 18) : '0';
   
-  useEffect(() => {
-    switch (inputStatus) {
-      case 'wallet':
-        setStakeAmount(tokenBalance ? ethers.utils.formatUnits(tokenBalance, 18) : '');
-        break;
-      case 'staked':
-        setStakeAmount(stakedAmount ? ethers.utils.formatUnits(stakedAmount, 18) : '');
-        break;
-      case 'clear':
-      case 'empty': 
-        setStakeAmount('');
-        break;
-      default:
-        break;
-    }
-  }, [inputStatus, tokenBalance, stakedAmount]);
+  // Set the amount for withdrawal based on input; if input is empty, use the total staked amount
+  const withdrawalAmount = stakeAmount === '' ? stakedAmountInEthers : stakeAmount;
+
+  return withdrawalAmount;
+};
+
+const handleInputStatusChange = () => {
+  setInputStatus(prevStatus => prevStatus === 'wallet' ? 'clear' : 'wallet');
+  if (inputStatus === 'clear') {
+    setInputContent(''); // Ensure inputContent is cleared when "Clear" is clicked
+  }
+};
+
+useEffect(() => {
+  if (inputStatus === 'wallet') {
+    setStakeAmount(tokenBalance ? ethers.utils.formatUnits(tokenBalance, 18) : '');
+    setInputContent(tokenBalance ? ethers.utils.formatUnits(tokenBalance, 18) : ''); // Update inputContent when setting max wallet
+  } else {
+    setStakeAmount('');
+    setInputContent(''); // Clear inputContent along with stakeAmount
+  }
+}, [inputStatus, tokenBalance]);
+
+const handleStakeAmountChange = (e) => {
+  const value = e.target.value;
+  const regex = /^\d*\.?\d{0,18}$/;
+
+  if (value === '' || regex.test(value)) {
+    setStakeAmount(value);
+    setInputContent(value); // Update inputContent based on the current input field content
+  }
+};
+
+
+
+
+/// FORMATTING ///////////////////
+
+
+
+
 
   const formatNumber = (value: number | bigint) =>
     new Intl.NumberFormat('en-US', {
@@ -176,16 +240,9 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
       );
     };
     
-    
-    const handleStakeAmountChange = (e) => {
-      const value = e.target.value;
-      // Regular expression to match a number with up to 18 decimal places
-      const regex = /^\d*\.?\d{0,18}$/;
-    
-      if (value === '' || regex.test(value)) {
-        setStakeAmount(value);
-      }
-    };
+
+/// FRONTEND/RENDER ///////////////////
+
 
   return (
     <div className={styles.poolCard}>
@@ -217,38 +274,42 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
   <span>Claimable Rewards:</span>
   <span>{displayFormattedAmount(claimableRewards, ASXTokenAddress, '$ASX')}</span>
 </div>
-
-
-
         </div>
         <div className={styles.actionSection}>
-        <button
-    className={styles.actionButtonMAX} 
-    onClick={handleInputStatusChange}
-  >
-    {inputStatus === 'empty' && 'Max Wallet'}
-    {inputStatus === 'wallet' && 'Max Staked'}
-    {inputStatus === 'staked' && 'Clear'}
-    {inputStatus === 'clear' && 'Set to Wallet'}
-  </button>
-  <input
-    className={styles.stakeInput}
-    type="text" // Change to "text" to prevent default number input behavior
-    value={stakeAmount}
-    onChange={handleStakeAmountChange}
-    placeholder="Token Amount"
-  />
+      <button className={styles.actionButtonMAX} onClick={handleInputStatusChange}>
+        {inputContent === '' ? 'Max.' : 'Clear'}
+      </button>
+      <input
+        className={styles.stakeInput}
+        type="text"
+        value={stakeAmount}
+        onChange={handleStakeAmountChange}
+        placeholder="Token Amount"
+      />
 
-<StakeButton
-          tokenAddress={pool.stakingToken.address}
-          stakingContractAddress={pool.stakingContract.address}
-          accountAddress={accountAddress}
-          amount={stakeAmount}
-          onUpdate={handleStakeUpdate}
-        />  
-          <button className={styles.actionButton}>Withdraw</button>
-          <button className={styles.actionButton}>Claim</button>
-          <button className={styles.actionButton}>Revoke</button>
+      <StakeButton
+        tokenAddress={pool.stakingToken.address}
+        stakingContractAddress={pool.stakingContract.address}
+        accountAddress={accountAddress}
+        amount={stakeAmount}
+        onUpdate={handleStakeUpdate}
+      />
+
+      {/* Use the handleWithdraw function to conditionally set the withdrawal amount */}
+      <WithdrawButton
+        stakingContractAddress={pool.stakingContract.address}
+        accountAddress={accountAddress}
+        amount={handleWithdraw()}
+        onUpdate={handleStakeUpdate}
+      />
+          
+<GetRewardButton
+  stakingContractAddress={pool.stakingContract.address}
+  accountAddress={accountAddress}
+  onUpdate={handleStakeUpdate} // Re-use the stake update function or create a specific one for rewards
+/>
+
+          
         </div>
         <div className={styles.cardFooter}>
   Contract Address (

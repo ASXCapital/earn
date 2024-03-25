@@ -60,7 +60,6 @@
 }
 
 .poolCard {
-  
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
   color: #5fada5;
@@ -102,8 +101,8 @@
   display: flex;
   justify-content: space-between; /* Space out children elements evenly */
   align-items: center; /* Vertically center align items */
-  margin: 5px 16px;
-  height: 55px;
+  margin: 5px 20px;
+  height: 45px;
 }
 
 
@@ -191,7 +190,7 @@
 }
 
 .actionButton {
-  padding: 8px 12px; /* Adjust padding as needed */
+  padding: 8px 8px; /* Adjust padding as needed */
   background: #0ad9e3;
   border: none;
   border-radius: 2px;
@@ -199,12 +198,17 @@
   cursor: pointer;
   transition: background-color 0.2s;
   white-space: nowrap; /* Prevents text from wrapping */
-  min-width: 80px;
+  width: 90px;
   font-weight: 600;
+  transition: 0.2s;
+  height: 31px;
 }
 
 .actionButton:hover {
-  background: #2ac5b5;
+  background: rgb(42, 228, 210);
+  
+  box-shadow: #ff00ee 0px 0px 5px 0px;
+  transition: 0.2s;
 }
 
 .actionButtonMAX{
@@ -216,8 +220,13 @@
   cursor: pointer;
   transition: background-color 0.2s;
   white-space: nowrap; /* Prevents text from wrapping */
-  width: 90px;
+  width: 50px;
+  font-weight: 600;
 
+}
+.actionButtonMAX:hover {
+  background: #10eb93;
+  transition: 0.2s;
 }
 
 .disabledButton{
@@ -233,9 +242,10 @@
 
 .cardFooter {
   text-align: center;
-  padding: 4px;
+  padding: 1px;
   font-weight: 200;
   color: #42817e;
+  font-size: 0.75rem;
   
 }
 
@@ -264,3 +274,27 @@
   color: rgb(0, 252, 134);
   font-size: 1em; /* About half the size of the numbers */
 }
+
+
+/* StakingPage.module.css */
+
+.buttonContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ensure the flex container fills the button */
+}
+
+.mainText {
+  /* Adjust as needed to position the main text */
+  margin-bottom: -2px; /* Creates space between the main text and the note */
+  font-size: 13px; /* Example size, adjust as needed */
+}
+
+.noteInsideButton {
+  padding-top: 1px;
+  font-size: 8px; /* Small font size for the note */
+  align-self: center; /* Center the note */
+}
+
