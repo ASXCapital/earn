@@ -4,10 +4,12 @@ import { ethers } from 'ethers';
 import { ERC20ABI } from '../abis/ERC20ABI';
 import { ASXStakingABI } from '../abis/ASXStakingABI';
 import styles from '../styles/StakingPage.module.css';
+import { BigNumber } from 'ethers';
 
 const StakeButton = ({ tokenAddress, stakingContractAddress, accountAddress, amount, onUpdate }) => {
   const [statusMessage, setStatusMessage] = useState('Stake');
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [currentAllowance, setCurrentAllowance] = useState(ethers.constants.Zero); // Initialize with Zero
 
   const { data: allowance } = useReadContract({
     address: tokenAddress,
@@ -17,51 +19,54 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, accountAddress, amo
   });
 
   useEffect(() => {
-    const isAmountInvalid = !amount || amount === '0' || isNaN(amount);
+    if (allowance) {
+      setCurrentAllowance(BigNumber.from(allowance.toString()));
+    }
+  }, [allowance]);
+
+  useEffect(() => {
+    const isAmountInvalid = !amount || parseFloat(amount) <= 0 || isNaN(amount);
     setIsButtonDisabled(isAmountInvalid);
 
-    if (allowance && !isAmountInvalid) {
-      const formattedAllowance = ethers.BigNumber.from(allowance.toString());
-      const requiredAmount = ethers.utils.parseEther(amount);
-      const isApprovalNeeded = formattedAllowance.lt(requiredAmount);
+    if (!isAmountInvalid) {
+      const requiredAmount = ethers.utils.parseEther(amount || '0');
+      const isApprovalNeeded = currentAllowance.lt(requiredAmount);
       setStatusMessage(isApprovalNeeded ? 'Approve' : 'Stake');
     }
-  }, [allowance, amount]);
+  }, [amount, currentAllowance]);
 
   const { writeContractAsync } = useWriteContract();
   const { data: transactionReceipt } = useWaitForTransactionReceipt();
 
   useEffect(() => {
     if (transactionReceipt) {
-      setStatusMessage('Tx. Sent');
-      setTimeout(() => {
-        setStatusMessage(statusMessage === 'Approve' ? 'Stake' : 'Approve');
-      }, 5000);
+      setStatusMessage('Success!');
+
+      
+      onclick=() => setStatusMessage('Stake');
+      setTimeout(() => setStatusMessage('Stake'), 3000); // Reset to 'Stake' after a delay
       onUpdate();
     }
   }, [transactionReceipt, onUpdate]);
 
   const handleAction = async () => {
-    if (isButtonDisabled) return; // Prevent action if button is disabled
-
     setIsButtonDisabled(true);
-    
+    const actionType = statusMessage === 'Approve' ? 'Approving...' : 'Staking...';
+    setStatusMessage(actionType);
 
     try {
-      const args = statusMessage === 'Approve' ? [stakingContractAddress, ethers.constants.MaxUint256.toString()] : [ethers.utils.parseEther(amount)];
+      const args = statusMessage === 'Approve' ? [stakingContractAddress, ethers.constants.MaxUint256] : [ethers.utils.parseEther(amount)];
       await writeContractAsync({
         abi: statusMessage === 'Approve' ? ERC20ABI : ASXStakingABI,
         address: statusMessage === 'Approve' ? tokenAddress : stakingContractAddress,
         functionName: statusMessage === 'Approve' ? 'approve' : 'stake',
         args,
       });
-
     } catch (error) {
       console.error('Action error:', error);
       setStatusMessage('Error');
-      setTimeout(() => {
-        setStatusMessage(statusMessage === 'Approve' ? 'Stake' : 'Approve');
-      }, 3000);
+      onclick=() => setStatusMessage('Approve');
+      setTimeout(() => setStatusMessage('Approve'), 3000); // Assume 'Approve' is needed after an error
     } finally {
       setIsButtonDisabled(false);
     }

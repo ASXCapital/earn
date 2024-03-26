@@ -71,8 +71,6 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
   const { reserve0, reserve1 } = useLPReserves(pool.stakingToken.address);
   const totalSupply = useTotalSupply(pool.stakingToken.address);
   const { rewardData } = useRewardData(pool.stakingContract.address, pool.rewardToken.address);
-  const [apr, setApr] = useState<number | null>(null);
-  const [aprStatus, setAprStatus] = useState<string>('Calculating...'); 
 
 
 
@@ -143,10 +141,11 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
 
 
 
-/// REWARD DATA CALC ///////////////////
+/// REWARD DATA CALC APR  ///////////////////
 
 
-
+const [apr, setApr] = useState<number | null>(null);
+const [aprStatus, setAprStatus] = useState<string>('Calculating...'); 
 
   useEffect(() => {
     if (rewardData && totalSupply.data && prices[pool.stakingToken.address] && prices[pool.rewardToken.address]) {
@@ -175,7 +174,17 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
   
 
 
+  const calculateTVL = () => {
+    const tokenPrice = prices[pool.stakingToken.address] || 0; // Get the current price of the staking token
+    console.log(tokenPrice);
+    const stakedAmountInEther = stakedAmount ? parseFloat(formatUnits(stakedAmount, 18)) : 0;
+    const tvlInUSD = stakedAmountInEther * tokenPrice;
+    return tvlInUSD.toFixed(2); // Convert to a string with 2 decimal places
+    
+   
+  };
 
+  const tvlDisplay = calculateTVL();
 
 
 /// STAKING UPDATE/REFRESH
@@ -194,7 +203,7 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
   useEffect(() => {
     const interval = setInterval(() => {
       handleStakeUpdate();
-    }, 5000); // Approximate block time for Ethereum is 15 seconds
+    }, 500000); // Approximate block time for Ethereum is 15 seconds
     return () => clearInterval(interval);
   }, []);
 
@@ -261,11 +270,15 @@ const handleStakeAmountChange = (e) => {
   return (
     <div className={styles.poolCard}>
       <div className={styles.cardHeader}>
-        <div className={styles.titleAndTvl}>
-          <h1 className={styles.poolTitle}>{pool.title}</h1>
-          <div className={styles.tvl}>TVL: <strong>Loading...</strong></div>
-            
-        </div>
+      <div className={styles.titleAndLogoContainer}>
+  <div className={styles.titleAndLogo}>
+    <h1 className={styles.poolTitle}>{pool.title}</h1>
+    <a href={pool.stakingToken.buyLink} target="_blank" rel="noopener noreferrer" className={styles.buyLink}>
+      <Image src="/logos/PancakeSwap Logos/Full Logo/bunny-color.svg" alt="PancakeSwap Logo" width={20} height={30}/>
+    </a>
+  </div>
+  <div className={styles.tvl}>TVL: <strong>${tvlDisplay} USD</strong></div>
+</div>
         <div className={styles.logoContainer}>
           <Image src={imageSrc} alt="Token Logo" width={40} height={40} priority onError={handleImageError} />
         </div>

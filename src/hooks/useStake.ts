@@ -1,3 +1,5 @@
+// DEPRECATED
+
 
 /*
 import { useWriteContract, useReadContract } from 'wagmi';

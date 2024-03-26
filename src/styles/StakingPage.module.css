@@ -52,12 +52,6 @@
 
 
 
-.logoContainer {
-  flex: 0 1 auto; /* Prevent growth but allow shrinking, size based on content */
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Ensure the logo is centered */
-}
 
 .poolCard {
   border-radius: 12px;
@@ -296,5 +290,27 @@
   padding-top: 1px;
   font-size: 8px; /* Small font size for the note */
   align-self: center; /* Center the note */
+}
+
+.titleAndLogoContainer {
+  display: grid;
+  grid-template-rows: 30px; /* Two rows: one for the title/logo, one for the TVL */
+  gap: 0px; /* Space between title/logo row and TVL row */
+}
+
+.titleAndLogo {
+  display: flex;
+  
+  justify-content: flex-start; /* Align title and logo to the start (left) */
+}
+
+.poolTitle {
+  margin: 1px;
+  flex-grow: 0; /* Allow the title to take up as much space as possible, pushing the logo to the end */
+}
+
+.buyLink {
+padding-left: 10px;
+
 }
 
