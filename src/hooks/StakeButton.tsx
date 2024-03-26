@@ -45,7 +45,7 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, accountAddress, amo
     if (isButtonDisabled) return; // Prevent action if button is disabled
 
     setIsButtonDisabled(true);
-    setStatusMessage(`${statusMessage === 'Approve' ? 'Approving' : 'Staking'}`);
+    
 
     try {
       const args = statusMessage === 'Approve' ? [stakingContractAddress, ethers.constants.MaxUint256.toString()] : [ethers.utils.parseEther(amount)];

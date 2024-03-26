@@ -191,6 +191,12 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
     tokenBalanceResult.refetch();
   };
   const [inputStatus, setInputStatus] = useState('empty'); 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleStakeUpdate();
+    }, 5000); // Approximate block time for Ethereum is 15 seconds
+    return () => clearInterval(interval);
+  }, []);
 
 
 
