@@ -1,13 +1,14 @@
+
 .stakingWrapper {
-  position: relative;
+  position:relative;
   max-width: 900px;
-  margin: 40px auto;
+  margin: auto;
   padding: 25px;
   margin-top: 150px;
-  background-color: #0b0b0b00;
+
   border-radius: 20px;
   color: #5fadab;
-  border: 1px solid #00ffee;
+  
   box-shadow: 0 8px 32px 0 rgba(139, 26, 164, 0.37);
   backdrop-filter: blur(8.5px) ;
   
@@ -19,7 +20,6 @@
   background-size: 1000% 1000%;
 
 
-  position: relative;
   z-index: 1; /* Ensure it doesn't overlap everything */
 
 }
@@ -49,6 +49,12 @@
 }
 
 
+.poolsContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow multiple cards to wrap into new lines */
+  justify-content: center; /* Center the cards horizontally */
+ /* Add some space between the cards */
+}
 
 
 
@@ -60,9 +66,9 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s; /* Added transition for box-shadow */
+  transition: transform 0.2, box-shadow 0.2; /* Added transition for box-shadow */
   margin-bottom: 2rem;
-  max-width: 900px;
+  max-width: 95%;
   width: 100%;
   height: 100%;
   scroll-padding: 1rem;
@@ -92,11 +98,11 @@
 
 
 .cardHeader {
-  display: flex;
-  justify-content: space-between; /* Space out children elements evenly */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center; /* Vertically center align items */
   margin: 5px 20px;
-  height: 45px;
+
 }
 
 
@@ -162,8 +168,7 @@
 .poolInfo {
   display: flex;
   justify-content: space-between;
-
-  
+  align-items: center;
 }
 
 .actionSection {
@@ -314,20 +319,27 @@ padding-left: 10px;
 padding-top: 4px;
 
 }
-.TotalTVLContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
+.totalTVLContainer {
+  display: flex; /* Use inline-flex to keep flex properties */
+  align-items: flex-end; /* Center items vertically */
+  justify-content: flex-end; /* Center items horizontally */
+
+  padding: 10px; /* Reduce padding if necessary */
+  margin: 0; /* Ensure no default margin is applied */
 }
 
-.TotalTVL {
-  display: flex;
-  font-size: 100px;
-  justify-content: flex-end; /* Align TVL to the end (right) */
-  align-items: center; /* Vertically center align items */
-  padding-right: 10px;
-  padding-top: 4px;
+.totalTVL {
+  font-size: 4rem; /* Adjust font size as necessary */
+  
+  color: #c3fdff;
+  margin: 0; /* Remove margin to prevent extra space */
+  text-shadow: 0 0 10px #00ffee;
 }
 
+.totalTVLmini {
+  font-size: 1rem; /* Adjust font size as necessary */
+  
+  color: #c3fdff;
+  margin: 0; /* Remove margin to prevent extra space */
+  text-shadow: 0 0 10px #00ffee;
+}

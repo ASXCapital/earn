@@ -20,9 +20,9 @@ const CoinGeckoWidget = () => {
     <coingecko-coin-price-marquee-widget
       coin-ids="bitcoin,ethereum,binancecoin,asx-capital,ripple,solana"
       currency="usd"
-      background-color="#030303"
+      background-color="transparent"
       locale="en"
-      font-color="#00f999">
+      font-color="rgb(42, 228, 210)">
       
       
     </coingecko-coin-price-marquee-widget>

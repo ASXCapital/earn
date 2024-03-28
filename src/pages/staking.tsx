@@ -22,8 +22,9 @@ const StakingPage = () => {
 
   // Ensure all values in poolTVLs are numbers for TypeScript
   const overallTVL = Object.values(poolTVLs).reduce((acc, tvl) => acc + (tvl as number), 0);
-  const formattedOverallTVL = new Intl.NumberFormat('en-US').format(overallTVL); // Format the overall TVL
-
+  const roundedOverallTVL = Math.round(overallTVL); // Round to the nearest integer
+  const formattedOverallTVL = new Intl.NumberFormat('en-US').format(roundedOverallTVL); // Format the rounded TVL
+  
   useEffect(() => {
     setClientReady(true); // Set clientReady to true once the component mounts on the client
   }, []);
@@ -40,18 +41,24 @@ const StakingPage = () => {
     return <div>Loading...</div>; // Render a consistent loading state initially
   }
 
+
+  
+
   return (
     <div className={styles.stakingWrapper}>
-      <div className={styles.poolCardHeader}>
-        <h1>Staking Pools</h1>
-        <div>Total USD Staked: {totalStakedUSD.toFixed(2)}</div>
-        <div>Total USD in Claimable Rewards: {totalClaimableRewardsUSD.toFixed(2)}</div>
-        <div>classname={styles.TotalTVLContainer}
-        <div>Total TVL Across All Pools: $<div className={styles.TotalTVL}>{formattedOverallTVL}</div>
-        </div>
-        </div>
-      </div>
-      <div className={styles.poolsContainer}>
+<div className={styles.poolCardHeader}>
+  <h1>Staking Pools</h1>
+  <div>Total USD Staked: {totalStakedUSD.toFixed(2)}</div>
+  <div>Total USD in Claimable Rewards: {totalClaimableRewardsUSD.toFixed(2)}</div>
+  <div style={{ display: 'flex', alignItems: 'center' }}>
+    
+    <div style={{ flexGrow: 1 }}></div> {/* This will push the following item to the right */}
+  <div className={styles.totalTVLContainer}>
+    <span className={styles.totalTVL}>${formattedOverallTVL}<span className={styles.totalTVLmini}> TVL</span></span>
+  </div>
+</div>
+</div>
+    <div className={styles.poolsContainer}>
         {pools.map((pool) => (
           <PoolCard
             key={pool.id}
