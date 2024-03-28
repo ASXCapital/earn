@@ -11,13 +11,20 @@ import { contracts } from '../config/contracts';
 import { useStakedAmount } from '../hooks/useStakedAmount';
 import { useClaimableRewards } from '../hooks/useClaimableRewards';
 import { useTokenBalance } from '../hooks/useTokenBalance';
-import useTokenPrices from '../hooks/useTokenPrices';
 import { useTotalSupply } from '../hooks/useTotalSupply';
 import { useRewardData } from '../hooks/useRewardData';
 import useLPReserves from '../hooks/useLPReserves';
 import StakeButton from '../hooks/StakeButton'
 import WithdrawButton from '../hooks/WithdrawButton';
 import GetRewardButton from '../hooks/GetRewardButton';
+import { useTokenPricesContext } from '../contexts/TokenPricesContext';
+import { useMemo } from 'react';
+import { useTotalStaked } from '../hooks/useTotalStaked';
+
+
+
+
+
 
 // INTERFACE/S
 
@@ -44,7 +51,9 @@ interface PoolCardProps {
 
 
 
-const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDChange, onClaimableRewardsUSDChange }) => {
+const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress }) => {
+  const prices = useTokenPricesContext();
+
   const ASXTokenAddress = contracts.bscTokens.ASX;
   const [stakeAmount, setStakeAmount] = useState<string>('0.01');
   const [inputContent, setInputContent] = useState<string>('0.01'); // New state for tracking input field content
@@ -66,8 +75,7 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
       pool.stakingToken.constituents.token2.address,
     ];
   }
-  const platformId = 'binance-smart-chain';
-  const prices = useTokenPrices(platformId, [...contractAddresses, ASXTokenAddress]);
+  
   const { reserve0, reserve1 } = useLPReserves(pool.stakingToken.address);
   const totalSupply = useTotalSupply(pool.stakingToken.address);
   const { rewardData } = useRewardData(pool.stakingContract.address, pool.rewardToken.address);
@@ -79,21 +87,41 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
 
 
 
-
   const calculateLPPrice = () => {
-    if (pool.type !== 'lp' || !pool.stakingToken.constituents || !totalSupply?.data) {
-      return prices[ASXTokenAddress]?.toFixed(2) || 'Loading...';
+    // Only proceed if it's an LP pool with all necessary data available
+    if (pool.type !== 'lp' || !pool.stakingToken.constituents || !totalSupply?.data || reserve0 === undefined || reserve1 === undefined) {
+      return '0'; // Return '0' for invalid or incomplete data sets
     }
-    const token1Price = prices[pool.stakingToken.constituents.token1.address] || 0;
-    const token2Price = prices[pool.stakingToken.constituents.token2.address] || 0;
-    const totalReserveUSD =
-      Number(formatUnits(reserve1, 18)) * token1Price +
-      Number(formatUnits(reserve0, 18)) * token2Price;
+  
+    const { token1, token2 } = pool.stakingToken.constituents;
+    console.log(`Checking prices for: Token1 (${token1.address}) and Token2 (${token2.address})`);
+console.log(`Prices available:`, prices);
+
+const token2Price = prices[token1.address.trim().toLowerCase()];
+const token1Price = prices[token2.address.trim().toLowerCase()];
+console.log(`Attempting to access price for Token1 (${token1.address})`);
+console.log(`Attempting to access price for Token2 (${token2.address})`);
+
+console.log(`Prices found: Token1: ${token1Price}, Token2: ${token2Price}`);
+console.log(`Direct price access for Token2 (0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c): ${prices['0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c']}`);
+console.log(`Direct price access for Token2 (0x2170Ed0880ac9A755fd29B2688956BD959F933F8): ${prices['0x2170ed0880ac9a755fd29b2688956bd959f933f8']}`);
+
+
+    
+  
+    // Log the token addresses and their corresponding prices
+  
+    const totalReserveUSD = (Number(formatUnits(reserve0, 18)) * token1Price) + (Number(formatUnits(reserve1, 18)) * token2Price);
     const totalSupplyUnits = Number(formatUnits(totalSupply.data, 18));
-    const lpTokenPriceUSD = totalReserveUSD / totalSupplyUnits;
-    return lpTokenPriceUSD.toFixed(2); 
+    const lpTokenPriceUSD = totalSupplyUnits > 0 ? totalReserveUSD / totalSupplyUnits : 0;
+  
+    return lpTokenPriceUSD.toFixed(2);
   };
-  const lpTokenPriceDisplay = calculateLPPrice();
+  
+  
+  // Use useMemo to avoid recalculating LP price on every render
+  const lpTokenPriceUSD = useMemo(calculateLPPrice, [pool, prices, totalSupply?.data, reserve0, reserve1]);
+  
   useEffect(() => {
     if (stakedAmountResult.data !== undefined) {
       setStakedAmount(stakedAmountResult.data);
@@ -106,13 +134,7 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
       setTokenBalance(tokenBalanceResult.data);
     }
   }, [stakedAmountResult, claimableRewardsResult, tokenBalanceResult]);
-
-  const lpTokenPriceUSD = calculateLPPrice(); 
-  const totalStakedInUSD = stakedAmount ? parseFloat(formatUnits(stakedAmount, 18)) * parseFloat(lpTokenPriceUSD) : 0;
-  const formattedTotalStakedInUSD = totalStakedInUSD.toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
+  
   
 
   const formatNumber = (value: number | bigint) =>
@@ -121,70 +143,70 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onStakedUSDCh
       minimumFractionDigits: 2,
     }).format(value);
 
-    const displayFormattedAmount = (amountInWei: BigNumberish | null, tokenAddress: string, symbol: string) => {
-      if (amountInWei === null) return <span>Loading...</span>;
-      const amountInEther = parseFloat(formatUnits(amountInWei, 18));
-      let price = prices[tokenAddress] || 0;
-      const amountInUSD = amountInEther * price;
+const displayFormattedAmount = (amountInWei: BigNumberish | null, tokenAddress: string, symbol: string, useLpTokenPrice = false) => {
+  if (amountInWei === null) return <span>Loading...</span>;
+  const amountInEther = parseFloat(formatUnits(amountInWei, 18));
+  let price = useLpTokenPrice ? parseFloat(lpTokenPriceUSD) : prices[tokenAddress] || 0;
+  
+  const amountInUSD = amountInEther * price;
+
+  return (
+    <>
+      <span className={styles.numberValue}>{formatNumber(amountInEther)}</span>
+      {' '}
+      <span>{symbol}</span>
+      {' ('}
+      <span className={styles.usdValue}>{`$${formatNumber(amountInUSD)}`}</span>
+      {')'}
+    </>
+  );
+};
+
     
-      return (
-        <>
-          <span className={styles.numberValue}>{formatNumber(amountInEther)}</span>
-          {' '}
-          <span>{symbol}</span>
-          {' ('}
-          <span className={styles.usdValue}>{formatNumber(amountInUSD)} USD</span>
-          {')'}
-        </>
-      );
-    };
+    
 
 
 
 /// REWARD DATA CALC APR  ///////////////////
 
-
 const [apr, setApr] = useState<number | null>(null);
-const [aprStatus, setAprStatus] = useState<string>('Calculating...'); 
+const [aprStatus, setAprStatus] = useState<string>('Calculating...');
 
-  useEffect(() => {
-    if (rewardData && totalSupply.data && prices[pool.stakingToken.address] && prices[pool.rewardToken.address]) {
-      try {
-        const rewardTokenPriceInWei = ethers.utils.parseUnits(prices[pool.rewardToken.address].toString(), 'ether');
-        const stakingTokenPriceInWei = ethers.utils.parseUnits(prices[pool.stakingToken.address].toString(), 'ether');
-        const totalRewardsPerYear = rewardData.rewardRate.mul(SECONDS_IN_A_YEAR);
-        const totalRewardsPerYearInUSD = totalRewardsPerYear.mul(rewardTokenPriceInWei);
-        const totalStakedInWei = BigNumber.from(totalSupply.data.toString());
-        const totalTVLInUSD = totalStakedInWei.mul(stakingTokenPriceInWei);
-        let aprValue = BigNumber.from(0);
-        if (!totalTVLInUSD.isZero() && !totalRewardsPerYearInUSD.isZero()) {
-          aprValue = totalRewardsPerYearInUSD.mul(ethers.utils.parseUnits('100', 'ether')).div(totalTVLInUSD);
+// APR calculation
+
+// Inside your component
+const { totalStaked, isLoading: isTotalStakedLoading } = useTotalStaked(pool.stakingContract.address);
+
+// APR calculation
+useEffect(() => {
+    if (!isTotalStakedLoading && totalStaked && rewardData?.rewardRate && prices[pool.rewardToken.address]) {
+        try {
+            const stakingTokenPriceUSD = pool.type === 'lp' ? parseFloat(lpTokenPriceUSD) : prices[pool.stakingToken.address.toLowerCase()] || 0;
+            const rewardTokenPriceUSD = prices[pool.rewardToken.address.toLowerCase()] || 0;
+            const totalRewardsPerYearTokens = parseFloat(formatUnits(rewardData.rewardRate, 18)) * SECONDS_IN_A_YEAR;
+            const totalRewardsPerYearInUSD = totalRewardsPerYearTokens * rewardTokenPriceUSD;
+
+            // Use the total staked amount from the contract for TVL calculation
+            const totalStakedTokens = parseFloat(formatUnits(totalStaked, 18));
+            const totalTVLInUSD = totalStakedTokens * stakingTokenPriceUSD;
+
+            const apr = totalTVLInUSD > 0 ? (totalRewardsPerYearInUSD / totalTVLInUSD) * 100 : 0;
+
+            setApr(apr);
+            setAprStatus(`${apr.toFixed(2)}%`);
+        } catch (error) {
+            console.error("Error calculating APR:", error);
+            setAprStatus('Error');
         }
-        const aprPercentage = ethers.utils.formatUnits(aprValue, 'ether');
-        setApr(parseFloat(aprPercentage));
-        setAprStatus(`${parseFloat(aprPercentage).toFixed(2)}%`);
-      } catch (error) {
-        console.error("Error calculating APR:", error);
-        setAprStatus('Error');
-      }
     } else {
-      setAprStatus('Calculating...');
+        setAprStatus('Calculating...');
     }
-  }, [rewardData, totalSupply.data, prices, pool.stakingToken.address, pool.rewardToken.address, SECONDS_IN_A_YEAR]);
+}, [rewardData, totalStaked, isTotalStakedLoading, prices]);
+
+
   
 
-
-  const calculateTVL = () => {
-    const tokenPrice = prices[pool.stakingToken.address] || 0; // Get the current price of the staking token
-    console.log(tokenPrice);
-    const stakedAmountInEther = stakedAmount ? parseFloat(formatUnits(stakedAmount, 18)) : 0;
-    const tvlInUSD = stakedAmountInEther * tokenPrice;
-    return tvlInUSD.toFixed(2); // Convert to a string with 2 decimal places
-    
-   
-  };
-
-  const tvlDisplay = calculateTVL();
+  
 
 
 /// STAKING UPDATE/REFRESH
@@ -216,12 +238,8 @@ const [aprStatus, setAprStatus] = useState<string>('Calculating...');
 
 
 const handleWithdraw = () => {
-  // Convert stakedAmount from BigNumber to a string in ethers format
   const stakedAmountInEthers = stakedAmount ? ethers.utils.formatUnits(stakedAmount, 18) : '0';
-  
-  // Set the amount for withdrawal based on input; if input is empty, use the total staked amount
   const withdrawalAmount = stakeAmount === '' ? stakedAmountInEthers : stakeAmount;
-
   return withdrawalAmount;
 };
 
@@ -255,10 +273,36 @@ const handleStakeAmountChange = (e) => {
 
 
 
-/// FORMATTING ///////////////////
+/// TVL ///////////////////
 
 
 
+
+// Inside your component
+const totalSupplyResult = useTotalSupply(pool.stakingContract.address);
+
+// Inside your component
+const calculateTVLinUSD = () => {
+  if (!totalSupplyResult.data) return 'Loading...';
+
+  // Total staked tokens
+  const totalStakedTokens = parseFloat(formatUnits(totalSupplyResult.data, 18));
+  let totalStakedInUSD = 0;
+
+  if (pool.type === 'lp') {
+    // For LP tokens, use the LP token price calculated from reserves
+    const lpTokenPriceUSD = parseFloat(calculateLPPrice());
+    totalStakedInUSD = totalStakedTokens * lpTokenPriceUSD;
+  } else {
+    // For single tokens, directly use the token price from the prices object
+    const tokenPriceUSD = prices[pool.stakingToken.address] || 0;
+    totalStakedInUSD = totalStakedTokens * tokenPriceUSD;
+  }
+
+  return formatNumber(totalStakedInUSD);
+};
+
+const tvlInUSD = calculateTVLinUSD();
 
 
 
@@ -274,11 +318,12 @@ const handleStakeAmountChange = (e) => {
   <div className={styles.titleAndLogo}>
     <h1 className={styles.poolTitle}>{pool.title}</h1>
     <a href={pool.stakingToken.buyLink} target="_blank" rel="noopener noreferrer" className={styles.buyLink}>
-      <Image src="/logos/PancakeSwap Logos/Full Logo/bunny-color.svg" alt="PancakeSwap Logo" width={20} height={30}/>
+      <Image src="/logos/PancakeSwap Logos/Full Logo/color-white.svg" alt="PancakeSwap Logo" width={80} height={30}/>
     </a>
   </div>
-  <div className={styles.tvl}>TVL: <strong>${tvlDisplay} USD</strong></div>
+  <div className={styles.tvl}>TVL: <strong>${tvlInUSD}</strong></div>
 </div>
+
         <div className={styles.logoContainer}>
           <Image src={imageSrc} alt="Token Logo" width={40} height={40} priority onError={handleImageError} />
         </div>
@@ -286,22 +331,31 @@ const handleStakeAmountChange = (e) => {
           <div className={styles.apr}> 
         <div>{aprStatus} APR</div> 
         </div>
-          <div>{pool.title} Price: $ {lpTokenPriceDisplay}</div> 
+        <div>
+  {pool.title} Price: $ 
+  {pool.type === 'lp' ? lpTokenPriceUSD : prices[ASXTokenAddress.toLowerCase()] || 'Loading...'}
+</div>
+
         </div>
       </div>
       <div className={styles.cardBody}>
-      <div className={styles.poolInfo}>
-  <span>{pool.title} in Wallet:</span>
-  <span>{displayFormattedAmount(tokenBalance, pool.stakingToken.address, pool.stakingToken.symbol)}</span>
-</div>
-<div className={styles.poolInfo}>
-  <span>Staked:</span>
-  <span>{displayFormattedAmount(stakedAmount, pool.stakingToken.address, pool.stakingToken.symbol)}</span>
-</div>
-<div className={styles.poolInfo}>
-  <span>Claimable Rewards:</span>
-  <span>{displayFormattedAmount(claimableRewards, ASXTokenAddress, '$ASX')}</span>
-</div>
+  <div className={styles.poolInfo}>
+    <span>{pool.title} in Wallet:</span>
+    {/* Use displayFormattedAmount for wallet balance, passing true for useLpTokenPrice if it's an LP token */}
+    <span>{displayFormattedAmount(tokenBalance, pool.stakingToken.address, pool.stakingToken.symbol, pool.type === 'lp')}</span>
+  </div>
+  <div className={styles.poolInfo}>
+    <span>Staked:</span>
+    {/* Use displayFormattedAmount for staked amount, also passing true for useLpTokenPrice if it's an LP token */}
+    <span>{displayFormattedAmount(stakedAmount, pool.stakingToken.address, pool.stakingToken.symbol, pool.type === 'lp')}</span>
+  </div>
+  <div className={styles.poolInfo}>
+    <span>Claimable Rewards:</span>
+    <span>{displayFormattedAmount(claimableRewards, ASXTokenAddress, '$ASX')}</span>
+  </div>
+
+
+
         </div>
         <div className={styles.actionSection}>
       <button className={styles.actionButtonMAX} onClick={handleInputStatusChange}>

@@ -19,6 +19,8 @@ interface PoolDataProviderProps {
   export const PoolDataProvider: React.FC<PoolDataProviderProps> = ({ children }) => {
     // The value that will be supplied to any descendants of this provider.
     const value = { pools: poolsConfig };
+
+    
   
     return (
       <PoolDataContext.Provider value={value}>
@@ -26,5 +28,5 @@ interface PoolDataProviderProps {
       </PoolDataContext.Provider>
     );
   };
-  
+  console.log(poolsConfig)
   export default PoolDataContext;

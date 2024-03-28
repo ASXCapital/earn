@@ -22,7 +22,11 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { UseConfigParameters } from 'wagmi';
 import { coinbaseWallet, ledgerWallet, zerionWallet,
   trustWallet, metaMaskWallet, rainbowWallet, roninWallet,
-braveWallet, uniswapWallet, phantomWallet, injectedWallet/*FALLBACK*/ } from '@rainbow-me/rainbowkit/wallets';
+braveWallet, uniswapWallet, injectedWallet/*FALLBACK*/ } from '@rainbow-me/rainbowkit/wallets';
+import { TokenPricesProvider } from '../contexts/TokenPricesContext';
+
+
+import { PlenaWalletProvider } from "plena-connect-dapp-sdk";
 
 
 const projectId = "3d9fa35fb220fd48a2ede5c61b71ca78";
@@ -41,6 +45,12 @@ const connectors = connectorsForWallets(
   { appName: 'ASX', projectId: projectId },
 );
 
+
+const PlenaConfig = {
+  dappToken: "ASX",
+  dappId: "none",
+  bridgeUrl: "none",
+};
 
 
 
@@ -67,9 +77,11 @@ const Disclaimer: DisclaimerComponent = ({ Text, Link }) => (
 const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
   return (
+    
     <WagmiProvider 
     config={config}
     >     
+    
       <QueryClientProvider 
       client={queryClient}>
         <RainbowKitProvider
@@ -87,14 +99,18 @@ function MyApp({ Component, pageProps }: AppProps) {
             fontStack: 'system',
             overlayBlur: 'small',
           })}>
+            <TokenPricesProvider>
             <PoolDataProvider>
             <Layout>
               <Component {...pageProps} />
             </Layout>
             </PoolDataProvider>
+            </TokenPricesProvider>
           </RainbowKitProvider>
         </QueryClientProvider>
+        
       </WagmiProvider>
+      
   );
 }
 export default MyApp;

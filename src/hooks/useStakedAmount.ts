@@ -1,5 +1,7 @@
 // file: src/hooks/useStakedAmount.ts
 
+// staked amount for INDIVIDUAL stakers
+
 import { useReadContract } from 'wagmi';
 import { ASXStakingABI } from '../abis/ASXStakingABI';
 
