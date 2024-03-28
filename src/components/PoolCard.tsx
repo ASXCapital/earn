@@ -1,6 +1,6 @@
 // file: asx/earn/src/components/PoolCard.tsx
 // IMPORTS
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { ethers } from 'ethers';
 import { formatUnits } from 'ethers/lib/utils';
 import Image from 'next/image';
@@ -37,7 +37,8 @@ interface PoolCardProps {
   accountAddress: string;
   onStakedUSDChange: (amount: number) => void;
   onClaimableRewardsUSDChange: (amount: number) => void;
-  id?: number;
+  onTVLChange: (poolId: string | number, tvl: number) => void;
+  poolId: string | number; // This might already be included as part of `pool`
 }
 
 
@@ -51,8 +52,11 @@ interface PoolCardProps {
 
 
 
-const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress }) => {
+const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onTVLChange, }) => {
   const prices = useTokenPricesContext();
+
+  const { totalStaked, isLoading: isTotalStakedLoading } = useTotalStaked(pool.stakingContract.address);
+
 
   const ASXTokenAddress = contracts.bscTokens.ASX;
   const [stakeAmount, setStakeAmount] = useState<string>('0.01');
@@ -94,18 +98,10 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress }) => {
     }
   
     const { token1, token2 } = pool.stakingToken.constituents;
-    console.log(`Checking prices for: Token1 (${token1.address}) and Token2 (${token2.address})`);
-console.log(`Prices available:`, prices);
+
 
 const token2Price = prices[token1.address.trim().toLowerCase()];
 const token1Price = prices[token2.address.trim().toLowerCase()];
-console.log(`Attempting to access price for Token1 (${token1.address})`);
-console.log(`Attempting to access price for Token2 (${token2.address})`);
-
-console.log(`Prices found: Token1: ${token1Price}, Token2: ${token2Price}`);
-console.log(`Direct price access for Token2 (0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c): ${prices['0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c']}`);
-console.log(`Direct price access for Token2 (0x2170Ed0880ac9A755fd29B2688956BD959F933F8): ${prices['0x2170ed0880ac9a755fd29b2688956bd959f933f8']}`);
-
 
     
   
@@ -172,36 +168,35 @@ const displayFormattedAmount = (amountInWei: BigNumberish | null, tokenAddress: 
 const [apr, setApr] = useState<number | null>(null);
 const [aprStatus, setAprStatus] = useState<string>('Calculating...');
 
-// APR calculation
 
-// Inside your component
-const { totalStaked, isLoading: isTotalStakedLoading } = useTotalStaked(pool.stakingContract.address);
+
+
 
 // APR calculation
 useEffect(() => {
-    if (!isTotalStakedLoading && totalStaked && rewardData?.rewardRate && prices[pool.rewardToken.address]) {
-        try {
-            const stakingTokenPriceUSD = pool.type === 'lp' ? parseFloat(lpTokenPriceUSD) : prices[pool.stakingToken.address.toLowerCase()] || 0;
-            const rewardTokenPriceUSD = prices[pool.rewardToken.address.toLowerCase()] || 0;
-            const totalRewardsPerYearTokens = parseFloat(formatUnits(rewardData.rewardRate, 18)) * SECONDS_IN_A_YEAR;
-            const totalRewardsPerYearInUSD = totalRewardsPerYearTokens * rewardTokenPriceUSD;
+  if (!isTotalStakedLoading && totalStaked && rewardData?.rewardRate && prices[pool.rewardToken.address]) {
+    try {
+      const stakingTokenPriceUSD = pool.type === 'lp' ? parseFloat(lpTokenPriceUSD) : prices[pool.stakingToken.address.toLowerCase()] || 0;
+      const rewardTokenPriceUSD = prices[pool.rewardToken.address.toLowerCase()] || 0;
+      const totalRewardsPerYearTokens = parseFloat(formatUnits(rewardData.rewardRate, 18)) * SECONDS_IN_A_YEAR;
+      const totalRewardsPerYearInUSD = totalRewardsPerYearTokens * rewardTokenPriceUSD;
 
-            // Use the total staked amount from the contract for TVL calculation
-            const totalStakedTokens = parseFloat(formatUnits(totalStaked, 18));
-            const totalTVLInUSD = totalStakedTokens * stakingTokenPriceUSD;
+      const totalStakedTokens = parseFloat(formatUnits(totalStaked, 18));
+      const totalTVLInUSD = totalStakedTokens * stakingTokenPriceUSD;
 
-            const apr = totalTVLInUSD > 0 ? (totalRewardsPerYearInUSD / totalTVLInUSD) * 100 : 0;
+      const apr = totalTVLInUSD > 0 ? (totalRewardsPerYearInUSD / totalTVLInUSD) * 100 : 0;
 
-            setApr(apr);
-            setAprStatus(`${apr.toFixed(2)}%`);
-        } catch (error) {
-            console.error("Error calculating APR:", error);
-            setAprStatus('Error');
-        }
-    } else {
-        setAprStatus('Calculating...');
+      setApr(apr);
+      setAprStatus(`${apr.toFixed(2)}%`);
+    } catch (error) {
+      console.error("Error calculating APR:", error);
+      setAprStatus('Error');
     }
+  } else {
+    setAprStatus('Calculating...');
+  }
 }, [rewardData, totalStaked, isTotalStakedLoading, prices]);
+
 
 
   
@@ -283,6 +278,7 @@ const totalSupplyResult = useTotalSupply(pool.stakingContract.address);
 
 // Inside your component
 const calculateTVLinUSD = () => {
+  
   if (!totalSupplyResult.data) return 'Loading...';
 
   // Total staked tokens
@@ -303,7 +299,22 @@ const calculateTVLinUSD = () => {
 };
 
 const tvlInUSD = calculateTVLinUSD();
+const lastReportedTVL = useRef<number>();
+console.log('TVL:', tvlInUSD);
 
+useEffect(() => {
+  const currentTVLString = calculateTVLinUSD().replace(/,/g, '');
+  console.log('Current TVL:', currentTVLString);
+ // This might be a string
+ const currentTVL = parseFloat(currentTVLString);
+ console.log('Current TVL (number):', currentTVL);
+  
+  if (!isNaN(currentTVL) && currentTVLString !== "Loading..." && currentTVL !== lastReportedTVL.current) {
+    onTVLChange(pool.id, currentTVL);
+    lastReportedTVL.current = currentTVL; // Update the ref's current value
+    console.log('TVL changed:', currentTVL);
+  }
+}, [pool.id, onTVLChange, calculateTVLinUSD]);
 
 
     

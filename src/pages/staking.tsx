@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { usePools } from '../hooks/usePools';
 import styles from '../styles/StakingPage.module.css';
 import { useAccount } from 'wagmi';
-import PoolCard from '../components/PoolCard'; // Make sure this path is correct
+import PoolCard from '../components/PoolCard';
 
 const StakingPage = () => {
   const { pools } = usePools();
@@ -11,10 +11,21 @@ const StakingPage = () => {
   const [clientReady, setClientReady] = useState(false);
   const [totalStakedUSD, setTotalStakedUSD] = useState<number>(0);
   const [totalClaimableRewardsUSD, setTotalClaimableRewardsUSD] = useState<number>(0);
+  const [poolTVLs, setPoolTVLs] = useState<Record<string | number, number>>({}); // Updated type for poolTVLs
+
+  const handleTVLChange = (poolId: string | number, tvl: number) => {
+    setPoolTVLs(prevTVLs => ({
+      ...prevTVLs,
+      [poolId]: tvl,
+    }));
+  };
+
+  // Ensure all values in poolTVLs are numbers for TypeScript
+  const overallTVL = Object.values(poolTVLs).reduce((acc, tvl) => acc + (tvl as number), 0);
+  const formattedOverallTVL = new Intl.NumberFormat('en-US').format(overallTVL); // Format the overall TVL
 
   useEffect(() => {
-    // Set clientReady to true once the component mounts on the client
-    setClientReady(true);
+    setClientReady(true); // Set clientReady to true once the component mounts on the client
   }, []);
 
   const handleStakedUSDChange = (amount: number) => {
@@ -26,27 +37,27 @@ const StakingPage = () => {
   };
 
   if (!clientReady) {
-    // Render a consistent loading state initially
-    return <div>Loading...</div>;
+    return <div>Loading...</div>; // Render a consistent loading state initially
   }
 
-  // Proceed with rendering content that depends on client-side data
-  const accountAddress = address || '';
   return (
     <div className={styles.stakingWrapper}>
       <div className={styles.poolCardHeader}>
-      <h1>Staking Pools</h1>
-      <div>Total USD Staked: {totalStakedUSD} USD</div>
-      <div>Total USD in Claimable Rewards: {totalClaimableRewardsUSD} USD</div>
+        <h1>Staking Pools</h1>
+        <div>Total USD Staked: {totalStakedUSD.toFixed(2)}</div>
+        <div>Total USD in Claimable Rewards: {totalClaimableRewardsUSD.toFixed(2)}</div>
+        <div>Total TVL Across All Pools: ${formattedOverallTVL}</div>
       </div>
       <div className={styles.poolsContainer}>
         {pools.map((pool) => (
           <PoolCard
-            key={pool.id} // The `key` prop here is used by React and isn't passed down to your component
+            key={pool.id}
             pool={pool}
-            accountAddress={accountAddress}
+            accountAddress={address || ''}
             onStakedUSDChange={handleStakedUSDChange}
             onClaimableRewardsUSDChange={handleClaimableRewardsUSDChange}
+            onTVLChange={handleTVLChange}
+            poolId={pool.id}
           />
         ))}
       </div>
