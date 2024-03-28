@@ -46,7 +46,10 @@ const StakingPage = () => {
         <h1>Staking Pools</h1>
         <div>Total USD Staked: {totalStakedUSD.toFixed(2)}</div>
         <div>Total USD in Claimable Rewards: {totalClaimableRewardsUSD.toFixed(2)}</div>
-        <div>Total TVL Across All Pools: ${formattedOverallTVL}</div>
+        <div>classname={styles.TotalTVLContainer}
+        <div>Total TVL Across All Pools: $<div className={styles.TotalTVL}>{formattedOverallTVL}</div>
+        </div>
+        </div>
       </div>
       <div className={styles.poolsContainer}>
         {pools.map((pool) => (

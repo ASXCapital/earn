@@ -66,7 +66,7 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, accountAddress, amo
       console.error('Action error:', error);
       setStatusMessage('Error');
       onclick=() => setStatusMessage('Approve');
-      setTimeout(() => setStatusMessage('Approve'), 3000); // Assume 'Approve' is needed after an error
+       // Assume 'Approve' is needed after an error
     } finally {
       setIsButtonDisabled(false);
     }

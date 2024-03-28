@@ -33,6 +33,9 @@ const GetRewardButton = ({ stakingContractAddress, accountAddress, onUpdate }) =
       });
 
       setStatusMessage('Tx. Sent');
+      setTimeout(() => {
+        setStatusMessage('Claim');
+      }, 5000);
       onUpdate(); // Trigger parent component update
     } catch (error) {
       console.error('Reward claim error:', error);

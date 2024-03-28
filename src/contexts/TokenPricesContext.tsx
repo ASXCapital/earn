@@ -34,7 +34,7 @@ export const TokenPricesProvider = ({ children }) => {
 
   useEffect(() => {
     setPrices(fetchedPrices);
-    console.log('Updated prices:', fetchedPrices); // Log the entire prices object
+
 }, [fetchedPrices]);
   
 return (

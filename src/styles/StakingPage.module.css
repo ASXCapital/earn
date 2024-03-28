@@ -314,4 +314,20 @@ padding-left: 10px;
 padding-top: 4px;
 
 }
+.TotalTVLContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.TotalTVL {
+  display: flex;
+  font-size: 100px;
+  justify-content: flex-end; /* Align TVL to the end (right) */
+  align-items: center; /* Vertically center align items */
+  padding-right: 10px;
+  padding-top: 4px;
+}
 

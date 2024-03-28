@@ -300,19 +300,19 @@ const calculateTVLinUSD = () => {
 
 const tvlInUSD = calculateTVLinUSD();
 const lastReportedTVL = useRef<number>();
-console.log('TVL:', tvlInUSD);
+
 
 useEffect(() => {
   const currentTVLString = calculateTVLinUSD().replace(/,/g, '');
-  console.log('Current TVL:', currentTVLString);
+  
  // This might be a string
  const currentTVL = parseFloat(currentTVLString);
- console.log('Current TVL (number):', currentTVL);
+ 
   
   if (!isNaN(currentTVL) && currentTVLString !== "Loading..." && currentTVL !== lastReportedTVL.current) {
     onTVLChange(pool.id, currentTVL);
     lastReportedTVL.current = currentTVL; // Update the ref's current value
-    console.log('TVL changed:', currentTVL);
+    
   }
 }, [pool.id, onTVLChange, calculateTVLinUSD]);
 

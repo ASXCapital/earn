@@ -28,5 +28,5 @@ interface PoolDataProviderProps {
       </PoolDataContext.Provider>
     );
   };
-  console.log(poolsConfig)
+  
   export default PoolDataContext;
