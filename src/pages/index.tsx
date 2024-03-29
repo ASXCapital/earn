@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
+import PartnerShowcase from '../components/PartnerShowcase';
 
 
 const Home: NextPage = () => {
@@ -12,6 +13,7 @@ const Home: NextPage = () => {
         <meta name="description" content="Earn with ASX" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+     
 
       <main className={styles.main}>
         <h1 className={styles.title}>

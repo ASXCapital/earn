@@ -1,0 +1,42 @@
+.partnerShowcaseContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  overflow: show; /* Hide overflow */
+  padding: 20px;
+  gap: 40px;
+  justify-content: flex-start;
+  animation: scroll 50s linear infinite; /* Adjust time as needed */
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%); /* Scroll to the left; adjust based on content width */
+  }
+}
+
+.logoContainer {
+  transition: transform 0.3s ease;
+  display: inline-flex; /* Ensure logos are in a line */
+}
+
+.partnerLogo {
+  height: 28px;
+  max-width: 200px; /* Adjust based on your logo size */
+  transition: transform 0.3s ease;
+}
+
+.logoContainer:hover .partnerLogo {
+  transform: scale(1.1); /* Adjust magnification level */
+}
+.partnerShowcaseContainer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.partnerShowcaseContainer {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

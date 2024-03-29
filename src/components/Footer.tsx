@@ -1,9 +1,11 @@
 import React from 'react';
 import styles from './Footer.module.css'; // Ensure the path matches your file structure
+import PartnerShowcase from './PartnerShowcase';
 
 const Footer = () => {
   return (
     <footer className={styles.footer}>
+      
       <div className={styles.footerContent}>
         <section className={styles.footerSection}>
           <h4>About Us</h4>
@@ -18,6 +20,7 @@ const Footer = () => {
           </ul>
         </section>
       </div>
+      <h1><PartnerShowcase/></h1>
       <div className={styles.footerBottom}>
         <div className={styles.followUs}>
           <h4>Follow Us</h4>
