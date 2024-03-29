@@ -391,14 +391,14 @@ useEffect(() => {
       {/* Use the handleWithdraw function to conditionally set the withdrawal amount */}
       <WithdrawButton
         stakingContractAddress={pool.stakingContract.address}
-        accountAddress={accountAddress}
+      
         amount={handleWithdraw()}
         onUpdate={handleStakeUpdate}
       />
           
 <GetRewardButton
   stakingContractAddress={pool.stakingContract.address}
-  accountAddress={accountAddress}
+ 
   onUpdate={handleStakeUpdate} // Re-use the stake update function or create a specific one for rewards
 />
 
