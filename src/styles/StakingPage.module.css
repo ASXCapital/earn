@@ -343,3 +343,23 @@ padding-top: 4px;
   margin: 0; /* Remove margin to prevent extra space */
   text-shadow: 0 0 10px #00ffee;
 }
+
+@keyframes successPulse {
+  0% { background-color: rgb(42, 228, 210); }
+  50% { background-color: rgba(5, 235, 5, 0.852); }
+  100% { background-color: rgb(42, 228, 210); }
+}
+
+@keyframes errorPulse {
+  0% { background-color: rgb(42, 228, 210); }
+  50% { background-color: rgba(255, 0, 0, 0.685); }
+  100% { background-color: rgb(42, 228, 210); }
+}
+
+.successPulse {
+  animation: successPulse 1s ease-in-out;
+}
+
+.errorPulse {
+  animation: errorPulse 0.5s ease-in-out;
+}

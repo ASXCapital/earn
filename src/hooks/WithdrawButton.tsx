@@ -1,78 +1,80 @@
 import React, { useState, useEffect } from 'react';
-import { useWriteContract, useReadContract, useWaitForTransactionReceipt } from 'wagmi';
+import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { ethers } from 'ethers';
 import { ASXStakingABI } from '../abis/ASXStakingABI';
 import styles from '../styles/StakingPage.module.css';
 
-const WithdrawButton = ({ stakingContractAddress, accountAddress, amount, onUpdate }) => {
+const WithdrawButton = ({ stakingContractAddress, amount, onUpdate }) => {
   const [statusMessage, setStatusMessage] = useState('Withdraw');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [transactionHash, setTransactionHash] = useState('');
+  const [transactionInitiated, setTransactionInitiated] = useState(false);
 
   useEffect(() => {
-    const isAmountInvalid = !amount || amount === '0' || isNaN(amount);
-    setIsButtonDisabled(isAmountInvalid);
+    setIsButtonDisabled(!amount || amount === '0' || isNaN(amount));
   }, [amount]);
 
   const { writeContractAsync } = useWriteContract();
-  const { data: transactionReceipt } = useWaitForTransactionReceipt();
+
+  const { isLoading, isSuccess, isError } = useWaitForTransactionReceipt({
+    hash: transactionHash ? `0x${transactionHash.replace(/^0x/, '')}` : undefined,
+  });
 
   useEffect(() => {
-    if (transactionReceipt) {
-      setStatusMessage('Tx. Sent');
+    if (isSuccess && transactionInitiated) {
+      setStatusMessage('Success');
       setTimeout(() => {
         setStatusMessage('Withdraw');
-      }, 5000);
+        setTransactionInitiated(false);
+      }, 3000);
       onUpdate();
+    } else if (isError && transactionInitiated) {
+      setStatusMessage('Error');
+      setTimeout(() => {
+        setStatusMessage('Withdraw');
+        setTransactionInitiated(false);
+      }, 3000);
     }
-  }, [transactionReceipt, onUpdate]);
+  }, [isSuccess, isError, transactionInitiated, onUpdate]);
 
   const handleAction = async () => {
-    if (isButtonDisabled) return; // Prevent action if button is disabled
-
-    setIsButtonDisabled(true);
+    if (isButtonDisabled || isLoading) return;
     setStatusMessage('Withdrawing');
+    setIsButtonDisabled(true);
 
     try {
-      const args = [ethers.utils.parseEther(amount)];
-      await writeContractAsync({
+      const txResponse = await writeContractAsync({
         abi: ASXStakingABI,
         address: stakingContractAddress,
-        functionName: 'withdraw', // Replace 'withdraw' with your contract's withdraw function name
-        args,
+        functionName: 'withdraw',
+        args: [amount ? ethers.utils.parseUnits(amount, 'ether').toString() : '0'],
       });
-
+      setTransactionHash(txResponse); // Corrected to use txResponse.hash
+      setTransactionInitiated(true);
     } catch (error) {
       console.error('Withdrawal error:', error);
       setStatusMessage('Error');
       setTimeout(() => {
         setStatusMessage('Withdraw');
       }, 5000);
-    } finally {
       setIsButtonDisabled(false);
     }
   };
 
-
-return (
-  <div>
-    <button
-      className={`${styles.actionButton} ${isButtonDisabled ? styles.disabledButton : ''}`}
-      onClick={handleAction}
-      disabled={isButtonDisabled}
-    >
-      {/* Wrapper div for button content using flexbox */}
-      <div className={styles.buttonContent}>
-        {/* Main text */}
-        <span className={styles.mainText}>{statusMessage}</span>
-        {/* Smaller note */}
-        <span className={styles.noteInsideButton}>(leave blank for max)</span>
-      </div>
-    </button>
-  </div>
-);
-
-
-
+  return (
+    <div>
+      <button
+        className={`${styles.actionButton} ${isButtonDisabled || isLoading ? styles.disabledButton : ''} ${isSuccess && transactionInitiated ? styles.successPulse : isError && transactionInitiated ? styles.errorPulse : ''}`}
+        onClick={handleAction}
+        disabled={isButtonDisabled || isLoading}
+      >
+        <div className={styles.buttonContent}>
+          <span className={styles.mainText}>{isLoading ? 'Confirming' : statusMessage}</span>
+          <span className={styles.noteInsideButton}>(leave blank for max)</span>
+        </div>
+      </button>
+    </div>
+  );
 };
 
 export default WithdrawButton;

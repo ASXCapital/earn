@@ -59,15 +59,16 @@
 }
 .burger {
   cursor: pointer;
+  justify-self: end;
 }
 
 .dropdownMenu {
   position: absolute;
   top: 100%;
   left: 50px;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: #0ae1f04e;
   border-radius: 5px;
+  box-shadow: #0ae1f04e 0px 0px 10px 0px;
   padding: 10px;
   z-index: 1; /* Add this line */
 }
@@ -90,6 +91,7 @@
   display: flex;
   justify-content: center;
   gap: 20px;
+  cursor: pointer;
 }
 
 .navLinks a {
@@ -103,4 +105,6 @@
 .navLinks a:hover {
   background-color: #0bf3e7;
   color: #1a202c;
+  cursor: pointer;
+
 }
