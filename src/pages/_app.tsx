@@ -57,7 +57,7 @@ const PlenaConfig = {
 const config = getDefaultConfig({
   appName: 'ASX',
   projectId: projectId,
-  chains: [bsc, arbitrum, bscTestnet],
+  chains: [bsc],
   
   ssr: false,
 });

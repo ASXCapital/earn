@@ -20,14 +20,28 @@ const Footer = () => {
           </ul>
         </section>
       </div>
+      
       <h1><PartnerShowcase/></h1>
       <div className={styles.footerBottom}>
         <div className={styles.followUs}>
           <h4>Follow Us</h4>
           <div className={styles.socialLinks}>
-            <a href="https://twitter.com">Twitter</a>
-            <a href="https://linkedin.com">LinkedIn</a>
-            {/* Add more social links as needed */}
+            {/* LinkedIn Icon */}
+            <a href="https://linkedin.com" title="LinkedIn">
+              <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" style={{ width: '24px', marginRight: '10px' }} />
+            </a>
+            {/* Medium Icon */}
+            <a href="https://medium.com" title="Medium">
+              <img src="https://cdn-icons-png.flaticon.com/512/2111/2111505.png" alt="Medium" style={{ width: '24px', marginRight: '10px' }} />
+            </a>
+            {/* Your Brand Icon */}
+            <a href="https://yourbrand.com" title="Your Brand">
+              <img src="https://cdn-icons-png.flaticon.com/512/825/825540.png" alt="Your Brand" style={{ width: '24px', marginRight: '10px' }} />
+            </a>
+            {/* Telegram Icon */}
+            <a href="https://telegram.org" title="Telegram">
+              <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" style={{ width: '24px', marginRight: '10px' }} />
+            </a>
           </div>
         </div>
         <p className={styles.rights}>© {new Date().getFullYear()} Your Company. All rights reserved.</p>

@@ -106,13 +106,6 @@
 }
 
 
-.aprAndPrice {
-  flex: 1; /* Allow this section to grow and fill the space */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end; /* Align text to the end (right) */
-}
-
 .logoContainer {
   /* Center the logo container */
   display: flex;
@@ -128,27 +121,50 @@
 
 .titleAndTvl {
   flex: 1; /* Allow this section to grow and fill the space */
+
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align text to the start (left) */
 }
 
 .apr {
-  font-size: 22px;
+
   display: flex;
-  flex-direction: column;
-  align-items: flex-end; /* Changed for .apr to match .titleAndTvl */
+  flex-direction: row;
+  align-items: baseline; /* Changed for .apr to match .titleAndTvl */
   color: #00ffb7;
+  margin-top: -10px;
+  margin-bottom: -4px;
+  
 }
 
+.aprNumber {
+  font-size: 2.7rem; /* Adjust according to your preference */
+  color: #00ffb7;
 
+}
+
+.aprText {
+  font-size: 0.8rem; /* Half the size of aprNumber */
+  margin-left: 3px; /* Space between number and percent sign */
+  color: #00ffb7; /* You can adjust the color if needed */
+}
+
+.aprPercent{
+  font-size: 1.2rem; /* Adjust according to your preference */
+  margin-left: 5px; /* Space between percent sign and APR text */
+  color: #00ffb7; /* You can adjust the color if needed */
+  font-family: inherit; /* This will use the global font set for the website */
+}
 
 .poolTitle {
   margin: 0;
   font-family: Tahoma; /* Changed 'font' to 'font-family' */
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 500;
   color: #c3fdff;
+  display: flex;
+  align-items: center;
 }
 
 
@@ -176,6 +192,7 @@
   flex-direction: row;
   justify-content: space-between;
   gap: 4px; /* Space between the input and buttons */
+
  
 }
 
@@ -319,13 +336,10 @@ padding-left: 10px;
 padding-top: 4px;
 
 }
-.totalTVLContainer {
-  display: flex; /* Use inline-flex to keep flex properties */
-  align-items: flex-end; /* Center items vertically */
-  justify-content: flex-end; /* Center items horizontally */
+.TotalTVLContainer {
+  display:flex;
+  justify-content: flex-end;
 
-  padding: 10px; /* Reduce padding if necessary */
-  margin: 0; /* Ensure no default margin is applied */
 }
 
 .totalTVL {
@@ -362,4 +376,25 @@ padding-top: 4px;
 
 .errorPulse {
   animation: errorPulse 0.5s ease-in-out;
+}
+
+.PricesAndAPR{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex;
+  padding: 0px; /* Adjust padding as needed */
+}
+
+.UserStats{
+  flex: 1; /* Allow this section to grow and fill the space */
+  display: flex;
+  flex-direction: column;
+  align-items:stretch /* Align text to the end (right) */
+}
+
+.aprAndPrice {
+  flex: 1; /* Allow this section to grow and fill the space */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align text to the end (right) */
 }

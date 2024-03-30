@@ -3,28 +3,43 @@ import styles from '../styles/PartnerShowcase.module.css'; // Adjusted import pa
 
 const PartnerShowcase = () => {
     const partners = [
-        '/logos/partners/AveAi.png',
-        '/logos/partners/coingecko-branding-guide-8447de673439420efa0ab1e0e03a1f8b0137270fbc9c0b7c086ee284bd417fa1.webp',
-        '/logos/partners/color-white.svg',
-        '/logos/partners/d3ploy.png',
-        '/logos/partners/friend3.png',
-        '/logos/partners/PrismRE.png',
-        '/logos/partners/rainbow-logo.webp',
-        '/logos/partners/Safe_Logos_Partnerships_Powered-by_Green.svg',
-        '/logos/partners/Thumb_white_1.png',
+       { url: 'https://aveai.com/',
+        logo: '/logos/partners/aveai.png' },
+       { url: 'https://coingecko.com/',
+        logo: '/logos/partners/coingecko.webp' },
+       { url: 'https://d3ploy.com/',
+        logo: '/logos/partners/d3ploy.png' },
+       { url: 'https://friend3.com/',
+        logo: '/logos/partners/friend3.svg' },
+       { url: 'https://gnosis.io/',
+        logo: '/logos/partners/gnosis2.svg' },
+       { url: 'https://prismre.com/',
+        logo: '/logos/partners/PrismRE.png' },
+       { url: 'https://rainbow.me/',
+        logo: '/logos/partners/rainbow-logo.webp' },
+       { url: 'https://thumbtack.com/',
+        logo: '/logos/partners/bscn.png' },
+        { url: 'https://github.com/ASXCapital/earn', 
+        logo: '/logos/partners/wagmi.svg'}
     ];
+
+
 
     const doubledPartners = [...partners, ...partners]; // Duplicate the logos for seamless looping
 
     return (
         <div className={styles.partnerShowcaseContainer}>
-            {doubledPartners.map((logo, index) => (
+            {doubledPartners.map((partner, index) => (
                 <div key={index} className={styles.logoContainer}>
-                    <img src={logo} alt={`Partner ${index % partners.length + 1}`} className={styles.partnerLogo} />
+                    <a href={partner.url} target="_blank" rel="noopener noreferrer">
+                        <img src={partner.logo} alt={`Partner ${index % partners.length + 1}`} className={styles.partnerLogo} />
+                    </a>
                 </div>
             ))}
         </div>
-    );
-};
+        );
+        };
 
 export default PartnerShowcase;
+
+

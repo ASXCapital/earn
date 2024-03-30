@@ -20,6 +20,7 @@ import GetRewardButton from '../hooks/GetRewardButton';
 import { useTokenPricesContext } from '../contexts/TokenPricesContext';
 import { useMemo } from 'react';
 import { useTotalStaked } from '../hooks/useTotalStaked';
+import { useAccount } from 'wagmi';
 
 
 
@@ -187,7 +188,7 @@ useEffect(() => {
       const apr = totalTVLInUSD > 0 ? (totalRewardsPerYearInUSD / totalTVLInUSD) * 100 : 0;
 
       setApr(apr);
-      setAprStatus(`${apr.toFixed(2)}%`);
+      setAprStatus(`${apr.toFixed(2)}`);
     } catch (error) {
       console.error("Error calculating APR:", error);
       setAprStatus('Error');
@@ -332,24 +333,31 @@ useEffect(() => {
       <Image src="/logos/PancakeSwap Logos/Full Logo/color-white.svg" alt="PancakeSwap Logo" width={80} height={30}/>
     </a>
   </div>
-  <div className={styles.tvl}>TVL: <strong>${tvlInUSD}</strong></div>
+  
 </div>
 
         <div className={styles.logoContainer}>
           <Image src={imageSrc} alt="Token Logo" width={40} height={40} priority onError={handleImageError} />
         </div>
-        <div className={styles.aprAndPrice}>
-          <div className={styles.apr}> 
-        <div>{aprStatus} APR</div> 
-        </div>
-        <div>
+        <div className={styles.TotalTVLContainer}>
+        <div className={styles.tvl}>TVL: <strong>${tvlInUSD}</strong></div>
+      </div>
+      </div>
+      <div className={styles.cardBody}>
+      <div className={styles.PricesAndAPR}>
+      <div className={styles.aprAndPrice}>
+  <div className={styles.apr}>
+  <span className={styles.aprNumber}>{aprStatus}</span> 
+  <span className={styles.aprPercent}>%</span> 
+  <span className={styles.aprText}>APR</span>
+</div>
+<div>
   {pool.title} Price: $ 
   {pool.type === 'lp' ? lpTokenPriceUSD : prices[ASXTokenAddress.toLowerCase()] || 'Loading...'}
 </div>
 
         </div>
-      </div>
-      <div className={styles.cardBody}>
+        <div className={styles.UserStats}>
   <div className={styles.poolInfo}>
     <span>{pool.title} in Wallet:</span>
     {/* Use displayFormattedAmount for wallet balance, passing true for useLpTokenPrice if it's an LP token */}
@@ -364,7 +372,9 @@ useEffect(() => {
     <span>Claimable Rewards:</span>
     <span>{displayFormattedAmount(claimableRewards, ASXTokenAddress, '$ASX')}</span>
   </div>
+  </div>
 
+  </div>
 
 
         </div>
@@ -381,14 +391,14 @@ useEffect(() => {
       />
 
       <StakeButton
-        tokenAddress={pool.stakingToken.address}
-        stakingContractAddress={pool.stakingContract.address}
-        accountAddress={accountAddress}
-        amount={stakeAmount}
-        onUpdate={handleStakeUpdate}
-      />
+          tokenAddress={pool.stakingToken.address}
+          stakingContractAddress={pool.stakingContract.address}
+          
+          amount={stakeAmount}
+          onUpdate={handleStakeUpdate}
+                />
 
-      {/* Use the handleWithdraw function to conditionally set the withdrawal amount */}
+
       <WithdrawButton
         stakingContractAddress={pool.stakingContract.address}
       
