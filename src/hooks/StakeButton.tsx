@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useWriteContract, useWaitForTransactionReceipt, useReadContract, useAccount } from 'wagmi';
-import { ethers } from 'ethers';
+import { ethers, BigNumber } from 'ethers';
 import { ERC20ABI } from '../abis/ERC20ABI';
 import { ASXStakingABI } from '../abis/ASXStakingABI';
 import styles from '../styles/StakingPage.module.css';
-import { BigNumber } from 'ethers';
 
 const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate }) => {
   const [statusMessage, setStatusMessage] = useState('Approve');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [transactionHash, setTransactionHash] = useState(undefined);  // Use undefined initially
+  const [transactionHash, setTransactionHash] = useState('');
   const [transactionInitiated, setTransactionInitiated] = useState(false);
   const [needsApproval, setNeedsApproval] = useState(true);
-  const [currentAllowance, setCurrentAllowance] = useState(ethers.constants.Zero); // Corrected line here
+  const [currentAllowance, setCurrentAllowance] = useState(BigNumber.from(0));
 
   const { address: userAddress } = useAccount();
 
   const { writeContractAsync } = useWriteContract();
-  const { isLoading, isSuccess, isError } = useWaitForTransactionReceipt({ hash: transactionHash });
+
+  const { isLoading, isSuccess, isError } = useWaitForTransactionReceipt({
+    hash: transactionHash ? `0x${transactionHash.replace(/^0x/, '')}` : undefined,
+  });
 
   const { data: allowance } = useReadContract({
     address: tokenAddress,
@@ -28,7 +30,7 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate })
 
   useEffect(() => {
     if (allowance) {
-      setCurrentAllowance(BigNumber.from(allowance.toString())); // Use BigNumber for allowance
+      setCurrentAllowance(BigNumber.from(allowance.toString()));
     }
   }, [allowance]);
 
@@ -41,52 +43,88 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate })
   }, [amount, currentAllowance, isLoading, needsApproval]);
 
   useEffect(() => {
-    if (isSuccess && transactionInitiated) {
-      setStatusMessage('Success');
-      setTimeout(() => {
-        setStatusMessage(needsApproval ? 'Approve' : 'Stake');
-        setTransactionInitiated(false);
-        onUpdate();
-      }, 3000);
-    } else if (isError && transactionInitiated) {
-      setStatusMessage('Error');
-      setTimeout(() => {
-        setStatusMessage(needsApproval ? 'Approve' : 'Stake');
-        setTransactionInitiated(false);
-      }, 3000);
+    // Check if a transaction has been initiated and we have a valid hash
+    if (transactionInitiated && transactionHash) {
+      if (isLoading) {
+        setStatusMessage('Processing...');
+      } else if (isSuccess) {
+        setStatusMessage('Success');
+        setTimeout(() => {
+          setStatusMessage(needsApproval ? 'Approve' : 'Stake');
+          setTransactionInitiated(false);
+          onUpdate(); // Trigger any additional update logic
+        }, 3000); // Adjust delay as needed
+      } else if (isError) {
+        setStatusMessage('Error');
+        setTimeout(() => {
+          setStatusMessage(needsApproval ? 'Approve' : 'Stake');
+          setTransactionInitiated(false);
+        }, 3000); // Adjust delay as needed
+      }
     }
-  }, [isSuccess, isError, transactionInitiated, onUpdate, needsApproval]);
+  }, [isLoading, isSuccess, isError, transactionInitiated, onUpdate, transactionHash]);
+  
 
   const handleAction = async () => {
     if (isButtonDisabled || isLoading) return;
-
+  
     try {
+      setTransactionInitiated(false);
       let txResponse;
       if (needsApproval) {
-        setStatusMessage('Approving...');
-        txResponse = await writeContractAsync({
+        setStatusMessage('Approving..');
+        const txResponse = await writeContractAsync({
           abi: ERC20ABI,
           address: tokenAddress,
           functionName: 'approve',
           args: [stakingContractAddress, ethers.constants.MaxUint256.toString()],
         });
+        setTransactionHash(txResponse);
+        setTransactionInitiated(true);
       } else {
-        setStatusMessage('Staking...');
+        setStatusMessage('Staking..');
         txResponse = await writeContractAsync({
           abi: ASXStakingABI,
           address: stakingContractAddress,
           functionName: 'stake',
           args: [ethers.utils.parseEther(amount)],
         });
+        setTransactionHash(txResponse);
+        setTransactionInitiated(true);
       }
-      setTransactionHash(txResponse.hash); // Directly use the transaction hash
-      setTransactionInitiated(true);
+      
     } catch (error) {
       console.error('Transaction error:', error);
       setStatusMessage('Error');
-      setTimeout(() => setStatusMessage(needsApproval ? 'Approve' : 'Stake'), 5000);
+      setTimeout(() => setStatusMessage(needsApproval ? 'Approve' : 'Stake'), 3000);
+      setTransactionInitiated(false);
     }
   };
+  console.log('transaction hash',transactionHash,'isLoading?', isLoading,'isSuccess', isSuccess, isError, statusMessage, transactionInitiated, needsApproval, currentAllowance, isButtonDisabled, amount, userAddress, tokenAddress, stakingContractAddress, onUpdate)
+  
+  useEffect(() => {
+    if (transactionHash) {
+      if (isLoading) {
+        // This ensures the message is set to processing right after transaction initiation
+        setStatusMessage('Confrming');
+      } else if (isSuccess) {
+        setStatusMessage('Success');
+        setTimeout(() => {
+          setStatusMessage(needsApproval ? 'Approve' : 'Stake');
+          setTransactionInitiated(false);
+          onUpdate(); // If you have an update function to refresh the state or UI
+        }, 3000);
+      } else if (isError) {
+        setStatusMessage('Error');
+        setTimeout(() => {
+          setStatusMessage(needsApproval ? 'Approve' : 'Stake');
+          setTransactionInitiated(false);
+        }, 3000);
+      }
+    }
+  }, [isLoading, isSuccess, isError, transactionHash]);
+  
+  
 
   return (
     <div>

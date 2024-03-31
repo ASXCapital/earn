@@ -1,84 +1,110 @@
 .footer {
-  background-color: #1a1f24; /* Dark background for the footer */
-  color: #fff; /* White text color */
-  padding: 40px 20px; /* Padding around the footer */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Professional font */
+  background: linear-gradient(180deg, #000 0%, #1f1f1f 10%, #138580 50%, #0dd7cd 75%, #00d46a 100%);
+  color: #fff;
+  padding: 20px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .footerContent {
   display: flex;
-  flex-direction: row; /* Stack the sections next to each other */
-  justify-content: space-around; /* Evenly distribute space around the sections */
-  align-items: center; /* Align items vertically */
-  flex-wrap: wrap; /* Wrap on smaller screens */
-
-  max-width: 1200px; /* Increased width of the footer */
-  margin: 0 auto 40px; /* Center the footer and add spacing at the bottom */
-  padding: 0 20px; /* Padding around the footer */
-
-  color: #fff; /* White text color */
-  font-size: 16px; /* Larger font size for text */
-  line-height: 1.5; /* Line height for text */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Professional font */
-  text-align: left; /* Align text to the left */
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: left;
 }
-
 
 .footerSection {
   flex: 1;
-  min-width: 220px; /* Minimum width for sections */
-  padding: 0 40px; /* Add padding to individual sections */
+  min-width: 220px;
+  padding: 0 40px;
 }
 
 .footerSection h4 {
-  margin-bottom: 20px; /* Space below headings */
-  font-size: 18px; /* Larger font size for headings */
+  margin-bottom: 20px;
+  font-size: 18px;
 }
 
 .footerSection ul {
-  list-style: none; /* Remove bullet points */
-  padding: 0; /* Remove padding */
+  list-style: none;
+  padding: 0;
 }
 
 .footerSection li {
-  margin-bottom: 10px; /* Space between list items */
+  margin-bottom: 10px;
 }
 
 .footerSection li a {
-  color: #0bf3e7; /* Bright color for links */
-  text-decoration: none; /* Remove underline */
-  transition: color 0.3s; /* Smooth transition for hover effect */
+  color: #0bf3e7;
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
 .footerSection li a:hover {
-  color: #ffffff; /* White color on hover */
-  text-decoration: underline; /* Underline on hover */
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 .footerBottom {
   display: flex;
-  justify-content: space-between; /* Space between follow us and rights */
-  align-items: center; /* Align items vertically */
-  flex-wrap: wrap; /* Wrap on smaller screens */
-  border-top: 1px solid #2e353c; /* Separator */
-  padding-top: 20px; /* Padding above the separator */
+  justify-content: space-between; /* Ensure elements are spread out */
+  align-items: center; /* Vertically center the items */
+  border-top: 1px solid #2e353c; /* Add a top border for visual separation */
+  padding-top: 20px; /* Add some padding at the top */
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
 
 .followUs {
-  text-align: left; /* Align follow us section to the left */
+  display: flex;
+  align-items: center;
 }
 
 .rights {
-  text-align: right; /* Align rights reserved to the right */
-  font-size: 14px; /* Smaller font size for the copyright text */
+  text-align: right; /* Right-align the copyright text */
+  font-size: 14px; /* Set a suitable font size */
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center; /* Vertically align icons */
 }
 
 .socialLinks a {
-  margin-right: 15px; /* Space between social links */
-  display: inline-block; /* Allow margins to take effect */
-  transition: color 0.3s; /* Smooth transition for hover effect */
+  margin-right: 10px; /* Add some space between icons */
 }
 
-.socialLinks a:hover {
-  color: #ffffff; /* White color on hover */
+.socialLinks a:last-child {
+  margin-right: 0; /* Remove margin for the last icon */
+}
+
+.socialLinks a img {
+  width: 24px; /* Set a fixed width for icons */
+}
+
+.joinUsText {
+  text-align: center; /* Center-align the text */
+  flex-grow: 1; /* Allow the text to take up available space */
+  padding: 0 20px; /* Add some horizontal padding */
+  font-size: 10px; /* Set a smaller font size */
+}
+
+@media (max-width: 768px) {
+  .footerBottom {
+    flex-direction: column; /* Stack elements on top of each other on small screens */
+    text-align: center; /* Center-align everything */
+  }
+
+  .socialLinks, .joinUsText, .rights {
+    margin-bottom: 10px; /* Add some vertical space between items */
+  }
+
+  .socialLinks, .rights {
+    justify-content: center; /* Center-align icons and text */
+  }
 }

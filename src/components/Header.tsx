@@ -19,10 +19,12 @@ const Header = () => {
       <div style={{ position: 'absolute', top: 0, width: '100%', zIndex: 1 }}>
         <CoinGeckoWidget />
       </div>
+      
       <nav className={styles.navbar} style={{ marginTop: '30px' }}> {/* Adjust the marginTop value as needed */}
         <Link href="/" passHref>
           <Image src={logo} alt="ASX Logo" width={100} height={37} className={styles.logo} />
         </Link>
+        <div className={styles.WalletAndBurger}>
         <div className={styles.burger} onClick={toggleMenu}>
           &#9776;
         </div>
@@ -46,6 +48,8 @@ const Header = () => {
           </div>
         )}
         <ConnectButton />
+        
+        </div>
       </nav>
     </header>
   );

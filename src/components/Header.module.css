@@ -11,7 +11,6 @@
 }
 
 .header {
-  
   position: fixed;
   width: 100%;
   top: 0;
@@ -24,8 +23,7 @@
   align-items: center;
   border-bottom: 1px solid #00fff7;
   overflow: visible;
-  box-sizing: border-box; /* Make sure padding is included in the width */
-  
+  box-sizing: border-box;
 }
 
 .header::after {
@@ -33,55 +31,80 @@
   position: absolute;
   bottom: 0;
   height: 4px;
-  left: -150%; /* Start off-screen */
-  width: 300%; /* Ensure it covers the entire header width during animation */
+  left: -150%;
+  width: 300%;
   background: linear-gradient(90deg, transparent, #00ffbf, transparent);
   animation: moveLight 20s infinite linear;
 }
 
 .navbar, .navLinks, .navLinks a {
-  box-sizing: border-box; /* Apply border-box to child elements */
+  box-sizing: border-box;
+  
 }
 
-/* Example media query for smaller screens */
 @media (max-width: 768px) {
   .header {
-    padding: 1rem; /* Reduce padding on smaller screens */
+    padding: 1rem;
   }
-
   .navLinks {
-    gap: 10px; /* Reduce gap between nav links */
+    gap: 10px;
   }
-
   .navLinks a {
-    padding: 0.5rem; /* Adjust padding for nav links */
+    padding: 0.5rem;
   }
 }
+
 .burger {
   cursor: pointer;
-  justify-self: end;
 }
 
 .dropdownMenu {
   position: absolute;
   top: 100%;
-  left: 50px;
-  background-color: #0ae1f04e;
+  right: 0;
+  background-color: rgba(10, 225, 240, 0.3); /* Semi-transparent background */
   border-radius: 5px;
-  box-shadow: #0ae1f04e 0px 0px 10px 0px;
   padding: 10px;
-  z-index: 1; /* Add this line */
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(10, 225, 240, 0.3);
 }
 
 .dropdownItem {
-  display: block;
-  padding: 5px 10px;
-  text-decoration: none;
-  color: #000;
+  display: block; /* Stack items vertically */
+  padding: 10px; /* Uniform padding for each item */
+  color: #ffffff; /* White text for better readability */
+  text-decoration: none; /* Remove underline from links */
+  transition: background-color 0.3s ease; /* Transition for hover effect */
+  font-size: .9rem;
+}
+
+.dropdownItem:hover {
+  background-color: #0ae1f0; /* Highlight item on hover */
+  color: #000000; /* Change text color for contrast */
+}
+
+/* Remove any border, box-shadow, or background styling that causes 'box' appearance */
+.dropdownMenu {
+  border: none;
+  box-shadow: #00ffe529;;
+  background-color: #00ffe529;
+  backdrop-filter: blur(10px);
+}
+
+.dropdownItem {
+  background-color: transparent; /* Transparent background for items */
+  border: none;
+  box-shadow: none;
+}
+
+/* On hover, only change the text color instead of adding a background */
+.dropdownItem:hover {
+  background-color: transparent; /* Keep background transparent on hover */
+  color: #0ae1f0; /* Only text color changes on hover */
 }
 
 .navbar {
-  position: relative; /* Add this line */
+  position: relative;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -105,6 +128,10 @@
 .navLinks a:hover {
   background-color: #0bf3e7;
   color: #1a202c;
-  cursor: pointer;
+}
 
+.WalletAndBurger {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
