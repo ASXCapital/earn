@@ -27,10 +27,9 @@ import { UseConfigParameters } from 'wagmi';
 import { coinbaseWallet, ledgerWallet, zerionWallet,
   trustWallet, metaMaskWallet, rainbowWallet, roninWallet,
 braveWallet, uniswapWallet, injectedWallet/*FALLBACK*/ } from '@rainbow-me/rainbowkit/wallets';
+
 import { TokenPricesProvider } from '../contexts/TokenPricesContext';
 
-
-import { PlenaWalletProvider } from "plena-connect-dapp-sdk";
 
 
 const projectId = "3d9fa35fb220fd48a2ede5c61b71ca78";
@@ -43,7 +42,7 @@ const connectors = connectorsForWallets(
     },
     {
       groupName: 'Explore More',
-      wallets: [zerionWallet,  rainbowWallet, uniswapWallet, roninWallet, braveWallet, injectedWallet/*FALLBACK*/],
+      wallets: [zerionWallet,  rainbowWallet, uniswapWallet, /*FALLBACK*/],
     },
   ],
   { appName: 'ASX', projectId: projectId },
@@ -52,19 +51,11 @@ const connectors = connectorsForWallets(
 
 
 
-const PlenaConfig = {
-  dappToken: "ASX",
-  dappId: "none",
-  bridgeUrl: "none",
-};
-
-
-
 const config = getDefaultConfig({
   appName: 'ASX',
   projectId: projectId,
   chains: [bsc],
-  transports: [],
+  connectors: connectors,
   ssr: false,
 });
 
