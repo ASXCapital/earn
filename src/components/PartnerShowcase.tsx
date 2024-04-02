@@ -3,12 +3,12 @@ import styles from '../styles/PartnerShowcase.module.css'; // Adjusted import pa
 
 const PartnerShowcase = () => {
     const partners = [
-     {/*}
+   
      
         { url: 'https://ave.ai/token/0xebd3619642d78f0c98c84f6fa9a678653fb5a99b-bsc?from=Default',
         logo: '/logos/partners/AveAi.png' },
 
-    */},
+    
 
        { url: 'https://www.coingecko.com/en/coins/asx-capital',
         logo: '/logos/partners/coingecko.webp' },
