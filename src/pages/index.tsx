@@ -21,7 +21,7 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          Explore our variety of earning products and maximize your returns.
+          Welcome to the preview of ASX Earn. The future hub for yield optimization.
         </p>
 
         <div className={styles.grid}>
@@ -31,7 +31,7 @@ const Home: NextPage = () => {
               <p>Stake your ASX tokens and earn rewards.</p>
             </div>
           </Link>
-
+{/*}
           <Link href="/vaults" passHref>
             <div className={styles.card}>
               <h2>Vaults &rarr;</h2>
@@ -59,6 +59,9 @@ const Home: NextPage = () => {
               <p>Explore tokenized real-world asset opportunities.</p>
             </div>
           </Link>
+
+  */}
+
         </div>
       </main>
     </div>
