@@ -4,6 +4,7 @@ import { ethers, BigNumber } from 'ethers';
 import { ERC20ABI } from '../abis/ERC20ABI';
 import { ASXStakingABI } from '../abis/ASXStakingABI';
 import styles from '../styles/StakingPage.module.css';
+import { useAddRecentTransaction } from '@rainbow-me/rainbowkit';
 
 const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate }) => {
   const [statusMessage, setStatusMessage] = useState('Approve');
@@ -12,11 +13,9 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate })
   const [transactionInitiated, setTransactionInitiated] = useState(false);
   const [needsApproval, setNeedsApproval] = useState(true);
   const [currentAllowance, setCurrentAllowance] = useState(BigNumber.from(0));
-
   const { address: userAddress } = useAccount();
-
   const { writeContractAsync } = useWriteContract();
-
+  const addRecentTransaction = useAddRecentTransaction();
   const { isLoading, isSuccess, isError } = useWaitForTransactionReceipt({
     hash: transactionHash ? `0x${transactionHash.replace(/^0x/, '')}` : undefined,
   });
@@ -46,9 +45,9 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate })
     // Check if a transaction has been initiated and we have a valid hash
     if (transactionInitiated && transactionHash) {
       if (isLoading) {
-        setStatusMessage('Processing...');
+        setStatusMessage('Processing');
       } else if (isSuccess) {
-        setStatusMessage('Success');
+        setStatusMessage('Success!');
         setTimeout(() => {
           setStatusMessage(needsApproval ? 'Approve' : 'Stake');
           setTransactionInitiated(false);
@@ -80,6 +79,10 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate })
           args: [stakingContractAddress, ethers.constants.MaxUint256.toString()],
         });
         setTransactionHash(txResponse);
+        addRecentTransaction({
+          hash: txResponse,
+          description: 'Approval', // Customize this description
+        });
         setTransactionInitiated(true);
       } else {
         setStatusMessage('Staking..');
@@ -90,6 +93,10 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate })
           args: [ethers.utils.parseEther(amount)],
         });
         setTransactionHash(txResponse);
+        addRecentTransaction({
+          hash: txResponse,
+          description: 'Stake', // Customize this description
+        });
         setTransactionInitiated(true);
       }
       

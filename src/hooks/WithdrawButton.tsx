@@ -3,12 +3,15 @@ import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { ethers } from 'ethers';
 import { ASXStakingABI } from '../abis/ASXStakingABI';
 import styles from '../styles/StakingPage.module.css';
+import { useAddRecentTransaction } from '@rainbow-me/rainbowkit';
+
 
 const WithdrawButton = ({ stakingContractAddress, amount, onUpdate }) => {
   const [statusMessage, setStatusMessage] = useState('Withdraw');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [transactionHash, setTransactionHash] = useState('');
   const [transactionInitiated, setTransactionInitiated] = useState(false);
+  const addRecentTransaction = useAddRecentTransaction();
 
   useEffect(() => {
     setIsButtonDisabled(!amount || amount === '0' || isNaN(amount));
@@ -51,6 +54,10 @@ const WithdrawButton = ({ stakingContractAddress, amount, onUpdate }) => {
       });
       setTransactionHash(txResponse); // Corrected to use txResponse.hash
       setTransactionInitiated(true);
+      addRecentTransaction({
+        hash: txResponse,
+        description: 'Withdraw', // Customize this description
+      });
     } catch (error) {
       console.error('Withdrawal error:', error);
       setStatusMessage('Error');

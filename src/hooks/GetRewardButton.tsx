@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { ASXStakingABI } from '../abis/ASXStakingABI';
 import styles from '../styles/StakingPage.module.css';
+import { useAddRecentTransaction } from '@rainbow-me/rainbowkit';
+
 
 const GetRewardButton = ({ stakingContractAddress, onUpdate }) => {
   const [statusMessage, setStatusMessage] = useState('Claim');
   const [transactionHash, setTransactionHash] = useState('');
   const [transactionInitiated, setTransactionInitiated] = useState(false);
-
+  const addRecentTransaction = useAddRecentTransaction();
   const { writeContractAsync } = useWriteContract();
 
   const { isLoading, isSuccess, isError } = useWaitForTransactionReceipt({
@@ -37,7 +39,11 @@ const GetRewardButton = ({ stakingContractAddress, onUpdate }) => {
         address: stakingContractAddress,
         functionName: 'getReward',
       });
-      setTransactionHash(txResponse); // Ensure to use txResponse.hash for the transaction hash
+      setTransactionHash(txResponse);
+      addRecentTransaction({
+        hash: txResponse,
+        description: 'Claim', // Customize this description
+      }); // Ensure to use txResponse.hash for the transaction hash
     } catch (error) {
       console.error('Reward claim error:', error);
       setStatusMessage('Error');

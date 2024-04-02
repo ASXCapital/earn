@@ -135,3 +135,17 @@
   gap: 20px;
   align-items: center;
 }
+
+.LogoAndInfo {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.TokenInfo{
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  justify-content:baseline;
+  
+}

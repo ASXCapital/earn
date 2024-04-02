@@ -7,7 +7,7 @@
   margin-top: 150px;
 
   border-radius: 20px;
-  color: #5fadab;
+  color: #98d5d3;
   
   box-shadow: 0 8px 32px 0 rgba(139, 26, 164, 0.37);
   backdrop-filter: blur(8.5px) ;
@@ -110,9 +110,15 @@
 .logoContainer {
   /* Center the logo container */
   display: flex;
-  
   justify-content: center;
   flex: 1; /* Prevents the logo container from growing */
+}
+
+.logoContainer img {
+  /* Ensure the image maintains its aspect ratio */
+  object-fit: contain; /* or object-fit: cover; depending on your preference */
+  max-width: 100%; /* Maximum width of the image container */
+  max-height: 100%; /* Maximum height of the image container */
 }
 
 .spacer {
@@ -259,7 +265,7 @@
 
 .cardFooter {
   text-align: center;
-  padding: 1px;
+  margin-bottom: 2px;
   font-weight: 200;
   color: #42817e;
   font-size: 0.75rem;

@@ -6,6 +6,8 @@ import styles from './Header.module.css'; // Ensure this path is correct
 import Image from 'next/image'; // Import the Image component for optimized images
 import logo from '/public/logo.png'; // Import the logo image
 import CoinGeckoWidget from '../utils/CoinGeckoWidget'; // adjust the path as needed
+import TokenInfo from '../components/TokenInfo';
+
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,14 +19,25 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div style={{ position: 'absolute', top: 0, width: '100%', zIndex: 1 }}>
-        <CoinGeckoWidget />
+      {/*        }<CoinGeckoWidget />     */}
       </div>
-      
-      <nav className={styles.navbar} style={{ marginTop: '30px' }}> {/* Adjust the marginTop value as needed */}
+      <nav className={styles.navbar} style={{ marginTop: '0px' }}> {/* Adjust the marginTop value as needed */}
+      <div className={styles.LogoAndInfo}>
         <Link href="/" passHref>
           <Image src={logo} alt="ASX Logo" width={100} height={37} className={styles.logo} />
+          
         </Link>
+        <div className={styles.TokenInfo}>
+          <TokenInfo />
+          </div>
+        </div>
+
         <div className={styles.WalletAndBurger}>
+
+
+{/*}
+
+
         <div className={styles.burger} onClick={toggleMenu}>
           &#9776;
         </div>
@@ -47,6 +60,10 @@ const Header = () => {
             </Link>
           </div>
         )}
+
+
+        */}
+        
         <ConnectButton />
         
         </div>

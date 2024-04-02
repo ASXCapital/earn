@@ -20,7 +20,11 @@ const PartnerShowcase = () => {
        { url: 'https://www.bsc.news/search?query=asx',
         logo: '/logos/partners/bscn.png' },
         { url: 'https://github.com/ASXCapital/earn', 
-        logo: '/logos/partners/wagmi.svg'}
+        logo: '/logos/partners/wagmi.svg'},
+        { url: 'https://coredao.org/',
+        logo: '/logos/partners/core.svg' },
+        { url: 'https://www.dextools.io/app/en/bnb/pair-explorer/0x9f0faa9668ca7f0a0c1cef0d267fcd3af388941b?t=1711849478235',
+        logo: '/logos/partners/dextools.svg' },
     ];
 
 

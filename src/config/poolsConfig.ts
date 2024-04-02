@@ -1,7 +1,6 @@
 // asx/src/config/poolsConfig.ts
 
 
-
 import { contracts } from './contracts';
 import { ASXStakingABI } from '../abis/ASXStakingABI';
 import { PancakeV2LPABI } from '../abis/PancakeV2LPABI';
@@ -21,14 +20,14 @@ type PoolType = 'single' | 'lp';
 export interface ConstituentToken {
   address: string;
   symbol: string;
-  abi: any; // Replace 'any' with your ABI type if available
+  abi: any; 
 }
 
 export interface StakingToken {
   image: any;
   address: string;
   symbol: string;
-  abi: any; // Replace 'any' with your ABI type if available
+  abi: any; 
   buyLink: string;
   constituents?: {
     token1: ConstituentToken;
@@ -36,7 +35,6 @@ export interface StakingToken {
   };
 }
 
-// Export the PoolConfig interface as well
 export interface PoolConfig {
   id: string;
   title: string;
@@ -45,11 +43,11 @@ export interface PoolConfig {
   rewardToken: {
     address: string;
     symbol: string;
-    abi: any; // Replace 'any' with your ABI type if available
+    abi: any; 
   };
   stakingContract: {
     address: string;
-    abi: any; // Replace 'any' with your ABI type if available
+    abi: any; 
   };
 }
 
@@ -58,13 +56,13 @@ export const poolsConfig: PoolConfig[] = [
   {
     id: 'asxasx',
     title: 'ASX',
-    type: 'single', // Indicate this is a single token pool
+    type: 'single', 
     stakingToken: {
       address: contracts.bscTokens.ASX,
       symbol: 'ASX',
       abi: ASXABI,
       buyLink: 'https://pancakeswap.finance/swap?outputCurrency=0xebD3619642d78F0C98c84f6Fa9a678653fB5A99B',
-      image: '/asxx5.png'
+      image: '/logo.png'
     },
     rewardToken: {
       address: ASX,
@@ -91,7 +89,6 @@ export const poolsConfig: PoolConfig[] = [
           address: ASX,
           symbol: 'ASX',
           abi: ASXABI,
-          
         },
         token2: {
           address: BNB,

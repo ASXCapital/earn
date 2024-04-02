@@ -4,11 +4,15 @@ import React from 'react';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider, createConfig, http } from 'wagmi';
+
+
+
 import { bsc, arbitrum, bscTestnet } from 'wagmi/chains';
 import '@rainbow-me/rainbowkit/styles.css'
 import { 
   DisclaimerComponent, 
   getDefaultConfig, 
+  getDefaultWallets,
   RainbowKitProvider, 
   midnightTheme, 
   connectorsForWallets,
@@ -46,6 +50,8 @@ const connectors = connectorsForWallets(
 );
 
 
+
+
 const PlenaConfig = {
   dappToken: "ASX",
   dappId: "none",
@@ -58,7 +64,7 @@ const config = getDefaultConfig({
   appName: 'ASX',
   projectId: projectId,
   chains: [bsc],
-  
+  transports: [],
   ssr: false,
 });
 
@@ -86,6 +92,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       client={queryClient}>
         <RainbowKitProvider
           initialChain={56}
+          
           showRecentTransactions={true}
           appInfo={{
             appName: 'ASX',
@@ -98,7 +105,10 @@ function MyApp({ Component, pageProps }: AppProps) {
             borderRadius: 'medium',
             fontStack: 'system',
             overlayBlur: 'small',
-          })}>
+          })}
+
+          
+          >
             <TokenPricesProvider>
             <PoolDataProvider>
             <Layout>

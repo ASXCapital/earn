@@ -1,21 +1,32 @@
+{/*}
+
 import React, { useState, useEffect } from 'react';
-import { useWriteContract, useReadContract, useWaitForTransactionReceipt } from 'wagmi';
-import { ethers } from 'ethers';
+import { useWriteContract, useWaitForTransactionReceipt, useReadContract, useAccount } from 'wagmi';
+import { ethers, BigNumber } from 'ethers';
 import { ERC20ABI } from '../abis/ERC20ABI';
 import { ASXStakingABI } from '../abis/ASXStakingABI';
 import styles from '../styles/StakingPage.module.css';
-import { BigNumber } from 'ethers';
+import { useAddRecentTransaction } from '@rainbow-me/rainbowkit';
 
-const StakeButton = ({ tokenAddress, stakingContractAddress, accountAddress, amount, onUpdate }) => {
-  const [statusMessage, setStatusMessage] = useState('Stake');
+const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate }) => {
+  const [statusMessage, setStatusMessage] = useState('Approve');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [currentAllowance, setCurrentAllowance] = useState(ethers.constants.Zero); // Initialize with Zero
+  const [transactionHash, setTransactionHash] = useState('');
+  const [transactionInitiated, setTransactionInitiated] = useState(false);
+  const [needsApproval, setNeedsApproval] = useState(true);
+  const [currentAllowance, setCurrentAllowance] = useState(BigNumber.from(0));
+  const { address: userAddress } = useAccount();
+  const { writeContractAsync } = useWriteContract();
+  const addRecentTransaction = useAddRecentTransaction();
+  const { isLoading, isSuccess, isError } = useWaitForTransactionReceipt({
+    hash: transactionHash ? `0x${transactionHash.replace(/^0x/, '')}` : undefined,
+  });
 
   const { data: allowance } = useReadContract({
     address: tokenAddress,
     abi: ERC20ABI,
     functionName: 'allowance',
-    args: [accountAddress, stakingContractAddress],
+    args: [userAddress, stakingContractAddress],
   });
 
   useEffect(() => {
@@ -25,64 +36,117 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, accountAddress, amo
   }, [allowance]);
 
   useEffect(() => {
-    const isAmountInvalid = !amount || parseFloat(amount) <= 0 || isNaN(amount);
-    setIsButtonDisabled(isAmountInvalid);
-
-    if (!isAmountInvalid) {
-      const requiredAmount = ethers.utils.parseEther(amount || '0');
-      const isApprovalNeeded = currentAllowance.lt(requiredAmount);
-      setStatusMessage(isApprovalNeeded ? 'Approve' : 'Stake');
-    }
-  }, [amount, currentAllowance]);
-
-  const { writeContractAsync } = useWriteContract();
-  const { data: transactionReceipt } = useWaitForTransactionReceipt();
+    const requiredAmount = ethers.utils.parseEther(amount || '0');
+    const approvalNeeded = currentAllowance.lt(requiredAmount);
+    setNeedsApproval(approvalNeeded);
+    setIsButtonDisabled(!amount || amount === '0' || isNaN(amount) || isLoading);
+    setStatusMessage(approvalNeeded ? 'Approve' : 'Stake');
+  }, [amount, currentAllowance, isLoading, needsApproval]);
 
   useEffect(() => {
-    if (transactionReceipt) {
-      setStatusMessage('Success!');
-
-      
-      onclick=() => setStatusMessage('Stake');
-      setTimeout(() => setStatusMessage('Stake'), 3000); // Reset to 'Stake' after a delay
-      onUpdate();
+    // Check if a transaction has been initiated and we have a valid hash
+    if (transactionInitiated && transactionHash) {
+      if (isLoading) {
+        setStatusMessage('Processing');
+      } else if (isSuccess) {
+        setStatusMessage('Success!');
+        setTimeout(() => {
+          setStatusMessage(needsApproval ? 'Approve' : 'Stake');
+          setTransactionInitiated(false);
+          onUpdate(); // Trigger any additional update logic
+        }, 3000); // Adjust delay as needed
+      } else if (isError) {
+        setStatusMessage('Error');
+        setTimeout(() => {
+          setStatusMessage(needsApproval ? 'Approve' : 'Stake');
+          setTransactionInitiated(false);
+        }, 3000); // Adjust delay as needed
+      }
     }
-  }, [transactionReceipt, onUpdate]);
+  }, [isLoading, isSuccess, isError, transactionInitiated, onUpdate, transactionHash]);
+  
 
   const handleAction = async () => {
-    setIsButtonDisabled(true);
-    const actionType = statusMessage === 'Approve' ? 'Approving...' : 'Staking...';
-    setStatusMessage(actionType);
-
+    if (isButtonDisabled || isLoading) return;
+  
     try {
-      const args = statusMessage === 'Approve' ? [stakingContractAddress, ethers.constants.MaxUint256] : [ethers.utils.parseEther(amount)];
-      await writeContractAsync({
-        abi: statusMessage === 'Approve' ? ERC20ABI : ASXStakingABI,
-        address: statusMessage === 'Approve' ? tokenAddress : stakingContractAddress,
-        functionName: statusMessage === 'Approve' ? 'approve' : 'stake',
-        args,
-      });
+      setTransactionInitiated(false);
+      let txResponse;
+      if (needsApproval) {
+        setStatusMessage('Approving..');
+        const txResponse = await writeContractAsync({
+          abi: ERC20ABI,
+          address: tokenAddress,
+          functionName: 'approve',
+          args: [stakingContractAddress, ethers.constants.MaxUint256.toString()],
+        });
+        setTransactionHash(txResponse);
+        addRecentTransaction({
+          hash: txResponse,
+          description: 'Approval', // Customize this description
+        });
+        setTransactionInitiated(true);
+      } else {
+        setStatusMessage('Staking..');
+        txResponse = await writeContractAsync({
+          abi: ASXStakingABI,
+          address: stakingContractAddress,
+          functionName: 'stake',
+          args: [ethers.utils.parseEther(amount)],
+        });
+        setTransactionHash(txResponse);
+        addRecentTransaction({
+          hash: txResponse,
+          description: 'Stake', // Customize this description
+        });
+        setTransactionInitiated(true);
+      }
+      
     } catch (error) {
-      console.error('Action error:', error);
+      console.error('Transaction error:', error);
       setStatusMessage('Error');
-      onclick=() => setStatusMessage('Approve');
-       // Assume 'Approve' is needed after an error
-    } finally {
-      setIsButtonDisabled(false);
+      setTimeout(() => setStatusMessage(needsApproval ? 'Approve' : 'Stake'), 3000);
+      setTransactionInitiated(false);
     }
   };
+  console.log('transaction hash',transactionHash,'isLoading?', isLoading,'isSuccess', isSuccess, isError, statusMessage, transactionInitiated, needsApproval, currentAllowance, isButtonDisabled, amount, userAddress, tokenAddress, stakingContractAddress, onUpdate)
+  
+  useEffect(() => {
+    if (transactionHash) {
+      if (isLoading) {
+        // This ensures the message is set to processing right after transaction initiation
+        setStatusMessage('Confrming');
+      } else if (isSuccess) {
+        setStatusMessage('Success');
+        setTimeout(() => {
+          setStatusMessage(needsApproval ? 'Approve' : 'Stake');
+          setTransactionInitiated(false);
+          onUpdate(); // If you have an update function to refresh the state or UI
+        }, 3000);
+      } else if (isError) {
+        setStatusMessage('Error');
+        setTimeout(() => {
+          setStatusMessage(needsApproval ? 'Approve' : 'Stake');
+          setTransactionInitiated(false);
+        }, 3000);
+      }
+    }
+  }, [isLoading, isSuccess, isError, transactionHash]);
+  
+  
 
   return (
     <div>
       <button
-        className={`${styles.actionButton} ${isButtonDisabled ? styles.disabledButton : ''}`}
+        className={`${styles.actionButton} ${isButtonDisabled || isLoading ? styles.disabledButton : ''} ${isSuccess && transactionInitiated ? styles.successPulse : isError && transactionInitiated ? styles.errorPulse : ''}`}
         onClick={handleAction}
-        disabled={isButtonDisabled}
+        disabled={isButtonDisabled || isLoading}
       >
-        {statusMessage}
+        {isLoading ? 'Processing...' : statusMessage}
       </button>
     </div>
   );
 };
 
 export default StakeButton;
+*/}

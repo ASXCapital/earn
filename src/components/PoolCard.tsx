@@ -56,6 +56,8 @@ interface PoolCardProps {
 const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onTVLChange, }) => {
   const prices = useTokenPricesContext();
 
+  
+
   const { totalStaked, isLoading: isTotalStakedLoading } = useTotalStaked(pool.stakingContract.address);
 
 

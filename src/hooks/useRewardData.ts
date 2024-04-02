@@ -2,7 +2,7 @@
 import { useReadContract } from 'wagmi';
 import { ASXStakingABI } from '../abis/ASXStakingABI'; // Adjust the import path according to your project structure
 import { ethers } from 'ethers';
-import { connectorsForWallets } from '@rainbow-me/rainbowkit';
+
 
 export const useRewardData = (stakingContractAddress: string, rewardTokenAddress: string) => {
   const { data, isError, isLoading } = useReadContract({
