@@ -17,7 +17,7 @@
   left: 0;
   z-index: 10;
   background-color: #000000;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -75,7 +75,7 @@
   color: #ffffff; /* White text for better readability */
   text-decoration: none; /* Remove underline from links */
   transition: background-color 0.3s ease; /* Transition for hover effect */
-  font-size: .9rem;
+  font-size: 1.2rem;
 }
 
 .dropdownItem:hover {

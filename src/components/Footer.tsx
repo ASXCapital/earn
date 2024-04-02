@@ -10,6 +10,9 @@ const Footer = () => {
          
          
         </section>
+
+
+        {/*}
         <section className={styles.footerSection}>
           <h4>Quick Links</h4>
           <ul>
@@ -18,12 +21,13 @@ const Footer = () => {
             <li><a href="/contact">Contact Us</a></li>
           </ul>
         </section>
+         */}
       </div>
-      
+     
       <h1><PartnerShowcase/></h1>
       <div className={styles.footerBottom}>
        
-          
+  
         
     
 

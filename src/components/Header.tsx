@@ -32,10 +32,12 @@ const Header = () => {
           </div>
         </div>
 
+
+{/*}
         <div className={styles.WalletAndBurger}>
 
 
-{/*}
+
 
 
         <div className={styles.burger} onClick={toggleMenu}>
@@ -46,6 +48,11 @@ const Header = () => {
             <Link href="/staking" passHref>
               <button className={styles.dropdownItem}>Staking</button>
             </Link>
+            <Link href="/staking" passHref>
+              <button className={styles.dropdownItem}>Back to V1</button>
+            </Link>
+
+          
             <Link href="/vaults" passHref>
               <button className={styles.dropdownItem}>Vaults</button>
             </Link>
@@ -58,6 +65,7 @@ const Header = () => {
             <Link href="/rwa" passHref>
               <button className={styles.dropdownItem}>Real World Assets</button>
             </Link>
+        
           </div>
         )}
 
@@ -66,7 +74,7 @@ const Header = () => {
         
         <ConnectButton />
         
-        </div>
+        
       </nav>
     </header>
   );
