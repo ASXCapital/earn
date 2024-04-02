@@ -3,7 +3,7 @@
 import React from 'react';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WagmiProvider, createConfig, http } from 'wagmi';
+import { WagmiProvider, createConfig, http, } from 'wagmi';
 
 
 
@@ -45,9 +45,11 @@ const connectors = connectorsForWallets(
       wallets: [zerionWallet,  rainbowWallet, uniswapWallet, /*FALLBACK*/],
     },
   ],
-  { appName: 'ASX', projectId: projectId },
+  {
+    appName: 'ASX',
+    projectId: projectId,
+  }
 );
-
 
 
 
@@ -55,7 +57,7 @@ const config = getDefaultConfig({
   appName: 'ASX',
   projectId: projectId,
   chains: [bsc],
-  connectors: connectors,
+
   ssr: false,
 });
 
