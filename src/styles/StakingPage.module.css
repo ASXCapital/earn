@@ -5,6 +5,8 @@
   margin: auto;
   padding: 25px;
   margin-top: 150px;
+  font-size: 1rem;
+  margin-bottom: 50px;
 
   border-radius: 20px;
   color: #98d5d3;
@@ -16,7 +18,7 @@
   border: 1px solid rgba(2, 247, 186, 0.18);
 
   /* Tunnel effect */
-  background: linear-gradient(45deg, #00eaff3c, #07dc608d, #ae08e639, #07d8f94c, #b608b941);
+  background: #45014995;
   background-size: 200% 200%;
 
 
@@ -53,6 +55,7 @@
   display: flex;
   flex-wrap: wrap; /* Allow multiple cards to wrap into new lines */
   justify-content: center; /* Center the cards horizontally */
+  font-size: .8rem;
  /* Add some space between the cards */
 }
 
@@ -62,7 +65,7 @@
 .poolCard {
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
-  color: #5fada5;
+  color: #c6fff9;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -153,20 +156,20 @@
 
 .aprText {
   font-size: 0.8rem; /* Half the size of aprNumber */
-  margin-left: 3px; /* Space between number and percent sign */
-  color: #00ffb7; /* You can adjust the color if needed */
+  margin-left: .2rem; /* Space between number and percent sign */
+  color: #00fff7; /* You can adjust the color if needed */
 }
 
 .aprPercent{
   font-size: 1.2rem; /* Adjust according to your preference */
-  margin-left: 5px; /* Space between percent sign and APR text */
+  margin-left: .2rem; /* Space between percent sign and APR text */
   color: #00ffb7; /* You can adjust the color if needed */
-  font-family: inherit; /* This will use the global font set for the website */
+
 }
 
 .poolTitle {
   margin: 0;
-  font-family: Tahoma; /* Changed 'font' to 'font-family' */
+  /* Changed 'font' to 'font-family' */
   font-size: 1.6rem;
   font-weight: 500;
   color: #c3fdff;
@@ -177,7 +180,7 @@
 
 .cardBody, .actionSection {
   
-  padding: 5px;
+  padding: 3px;
   background: linear-gradient(90deg, #073f453c, #1c1d2146, #0b0b0b48, #33044c4c, #1c202141);
   display: flex;
   flex-direction: column; /* Added for .cardBody */
@@ -201,6 +204,14 @@
   gap: 4px; /* Space between the input and buttons */
 
  
+}
+
+.StakingIntro {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem; /* Adjust size as needed */
+  margin-bottom: 10px;
+  color: #c3fdff;
 }
 
 .stakeInput {
@@ -312,13 +323,13 @@
 .mainText {
   /* Adjust as needed to position the main text */
   margin-bottom: -2px; /* Creates space between the main text and the note */
-  font-size: 13px; /* Example size, adjust as needed */
+
 }
 
 .noteInsideButton {
-  padding-top: 1px;
+
   font-size: 8px; /* Small font size for the note */
-  align-self: center; /* Center the note */
+
 }
 
 .titleAndLogoContainer {
@@ -330,7 +341,7 @@
 .titleAndLogo {
   display: flex;
   
-  justify-content: flex-start; /* Align title and logo to the start (left) */
+  justify-content: left; /* Align title and logo to the start (left) */
 }
 
 .poolTitle {
@@ -350,7 +361,7 @@ padding-top: 4px;
 }
 
 .totalTVL {
-  font-size: 4rem; /* Adjust font size as necessary */
+  font-size: 6rem; /* Adjust font size as necessary */
   
   color: #c3fdff;
   margin: 0; /* Remove margin to prevent extra space */
@@ -359,8 +370,8 @@ padding-top: 4px;
 
 .totalTVLmini {
   font-size: 1rem; /* Adjust font size as necessary */
-  
-  color: #c3fdff;
+  font-weight: 500;
+  color: #00e350;
   margin: 0; /* Remove margin to prevent extra space */
   text-shadow: 0 0 10px #00ffee;
 }

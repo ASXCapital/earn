@@ -17,11 +17,11 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          <span className={styles.tronFont}>Earn</span>
+          <span className={styles.IndexHeader}>ASX</span>
         </h1>
 
         <p className={styles.description}>
-          Explore our variety of earning products and maximize your returns.
+          Asset Diversitification made simple.
         </p>
 
         <div className={styles.grid}>
@@ -31,6 +31,8 @@ const Home: NextPage = () => {
               <p>Stake your ASX tokens and earn rewards.</p>
             </div>
           </Link>
+
+          {/*
 
           <Link href="/vaults" passHref>
             <div className={styles.card}>
@@ -59,6 +61,9 @@ const Home: NextPage = () => {
               <p>Explore tokenized real-world asset opportunities.</p>
             </div>
           </Link>
+
+  */}
+
         </div>
       </main>
     </div>

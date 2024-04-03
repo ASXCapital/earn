@@ -1,24 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
+
 @font-face {
-  font-family: 'TRON';
-  font-style: normal;
-  font-weight: 400;
-  src: local('TRON'), url('https://fonts.cdnfonts.com/s/6239/TRON.woff') format('woff');
+  font-family: 'Urbanist';
+  src: url('/fonts/Urbanist-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: 'Urbanist';
+  src: url('/fonts/Urbanist-Italic-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: italic;
 }
 
 @keyframes moveLight {
   0%, 100% {
-    text-shadow: -10px 0 10px #00e65c, -20px 0 20px #00ffff, -30px 0 30px #00e6c0, -40px 0 40px #00e6e6, -50px 0 50px #00e6e6, -60px 0 60px #00e6e6, -70px 0 70px #c000e6c1;
+    text-shadow: -10px 0 10px #00e65c8c, -20px 0 20px #00ffff81, -30px 0 30px #00e6c0, -40px 0 40prgba(0, 230, 230, 0.449)e6, -50px 0 50px #00e6e6, -60px 0 60px #00e6e6, -70px 0 70px #c000e6c1;
   }
   50% {
-    text-shadow: 10px 0 10px #00e6e6, 20px 0 20px #d400ff, 30px 0 30px #00e6c0, 40px 0 40px #00e6e6, 50px 0 50px #00e6e6, 60px 0 60px #00e6e6, 70px 0 70px #c000e6c1;
+    text-shadow: 10px 0 10px #00e6e67e, 20px 0 20px #d400ff8f, 30px 0 30px #00e6c0, 40px 0 40px #00e6e6, 50px 0 50px #00e6e6, 60px 0 60px #00e6e6, 70px 0 70px #c000e6c1;
   }
 }
 
-.tronFont {
-  font: 4rem 'TRON', sans-serif; /* Fallback to sans-serif if TRON is not available */
-  color: black; /* Changed text color to black */
-  font-size: 3rem;
+.IndexHeader {
+  font: 4rem 'Urbanist', sans-serif; /* Fallback to sans-serif if TRON is not available */
+  color: rgb(96, 255, 250); /* Changed text color to black */
+  font-size: 8rem;
   animation: moveLight 44s linear infinite;
+  font-weight: 600;
 }
 
 
@@ -75,6 +84,7 @@
 .title,
 .description {
   text-align: center;
+  color: #69fff0;
 }
 
 .description {

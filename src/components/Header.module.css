@@ -11,7 +11,9 @@
 }
 
 .header {
-  position: fixed;
+  display: flex;
+  position: relative; /* Establish relative positioning context */
+  height: 100px;
   width: 100%;
   top: 0;
   left: 0;
@@ -24,6 +26,17 @@
   border-bottom: 1px solid #00fff7;
   overflow: visible;
   box-sizing: border-box;
+  padding-top: 2.6rem;
+
+}
+
+.navLinks {
+  position: absolute; /* Position the navigation container absolutely */
+  left: 50%; /* Move to the middle of the container */
+  top: 75%; /* Align vertically in the middle */
+  transform: translate(-50%, -75%); /* Offset the container by its own dimensions to truly center it */
+  display: flex; /* Align links side by side */
+  gap: 20px; /* Adjust the space between links */
 }
 
 .header::after {
@@ -40,6 +53,27 @@
 .navbar, .navLinks, .navLinks a {
   box-sizing: border-box;
   
+}
+
+.navLink {
+
+  text-decoration: none; /* Remove underline */
+  padding: 0.5rem 1rem; /* Adjust padding as needed */
+  border-radius: 5px; /* Optional: for rounded links */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
+  position: relative; /* Needed for absolute positioning of the pseudo-element */
+
+}
+
+.navLink:not(:last-child)::after {
+  content: ""; /* Required for pseudo-elements */
+  position: absolute;
+  right: 0; /* Position the line at the right edge of the link */
+  top: 50%; /* Center the line vertically */
+  transform: translateY(-50%); /* Adjust the line's position to truly center it */
+  height: 20px; /* Height of the line, adjust based on your design */
+  width: 1px; /* Width of the line */
+  background-color: #adb5bd; /* Color of the line */
 }
 
 @media (max-width: 768px) {
@@ -61,35 +95,35 @@
 .dropdownMenu {
   position: absolute;
   top: 100%;
-  right: 0;
-  background-color: rgba(10, 225, 240, 0.3); /* Semi-transparent background */
+  right: 0; /* Start here and adjust as necessary */
+  transform: translateX(-100%); /* Adjusts the position to the left by its own width */
+  background-color: rgba(10, 225, 240, 0.3);
   border-radius: 5px;
   padding: 10px;
   z-index: 1;
   box-shadow: 0 0 10px rgba(10, 225, 240, 0.3);
+  
+    border: none;
+    box-shadow: #00ffe529;;
+    background-color: #1e1e1e;
+    backdrop-filter: blur(10px);
+
 }
 
 .dropdownItem {
   display: block; /* Stack items vertically */
   padding: 10px; /* Uniform padding for each item */
-  color: #ffffff; /* White text for better readability */
+  color: #eeeeee; /* White text for better readability */
   text-decoration: none; /* Remove underline from links */
   transition: background-color 0.3s ease; /* Transition for hover effect */
-  font-size: 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer; /* Changes cursor to pointer on hover */
 }
 
-.dropdownItem:hover {
-  background-color: #0ae1f0; /* Highlight item on hover */
-  color: #000000; /* Change text color for contrast */
-}
+
 
 /* Remove any border, box-shadow, or background styling that causes 'box' appearance */
-.dropdownMenu {
-  border: none;
-  box-shadow: #00ffe529;;
-  background-color: #00ffe529;
-  backdrop-filter: blur(10px);
-}
 
 .dropdownItem {
   background-color: transparent; /* Transparent background for items */
@@ -104,17 +138,17 @@
 }
 
 .navbar {
-  position: relative;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  align-items: center;
 }
 
+
 .navLinks {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  cursor: pointer;
+  display: flex; /* Align links side by side */
+  justify-content: center; /* Center links horizontally */
+  gap: 20px; /* Optional: adjust the space between links */
 }
 
 .navLinks a {
@@ -125,12 +159,14 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.navLinks a:hover {
-  background-color: #0bf3e7;
-  color: #1a202c;
+.navLink:hover {
+  background-color: #0bf3e7; /* Background color on hover */
+  color: #1a202c; /* Text color on hover */
+  cursor: pointer; /* Change cursor to pointer on hover */
 }
 
 .WalletAndBurger {
+  position: inline-flex;
   display: flex;
   gap: 20px;
   align-items: center;

@@ -54,13 +54,14 @@ const StakingPage = () => {
   return (
     <div className={styles.stakingWrapper}>
 <div className={styles.poolCardHeader}>
-  <h1>Staking</h1> 
-  <div>
-    <p>Earn via staking with ASX. Simply stake your ASX tokens and recieve ASX as the reward token. Alternatively, diversify your 
+<div className={styles.StakingIntro}>
+<p>Earn via staking with ASX. Simply stake your ASX tokens and recieve ASX as the reward token. Alternatively, diversify your 
       position and create an LP with either Ethereum, BNB or Bitcoin
     </p>
     <p>A comprehensive guide to staking with ASX and creation of LP tokens can be found <a href="https://medium.com/@ASXCapital/how-to-earn-with-asx-staking-5ba6c53f95f5"><u>here</u></a></p>
     
+  <div>
+   
      {/* 
       {isTotalRewardsLoading ? (
 
@@ -69,7 +70,7 @@ const StakingPage = () => {
         <div>Total Claimable Rewards: {totalClaimableRewards.toString()} ASX</div>
       )}
    */}
-    </div>
+    
 
     
  {/* 
@@ -83,9 +84,9 @@ const StakingPage = () => {
     <span className={styles.totalTVL}>${formattedOverallTVL}<span className={styles.totalTVLmini}> TVL</span></span>
   </div>
 </div>
-
 </div>
-
+</div>
+</div>
 
     <div className={styles.poolsContainer}>
         {pools.map((pool) => (

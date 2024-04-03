@@ -7,7 +7,7 @@ import { WagmiProvider, createConfig, http, } from 'wagmi';
 
 
 
-import { bsc, arbitrum, bscTestnet } from 'wagmi/chains';
+import { bsc, arbitrum, bscTestnet, coreDao } from 'wagmi/chains';
 import '@rainbow-me/rainbowkit/styles.css'
 import { 
   DisclaimerComponent, 
@@ -56,10 +56,22 @@ const connectors = connectorsForWallets(
 const config = getDefaultConfig({
   appName: 'ASX',
   projectId: projectId,
-  chains: [bsc],
-
-  ssr: false,
+  
+  chains: [
+    {
+      ...bsc,
+ },
+ {
+  ...coreDao,
+  name: 'CoreDAO',
+  iconUrl: 'https://assets.coingecko.com/coins/images/28938/standard/file_589.jpg?1701868471',
+ },
+],
+ssr: false,
 });
+
+
+
 
 
 // DISCLAIMER COMPONENT
