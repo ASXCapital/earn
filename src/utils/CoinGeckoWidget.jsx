@@ -29,4 +29,5 @@ const CoinGeckoWidget = () => {
   );
 };
 
+
 export default CoinGeckoWidget;

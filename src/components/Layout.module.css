@@ -1,9 +1,24 @@
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
 .layoutContainer {
   background-color: rgba(0, 0, 0, 0);
 }
 
 .mainContent {
-  background-color: rgb(0, 7, 18);
+  background: linear-gradient(-45deg, #fb00ff,  #00002e,#00b7c7, #140015, #292e49);
+  background-size: 400% 400%;
+  animation: gradientAnimation 60s ease infinite;
   padding: 20px;
   padding-bottom: 60px;
 }
