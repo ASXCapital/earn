@@ -25,8 +25,6 @@ import { useAccount } from 'wagmi';
 
 
 
-
-
 // INTERFACE/S
 
 
@@ -56,7 +54,9 @@ interface PoolCardProps {
 const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onTVLChange, }) => {
   const prices = useTokenPricesContext();
 
-  
+  const { chain } = useAccount();
+  console.log
+
 
   const { totalStaked, isLoading: isTotalStakedLoading } = useTotalStaked(pool.stakingContract.address);
 
@@ -198,7 +198,7 @@ useEffect(() => {
   } else {
     setAprStatus('Calculating...');
   }
-}, [rewardData, totalStaked, isTotalStakedLoading, prices]);
+}, [rewardData, totalStaked, isTotalStakedLoading, prices, pool.rewardToken.address, pool.type, pool.stakingToken.address, lpTokenPriceUSD, SECONDS_IN_A_YEAR]);
 
 
 

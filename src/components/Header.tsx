@@ -61,7 +61,7 @@ const Header = () => {
           <Image src={logo} alt="ASX Logo" width={100} height={37} className={styles.logo} />
           
         </Link>
-       
+       <TokenInfo />
         </div>
 
 

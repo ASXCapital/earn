@@ -7,47 +7,49 @@
 
 .footerContent {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  justify-content: center; /* Center the footer sections */
   align-items: center;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto 40px;
-  padding: 0 20px;
-  color: #fff;
-  font-size: 16px;
-  line-height: 1.5;
-  text-align: left;
+  
+
+  display: flex;
+
+  border-bottom: 1px solid #2e353c45; /* Add a top border for visual separation */
+
+
 }
 
 .footerSection {
-  flex: 1;
-  min-width: 220px;
-  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align the items in the section */
+  margin-top: -20px;
+
 }
 
 .footerSection h4 {
-  margin-bottom: 20px;
-  font-size: 18px;
+  text-align: center; /* Center the title */
 }
 
 .footerSection ul {
+  display: flex;
+  justify-content: center; /* Center the list items */
   list-style: none;
   padding: 0;
+  gap: 20px;
 }
 
 .footerSection li {
-  margin-bottom: 10px;
+  font-size: .8rem;
 }
 
 .footerSection li a {
-  color: #0bf3e7;
+  color: #000707;
   text-decoration: none;
   transition: color 0.3s;
 }
 
 .footerSection li a:hover {
-  color: #ffffff;
+  color: #e000ec;
   text-decoration: underline;
 }
 
@@ -55,7 +57,7 @@
   display: flex;
   justify-content: space-between; /* Ensure elements are spread out */
   align-items: center; /* Vertically center the items */
-  border-top: 1px solid #2e353c; /* Add a top border for visual separation */
+  border-top: 1px solid #2e353c8f; /* Add a top border for visual separation */
   padding-top: 20px; /* Add some padding at the top */
   flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
