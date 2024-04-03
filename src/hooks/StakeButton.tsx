@@ -107,7 +107,6 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate })
       setTransactionInitiated(false);
     }
   };
-  console.log('transaction hash',transactionHash,'isLoading?', isLoading,'isSuccess', isSuccess, isError, statusMessage, transactionInitiated, needsApproval, currentAllowance, isButtonDisabled, amount, userAddress, tokenAddress, stakingContractAddress, onUpdate)
   
   useEffect(() => {
     if (transactionHash) {

@@ -2,6 +2,13 @@
 
 
 export const contracts = {
+    // BSC Token Contracts
+    bscTokens: {
+      ASX: '0xebd3619642d78f0c98c84f6fa9a678653fb5a99b',
+      WBNB: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+      ETH: '0x2170Ed0880ac9A755fd29B2688956BD959F933F8',
+      BTCB: '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c',
+    },
   // BSC Vault Contracts
     bscVaults: {
       vASX: '0x04c4B54Ca752373e3D74f5Be4b3F998783A13e12',
@@ -9,12 +16,9 @@ export const contracts = {
       vASXETH: '0x3E54D1D4f78D7cDbE14278145806bf40036cfbD4',
       vASXBTCB: '0xfcc8cB41d3eB4Bd0927ec87ECA688B460538Ce45',
     },
-  // BSC Token Contracts
-    bscTokens: {
-      WBNB: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
-      ETH: '0x2170Ed0880ac9A755fd29B2688956BD959F933F8',
-      BTCB: '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c',
-      ASX: '0xebd3619642d78f0c98c84f6fa9a678653fb5a99b',
+    // CORE Token Contracts
+    coreTokens: {
+      ASXcore: '0xB28B43209d9de61306172Af0320f4f55e50E2f29'
     },
     // BSC Staking Contracts
     bscStaking: {

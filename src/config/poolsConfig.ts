@@ -39,6 +39,7 @@ export interface PoolConfig {
   id: string;
   title: string;
   type: PoolType;
+  chainId: number;
   stakingToken: StakingToken;
   rewardToken: {
     address: string;
@@ -57,6 +58,7 @@ export const poolsConfig: PoolConfig[] = [
     id: 'asxasx',
     title: 'ASX',
     type: 'single', 
+    chainId: 56,
     stakingToken: {
       address: contracts.bscTokens.ASX,
       symbol: 'ASX',
@@ -78,6 +80,7 @@ export const poolsConfig: PoolConfig[] = [
     id: 'asxbnb',
     title: 'ASX-BNB LP',
     type: 'lp', // Indicate this is an LP token pool
+    chainId: 56,
     stakingToken: {
       address: contracts.bscLPs.ASXBNBLP,
       symbol: 'ASX-BNB LP',
@@ -111,6 +114,7 @@ export const poolsConfig: PoolConfig[] = [
     id: 'asxeth',
     title: 'ASX-ETH LP',
     type: 'lp',
+    chainId: 56,
     stakingToken: {
       address: contracts.bscLPs.ASXETHLP,
       symbol: 'ASX-ETH LP',
@@ -144,6 +148,7 @@ export const poolsConfig: PoolConfig[] = [
     id: 'asxbtcb',
     title: 'ASX-BTCB LP',
     type: 'lp',
+    chainId: 56,
     stakingToken: {
       address: contracts.bscLPs.ASXBTCBLP,
       symbol: 'ASX-BTCB LP',

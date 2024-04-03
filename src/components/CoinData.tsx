@@ -7,7 +7,7 @@ const CoinData = () => {
   useEffect(() => {
     const fetchCoinData = async () => {
       const url = 'https://pro-api.coingecko.com/api/v3/coins/bsc/contract/0xebD3619642d78F0C98c84f6Fa9a678653fB5A99B';
-      const options = { method: 'GET', headers: { 'x-cg-pro-api-key': 'CG-53k3YNSaA1CFL65mqZYggmBf' } };
+      const options = { method: 'GET', headers: { 'x-cg-pro-api-key': process.env.NEXT_PUBLIC_CG_API_KEY } };
 
       try {
         const response = await fetch(url, options);
