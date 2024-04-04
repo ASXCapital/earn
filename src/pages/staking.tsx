@@ -11,7 +11,7 @@ import { useTotalClaimableRewards } from '../hooks/useTotalClaimableRewards';
 
 const StakingPage = () => {
   const { pools } = usePools();
-  const { address } = useAccount();
+  const { address, chain } = useAccount(); // Destructure `chain` from the useAccount hook
   const [clientReady, setClientReady] = useState(false);
   const [totalStakedUSD, setTotalStakedUSD] = useState<number>(0);
   const [totalClaimableRewardsUSD, setTotalClaimableRewardsUSD] = useState<number>(0);
@@ -49,7 +49,8 @@ const StakingPage = () => {
   }
 
 
-  
+  const filteredPools = pools.filter(pool => pool.chainId === chain?.id);
+
 
   return (
     <div className={styles.stakingWrapper}>
@@ -89,7 +90,7 @@ const StakingPage = () => {
 </div>
 
     <div className={styles.poolsContainer}>
-        {pools.map((pool) => (
+    {filteredPools.map((pool) => (
           <PoolCard
             key={pool.id}
             pool={pool}

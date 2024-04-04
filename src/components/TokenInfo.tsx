@@ -11,7 +11,7 @@ const TokenInfo = () => {
                 const options = {
                     method: 'GET',
                     url: 'https://pro-api.coingecko.com/api/v3/coins/bsc/contract/0xebD3619642d78F0C98c84f6Fa9a678653fB5A99B',
-                    headers: {'x-cg-pro-api-key': process.env.NEXT_PUBLIC_CG_API_KEY}
+                    headers: {'x-cg-pro-api-key': process.env.NEXT_PUBLIC_CG_API}
                 };
                 const response = await axios.request(options);
                 setTokenData(response.data);

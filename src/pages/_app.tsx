@@ -17,6 +17,7 @@ import {
   getDefaultConfig, 
   getDefaultWallets,
   RainbowKitProvider, 
+  AvatarComponent,
   midnightTheme, 
   connectorsForWallets,
   useAddRecentTransaction, // IMPLEMNENT THIS****
@@ -28,8 +29,7 @@ import '../styles/Home.module.css';
 import '@rainbow-me/rainbowkit/styles.css';
 import { UseConfigParameters } from 'wagmi';
 import { coinbaseWallet, ledgerWallet, zerionWallet,
-  trustWallet, metaMaskWallet, rainbowWallet, roninWallet,
-braveWallet, uniswapWallet, injectedWallet/*FALLBACK*/ } from '@rainbow-me/rainbowkit/wallets';
+  trustWallet, metaMaskWallet, rainbowWallet, uniswapWallet, phantomWallet/*FALLBACK*/ } from '@rainbow-me/rainbowkit/wallets';
 
 import { TokenPricesProvider } from '../contexts/TokenPricesContext';
 import QuickNode from '@quicknode/sdk';
@@ -49,13 +49,14 @@ const connectors = connectorsForWallets(
     },
     {
       groupName: 'Explore More',
-      wallets: [zerionWallet,  rainbowWallet, uniswapWallet /*FALLBACK*/],
+      wallets: [zerionWallet,  rainbowWallet, uniswapWallet, coinbaseWallet, phantomWallet /*FALLBACK*/],
     },
   ],
   {
     appName: 'ASX',
     projectId: projectId,
   }
+  
 );
 
 
@@ -63,15 +64,15 @@ const connectors = connectorsForWallets(
 
 
 const config = createConfig({
-  chains: [bsc, coreDao],
+  chains: [bsc],
   transports: {
     [bsc.id]: http (process.env.NEXT_PUBLIC_BSC_PROVIDER_QNODE),
-    [coreDao.id]: http('https://openapi.coredao.org/api'),
   },
 
   ssr: false, 
-  syncConnectedChain: false, 
+  syncConnectedChain: true, 
   connectors: connectors,
+
   
 });
 

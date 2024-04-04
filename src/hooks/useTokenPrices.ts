@@ -32,7 +32,7 @@ const useTokenPrices = (platformId, contractAddresses) => {
         const url = `https://pro-api.coingecko.com/api/v3/simple/token_price/${platformId}?contract_addresses=${addressesParam}&vs_currencies=usd`;
 
         try {
-          const response = await axios.get(url, { headers: { 'x-cg-pro-api-key': process.env.NEXT_PUBLIC_CG_API_KEY } });
+          const response = await axios.get(url, { headers: { 'x-cg-pro-api-key': process.env.NEXT_PUBLIC_CG_API } });
          
 
           Object.entries(response.data).forEach(([address, data]: [string, any]) => {

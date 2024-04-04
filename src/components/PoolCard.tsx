@@ -21,7 +21,7 @@ import { useTokenPricesContext } from '../contexts/TokenPricesContext';
 import { useMemo } from 'react';
 import { useTotalStaked } from '../hooks/useTotalStaked';
 import { useAccount } from 'wagmi';
-
+import poolsConfig from '../config/poolsConfig';
 
 
 
@@ -55,12 +55,13 @@ const PoolCard: React.FC<PoolCardProps> = ({ pool, accountAddress, onTVLChange, 
   const prices = useTokenPricesContext();
 
   const { chain } = useAccount();
-  console.log
+  const currentChainId = chain?.id;
+  const relevantPools = poolsConfig.filter(pool => pool.chainId === chain?.id);
+
+
 
 
   const { totalStaked, isLoading: isTotalStakedLoading } = useTotalStaked(pool.stakingContract.address);
-
-
   const ASXTokenAddress = contracts.bscTokens.ASX;
   const [stakeAmount, setStakeAmount] = useState<string>('0.01');
   const [inputContent, setInputContent] = useState<string>('0.01'); // New state for tracking input field content
@@ -223,7 +224,7 @@ useEffect(() => {
   useEffect(() => {
     const interval = setInterval(() => {
       handleStakeUpdate();
-    }, 500000); // Approximate block time for Ethereum is 15 seconds
+    }, 900000000); 
     return () => clearInterval(interval);
   }, []);
 
@@ -326,6 +327,7 @@ useEffect(() => {
 
 
   return (
+    
     <div className={styles.poolCard}>
       <div className={styles.cardHeader}>
       <div className={styles.titleAndLogoContainer}>

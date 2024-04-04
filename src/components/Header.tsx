@@ -2,10 +2,10 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import styles from './Header.module.css'; // Ensure this path is correct
-import Image from 'next/image'; // Import the Image component for optimized images
-import logo from '/public/logo.png'; // Import the logo image
-import CoinGeckoWidget from '../utils/CoinGeckoWidget'; // adjust the path as needed
+import styles from './Header.module.css'; 
+import Image from 'next/image'; 
+import logo from '/public/logo.png'; 
+import CoinGeckoWidget from '../utils/CoinGeckoWidget'; 
 import TokenInfo from '../components/TokenInfo';
 
 
@@ -14,18 +14,15 @@ const Header = () => {
   const dropdownRef = useRef(null); // Ref to the dropdown menu
   const burgerRef = useRef(null); // Ref to the burger icon
   const [isHovered, setIsHovered] = useState(false);
+  
 
-
+  
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
-  
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-  
-
-
   const toggleMenu = (event) => {
     // Check if the dropdown is open and if the click is on the burger icon
     if (isOpen && burgerRef.current && burgerRef.current.contains(event.target)) {
@@ -34,7 +31,6 @@ const Header = () => {
       setIsOpen(!isOpen); // Otherwise, toggle the dropdown state
     }
   };
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -45,10 +41,12 @@ const Header = () => {
         setIsOpen(false); // Close dropdown when clicking outside
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [dropdownRef, burgerRef]);
+
+
+
 
   return (
     <header className={styles.header}>
@@ -61,7 +59,7 @@ const Header = () => {
           <Image src={logo} alt="ASX Logo" width={100} height={37} className={styles.logo} />
           
         </Link>
-       <TokenInfo />
+      
         </div>
 
 
