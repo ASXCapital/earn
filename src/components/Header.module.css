@@ -27,7 +27,17 @@
   overflow: visible;
   box-sizing: border-box;
   padding-top: 2.6rem;
+  transition: top 0.3s;
+}
 
+.visible {
+  top: 0;
+  transition: top 0.3s ease-in-out;
+}
+
+.hidden {
+  top: -100%; /* Adjust based on your header's height */
+  transition: top 0.3s ease-in-out;
 }
 
 

@@ -20,6 +20,7 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate })
     hash: transactionHash ? `0x${transactionHash.replace(/^0x/, '')}` : undefined,
   });
 
+  // Fetching the current allowance
   const { data: allowance } = useReadContract({
     address: tokenAddress,
     abi: ERC20ABI,
@@ -27,63 +28,62 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate })
     args: [userAddress, stakingContractAddress],
   });
 
+  // Update the current allowance when the fetched allowance changes
   useEffect(() => {
     if (allowance) {
       setCurrentAllowance(BigNumber.from(allowance.toString()));
     }
   }, [allowance]);
 
+  // Determine if approval is needed based on the current allowance and the amount to be staked
   useEffect(() => {
     const requiredAmount = ethers.utils.parseEther(amount || '0');
-    const approvalNeeded = currentAllowance.lt(requiredAmount);
-    setNeedsApproval(approvalNeeded);
+    setNeedsApproval(currentAllowance.lt(requiredAmount));
     setIsButtonDisabled(!amount || amount === '0' || isNaN(amount) || isLoading);
-    setStatusMessage(approvalNeeded ? 'Approve' : 'Stake');
+    setStatusMessage(needsApproval ? 'Approve' : 'Stake');
   }, [amount, currentAllowance, isLoading, needsApproval]);
 
+  // Handle transaction status updates
   useEffect(() => {
-    // Check if a transaction has been initiated and we have a valid hash
     if (transactionInitiated && transactionHash) {
       if (isLoading) {
         setStatusMessage('Processing');
       } else if (isSuccess) {
         setStatusMessage('Success!');
         setTimeout(() => {
-          setStatusMessage(needsApproval ? 'Approve' : 'Stake');
+          // Update the allowance to reflect the approved amount
+          // Assuming the approval sets the allowance to MaxUint256
+          if (needsApproval) {
+            setCurrentAllowance(ethers.constants.MaxUint256);
+          }
+          setStatusMessage('Stake');
           setTransactionInitiated(false);
           onUpdate(); // Trigger any additional update logic
-        }, 3000); // Adjust delay as needed
+        }, 2000); // Show "Success!" for 2 seconds before updating
       } else if (isError) {
         setStatusMessage('Error');
         setTimeout(() => {
           setStatusMessage(needsApproval ? 'Approve' : 'Stake');
           setTransactionInitiated(false);
-        }, 3000); // Adjust delay as needed
+        }, 2000);
       }
     }
-  }, [isLoading, isSuccess, isError, transactionInitiated, onUpdate, transactionHash]);
-  
+  }, [isLoading, isSuccess, isError, transactionInitiated, onUpdate, transactionHash, needsApproval]);
 
+  // Handle button click to initiate a transaction
   const handleAction = async () => {
     if (isButtonDisabled || isLoading) return;
-  
+
     try {
-      setTransactionInitiated(false);
       let txResponse;
       if (needsApproval) {
         setStatusMessage('Approving..');
-        const txResponse = await writeContractAsync({
+        txResponse = await writeContractAsync({
           abi: ERC20ABI,
           address: tokenAddress,
           functionName: 'approve',
           args: [stakingContractAddress, ethers.constants.MaxUint256.toString()],
         });
-        setTransactionHash(txResponse);
-        addRecentTransaction({
-          hash: txResponse,
-          description: 'Approval', // Customize this description
-        });
-        setTransactionInitiated(true);
       } else {
         setStatusMessage('Staking..');
         txResponse = await writeContractAsync({
@@ -92,14 +92,13 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate })
           functionName: 'stake',
           args: [ethers.utils.parseEther(amount)],
         });
-        setTransactionHash(txResponse);
-        addRecentTransaction({
-          hash: txResponse,
-          description: 'Stake', // Customize this description
-        });
-        setTransactionInitiated(true);
       }
-      
+      setTransactionHash(txResponse);
+      setTransactionInitiated(true);
+      addRecentTransaction({
+        hash: txResponse,
+        description: needsApproval ? 'Approval' : 'Stake',
+      });
     } catch (error) {
       console.error('Transaction error:', error);
       setStatusMessage('Error');
@@ -107,30 +106,6 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate })
       setTransactionInitiated(false);
     }
   };
-  
-  useEffect(() => {
-    if (transactionHash) {
-      if (isLoading) {
-        // This ensures the message is set to processing right after transaction initiation
-        setStatusMessage('Confrming');
-      } else if (isSuccess) {
-        setStatusMessage('Success');
-        setTimeout(() => {
-          setStatusMessage(needsApproval ? 'Approve' : 'Stake');
-          setTransactionInitiated(false);
-          onUpdate(); // If you have an update function to refresh the state or UI
-        }, 3000);
-      } else if (isError) {
-        setStatusMessage('Error');
-        setTimeout(() => {
-          setStatusMessage(needsApproval ? 'Approve' : 'Stake');
-          setTransactionInitiated(false);
-        }, 3000);
-      }
-    }
-  }, [isLoading, isSuccess, isError, transactionHash]);
-  
-  
 
   return (
     <div>
