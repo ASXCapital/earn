@@ -64,14 +64,13 @@ const connectors = connectorsForWallets(
 
 
 const config = createConfig({
-  chains: [bsc, coreDao],
+  chains: [bsc],
   transports: {
     [bsc.id]: http (process.env.NEXT_PUBLIC_BSC_PROVIDER_QNODE),
-    [coreDao.id]: http('https://rpc.coredao.org'),
   },
 
   ssr: false, 
-  syncConnectedChain: false, 
+  syncConnectedChain: true, 
   connectors: connectors,
 
   
