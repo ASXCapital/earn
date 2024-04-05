@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider, createConfig, http, createStorage } from 'wagmi';
 
 
-
 import { type CreateConfigParameters } from '@wagmi/core'
 import {  injected, safe, walletConnect } from 'wagmi/connectors';
 
@@ -28,13 +27,20 @@ import '../styles/globals.css';
 import '../styles/Home.module.css';
 import '@rainbow-me/rainbowkit/styles.css';
 import { UseConfigParameters } from 'wagmi';
-import { coinbaseWallet, ledgerWallet, zerionWallet,
+import {  zerionWallet,
   trustWallet, metaMaskWallet, rainbowWallet, uniswapWallet, phantomWallet/*FALLBACK*/ } from '@rainbow-me/rainbowkit/wallets';
 
 import { TokenPricesProvider } from '../contexts/TokenPricesContext';
 import QuickNode from '@quicknode/sdk';
 
-import { PlenaWalletProvider } from "plena-connect-dapp-sdk"; 
+const customBscChain = {
+  ...bsc, // Spread the existing BSC configuration
+  rpcUrls: {
+    default: process.env.NEXT_PUBLIC_BSC_PROVIDER_QNODE, // Use your custom RPC URL
+  },
+  // Ensure the chainId is explicitly set if necessary
+  id: 56, // BSC Mainnet Chain ID
+};
 
 
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
@@ -49,7 +55,7 @@ const connectors = connectorsForWallets(
     },
     {
       groupName: 'Explore More',
-      wallets: [zerionWallet,  rainbowWallet, uniswapWallet, coinbaseWallet, phantomWallet /*FALLBACK*/],
+      wallets: [zerionWallet,  rainbowWallet, uniswapWallet,  phantomWallet /*FALLBACK*/],
     },
   ],
   {
@@ -64,7 +70,7 @@ const connectors = connectorsForWallets(
 
 
 const config = createConfig({
-  chains: [bsc, coreDao],
+  chains: [bsc, coreDao,],
   transports: {
     [bsc.id]: http (process.env.NEXT_PUBLIC_BSC_PROVIDER_QNODE),
     [coreDao.id]: http ('https://rpc-core.icecreamswap.com'),
@@ -103,7 +109,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <QueryClientProvider 
       client={queryClient}>
         <RainbowKitProvider
-          initialChain={56}
+          initialChain={bsc.id}
           
           showRecentTransactions={true}
           appInfo={{

@@ -1,13 +1,17 @@
 /* CryptoTable.module.css */
 .cryptoTableContainer {
-    margin: 5px 0;
-    background-color: #333;
-    border-radius: 10px;
-    padding: 0px 20px 20px 20px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    margin-top: 14rem;
-    
-  }
+  margin: 5px 0;
+  background-color: #333;
+  border-radius: 10px;
+  padding: 0px 20px 20px 20px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 14rem;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  display: block; /* Ensure the container is block-level to respect the overflow property */
+  width: 100%; /* Adjust if necessary */
+
+}
+
   
   .cryptoTableHeader {
     margin-bottom: 20px;
@@ -17,9 +21,10 @@
   
   .cryptoTable {
     width: 100%;
-    min-width: 600px;
+    min-width: 600px; /* Adjust as necessary to ensure scrolling */
     border-collapse: collapse;
   }
+  
   
   .cryptoTable th,
   .cryptoTable td {

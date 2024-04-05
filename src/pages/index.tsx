@@ -35,10 +35,10 @@ const Home: NextPage = () => {
           </Link>
           </div>
           
-          <div className={styles.marketsContainer}>
+          
   <CryptoTable className={styles.cryptoTable} 
   />
-</div>
+
 
 
 
@@ -73,10 +73,10 @@ const Home: NextPage = () => {
           </Link>
 
   */}
-
-        </div>
+</div>
       </main>
     </div>
+        
   );
 };
 

@@ -45,18 +45,18 @@ const CryptoTable: React.FC<CryptoTableProps> = ({ className }) => {
   }
 
   return (
-    <div className={className}>
-      <div className={styles.cryptoTableContainer}>
-        <div className={styles.cryptoTableHeader2}>
-          <h2 className={styles.cryptoTableHeader}>{data.name} Markets</h2>
-          <TokenInfo />
-        </div>
+    <div className={styles.cryptoTableContainer}>
+      <div className={styles.cryptoTableHeader2}>
+        <h2 className={styles.cryptoTableHeader}>{data.name} Markets</h2>
+        <TokenInfo />
+      </div>
+      <div className="scrollContainer">
         <table className={styles.cryptoTable}>
           <thead>
-            <tr>
+            <tr>{/* Removed unnecessary newlines within <tr> tags */}
               <th>Exchange</th>
               <th className={styles.pairColumn}>Pair</th>
-              <th className={styles.chainColumn}>Chain</th> {/* Added Chain column */}
+              <th className={styles.chainColumn}>Chain</th>
               <th className={styles.priceColumn}>Price</th>
               <th className={styles.spreadColumn}>Spread</th>
               <th className={styles.volumeColumn}>24h Volume</th>
@@ -65,7 +65,7 @@ const CryptoTable: React.FC<CryptoTableProps> = ({ className }) => {
           </thead>
           <tbody>
             {data.tickers.map((ticker, index) => (
-              <tr key={index}>
+              <tr key={index}>{/* Removed unnecessary newlines within <tr> tags */}
                 <td>{ticker.market.name}</td>
                 <td>
                   <a
@@ -77,7 +77,7 @@ const CryptoTable: React.FC<CryptoTableProps> = ({ className }) => {
                     ASX/{ticker.target_coin_id.toUpperCase()}
                   </a>
                 </td>
-                <td className={styles.chainColumn}>BSC</td> {/* Display BSC as the chain */}
+                <td className={styles.chainColumn}>BSC</td>
                 <td className={styles.priceColumn}>${ticker.converted_last.usd.toFixed(4)}</td>
                 <td className={styles.spreadColumn}>{ticker.bid_ask_spread_percentage.toFixed(2)}%</td>
                 <td className={styles.volumeColumn}>${ticker.converted_volume.usd.toFixed(2)}</td>
