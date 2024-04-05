@@ -32,6 +32,13 @@ h1 {
   color: #00ffea;
 }
 
+h2 {
+  font-family: 'Urbanist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 600;
+  font-size: 2em;
+  color: #00ffea;
+}
+
 
 
 /* Custom scrollbar styles */

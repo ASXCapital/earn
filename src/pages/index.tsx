@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
-import PartnerShowcase from '../components/PartnerShowcase';
+import CryptoTable from '../components/CryptoTable';
 
 
 const Home: NextPage = () => {
@@ -31,6 +31,7 @@ const Home: NextPage = () => {
               <p>Stake your ASX tokens and earn rewards.</p>
             </div>
           </Link>
+          <CryptoTable />
 
           {/*
 

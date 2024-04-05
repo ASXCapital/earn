@@ -55,11 +55,13 @@ const StakingPage = () => {
   return (
     <div className={styles.stakingWrapper}>
 <div className={styles.poolCardHeader}>
+  <h1>Stake <b>$ASX</b> and <b>LPs</b>, Earn <b>$ASX</b>.</h1>
 <div className={styles.StakingIntro}>
 <p>Earn via staking with ASX. Simply stake your ASX tokens and recieve ASX as the reward token. Alternatively, diversify your 
       position and create an LP with either Ethereum, BNB or Bitcoin
     </p>
-    <p>A comprehensive guide to staking with ASX and creation of LP tokens can be found <a href="https://medium.com/@ASXCapital/how-to-earn-with-asx-staking-5ba6c53f95f5"><u>here</u></a></p>
+    <p>A comprehensive guide to staking with ASX and creation of LP tokens can be found <a href="https://medium.com/@ASXCapital/how-to-earn-with-asx-staking-5ba6c53f95f5"><u>here</u></a>.
+      To begin, connect your wallet to a chain we offer staking on.</p>
     
   <div>
    
@@ -78,16 +80,17 @@ const StakingPage = () => {
   <div>Total USD Staked: {totalStakedUSD.toFixed(2)}</div>
   <div>Total USD in Claimable Rewards: {totalClaimableRewardsUSD.toFixed(2)}</div>
   */}
-  <div style={{ display: 'flex', alignItems: 'center' }}>
-    
-    <div style={{ flexGrow: 1 }}></div> 
-  <div className={styles.totalTVLContainer}>
-    <span className={styles.totalTVL}>${formattedOverallTVL}<span className={styles.totalTVLmini}> TVL</span></span>
-  </div>
-</div>
-</div>
-</div>
-</div>
+{roundedOverallTVL > 0 && (
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ flexGrow: 1 }}></div> 
+                <div className={styles.totalTVLContainer}>
+                  <span className={styles.totalTVL}>${formattedOverallTVL}<span className={styles.totalTVLmini}> TVL</span></span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
 
     <div className={styles.poolsContainer}>
     {filteredPools.map((pool) => (

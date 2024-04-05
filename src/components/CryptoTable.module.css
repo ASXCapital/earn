@@ -1,0 +1,61 @@
+/* CryptoTable.module.css */
+.cryptoTableContainer {
+    margin: 20px 0;
+    background-color: #333;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 40px;
+    
+  }
+  
+  .cryptoTableHeader {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #00dab6; /* Adjust the color as needed */
+  }
+  
+  .cryptoTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .cryptoTable th,
+  .cryptoTable td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd; /* Light grey border for rows */
+  }
+  
+  .cryptoTable th {
+    background-color: #34483c8a; /* Light grey background for header */
+    color: #e0e0e0; /* Dark grey text for header */
+  }
+  
+  .cryptoTable a {
+    color: #09e1b3; /* Default link color, adjust as needed */
+    text-decoration: none;
+  }
+  
+  .cryptoTable a:hover {
+    text-decoration: underline;
+  }
+  
+  .cryptoTable .pairColumn {
+    color: #0ddebb; /* Color for the Pair column */
+  }
+  
+  .cryptoTable .priceColumn {
+    font-weight: bold; /* Bold text for price */
+  }
+  
+  .cryptoTable .volumeColumn,
+  .cryptoTable .volumePercentColumn {
+    color: #b3b3b3; /* Dark grey color for volume columns */
+  }
+  
+  .cryptoTable .spreadColumn {
+    color: #0bd0ef; /* Red color for spread, indicating cost/risk */
+  }
+  
+  
