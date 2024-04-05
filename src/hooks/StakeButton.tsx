@@ -108,7 +108,7 @@ const StakeButton = ({ tokenAddress, stakingContractAddress, amount, onUpdate })
   };
 
   return (
-    <div>
+    <div className={styles.buttonWrapper}>
       <button
         className={`${styles.actionButton} ${isButtonDisabled || isLoading ? styles.disabledButton : ''} ${isSuccess && transactionInitiated ? styles.successPulse : isError && transactionInitiated ? styles.errorPulse : ''}`}
         onClick={handleAction}

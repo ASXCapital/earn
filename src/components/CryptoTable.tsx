@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CryptoTable.module.css'; // Make sure the path is correct
+import TokenInfo from './TokenInfo';
 
 interface CryptoTableProps {
     className?: string; // Make className an optional prop
@@ -47,7 +48,10 @@ interface CryptoTableProps {
     <div className={className}> 
 
     <div className={styles.cryptoTableContainer}>
+    <div className={styles.cryptoTableHeader2}>
       <h2 className={styles.cryptoTableHeader}>{data.name} Markets</h2>
+      <TokenInfo  />
+      </div>
       <table className={styles.cryptoTable}>
         <thead>
           <tr>
@@ -66,7 +70,7 @@ interface CryptoTableProps {
               <td>
                 <a
                   className={styles.pairColumn}
-                  href={`https://pancakeswap.finance/swap?inputCurrency=${ticker.target}&outputCurrency=${ticker.base}`}
+                  href={`https://pancakeswap.finance/swap?inputCurrency=${ticker.base}&outputCurrency=${ticker.target}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

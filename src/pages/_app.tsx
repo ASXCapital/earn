@@ -45,7 +45,7 @@ const connectors = connectorsForWallets(
   [
     {
       groupName: 'Recommended',
-      wallets: [metaMaskWallet, ledgerWallet, trustWallet],
+      wallets: [metaMaskWallet,  trustWallet],
     },
     {
       groupName: 'Explore More',

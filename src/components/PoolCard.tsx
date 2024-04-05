@@ -356,14 +356,14 @@ useEffect(() => {
   <span className={styles.aprText}>APR</span>
 </div>
 <div>
-  {pool.title} Price: $ 
+  Price: $ 
   {pool.type === 'lp' ? lpTokenPriceUSD : prices[ASXTokenAddress.toLowerCase()] || 'Loading...'}
 </div>
 
         </div>
         <div className={styles.UserStats}>
   <div className={styles.poolInfo}>
-    <span>{pool.title} in Wallet:</span>
+    <span>Wallet:</span>
     {/* Use displayFormattedAmount for wallet balance, passing true for useLpTokenPrice if it's an LP token */}
     <span>{displayFormattedAmount(tokenBalance, pool.stakingToken.address, pool.stakingToken.symbol, pool.type === 'lp')}</span>
   </div>
@@ -373,7 +373,7 @@ useEffect(() => {
     <span>{displayFormattedAmount(stakedAmount, pool.stakingToken.address, pool.stakingToken.symbol, pool.type === 'lp')}</span>
   </div>
   <div className={styles.poolInfo}>
-    <span>Claimable Rewards:</span>
+    <span>Claimable:</span>
     <span>{displayFormattedAmount(claimableRewards, ASXTokenAddress, '$ASX')}</span>
   </div>
   </div>
@@ -382,19 +382,26 @@ useEffect(() => {
 
 
         </div>
+
+       
         <div className={styles.actionSection}>
-      <button className={styles.actionButtonMAX} onClick={handleInputStatusChange}>
+
+          <div className={styles.maxAndInput}>
+        <button className={styles.actionButtonMAX} onClick={handleInputStatusChange}>
         {inputContent === '' ? 'Max.' : 'Clear'}
       </button>
       <input
+      
         className={styles.stakeInput}
         type="text"
         value={stakeAmount}
         onChange={handleStakeAmountChange}
         placeholder="Token Amount"
       />
+</div>
+<div className={styles.Buttons3}>
 
-      <StakeButton
+      <StakeButton 
           tokenAddress={pool.stakingToken.address}
           stakingContractAddress={pool.stakingContract.address}
           
@@ -415,7 +422,7 @@ useEffect(() => {
  
   onUpdate={handleStakeUpdate} // Re-use the stake update function or create a specific one for rewards
 />
-
+</div>
           
         </div>
         <div className={styles.cardFooter}>

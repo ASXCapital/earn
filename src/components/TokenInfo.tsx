@@ -42,7 +42,7 @@ const TokenInfo = () => {
     return (
         <div className={styles.InfoList}>
             <p className={styles.tokenInfoItem}>${formatPrice(tokenData.market_data.current_price.usd)}</p>
-            <p className={styles.tokenInfoItem}>24h Vol: ${tokenData.market_data.total_volume.usd.toFixed(2)}</p>
+
             <p className={styles.tokenInfoItem}>
                 24h:<span className={priceChangeClass}>{priceChange.toFixed(2)}%</span>
                 {priceChange !== 0 && (
@@ -51,6 +51,9 @@ const TokenInfo = () => {
                     </span>
                 )}
             </p>
+
+            <p className={styles.tokenInfoItem}>24h Vol: ${tokenData.market_data.total_volume.usd.toFixed(2)}</p>
+            
         </div>
     );
 };

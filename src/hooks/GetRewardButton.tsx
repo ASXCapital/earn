@@ -53,7 +53,7 @@ const GetRewardButton = ({ stakingContractAddress, onUpdate }) => {
   };
 
   return (
-    <div>
+    <div className={styles.buttonWrapper}>
       <button
         className={`${styles.actionButton} ${isLoading ? styles.disabledButton : ''} ${isSuccess && transactionInitiated ? styles.successPulse : isError && transactionInitiated ? styles.errorPulse : ''}`}
         onClick={handleAction}

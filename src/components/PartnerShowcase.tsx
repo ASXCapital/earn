@@ -25,6 +25,9 @@ const PartnerShowcase = () => {
         logo: '/logos/partners/core.svg' },
         { url: 'https://www.dextools.io/app/en/bnb/pair-explorer/0x9f0faa9668ca7f0a0c1cef0d267fcd3af388941b?t=1711849478235',
         logo: '/logos/partners/dextools.svg' },
+        { url: 'https://www.plena.finance/',
+        logo: '/logos/partners/plena.svg' },
+        
     ];
 
 

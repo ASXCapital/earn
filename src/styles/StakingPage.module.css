@@ -3,7 +3,7 @@
   position:relative;
   max-width: 900px;
   margin: auto;
-  padding: 0.5rem;
+  padding-inline: 3vw;
   margin-top: 150px;
   font-size: 1rem;
   margin-bottom: 50px;
@@ -15,16 +15,62 @@
   backdrop-filter: blur(8.5px) ;
   
 
-  border: 1px solid rgba(2, 247, 186, 0.18);
+  border: 1px solid rgba(247, 2, 206, 0.18);
 
   /* Tunnel effect */
   background: #323232ba;
   background-size: 200% 200%;
 
-
   z-index: 1; /* Ensure it doesn't overlap everything */
 
 }
+
+@media (max-width: 750px) {
+  .stakingWrapper {
+    padding-inline: 0px;
+    
+}
+  }
+
+  .maxAndInput {
+    flex: 1 1 50%; /* Take up half of the space */
+    display: flex;
+    justify-content: space-between; /* Space out the max button and the input field */
+    /* Ensure it doesn't grow beyond its 50% allocation */
+    max-width: 50%;
+    gap: .3rem;
+   
+    
+  }
+
+  @media (max-width: 750px) {
+    .maxAndInput, .Buttons3 {
+      margin-top: .4rem;
+      justify-content: center; /* Center the items for a cleaner look */
+      max-width: 100%; /* Allow them to grow to the full width of their container */
+      
+    }
+  
+    .actionButton {
+      margin: 0 5px; /* Add some margin between buttons when they are in a row on small screens */
+    }
+  }
+
+  .maxAndInput, .Buttons3 {
+    width: 100%; /* Full width on smaller screens */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  
+  }
+
+
+  @media (min-width: 750px) {
+    .maxAndInput, .Buttons3 {
+      margin-top: .4rem;
+      width: 50%; /* Each takes up half the width on larger screens */
+      padding-inline-start: 0rem;
+    }
+  }
+  
 
 /* You might add some pseudo-elements for more visual effects like light flares or additional depth */
 .stakingWrapper::before {
@@ -78,8 +124,6 @@
 
   backdrop-filter: brightness(0);
   background: linear-gradient(45deg, #0f2f3570 #4255a0c1, #254f4f9c, #33044c6b, #0ba4ca60,);
-  
-  
 }
 
 
@@ -95,7 +139,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: left;
-  padding: 12px;
+  padding: 1rem;
   margin-bottom: 50px;
 }
 
@@ -108,7 +152,11 @@
   margin: 5px 20px;
 
 }
-
+@media (max-width: 750px) {
+  .cardHeader {
+    margin: 5px 10px;
+  }
+}
 
 .logoContainer {
   /* Center the logo container */
@@ -120,7 +168,7 @@
 .logoContainer img {
   /* Ensure the image maintains its aspect ratio */
   object-fit: contain; /* or object-fit: cover; depending on your preference */
-  max-width: 8vw; /* Maximum width of the image container */
+
   max-height: 100%; /* Maximum height of the image container */
 }
 
@@ -148,6 +196,14 @@
   
 }
 
+@media (max-width: 750px) {
+  .aprNumber {
+
+    align-items: center;
+  }
+}
+
+
 .aprNumber {
   font-size: 2.7rem; /* Adjust according to your preference */
   color: #00ffb7;
@@ -155,14 +211,14 @@
 }
 
 .aprText {
-  font-size: 0.8rem; /* Half the size of aprNumber */
-  margin-left: .2rem; /* Space between number and percent sign */
+  font-size: 0.6rem; /* Half the size of aprNumber */
+  margin-left: .1rem; /* Space between number and percent sign */
   color: #00fff7; /* You can adjust the color if needed */
 }
 
 .aprPercent{
-  font-size: 1.2rem; /* Adjust according to your preference */
-  margin-left: .2rem; /* Space between percent sign and APR text */
+  font-size: 1rem; /* Adjust according to your preference */
+  margin-left: .1rem; /* Space between percent sign and APR text */
   color: #00ffb7; /* You can adjust the color if needed */
 
 }
@@ -177,22 +233,29 @@
   display: flex;
   align-items: center;
   white-space: nowrap; /* Prevents text from wrapping */
+  padding-bottom: 3px;
   
 }
 
 
-.cardBody, .actionSection {
+.cardBody{
   
   padding: 3px;
   background: linear-gradient(90deg, #073f453c, #1c1d2146, #0b0b0b48, #33044c4c, #1c202141);
   display: flex;
   flex-direction: column; /* Added for .cardBody */
-  
-  
   margin-inline: 0px;
   padding-inline: 20px;
- 
+  
+  
 }
+
+@media (max-width: 750px) {
+  .cardBody {
+    padding-inline: 10px;
+}
+  }
+
 
 .poolInfo {
   display: flex;
@@ -202,12 +265,19 @@
 
 .actionSection {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 4px; /* Space between the input and buttons */
+  padding-inline: 20px;
+  width: 100%;
 
- 
 }
+
+@media (max-width: 750px) {
+  .actionSection {
+    padding-inline: 10px;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+  }
 
 .StakingIntro {
   display: flex;
@@ -224,21 +294,47 @@
   border: 1px solid #4b5563;
   color: #d1d5db;
   background: transparent;
+
 }
 
 .actionButton {
-  padding: 8px 8px; /* Adjust padding as needed */
+  flex-grow: 1; /* Allow the button to expand and fill the available space */
+
+  padding: 8px; /* Adjust padding as needed */
   background: #0ad9e3;
   border: none;
   border-radius: 2px;
   color: #232323;
   cursor: pointer;
-  transition: background-color 0.2s;
-  white-space: nowrap; /* Prevents text from wrapping */
-  width: 90px;
+  transition: background-color 0.2s, transform 0.2s;
   font-weight: 600;
-  transition: 0.2s;
-  height: 31px;
+  height: 31px; /* You might want to adjust the height as well */
+
+}
+
+.Buttons3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Three columns for the buttons */
+  
+  justify-content: space-between; /* Space out buttons evenly */
+
+
+  padding-inline-start: .3rem;
+}
+
+@media (max-width: 750px) {
+  .Buttons3 {
+    padding-inline-start: 0rem;
+    
+}
+  }
+
+.actionButton:first-child {
+  margin-left: 0;
+}
+
+.actionButton:last-child {
+  margin-right: 0;
 }
 
 .actionButton:hover {
@@ -281,8 +377,9 @@
   text-align: center;
   margin-bottom: 2px;
   font-weight: 200;
-  color: #42817e;
-  font-size: 0.75rem;
+  color: #83ceca;
+  font-size: 0.7rem;
+
   
 }
 
@@ -338,7 +435,7 @@
 .titleAndLogoContainer {
   display: grid;
   grid-template-rows: 30px; /* Two rows: one for the title/logo, one for the TVL */
-  gap: 0px; /* Space between title/logo row and TVL row */
+
 }
 
 .titleAndLogo {
@@ -350,6 +447,9 @@
 .poolTitle {
   margin: 1px;
   flex-grow: 0; /* Allow the title to take up as much space as possible, pushing the logo to the end */
+  display: flex;
+  align-items: center;
+ 
 }
 
 .buyLink {
@@ -389,9 +489,9 @@ padding-top: 4px;
   }
 }
 
-@media (max-width: 498px) {
+@media (max-width: 600px) {
   .totalTVL {
-    font-size: 3rem; /* Minimum font size */
+    font-size: 14vw; /* Minimum font size */
   }
 }
 
@@ -430,6 +530,12 @@ padding-top: 4px;
   padding: 0px; /* Adjust padding as needed */
 }
 
+@media (max-width: 750px) {
+  .PricesAndAPR {
+    flex-direction: column;
+  }
+}
+
 .UserStats{
   flex: 1; /* Allow this section to grow and fill the space */
   display: flex;
@@ -441,5 +547,28 @@ padding-top: 4px;
   flex: 1; /* Allow this section to grow and fill the space */
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align text to the end (right) */
+  align-items: flex-start; /* Align text to the start (left) */
+}
+
+@media (max-width: 750px) {
+  .aprAndPrice {
+    flex-direction: row;
+    justify-content: space-between; /* This spreads the items to either end */
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    align-items: center;
+  }
+}
+.buttonWrapper {
+  flex-grow: 1;  /* Allow the div wrapper to grow */
+  display: flex; /* This makes sure the button inside can expand to fill it */
+  padding: 0 .2rem; /* Adjust padding to create space between buttons */
+}
+
+.buttonWrapper:first-child {
+  padding-left: 0;
+}
+
+.buttonWrapper:last-child {
+  padding-right: 0;
 }

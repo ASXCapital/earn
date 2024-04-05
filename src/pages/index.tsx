@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 import CryptoTable from '../components/CryptoTable';
+import CoinGeckoWidget from '../utils/CoinGeckoWidget';
 
 
 const Home: NextPage = () => {
@@ -35,7 +36,8 @@ const Home: NextPage = () => {
           </div>
           
           <div className={styles.marketsContainer}>
-  <CryptoTable className={styles.cryptoTable} />
+  <CryptoTable className={styles.cryptoTable} 
+  />
 </div>
 
 
