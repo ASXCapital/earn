@@ -1,35 +1,20 @@
-// file earn/src/hooks/useTotalStaked.ts
-
-// hook for asx staking contracts rec 0x contract address and returns the totalSupply unit256
-
-import { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
+import { useReadContract } from 'wagmi';
 import { ASXStakingABI } from '../abis/ASXStakingABI';
+import { useEffect, useState } from 'react';
 
-// Hook to fetch total staked amount from a given staking contract address
 export const useTotalStaked = (contractAddress) => {
-  const [totalStaked, setTotalStaked] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Using `useReadContract` to get the total supply from the staking contract
+  const { data: totalStaked, isError, isLoading: isReadContractLoading } = useReadContract({
+    address: contractAddress, // The contract address
+    abi: ASXStakingABI, // The contract ABI
+    functionName: 'totalSupply', // The function name to call
+  });
+
   useEffect(() => {
-    const fetchTotalStaked = async () => {
-      if (!contractAddress) return;
+    setIsLoading(isReadContractLoading);
+  }, [isReadContractLoading]);
 
-      try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum); // Using MetaMask's provider
-        const stakingContract = new ethers.Contract(contractAddress, ASXStakingABI, provider);
-        
-        const totalStakedAmount = await stakingContract.totalSupply();
-        setTotalStaked(totalStakedAmount);
-      } catch (error) {
-        console.error('Error fetching total staked amount:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchTotalStaked();
-  }, [contractAddress]); // Re-run the effect if the contract address changes
-
-  return { totalStaked, isLoading };
+  return { totalStaked, isLoading, isError };
 };

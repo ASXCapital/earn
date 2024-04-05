@@ -83,7 +83,7 @@ const StakingPage = () => {
 {roundedOverallTVL > 0 && (
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{ flexGrow: 1 }}></div> 
-                <div className={styles.totalTVLContainer}>
+                <div className={styles.totalTVLContainerALL}>
                   <span className={styles.totalTVL}>${formattedOverallTVL}<span className={styles.totalTVLmini}> TVL</span></span>
                 </div>
               </div>

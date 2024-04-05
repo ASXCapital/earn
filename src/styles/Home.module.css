@@ -18,30 +18,33 @@
     text-shadow: -10px 0 10px #00e65c8c, -20px 0 20px #00ffff81, -30px 0 30px #00e6c0, -40px 0 40prgba(0, 230, 230, 0.449)e6, -50px 0 50px #00e6e6, -60px 0 60px #00e6e6, -70px 0 70px #c000e6c1;
   }
   50% {
-    text-shadow: 10px 0 10px #00e6e67e, 20px 0 20px #d400ff8f, 30px 0 30px #00e6c0, 40px 0 40px #00e6e6, 50px 0 50px #00e6e6, 60px 0 60px #00e6e6, 70px 0 70px #c000e6c1;
+    text-shadow: 10px 0 10px #00e6e67e, 20px 0 20px #8500a099, 30px 0 30px #00e6c0, 40px 0 40px #00e6e6, 50px 0 50px #00e6e6, 60px 0 60px #00e6e6, 70px 0 70px #6f0085c1;
   }
 }
 
 .IndexHeader {
   font: 4rem 'Urbanist', sans-serif; /* Fallback to sans-serif if TRON is not available */
   color: rgb(96, 255, 250); /* Changed text color to black */
-  font-size: 8rem;
+  font-size: 10rem;
   animation: moveLight 44s linear infinite;
   font-weight: 600;
+  
 }
 
 
 /* The rest of your CSS... */
 
 .container {
-  padding: 0 2rem;
+
+  max-width: 100%; /* Prevents overflow on small screens */
 }
+
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
+  padding: 3rem 1rem;
   flex: 1;
-  display: flex;
+  display: block;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -76,7 +79,7 @@
 }
 
 .title {
-  margin: 3rem 0;
+  margin: 3rem 0 1.5rem 0;
   line-height: 1;
   font-size: 2.5rem;
 }
@@ -95,14 +98,33 @@
 
 .grid {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
+  flex-direction: column; /* Ensure items stack vertically */
+  align-items: flex-start;/* Center items horizontally */
+  justify-content: center; /* Center items vertically for when there's extra space */
+  max-width: 800px; /* Set a max-width for the grid */
+  margin: 0 auto; /* Center the grid horizontally */
 }
 
+.CardContainer {
+  width: 100%; /* Ensure the container takes up the full width of the grid */
+  display: flex; /* Use flexbox for easy centering */
+  justify-content: center; /* Center the card horizontally */
+  margin-bottom: 1rem; /* Add some margin below the card for spacing */
+}
+
+.marketsContainer {
+  display: flex; /* Use flexbox to contain the table */
+  overflow-x: auto; /* Allow horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS devices */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE 10+ */
+}
+
+.marketsContainer::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
 .card {
-  margin: 1rem;
+  margin: 0.5rem;
   padding: 1.5rem;
   text-align: left;
   color: inherit;
@@ -110,15 +132,22 @@
   border: 1px solid #04ffffbd;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  min-width: 300px;
+  width: auto;
+  max-width: 400px;
   background-color: #251a28a0;
+  box-shadow: rgba(255, 0, 255, 0.349) 0 0 20px 0;
 }
 
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0d76fc;
-  border-color: #0d76fc;
+  color: #0dfcd0;
+  border-color: #ffffff;
+}
+
+.card a {
+  padding: 0.5rem; /* Larger tap area */
+  display: inline-block; /* Ensure padding affects layout */
 }
 
 .card h2 {

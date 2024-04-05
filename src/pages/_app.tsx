@@ -71,7 +71,7 @@ const config = createConfig({
   },
 
   ssr: false, 
-  syncConnectedChain: false, 
+ 
   connectors: connectors,
 
   

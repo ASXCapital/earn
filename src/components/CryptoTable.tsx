@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CryptoTable.module.css'; // Make sure the path is correct
 
-const CryptoTable = () => {
+interface CryptoTableProps {
+    className?: string; // Make className an optional prop
+  }
+
+  const CryptoTable: React.FC<CryptoTableProps> = ({ className }) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -40,6 +44,8 @@ const CryptoTable = () => {
   }
 
   return (
+    <div className={className}> 
+
     <div className={styles.cryptoTableContainer}>
       <h2 className={styles.cryptoTableHeader}>{data.name} Markets</h2>
       <table className={styles.cryptoTable}>
@@ -75,6 +81,7 @@ const CryptoTable = () => {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };

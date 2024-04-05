@@ -64,7 +64,7 @@ const Header = () => {
 
 
         <div className={styles.navLinks}>
-          
+          {/*
         
             <Link href="/staking" passHref>
               <button className={styles.dropdownItem}>Staking</button>
@@ -73,7 +73,7 @@ const Header = () => {
               <button className={styles.dropdownItem}>Back to V1</button>
             </Link>
 
-          {/*
+          
             <Link href="/vaults" passHref>
               <button className={styles.dropdownItem}>Vaults</button>
             </Link>

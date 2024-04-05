@@ -334,7 +334,7 @@ useEffect(() => {
   <div className={styles.titleAndLogo}>
     <h1 className={styles.poolTitle}>{pool.title}</h1>
     <a href={pool.stakingToken.buyLink} target="_blank" rel="noopener noreferrer" className={styles.buyLink}>
-      <Image src="/logos/PancakeSwap Logos/Full Logo/color-white.svg" alt="PancakeSwap Logo" width={80} height={30}/>
+      <Image src="/logos/PancakeSwap Logos/Full Logo/bunny-color.svg" alt="PancakeSwap Logo" width={12} height={22}/>
     </a>
   </div>
   

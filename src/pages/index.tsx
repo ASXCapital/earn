@@ -25,13 +25,20 @@ const Home: NextPage = () => {
         </p>
 
         <div className={styles.grid}>
+          <div className={styles.CardContainer}>
           <Link href="/staking" passHref>
             <div className={styles.card}>
               <h2>Staking &rarr;</h2>
               <p>Stake your ASX tokens and earn rewards.</p>
             </div>
           </Link>
-          <CryptoTable />
+          </div>
+          
+          <div className={styles.marketsContainer}>
+  <CryptoTable className={styles.cryptoTable} />
+</div>
+
+
 
           {/*
 

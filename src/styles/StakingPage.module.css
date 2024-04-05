@@ -3,7 +3,7 @@
   position:relative;
   max-width: 900px;
   margin: auto;
-  padding: 25px;
+  padding: 0.5rem;
   margin-top: 150px;
   font-size: 1rem;
   margin-bottom: 50px;
@@ -120,7 +120,7 @@
 .logoContainer img {
   /* Ensure the image maintains its aspect ratio */
   object-fit: contain; /* or object-fit: cover; depending on your preference */
-  max-width: 100%; /* Maximum width of the image container */
+  max-width: 8vw; /* Maximum width of the image container */
   max-height: 100%; /* Maximum height of the image container */
 }
 
@@ -168,6 +168,7 @@
 }
 
 .poolTitle {
+  
   margin: 0;
   /* Changed 'font' to 'font-family' */
   font-size: 1.6rem;
@@ -175,6 +176,8 @@
   color: #c3fdff;
   display: flex;
   align-items: center;
+  white-space: nowrap; /* Prevents text from wrapping */
+  
 }
 
 
@@ -357,15 +360,39 @@ padding-top: 4px;
 .TotalTVLContainer {
   display:flex;
   justify-content: flex-end;
+  max-width: 800px;
+  font-size: .8rem;
 
 }
 
+.TotalTVLContainerALL {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 40px; /* Set the maximum size of the container */
+  width: 100%; /* Make the container's width flexible */
+  margin: 0 auto; /* Center the container */
+}
+
 .totalTVL {
-  font-size: 6rem; /* Adjust font size as necessary */
-  
+  font-size: 6rem; /* Use viewport width units */
   color: #c3fdff;
   margin: 0; /* Remove margin to prevent extra space */
   text-shadow: 0 0 10px #00ffee;
+  white-space: nowrap; /* Prevent text from wrapping */
+  
+}
+
+/* Add media queries to cap the font size */
+@media (min-width: 1200px) {
+  .totalTVL {
+    font-size: 6rem; /* Maximum font size */
+  }
+}
+
+@media (max-width: 498px) {
+  .totalTVL {
+    font-size: 3rem; /* Minimum font size */
+  }
 }
 
 .totalTVLmini {
