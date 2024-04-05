@@ -26,7 +26,7 @@
   border-bottom: 1px solid #00fff7;
   overflow: visible;
   box-sizing: border-box;
-  padding-top: 2.6rem;
+  padding-top: 1rem;
   transition: top 0.3s;
 }
 
@@ -45,7 +45,7 @@
 .navLinks {
   position: absolute; /* Position the navigation container absolutely */
   left: 50%; /* Move to the middle of the container */
-  top: 75%; /* Align vertically in the middle */
+  top: 66%; /* Align vertically in the middle */
   transform: translate(-50%, -75%); /* Offset the container by its own dimensions to truly center it */
   display: flex; /* Align links side by side */
   gap: 20px; /* Adjust the space between links */

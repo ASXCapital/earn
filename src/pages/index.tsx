@@ -21,7 +21,7 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          Asset Diversitification made simple.
+          Asset Diversitification Made Simple.
         </p>
 
         <div className={styles.grid}>

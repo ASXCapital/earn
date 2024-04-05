@@ -51,7 +51,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div style={{ position: 'absolute', top: 0, width: '100%', zIndex: 1 }}>
-            <CoinGeckoWidget />     
+            
       </div>
       <nav className={styles.navbar} style={{ marginTop: '0px' }}> {/* Adjust the marginTop value as needed */}
       <div className={styles.LogoAndInfo}>
