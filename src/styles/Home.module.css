@@ -132,11 +132,19 @@
   border: 1px solid #04ffffbd;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  width: auto;
+  width: 400px;
   max-width: 400px;
   background-color: #251a28a0;
   box-shadow: rgba(255, 0, 255, 0.349) 0 0 20px 0;
 }
+
+@media (max-width: 500px) {
+  .card {
+    width: 90vw;
+    padding: 1rem;
+  }
+}
+
 
 .card:hover,
 .card:focus,

@@ -34,7 +34,14 @@ const Home: NextPage = () => {
             </div>
           </Link>
           </div>
-          
+          <div className={styles.CardContainer}>
+          <Link href="/dashboard" passHref>
+            <div className={styles.card}>
+              <h2>Dashboard &rarr;</h2>
+              <p>Your EVM, DeFi hub</p>
+            </div>
+          </Link>
+          </div>
           
   <CryptoTable className={styles.cryptoTable} 
   />
