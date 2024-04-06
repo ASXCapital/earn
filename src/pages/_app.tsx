@@ -3,44 +3,32 @@
 import React from 'react';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WagmiProvider, createConfig, http, createStorage } from 'wagmi';
+import { WagmiProvider, createConfig, http } from 'wagmi';
 
 
-import { type CreateConfigParameters } from '@wagmi/core'
-import {  injected, safe, walletConnect } from 'wagmi/connectors';
 
-import { bsc, arbitrum, bscTestnet, coreDao } from 'wagmi/chains';
+
+import { bsc, coreDao } from 'wagmi/chains';
 import '@rainbow-me/rainbowkit/styles.css'
 import { 
   DisclaimerComponent, 
-  getDefaultConfig, 
-  getDefaultWallets,
   RainbowKitProvider, 
-  AvatarComponent,
   midnightTheme, 
-  connectorsForWallets,
-  useAddRecentTransaction, // IMPLEMNENT THIS****
+  connectorsForWallets, // IMPLEMNENT THIS****
  } from '@rainbow-me/rainbowkit';
 import Layout from '../components/Layout';
 import { PoolDataProvider } from '../contexts/PoolDataContext'; 
 import '../styles/globals.css';
 import '../styles/Home.module.css';
 import '@rainbow-me/rainbowkit/styles.css';
-import { UseConfigParameters } from 'wagmi';
-import {  zerionWallet,
-  trustWallet, metaMaskWallet, rainbowWallet, uniswapWallet, phantomWallet/*FALLBACK*/ } from '@rainbow-me/rainbowkit/wallets';
+
+import { coinbaseWallet, ledgerWallet, zerionWallet, braveWallet,
+  trustWallet, metaMaskWallet, rainbowWallet, uniswapWallet, phantomWallet,
+ } from '@rainbow-me/rainbowkit/wallets';
 
 import { TokenPricesProvider } from '../contexts/TokenPricesContext';
-import QuickNode from '@quicknode/sdk';
 
-const customBscChain = {
-  ...bsc, // Spread the existing BSC configuration
-  rpcUrls: {
-    default: process.env.NEXT_PUBLIC_BSC_PROVIDER_QNODE, // Use your custom RPC URL
-  },
-  // Ensure the chainId is explicitly set if necessary
-  id: 56, // BSC Mainnet Chain ID
-};
+
 
 
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
@@ -51,11 +39,11 @@ const connectors = connectorsForWallets(
   [
     {
       groupName: 'Recommended',
-      wallets: [metaMaskWallet,  trustWallet],
+      wallets: [metaMaskWallet, trustWallet, braveWallet],
     },
     {
       groupName: 'Explore More',
-      wallets: [zerionWallet,  rainbowWallet, uniswapWallet,  phantomWallet /*FALLBACK*/],
+      wallets: [zerionWallet,  rainbowWallet, uniswapWallet, coinbaseWallet, phantomWallet, ledgerWallet /*FALLBACK*/],
     },
   ],
   {
@@ -70,18 +58,20 @@ const connectors = connectorsForWallets(
 
 
 const config = createConfig({
-  chains: [bsc, coreDao,],
+  chains: [bsc, coreDao],
   transports: {
     [bsc.id]: http (process.env.NEXT_PUBLIC_BSC_PROVIDER_QNODE),
-    [coreDao.id]: http ('https://rpc-core.icecreamswap.com'),
+    [coreDao.id]: http ('https://rpc.ankr.com/core'),
   },
 
   ssr: false, 
- 
+  syncConnectedChain: true, 
   connectors: connectors,
 
   
 });
+
+
 
 
 
@@ -109,7 +99,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <QueryClientProvider 
       client={queryClient}>
         <RainbowKitProvider
-          initialChain={bsc.id}
+          initialChain={56}
           
           showRecentTransactions={true}
           appInfo={{
@@ -129,9 +119,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           >
             <TokenPricesProvider>
             <PoolDataProvider>
+            
             <Layout>
               <Component {...pageProps} />
             </Layout>
+           
             </PoolDataProvider>
             </TokenPricesProvider>
           </RainbowKitProvider>
@@ -142,5 +134,3 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 export default MyApp;
-
-

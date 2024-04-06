@@ -18,7 +18,7 @@
   border: 1px solid rgba(247, 2, 206, 0.18);
 
   /* Tunnel effect */
-  background: #0bc7c170;
+  background: linear-gradient(180deg, #57046770, #1c1d2146, #04e7d148, #09659390, #03c5718f);
   background-size: 200% 200%;
 
   z-index: 1; /* Ensure it doesn't overlap everything */

@@ -95,7 +95,17 @@ const Header = () => {
 
         
         
-        <ConnectButton />
+   <ConnectButton
+  accountStatus={{
+    smallScreen: 'avatar',
+    largeScreen: 'full',
+    
+  }}
+  showBalance={{
+    smallScreen: false,
+    largeScreen: true,
+  }}
+/>
         
   
       </nav>

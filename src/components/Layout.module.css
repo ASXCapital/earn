@@ -23,7 +23,7 @@
   background: linear-gradient(-45deg, #fb00ff,  #00002e,#00b7c7, #140015, #292e49);
   background-size: 400% 400%;
   animation: gradientAnimation 60s ease infinite;
-  padding: 20px;
+  padding: 0.2rem;
   padding-bottom: 60px; /* You might want to adjust or remove this, depending on your footer's height */
 }
 
