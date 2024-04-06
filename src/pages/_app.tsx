@@ -14,7 +14,8 @@ import {
   DisclaimerComponent, 
   RainbowKitProvider, 
   midnightTheme, 
-  connectorsForWallets, // IMPLEMNENT THIS****
+  connectorsForWallets, 
+  Chain
  } from '@rainbow-me/rainbowkit';
 import Layout from '../components/Layout';
 import { PoolDataProvider } from '../contexts/PoolDataContext'; 
@@ -22,7 +23,7 @@ import '../styles/globals.css';
 import '../styles/Home.module.css';
 import '@rainbow-me/rainbowkit/styles.css';
 
-import { coinbaseWallet, ledgerWallet, zerionWallet, braveWallet,
+import {  ledgerWallet, zerionWallet, braveWallet,
   trustWallet, metaMaskWallet, rainbowWallet, uniswapWallet, phantomWallet,
  } from '@rainbow-me/rainbowkit/wallets';
 
@@ -34,6 +35,19 @@ const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
 
 
 
+const chains: readonly [Chain, ...Chain[]] = [
+  {
+    ...bsc,
+    iconBackground: '#000',
+  
+  },
+  {
+    ...coreDao,
+    iconBackground: '#000',
+    iconUrl: "/logos/partners/core.svg",
+  },
+];
+
 const connectors = connectorsForWallets(
   [
     {
@@ -42,7 +56,7 @@ const connectors = connectorsForWallets(
     },
     {
       groupName: 'Explore More',
-      wallets: [zerionWallet,  rainbowWallet, uniswapWallet, coinbaseWallet, phantomWallet, ledgerWallet /*FALLBACK*/],
+      wallets: [zerionWallet,  rainbowWallet, uniswapWallet, phantomWallet, ledgerWallet /*FALLBACK*/],
     },
   ],
   {
@@ -57,13 +71,13 @@ const connectors = connectorsForWallets(
 
 
 const config = createConfig({
-  chains: [bsc, coreDao],
+  chains,
   transports: {
     [bsc.id]: http (process.env.NEXT_PUBLIC_BSC_PROVIDER_QNODE),
     [coreDao.id]: http ('https://rpc.ankr.com/core'),
   },
-
-  ssr: false, 
+  
+  ssr: true, 
   syncConnectedChain: true, 
   connectors: connectors,
 
@@ -99,7 +113,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       client={queryClient}>
         <RainbowKitProvider
           initialChain={56}
-          
+   
           showRecentTransactions={true}
           appInfo={{
             appName: 'ASX',

@@ -1,13 +1,15 @@
-// pages/staking.tsx
-import React from 'react';
+// pages/dashboard.tsx
 
-const LPDashboardPage = () => {
-  return (
-    <div>
-      
-      {/*  */}
-    </div>
-  );
+import React from 'react';
+import ChainBalances from '../components/dashboard/ChainBalances';
+
+const DashboardPage = () => {
+    return (
+        <div>
+            <h2>Chain Balances</h2>
+            <ChainBalances />
+        </div>
+    );
 };
 
-export default LPDashboardPage;
+export default DashboardPage;

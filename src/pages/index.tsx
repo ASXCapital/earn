@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 import CryptoTable from '../components/CryptoTable';
+import Image from 'next/image'; 
 import CoinGeckoWidget from '../utils/CoinGeckoWidget';
 
 
@@ -30,18 +31,23 @@ const Home: NextPage = () => {
           <Link href="/staking" passHref>
             <div className={styles.card}>
               <h2>Staking &rarr;</h2>
-              <p>Stake your ASX tokens and earn rewards.</p>
+              <p>Stake ASX & LP tokens and earn rewards</p>
             </div>
           </Link>
           </div>
           <div className={styles.CardContainer}>
-          <Link href="/dashboard" passHref>
-            <div className={styles.card}>
-              <h2>Dashboard &rarr;</h2>
-              <p>Your EVM, DeFi hub</p>
-            </div>
-          </Link>
-          </div>
+  <Link href="/dashboard" passHref>
+    <div className={styles.card} style={{ position: 'relative' }}> {/* Add relative positioning to the card container */}
+      <h2>Dashboard &rarr;</h2>
+      <p>EVM DeFi hub</p>
+      {/* "Powered By" section with Moralis logo */}
+      <div style={{ position: 'absolute', bottom: '10px', right: '10px', display: 'flex', alignItems: 'center', fontSize: '0.8rem' }}>
+        Powered By{' '}
+        <Image src="/logos/partners/moralis.png" alt="Moralis Logo" width={65} height={20} />
+      </div>
+    </div>
+  </Link>
+</div>
           
   <CryptoTable className={styles.cryptoTable} 
   />

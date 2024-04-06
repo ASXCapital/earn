@@ -1,0 +1,46 @@
+.chainBalancesTable {
+  width: auto;
+  max-width: 80%;
+  margin: 4rem auto;
+  font-family: 'San Francisco', 'Helvetica Neue', sans-serif; /* Apple's system font for a clean, modern look */
+  color: #1d1d1f; /* Deep gray for high contrast and legibility */
+  background: linear-gradient(to bottom, #ffffff, #f6f6f6); /* Subtle gradient for depth */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.07); /* Soft, diffused shadow for a floating effect */
+  border-radius: 12px; /* Smooth, modern corners */
+  overflow: hidden;
+  border: 1px solid #d1d1d6; /* Fine border for subtle definition */
+}
+
+.chainBalancesTable th,
+.chainBalancesTable td {
+  padding: .2rem 1rem .6rem 1rem; /* Optimal padding for space and readability */
+  text-align: left;
+  border-bottom: 1px solid #c6c6c8; /* Soft border for separation without harsh lines */
+}
+
+.chainBalancesTable th {
+  color: #6e6e73; /* Muted tone for headers to reduce visual weight */
+  background-color: #fafafa; /* Light background to distinguish header */
+  font-weight: 400; /* Medium weight for a balance between prominence and elegance */
+  text-transform: uppercase; /* Subtle use of uppercase for a structured, organized look */
+  letter-spacing: 0.02em; /* Slight spacing to improve readability */
+  font-size: .8rem; /* Smaller size for a compact, efficient layout */
+}
+
+.chainBalancesTable tbody tr {
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for interactive feedback */
+}
+
+.chainBalancesTable tbody tr:nth-child(even) {
+  background-color: #ffffff; /* Alternating rows for better readability, with subtle contrast */
+}
+
+.chainBalancesTable tbody tr:hover {
+  transform: translateY(-3px); /* Gentle lift effect on hover for tactile feedback */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Elevated shadow for a dynamic, engaging interaction */
+  background-color: #f9f9fb; /* Slightly different background on hover to indicate selection */
+}
+
+.chainBalancesTable tbody tr:hover td {
+  color: #006885; /* Apple's default link color for a familiar, intuitive cue */
+}
