@@ -9,8 +9,10 @@
   overflow-x: auto; /* Enable horizontal scrolling */
   display: block; /* Ensure the container is block-level to respect the overflow property */
   width: 100%; /* Adjust if necessary */
-  margin-bottom: 10rem;
+ 
   color: #cfcfcf;
+  margin: 6rem auto;
+  max-width: 60rem;
 
 }
 

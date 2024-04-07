@@ -1,5 +1,6 @@
 .footer {
-  background: linear-gradient(180deg, #00ffff 0%, #74ffc7 10%, #0be3d8 50%, #0dd7cd 75%, #00d46a 100%);
+background-color: black;
+  /* background: linear-gradient(180deg, #00ffff 0%, #74ffc7 10%, #0be3d8 50%, #0dd7cd 75%, #00d46a 100%); */
   color: #fff;
   padding: 20px 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -50,7 +51,7 @@
 }
 
 .footerSection li a:hover {
-  color: #e000ec;
+  color: #147e6e;
   text-decoration: underline;
 }
 

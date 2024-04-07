@@ -2,11 +2,14 @@
 
 import React from 'react';
 import ChainBalances from '../components/dashboard/ChainBalances';
+import CryptoTable from '../components/CryptoTable';
+
 
 const DashboardPage = () => {
     return (
         <div>
-            <h2>Chain Balances</h2>
+              <CryptoTable
+  />
             <ChainBalances />
         </div>
     );

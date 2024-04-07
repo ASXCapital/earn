@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
-import CryptoTable from '../components/CryptoTable';
+
 import Image from 'next/image'; 
 import CoinGeckoWidget from '../utils/CoinGeckoWidget';
 
@@ -49,8 +49,7 @@ const Home: NextPage = () => {
   </Link>
 </div>
           
-  <CryptoTable className={styles.cryptoTable} 
-  />
+
 
 
 
