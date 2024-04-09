@@ -3,20 +3,21 @@ import styles from '../styles/PartnerShowcase.module.css'; // Adjusted import pa
 
 const PartnerShowcase = () => {
     const partners = [
-       { url: 'https://ave.ai/token/0xebd3619642d78f0c98c84f6fa9a678653fb5a99b-bsc?from=Default',
-        logo: '/logos/partners/AveAi.png' },
+      
        { url: 'https://www.coingecko.com/en/coins/asx-capital',
-        logo: '/logos/partners/coingecko.webp' },
+        logo: '/logos/partners/coingecko.svg' },
        { url: 'https://assets-global.website-files.com/621a140a057f392845dfaef3/6539fa54ccfe26e7c579f135_SmartContract_Audit_ASX_v1.1.pdf',
         logo: '/logos/partners/d3ploy.png' },
        { url: 'https://twitter.com/asx_capital/status/1741111969652871337?s=46&t=UGlPmQfBJBPdV7KBesWCeg',
         logo: '/logos/partners/friend3.svg' },
-       { url: 'https://gnosis.io/',
-        logo: '/logos/partners/gnosis2.svg' },
-       { url: 'https://www.prismres.com/',
+        { url: 'https://www.prismres.com/',
         logo: '/logos/partners/PrismRE.png' },
+       { url: 'https://safe.global/',
+        logo: '/logos/partners/gnosis2.svg' },
        { url: 'https://www.rainbowkit.com/',
-        logo: '/logos/partners/rainbow-logo.webp' },
+       logo: '/logos/partners/rainbow-logo.webp' },
+       { url: 'https://www.quicknode.com/',
+        logo: '/logos/partners/quicknode.png' },
        { url: 'https://www.bsc.news/search?query=asx',
         logo: '/logos/partners/bscn.png' },
         { url: 'https://github.com/ASXCapital/earn', 
@@ -27,6 +28,10 @@ const PartnerShowcase = () => {
         logo: '/logos/partners/dextools.svg' },
         { url: 'https://www.plena.finance/',
         logo: '/logos/partners/plena.svg' },
+        { url: 'https://ave.ai/token/0xebd3619642d78f0c98c84f6fa9a678653fb5a99b-bsc?from=Default',
+        logo: '/logos/partners/ave.png' },
+        { url: 'https://moralis.io/',
+        logo: '/logos/partners/moralis.png' },
         
     ];
 

@@ -1,3 +1,15 @@
+// file: src/components/dashboard/ChainBalances.tsx
+
+// This file is a React component that fetches and displays the net worth of a user's wallet on different chains.
+// It fetches the data from a Moralis server and displays it in a table.
+// The table has the following columns:
+// - Chain: The name of the chain
+// - Balance (ETH): The balance in ETH on the chain
+// - ETH in USD: The balance in USD on the chain
+// - Token Balance (USD): The token balance in USD on the chain
+// - Net Worth (USD): The total net worth in USD on the chain
+// The table also displays the total net worth across all chains.
+
 import React, { useEffect, useState, useMemo } from 'react';
 import { useAccount } from 'wagmi';
 import styles from './ChainBalances.module.css';
@@ -10,7 +22,7 @@ fantom: 'fantom-ftm-logo.svg',
 polygon: 'polygon-matic-logo.svg',
 avalanche: 'avalanche-avax-logo.svg',
 arbitrum: 'arbitrum-arb-logo.svg',
-gnosis: 'gnosis-gno-gno-logo.svg', // Assuming you have a logo for Gnosis, adjust the filename as necessary
+gnosis: 'gnosis-gno-gno-logo.svg', 
 optimism: 'optimism-ethereum-op-logo.svg',
 };
 

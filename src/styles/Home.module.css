@@ -138,6 +138,8 @@
   box-shadow: rgba(255, 0, 255, 0.349) 0 0 20px 0;
 }
 
+
+
 @media (max-width: 500px) {
   .card {
     width: 90vw;

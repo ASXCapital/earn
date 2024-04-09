@@ -1,0 +1,66 @@
+/* VaultCard.module.css */
+.vaultCardContainer {
+    background-color: #0207077a;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    color: #cfcfcf;
+    margin-bottom: 2rem;
+    
+  }
+  
+  .vaultTitle {
+    font-size: 1.5rem;
+    color: #00dab6;
+    margin-bottom: 20px;
+  }
+  
+  .vaultStats {
+    margin-bottom: 20px;
+  }
+  
+  .userStatsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .userStatsTable th,
+  .userStatsTable td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .userStatsTable th {
+    background-color: #34483c8a;
+    color: #e0e0e0;
+  }
+  
+  .inputField {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #020707;
+    color: #cfcfcf;
+  }
+  
+  .depositButton,
+  .withdrawButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #00dab6;
+    color: #020707;
+    font-weight: bold;
+  }
+  
+  .depositButton:hover,
+  .withdrawButton:hover {
+    background-color: #009c86;
+  }
+  

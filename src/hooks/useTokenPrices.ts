@@ -1,3 +1,5 @@
+//file: src/hooks/useTokenPrices.ts
+
 // Cache structure: { [address: string]: { price: number, timestamp: number } }
 import axios from 'axios';
 import { useState, useEffect } from 'react';

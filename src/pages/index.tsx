@@ -41,7 +41,7 @@ const Home: NextPage = () => {
       <h2>Dashboard &rarr;</h2>
       <p>EVM DeFi hub</p>
       {/* "Powered By" section with Moralis logo */}
-      <div style={{ position: 'absolute', bottom: '10px', right: '10px', display: 'flex', alignItems: 'center', fontSize: '0.8rem' }}>
+      <div style={{ position: 'absolute', bottom: '.4rem', right: '10px', display: 'flex',  fontSize: '0.7rem', alignItems: 'center', }}>
         Powered By{' '}
         <Image src="/logos/partners/moralis.png" alt="Moralis Logo" width={65} height={20} />
       </div>
@@ -50,9 +50,20 @@ const Home: NextPage = () => {
 </div>
           
 
-
-
-
+<div className={styles.CardContainer}>
+<Link href="/vaults" passHref>
+<div className={styles.card} style={{ position: 'relative' }}>
+              <h2>Vaults &rarr;</h2>
+              <p>Earn Yield on BNB, ETH and BTC</p>
+              {/*
+              <div style={{ position: 'absolute', bottom: '.4rem', right: '10px', display: 'flex', alignItems: 'center', fontSize: '0.7rem' }}>
+        Powered By{' '}
+        <Image src="/logos/partners/moralis.png" alt="Moralis Logo" width={65} height={20} />
+      </div>
+      */}
+            </div>
+          </Link>
+          </div>
 
           {/*
 
