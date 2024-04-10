@@ -8,6 +8,8 @@ import { formatUnits } from 'ethers/lib/utils';
 import { contracts } from '../../config/contracts';
 import VaultStakeButton from './VaultStakeButton';
 import VaultApproveButton from './VaultApproveButton';
+import VaultWithdrawButton from './VaultWithdrawButton';
+
 
 const VaultCard: React.FC<VaultCardProps> = ({
   title,
@@ -38,10 +40,10 @@ const VaultCard: React.FC<VaultCardProps> = ({
     if (balance === undefined || balance === null) {
       return `0`; // Display '0' when balance is undefined or null
     } else if (typeof balance === 'bigint') {
-      const formattedBalance = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(parseFloat(formatUnits(balance.toString(), 18)));
+      const formattedBalance = new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 }).format(parseFloat(formatUnits(balance.toString(), 18)));
       return `${formattedBalance}`;
     } else {
-      const formattedBalance = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(parseFloat(formatUnits(balance.value.toString(), balance.decimals)));
+      const formattedBalance = new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 }).format(parseFloat(formatUnits(balance.value.toString(), balance.decimals)));
       return `${formattedBalance}`;
     }
   };
@@ -57,7 +59,8 @@ const VaultCard: React.FC<VaultCardProps> = ({
     // Implement your update logic here
   };
   
-
+console.log("stakedTokenContract", stakedTokenContract)
+console.log("vaultTokenContract", vaultTokenContract)
   return (
     <div className={styles.vaultCardContainer}>
       <h2 className={styles.vaultTitle}>{title}</h2>
@@ -73,7 +76,10 @@ const VaultCard: React.FC<VaultCardProps> = ({
         className={styles.inputField} 
       />
         <div className={styles.actionButtons}>
-        {/* Conditionally render VaultApproveButton for ERC-20 tokens only */}
+
+
+        {/*ERC20 TOKEN VAULTING*/}
+
         {!isNativeToken && (
           <VaultApproveButton
             tokenAddress={stakedTokenContract}
@@ -81,18 +87,32 @@ const VaultCard: React.FC<VaultCardProps> = ({
             onUpdate={handleUpdateAfterStake}
           />
         )}
-          {/* Updated VaultStakeButton with proper props */}
+          {!isNativeToken && (
           <VaultStakeButton 
-  tokenAddress={stakedTokenContract}
-  vaultContractAddress={vaultTokenContract}
-  stakeAmount={stakeAmount}
-  isNativeToken={isNativeToken}
-  onUpdate={handleUpdateAfterStake}
-/>
+            amount={stakeAmount} 
+            vaultContractAddress={vaultTokenContract} 
+            onUpdate={handleUpdateAfterStake} 
+            tokenAddress={stakedTokenContract}
+          />
+        )}
+          
+          <VaultWithdrawButton
+            vaulttokenAddress={vaultTokenContract} 
+            stakedTokenContract={stakedTokenContract}
+            amount={stakeAmount} 
+            onUpdate={handleUpdateAfterStake} 
+          />
+       
+
+
+
+
+
+
+
 
         </div>
       </div>
-
       <div className={styles.userStats}>
         <table>
           <thead>
