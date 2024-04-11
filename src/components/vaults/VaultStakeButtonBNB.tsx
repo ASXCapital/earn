@@ -1,17 +1,20 @@
+// file: earn/src/components/vaults/VaultStakeButtonBNB.tsx
+
 import React, { useState, useEffect } from 'react';
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { ethers } from 'ethers';
-import { ASXVaultsABI } from '../../abis/ASXVaultsABI';
+import { ASXVaultsABINative } from '../../abis/ASXVaultsABINative';
 import styles from '../../styles/StakingPage.module.css';
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit';
 
 
-const VaultStakeButton = ({ vaultContractAddress, amount, onUpdate, tokenAddress }) => { // Change component name
+const VaultStakeButtonBNB = ({ vaultContractAddress, amount, onUpdate }) => { // Change component name
   const [statusMessage, setStatusMessage] = useState('Stake'); // Change status message
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [transactionHash, setTransactionHash] = useState('');
   const [transactionInitiated, setTransactionInitiated] = useState(false);
   const addRecentTransaction = useAddRecentTransaction();
+  const [inputAmount, setInputAmount] = useState('');
 
   useEffect(() => {
     setIsButtonDisabled(!amount || amount === '0' || isNaN(amount));
@@ -42,31 +45,41 @@ const VaultStakeButton = ({ vaultContractAddress, amount, onUpdate, tokenAddress
 
   const handleAction = async () => {
     if (isButtonDisabled || isLoading) return;
-    setStatusMessage('Staking'); // Change status message
+    setStatusMessage('Staking...');
     setIsButtonDisabled(true);
-
+  
     try {
+      // Convert the amount from BNB (Ether) to Wei
+      const amountInWei = ethers.utils.parseUnits(amount || '0', 'ether');
+
       const txResponse = await writeContractAsync({
-        abi: ASXVaultsABI, // Change ABI
+        abi: ASXVaultsABINative,
         address: vaultContractAddress,
-        functionName: 'stake', // Change function name
-        args: [tokenAddress, amount ? ethers.utils.parseUnits(amount, 'ether').toString() : '0'], // Correct arguments
+        functionName: 'stake',
+        args: [amountInWei], 
+        value: amountInWei 
       });
-      setTransactionHash(txResponse); // Corrected to use txResponse.hash
+      
+      
+      // Update transaction state
+      setTransactionHash(txResponse); // Use txResponse.hash to capture the transaction hash correctly
       setTransactionInitiated(true);
       addRecentTransaction({
-        hash: txResponse, // Corrected to use txResponse.hash
-        description: 'Vault Deposit', // Change description
+        hash: txResponse, // Use txResponse.hash here as well
+        description: 'Vault Deposit BNB',
       });
     } catch (error) {
-      console.error('Staking error:', error); // Change error message
+      console.error('Staking error:', error);
       setStatusMessage('Error');
-      setTimeout(() => {
-        setStatusMessage('Stake');
-      }, 5000);
       setIsButtonDisabled(false);
+    } finally {
+      setTimeout(() => setStatusMessage('Stake'), 5000); // Reset the button text after a delay
     }
   };
+  
+  
+  
+  
 
   return (
     <div className={styles.buttonWrapper}>
@@ -77,11 +90,11 @@ const VaultStakeButton = ({ vaultContractAddress, amount, onUpdate, tokenAddress
       >
         <div className={styles.buttonContent}>
           <span className={styles.mainText}>{isLoading ? 'Confirming' : statusMessage}</span>
-          <span className={styles.noteInsideButton}>(leave blank for max)</span>
+          <span className={styles.noteInsideButton}>(BNB STEAK!!)</span>
         </div>
       </button>
     </div>
   );
 };
 
-export default VaultStakeButton; // Change export name
+export default VaultStakeButtonBNB;

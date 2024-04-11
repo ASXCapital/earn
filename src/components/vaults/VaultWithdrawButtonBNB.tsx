@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { ethers } from 'ethers';
-import { ASXVaultsABI } from '../../abis/ASXVaultsABI';
+import { ASXVaultsABINative } from '../../abis/ASXVaultsABINative';
 import styles from '../../styles/StakingPage.module.css';
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit';
 
-
-const VaultStakeButton = ({ vaultContractAddress, amount, onUpdate, tokenAddress }) => { // Change component name
-  const [statusMessage, setStatusMessage] = useState('Stake'); // Change status message
+const VaultWithdrawButtonBNB = ({ vaultTokenAddress, amount, onUpdate, wrap = false }) => {
+  const [statusMessage, setStatusMessage] = useState('Withdraw');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [transactionHash, setTransactionHash] = useState('');
   const [transactionInitiated, setTransactionInitiated] = useState(false);
@@ -27,14 +26,14 @@ const VaultStakeButton = ({ vaultContractAddress, amount, onUpdate, tokenAddress
     if (isSuccess && transactionInitiated) {
       setStatusMessage('Success');
       setTimeout(() => {
-        setStatusMessage('Stake');
+        setStatusMessage('Withdraw');
         setTransactionInitiated(false);
       }, 3000);
       onUpdate();
     } else if (isError && transactionInitiated) {
       setStatusMessage('Error');
       setTimeout(() => {
-        setStatusMessage('Stake');
+        setStatusMessage('Withdraw');
         setTransactionInitiated(false);
       }, 3000);
     }
@@ -42,29 +41,31 @@ const VaultStakeButton = ({ vaultContractAddress, amount, onUpdate, tokenAddress
 
   const handleAction = async () => {
     if (isButtonDisabled || isLoading) return;
-    setStatusMessage('Staking'); // Change status message
+    setStatusMessage('Withdrawing...');
     setIsButtonDisabled(true);
 
     try {
+      const amountInWei = ethers.utils.parseUnits(amount.toString(), 'ether');
+
       const txResponse = await writeContractAsync({
-        abi: ASXVaultsABI, // Change ABI
-        address: vaultContractAddress,
-        functionName: 'stake', // Change function name
-        args: [tokenAddress, amount ? ethers.utils.parseUnits(amount, 'ether').toString() : '0'], // Correct arguments
+        abi: ASXVaultsABINative,
+        address: vaultTokenAddress,
+        functionName: 'withdraw',
+        args: [amountInWei, wrap], // Ensure the args match the expected types: uint256 and bool
       });
-      setTransactionHash(txResponse); // Corrected to use txResponse.hash
+
+      setTransactionHash(txResponse);
       setTransactionInitiated(true);
       addRecentTransaction({
-        hash: txResponse, // Corrected to use txResponse.hash
-        description: 'Vault Deposit ERC20', // Change description
+        hash: txResponse,
+        description: 'Vault Withdraw BNB',
       });
     } catch (error) {
-      console.error('Staking error:', error); // Change error message
+      console.error('Withdrawal error:', error);
       setStatusMessage('Error');
-      setTimeout(() => {
-        setStatusMessage('Stake');
-      }, 5000);
       setIsButtonDisabled(false);
+    } finally {
+      setTimeout(() => setStatusMessage('Withdraw'), 5000);
     }
   };
 
@@ -84,4 +85,4 @@ const VaultStakeButton = ({ vaultContractAddress, amount, onUpdate, tokenAddress
   );
 };
 
-export default VaultStakeButton; // Change export name
+export default VaultWithdrawButtonBNB;

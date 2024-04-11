@@ -5,7 +5,7 @@ import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider, createConfig, http } from 'wagmi';
 
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 import { bsc, coreDao } from 'wagmi/chains';

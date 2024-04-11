@@ -9,7 +9,9 @@ import { contracts } from '../../config/contracts';
 import VaultStakeButton from './VaultStakeButton';
 import VaultApproveButton from './VaultApproveButton';
 import VaultWithdrawButton from './VaultWithdrawButton';
-
+import VaultStakeButtonBNB from './VaultStakeButtonBNB';
+import VaultWithdrawButtonBNB from './VaultWithdrawButtonBNB';
+import { Card, Button, Row, Col, Form, Table } from 'react-bootstrap';
 
 const VaultCard: React.FC<VaultCardProps> = ({
   title,
@@ -59,63 +61,82 @@ const VaultCard: React.FC<VaultCardProps> = ({
     // Implement your update logic here
   };
   
-console.log("stakedTokenContract", stakedTokenContract)
-console.log("vaultTokenContract", vaultTokenContract)
+
   return (
-    <div className={styles.vaultCardContainer}>
-      <h2 className={styles.vaultTitle}>{title}</h2>
-      <div className={styles.vaultDetails}>
-        <p>Receive: {receiveToken}</p>
-        <p>TVL: {tvl}</p>
-        <p>APY: {apy}%</p>
-        <input 
-        type="number" 
-        value={stakeAmount} 
-        onChange={handleInputChange} 
-        placeholder="Amount to stake" 
-        className={styles.inputField} 
-      />
-        <div className={styles.actionButtons}>
+    <Card className="mb-3" style={{ backgroundColor: '#0207077a', color: '#cfcfcf', borderRadius: '10px', boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.2)' }}>
+      <Card.Header style={{ backgroundColor: '#020707', color: '#00dab6' }}>{title}</Card.Header>
+      <Card.Body>
+        <Card.Text>Receive: {receiveToken}</Card.Text>
+        <Card.Text>TVL: {tvl}</Card.Text>
+        <Card.Text>APY: {apy}%</Card.Text>
+        <Form.Group className="mb-3">
+          <Form.Control
+            type="number"
+            value={stakeAmount}
+            onChange={handleInputChange}
+            placeholder="Amount to stake"
+            style={{ backgroundColor: '#020707', color: '#cfcfcf', borderColor: '#ddd' }}
+          />
+        </Form.Group>
 
 
-        {/*ERC20 TOKEN VAULTING*/}
-
-        {!isNativeToken && (
+        <Row className="mb-3">
+    {/* ERC20 TOKEN VAULTING */}
+    {!isNativeToken && (
+      <>
+        <Col md={6} className="mb-2">
           <VaultApproveButton
             tokenAddress={stakedTokenContract}
             stakingContractAddress={vaultTokenContract}
             onUpdate={handleUpdateAfterStake}
           />
-        )}
-          {!isNativeToken && (
-          <VaultStakeButton 
-            amount={stakeAmount} 
-            vaultContractAddress={vaultTokenContract} 
-            onUpdate={handleUpdateAfterStake} 
+        </Col>
+        <Col md={6} className="mb-2">
+          <VaultStakeButton
+            amount={stakeAmount}
+            vaultContractAddress={vaultTokenContract}
+            onUpdate={handleUpdateAfterStake}
             tokenAddress={stakedTokenContract}
           />
-        )}
-          
+        </Col>
+        <Col md={6} className="mb-2">
           <VaultWithdrawButton
-            vaulttokenAddress={vaultTokenContract} 
+            vaulttokenAddress={vaultTokenContract}
             stakedTokenContract={stakedTokenContract}
-            amount={stakeAmount} 
-            onUpdate={handleUpdateAfterStake} 
+            amount={stakeAmount}
+            onUpdate={handleUpdateAfterStake}
           />
-       
+        </Col>
+      </>
+    )}
+
+    {/* BNB VAULTING */}
+    {isNativeToken && (
+      <>
+        <Col md={6} className="mb-2">
+          <VaultStakeButtonBNB
+            amount={stakeAmount}
+            vaultContractAddress={vaultTokenContract}
+            onUpdate={handleUpdateAfterStake}
+          />
+        </Col>
+        <Col md={6} className="mb-2">
+          <VaultWithdrawButtonBNB
+            vaultTokenAddress={vaultTokenContract}
+            amount={stakeAmount}
+            wrap={false} // Assuming you want to pass 'false' for the 'wrap' argument; adjust based on your needs
+            onUpdate={handleUpdateAfterStake}
+          />
+        </Col>
+      </>
+    )}
+  </Row>
+</Card.Body>
 
 
-
-
-
-
-
-
-        </div>
-      </div>
-      <div className={styles.userStats}>
-        <table>
-          <thead>
+      <Card.Footer>
+        <Table striped bordered hover variant="dark" size="sm">
+          <thead style={{ backgroundColor: '#34483c8a', color: '#e0e0e0' }}>
             <tr>
               <th></th>
               <th>{stakedTokenName}</th>
@@ -125,23 +146,23 @@ console.log("vaultTokenContract", vaultTokenContract)
           <tbody>
             <tr>
               <td>Holdings</td>
-              <td>{`${renderBalance(userBalance)} ${stakedTokenName}`}</td>
-              <td>{`${renderBalance(vaultTokenBalance)} ${vaultTokenName}`}</td>
+              <td>{`${renderBalance(userBalance)}`}</td>
+              <td>{`${renderBalance(vaultTokenBalance)}`}</td>
             </tr>
             <tr>
               <td>Price</td>
               <td>${priceDisplay}</td>
-              <td>$X (Placeholder)</td>
+              <td>$X</td>
             </tr>
             <tr>
               <td>Holdings Val</td>
-              <td>$Z (Placeholder)</td>
-              <td>$Y (Placeholder)</td>
+              <td>$Z</td>
+              <td>$Y</td>
             </tr>
           </tbody>
-        </table>
-      </div>
-    </div>
+        </Table>
+      </Card.Footer>
+    </Card>
   );
 };
 

@@ -63,7 +63,7 @@ const VaultWithdrawButton = ({ vaulttokenAddress, amount, onUpdate, stakedTokenC
       setTransactionInitiated(true);
       addRecentTransaction({
         hash: txResponse,
-        description: 'Vault Withdraw',
+        description: 'Vault Withdraw ERC20',
       });
     } catch (error) {
       console.error('Withdrawal error:', error);

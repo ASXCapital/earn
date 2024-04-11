@@ -301,7 +301,7 @@
 .actionButton {
   flex-grow: 1; /* Allow the button to expand and fill the available space */
 
-  padding: 8px; /* Adjust padding as needed */
+ 
   background: #0ad9e3;
   border: none;
   border-radius: 2px;
@@ -346,7 +346,7 @@
 }
 
 .actionButtonMAX{
-  padding: 8px 4px; /* Adjust padding as needed */
+ 
   background: #07c177;
   border: none;
   border-radius: 2px;
