@@ -90,7 +90,7 @@ const VaultStakeButtonBNB = ({ vaultContractAddress, amount, onUpdate }) => { //
       >
         <div className={styles.buttonContent}>
           <span className={styles.mainText}>{isLoading ? 'Confirming' : statusMessage}</span>
-          <span className={styles.noteInsideButton}>(BNB STEAK!!)</span>
+          
         </div>
       </button>
     </div>

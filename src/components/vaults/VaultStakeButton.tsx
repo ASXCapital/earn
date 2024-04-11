@@ -12,6 +12,7 @@ const VaultStakeButton = ({ vaultContractAddress, amount, onUpdate, tokenAddress
   const [transactionHash, setTransactionHash] = useState('');
   const [transactionInitiated, setTransactionInitiated] = useState(false);
   const addRecentTransaction = useAddRecentTransaction();
+  
 
   useEffect(() => {
     setIsButtonDisabled(!amount || amount === '0' || isNaN(amount));
@@ -77,7 +78,7 @@ const VaultStakeButton = ({ vaultContractAddress, amount, onUpdate, tokenAddress
       >
         <div className={styles.buttonContent}>
           <span className={styles.mainText}>{isLoading ? 'Confirming' : statusMessage}</span>
-          <span className={styles.noteInsideButton}>(leave blank for max)</span>
+          
         </div>
       </button>
     </div>

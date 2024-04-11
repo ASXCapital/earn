@@ -85,7 +85,7 @@ const VaultWithdrawButton = ({ vaulttokenAddress, amount, onUpdate, stakedTokenC
       >
         <div className={styles.buttonContent}>
           <span className={styles.mainText}>{isLoading ? 'Confirming' : statusMessage}</span>
-          <span className={styles.noteInsideButton}>(leave blank for max)</span>
+     
         </div>
       </button>
     </div>

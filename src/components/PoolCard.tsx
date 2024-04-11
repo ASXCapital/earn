@@ -224,7 +224,7 @@ useEffect(() => {
   useEffect(() => {
     const interval = setInterval(() => {
       handleStakeUpdate();
-    }, 900000000); 
+    }, 9000000); 
     return () => clearInterval(interval);
   }, []);
 
