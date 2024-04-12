@@ -7,6 +7,7 @@ import { WagmiProvider, createConfig, http } from 'wagmi';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { FinanceDataProvider } from '../contexts/FinanceDataContext';
 
 import { bsc, coreDao } from 'wagmi/chains';
 import '@rainbow-me/rainbowkit/styles.css'
@@ -28,6 +29,7 @@ import {  ledgerWallet, zerionWallet, braveWallet,
  } from '@rainbow-me/rainbowkit/wallets';
 
 import { TokenPricesProvider } from '../contexts/TokenPricesContext';
+
 
 
 
@@ -130,15 +132,18 @@ function MyApp({ Component, pageProps }: AppProps) {
 
           
           >
+            <FinanceDataProvider>
             <TokenPricesProvider>
             <PoolDataProvider>
-            
+
             <Layout>
               <Component {...pageProps} />
             </Layout>
+
            
             </PoolDataProvider>
             </TokenPricesProvider>
+            </FinanceDataProvider>
           </RainbowKitProvider>
         </QueryClientProvider>
         

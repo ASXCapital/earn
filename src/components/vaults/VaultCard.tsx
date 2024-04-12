@@ -4,7 +4,7 @@ import { useAccount, useBalance } from 'wagmi';
 import { useTokenBalance } from '../../hooks/useTokenBalance';
 import useTokenPrices from '../../hooks/useTokenPrices';
 import { VaultCardProps } from '../../types/vaultTypes';
-import { formatUnits } from 'ethers/lib/utils';
+import { formatUnits, id } from 'ethers/lib/utils';
 import { contracts } from '../../config/contracts';
 import VaultStakeButton from './VaultStakeButton';
 import VaultApproveButton from './VaultApproveButton';
@@ -12,12 +12,9 @@ import VaultWithdrawButton from './VaultWithdrawButton';
 import VaultStakeButtonBNB from './VaultStakeButtonBNB';
 import VaultWithdrawButtonBNB from './VaultWithdrawButtonBNB';
 import { Card, Button, Row, Col, Form, Table, InputGroup, OverlayTrigger, Tooltip, Collapse } from 'react-bootstrap';
-import PoolDataContext from '../../contexts/PoolDataContext';
-
 import { ethers, BigNumber } from 'ethers';
-import vaultsConfig from '../../config/vaultsConfig';
 
-console.log(PoolDataContext)
+import TVLAndAPRDisplay from '../TVLAndAPRDisplay';
 
 const VaultCard: React.FC<VaultCardProps> = ({
   title,
@@ -29,6 +26,8 @@ const VaultCard: React.FC<VaultCardProps> = ({
   stakedTokenContract,
   vaultTokenContract,
   isNativeToken,
+ poolId
+  
 
 }) => {
   const { address: userAddress } = useAccount();
@@ -124,15 +123,19 @@ const [open, setOpen] = useState(false);
       
       
       }}>
-
+       <div>
+            
+            
+        </div>
+      
       <Card.Header style={{ backgroundColor: '#020707', color: '#00dab6' }}>{stakedTokenName}</Card.Header>
       <Card.Body
       style={{ padding: '10px', margin: '0px'}}
       >
         <Card.Text>Receive: {receiveToken}</Card.Text>
-        <Card.Text>TVL: {tvl}</Card.Text>
-        <Card.Text>APY: {apy}%</Card.Text>
+        <TVLAndAPRDisplay poolId={poolId} />
         <Form.Group as={Col} className="mb-3">
+          
           <InputGroup>
             <Form.Control
               type="text"
@@ -162,7 +165,6 @@ const [open, setOpen] = useState(false);
           </InputGroup>
         </Form.Group>
         <Row className="mb-3">
-
 
     {/* ERC20 TOKEN VAULTING */}
     {!isNativeToken && (

@@ -12,5 +12,6 @@ export interface VaultCardProps {
     vaultTokenContract: string;
     userAddress: string;
     isNativeToken?: boolean;
+    poolId: string;
   }
   

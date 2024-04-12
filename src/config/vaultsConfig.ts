@@ -46,7 +46,7 @@ export interface VaultConfig {
 
 export const vaultsConfig: VaultConfig[] = [
   {
-    id: 'vasx',
+    id: 'asxasx',
     title: 'vASX Vault',
     isNativeToken: true,
     vaultToken: {
@@ -65,7 +65,7 @@ export const vaultsConfig: VaultConfig[] = [
     },
   },
   {
-    id: 'vasxwbnb',
+    id: 'asxbnb',
     title: 'vASX-wBNB Vault',
     isNativeToken: false,
     vaultToken: {
@@ -84,7 +84,7 @@ export const vaultsConfig: VaultConfig[] = [
     },
   },
   {
-    id: 'vasxeth',
+    id: 'asxeth',
     title: 'vASX-ETH Vault',
     isNativeToken: false,
     vaultToken: {
@@ -103,7 +103,7 @@ export const vaultsConfig: VaultConfig[] = [
     },
   },
   {
-    id: 'vasxbtcb',
+    id: 'asxbtcb',
     title: 'vASX-BTCB Vault',
     isNativeToken: false,
     vaultToken: {
