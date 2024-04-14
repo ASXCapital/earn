@@ -1,14 +1,17 @@
 /* src/components/TVLAndAPRDisplay.module.css */
+
 .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #c522d140;
-    color: #cfcfcf;
-    padding: 0rem 1rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #16001d00;
+  color: #cfcfcf;
+  padding: 0rem 1rem;
+  border-radius: 0.2rem;  /* Top-left, Top-right, Bottom-right, Bottom-left */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  border-top: #0ad9e3 0.1rem solid;
+}
+
   
   .tvl {
     font-size: 1rem; /* Standard text size for TVL */
@@ -20,8 +23,8 @@
   }
   
   .apyValue {
-    font-size: 3rem; /* Larger font size for the APY value */
-    color: #0dd7c3;
+    font-size: 2rem; /* Larger font size for the APY value */
+    color:  #0ad9e3;
     
   }
   

@@ -1,66 +1,145 @@
-/* VaultCard.module.css */
-.vaultCardContainer {
-    background-color: #0207077a;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    color: #cfcfcf;
-    margin-bottom: 2rem;
-    
-  }
+/* VaultCard.module.css - Styles for the entire card */
+.vaultCard {
+  background: rgba(0, 0, 0, 0.997); /* Dark background for the card */
+  color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  font-size: 1rem;
   
-  .vaultTitle {
-    font-size: 1.5rem;
-    color: #00dab6;
-    margin-bottom: 20px;
-  }
+}
+
+.vaultHeader {
+  background-color: #16213e00; /* Slightly lighter dark shade for the header */
+  color: #e1e1e1;
+  font-size: 1rem;
+  padding: 0.2rem 1rem;
+  border-radius: 10px;
+  border-bottom: 3px solid #0f3460;
+  font-size: 1.25rem;
+}
+
+.vaultBody {
+  padding: 1rem;
   
-  .vaultStats {
-    margin-bottom: 20px;
-  }
+}
+
+/* VaultCard.module.css - Styles for the input group integration */
+/* VaultCard.module.css - Enhancing compactness and alignment */
+.inputGroup {
+  display: flex;
+  border-radius: 0.25rem; /* Smooth rounded corners for the whole group */
+  margin-top: .2rem;
+  overflow: hidden; /* Keeps child elements contained within the border */
+}
+
+.formControl {
+  border-radius: .1rem;
+  flex-grow: 1; /* Allows the input to fill the space */
+  height: 32px; /* Reduced height for compactness */
+  margin: 0; /* Remove margins for tight fitting */
+  padding: 0 8px; /* Reduced padding */
+  border: 1px solid #16213e; /* Uniform border */
+  border-right: none; /* Removes the right border where the button meets the input */
+  background-color: #c0c0c0be;
+  color: #000000;
+}
+
+.maxButton {
+  background-color: #009c8d; /* Accent color for interactive elements */
+  border: none;
+  height: 32px; /* Match the input height for perfect alignment */
+  padding: 0 12px; /* Adequate padding for the button text */
+  color: white; /* Ensures text is clearly visible */
+  border:#000000 1px solid;
+}
+
+.maxButton:hover {
+  background-color: #00c9b5; /* Slightly darker on hover for a subtle effect */
+}
+
+
+.vaultButtons {
+  margin-top: 0.1rem;
+  margin-right: -0.2rem;
+  margin-left: -0.2rem;
+}
+
+.vaultColumn {
+  padding: 0.1rem 0.2rem 0.1rem 0.2rem;
+  ;
+}
+
+.showDetailsButton {
+  background-color:#ffffff1b;
+  border:#00c9b5 1px solid;
+  color: #ffffffa6;
+  width: 100%;
+  border: none;
+  margin-top: 0.1rem;
+  padding: 0.2rem 0;
+  font-size: .8rem;
+}
+
+.showDetailsButton:hover {
+  background-color: #8a8a8a;
   
-  .userStatsTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .userStatsTable th,
-  .userStatsTable td {
-    text-align: left;
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .userStatsTable th {
-    background-color: #34483c8a;
-    color: #e0e0e0;
-  }
-  
-  .inputField {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: #020707;
-    color: #cfcfcf;
-  }
-  
-  .depositButton,
-  .withdrawButton {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px;
-    cursor: pointer;
-    background-color: #00dab6;
-    color: #020707;
-    font-weight: bold;
-  }
-  
-  .depositButton:hover,
-  .withdrawButton:hover {
-    background-color: #009c86;
-  }
-  
+}
+
+/* Styles for collapse content */
+.collapseText {
+  background-color: #16213e00;
+  padding: .1rem;
+  border-top: 1px solid #0f3460;
+}
+
+.statsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+font-size: .8rem;
+}
+
+.statsRow {
+  display: contents;
+}
+
+.statsRow div {
+  text-align: center;
+  padding: 0rem;
+}
+
+/* Specific alignment adjustments */
+.statsRow div:first-child {
+  text-align: left;
+}
+
+.statsRow div:nth-child(2), .statsRow div:nth-child(3) {
+  text-align: right;
+}
+
+.actionButton {
+  width: 100%; /* Ensures button width is consistent and fills the container */
+  height: 32px; /* Matches the height of the input and max button for consistency */
+  background-color: #16213e; /* Dark color for the button */
+  color: white; /* Text color for readability */
+  border: none; /* Removes border to keep the design sleek */
+  border-radius: 0.25rem; /* Rounded corners to match the input group style */
+  padding: 0 12px; /* Ensures padding is not too large, controlling overall width */
+}
+
+.actionButton:hover {
+  background-color: #0f3460; /* Darker shade on hover */
+}
+
+/* VaultCard.module.css - Updated styles for the disabled Max button */
+.disabledMaxButton {
+  background-color: #6c757d !important; /* Grey background for disabled appearance */
+  color: #ffffff !important; /* White text color for contrast */
+  border: 1px solid #000000 !important; /* Solid border to match */
+  height: 32px; /* Match the height of other input elements */
+  padding: 0px 12px; /* Consistent padding */
+  border-radius: 0rem .4rem .4rem 0rem /* Rounded corners for a polished look */
+}
+
+.disabledMaxButton:hover {
+  background-color: #5a6268 !important; /* Slightly darker grey on hover */
+}

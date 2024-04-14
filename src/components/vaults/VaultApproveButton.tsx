@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useWriteContract, useWaitForTransactionReceipt, } from 'wagmi';
+import { useWriteContract, useWaitForTransactionReceipt, useReadContract } from 'wagmi';
+import { ethers } from 'ethers';
 import { ERC20ABI } from '../../abis/ERC20ABI';
 import styles from '../../styles/StakingPage.module.css';
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit';
-import { ethers } from 'ethers';
 
-const VaultApproveButton = ({ tokenAddress, stakingContractAddress, onUpdate }) => {
+const VaultApproveButton = ({ userAddress, tokenAddress, stakingContractAddress, onUpdate, inputValue }) => {
   const [statusMessage, setStatusMessage] = useState('Approve');
   const [transactionHash, setTransactionHash] = useState('');
   const [transactionInitiated, setTransactionInitiated] = useState(false);
   const addRecentTransaction = useAddRecentTransaction();
   const { writeContractAsync } = useWriteContract();
+  const { data: allowance, isLoading: isLoadingAllowance } = useReadContract({
+    address: tokenAddress,
+    abi: ERC20ABI,
+    functionName: 'allowance',
+    args: [userAddress, stakingContractAddress],
+  });
 
   const { isLoading, isSuccess, isError } = useWaitForTransactionReceipt({
     hash: transactionHash ? `0x${transactionHash.replace(/^0x/, '')}` : undefined,
@@ -22,16 +28,16 @@ const VaultApproveButton = ({ tokenAddress, stakingContractAddress, onUpdate }) 
       setStatusMessage(newStatus);
       setTimeout(() => {
         setStatusMessage('Approve');
-        setTransactionInitiated(false); // Reset the flag
-        if (isSuccess) onUpdate(); // Invoke onUpdate callback only if the transaction was successful
-      }, isSuccess ? 3000 : 5000); // Adjust timeout as needed
+        setTransactionInitiated(false);
+        if (isSuccess) onUpdate();
+      }, 3000);
     }
   }, [isSuccess, isError, transactionInitiated, onUpdate]);
 
   const handleApprove = async () => {
-    if (isLoading) return; // Prevent new transaction if one is already in progress
-    setTransactionInitiated(true);
+    if (isLoading || isLoadingAllowance || !userAddress) return;
     setStatusMessage('Approving...');
+    setTransactionInitiated(true);
 
     try {
       const txResponse = await writeContractAsync({
@@ -40,25 +46,31 @@ const VaultApproveButton = ({ tokenAddress, stakingContractAddress, onUpdate }) 
         functionName: 'approve',
         args: [stakingContractAddress, ethers.constants.MaxUint256.toString()],
       });
-      setTransactionHash(txResponse); // Here txResponse is directly set as transactionHash
+      setTransactionHash(txResponse);
       addRecentTransaction({
-        hash: txResponse, // txResponse is used directly, assuming it's the transaction hash
-        description: 'Vault Approval',
+        hash: txResponse,
+        description: 'Approving tokens for staking',
       });
     } catch (error) {
       console.error('Approval error:', error);
       setStatusMessage('Error');
-      setTimeout(() => setStatusMessage('Approve'), 5000); // Reset status message after displaying the error
-      setTransactionInitiated(false); // Reset the transaction initiated flag in case of error
+      setTimeout(() => setStatusMessage('Approve'), 5000);
+      setTransactionInitiated(false);
     }
   };
+
+  // Convert input value to a BigNumber for comparison
+  const inputValueBigNumber = ethers.utils.parseUnits(inputValue || '0', 'ether');
+  // Disable the button if the current allowance is already greater or equal to the input value, or if no value is inputted
+  const isButtonDisabled = isLoading || isLoadingAllowance || !inputValue ||
+                           ethers.BigNumber.from(allowance || '0').gte(inputValueBigNumber);
 
   return (
     <div className={styles.buttonWrapper}>
       <button
-        className={`${styles.actionButton} ${isLoading ? styles.disabledButton : ''} ${isSuccess && transactionInitiated ? styles.successPulse : isError && transactionInitiated ? styles.errorPulse : ''}`}
+        className={`${styles.actionButton} ${isButtonDisabled ? styles.disabledButton : ''}`}
         onClick={handleApprove}
-        disabled={isLoading} // Button is disabled while transaction is in progress
+        disabled={isButtonDisabled}
       >
         {isLoading ? 'Confirming...' : statusMessage}
       </button>

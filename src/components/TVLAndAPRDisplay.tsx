@@ -62,13 +62,18 @@ const TVLAndAPRDisplay: React.FC<TVLAndAPRDisplayProps> = ({ poolId }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.tvl}>
+    
+    <div className={styles.tvl}>
         TVL: <strong>${tvl}</strong>
       </div>
+
       <div className={styles.apy}>
         <span className={styles.apyValue}>{apy}</span>
         <span className={styles.apyLabel}>% APY</span>
       </div>
+
+      
+
     </div>
   );
 };

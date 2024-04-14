@@ -26,9 +26,7 @@ const VaultCard: React.FC<VaultCardProps> = ({
   stakedTokenContract,
   vaultTokenContract,
   isNativeToken,
- poolId
-  
-
+  poolId
 }) => {
   const { address: userAddress } = useAccount();
   const [stakeAmount, setStakeAmount] = useState('');
@@ -41,6 +39,7 @@ const VaultCard: React.FC<VaultCardProps> = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStakeAmount(e.target.value);
   };
+
   const setMaxAmount = () => {
     switch (maxClickState) {
       case 0: 
@@ -62,6 +61,7 @@ const VaultCard: React.FC<VaultCardProps> = ({
     }
     setMaxClickState((prevState) => (prevState + 1) % 3); 
   };
+
   const MaxButton = () => (
     <OverlayTrigger overlay={<Tooltip>Disabled to avoid accidental deposit of all gas token</Tooltip>} placement="top">
       <span className="d-inline-block">
@@ -71,20 +71,21 @@ const VaultCard: React.FC<VaultCardProps> = ({
           color: 'black', 
           backgroundColor: 'grey', 
           borderColor: '#ddd',
-          borderTopLeftRadius: 0, 
-          borderBottomLeftRadius: 0, 
+          borderRadius: 0
         }}>
           Max
         </Button>
       </span>
     </OverlayTrigger>
   );
+
   const stakingTokenAddressForPrice = isNativeToken ? contracts.bscTokens.WBNB.toLowerCase() : stakedTokenContract.toLowerCase();
   const platformId = 'binance-smart-chain';
   const prices = useTokenPrices(platformId, [stakingTokenAddressForPrice]);
   const priceDisplay = prices[stakingTokenAddressForPrice]?.toFixed(2) || 'Loading...';
   const userBalance = isNativeToken ? nativeBalance : erc20TokenBalance;
   const { data: vaultTokenBalance } = useTokenBalance(vaultTokenContract, userAddress);
+
   const renderBalance = (balance: bigint | { decimals: number; formatted: string; symbol: string; value: bigint; } | undefined) => {
     if (balance === undefined || balance === null) {
       return `0`; // Display '0' when balance is undefined or null
@@ -97,193 +98,154 @@ const VaultCard: React.FC<VaultCardProps> = ({
     }
   };
 
-
   useEffect(() => {
     refetchNativeBalance();
     refetchErc20TokenBalance();
   }, [refetchTrigger, refetchNativeBalance, refetchErc20TokenBalance]);
 
-
-  
   const handleUpdateAfterStake = () => {
     setRefetchTrigger((prev) => prev + 1);
   };
 
+  const [open, setOpen] = useState(false);
 
-
-
-const [open, setOpen] = useState(false);
   return (
-    <Card className="mb-3" style={{ 
-      margin: '0 0 0 0' , 
-      backgroundColor: '#0207077a', 
-      color: '#cfcfcf', 
-      borderRadius: '10px', 
-      boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.2)',
-      
-      
-      }}>
-       <div>
-            
-            
-        </div>
-      
-      <Card.Header style={{ backgroundColor: '#020707', color: '#00dab6' }}>{stakedTokenName}</Card.Header>
-      <Card.Body
-      style={{ padding: '10px', margin: '0px'}}
-      >
+    <Card className={styles.vaultCard}>
+      <Card.Header className={styles.vaultHeader}>{stakedTokenName}</Card.Header>
+      <Card.Body className={styles.vaultBody}>
         <Card.Text>Receive: {receiveToken}</Card.Text>
         <TVLAndAPRDisplay poolId={poolId} />
-        <Form.Group as={Col} className="mb-3">
-          
-          <InputGroup>
-            <Form.Control
-              type="text"
-              value={stakeAmount}
-              onChange={handleInputChange}
-              placeholder="Amount to stake"
-              style={{ backgroundColor: '#020707', color: '#cfcfcf', borderColor: '#ddd' }}
-            />
-            {isNativeToken ? (
-              <MaxButton />
-            ) : (
-              <Button
-                variant="outline-secondary"
-                onClick={setMaxAmount}
-                style={{
-                  color: 'black',
-                  backgroundColor: 'white',
-                  zIndex: 1,
-                  borderColor: '#ddd',
-                  borderTopLeftRadius: 0, 
-                  borderBottomLeftRadius: 0, 
-                }}
-              >
-                Max
-              </Button>
-            )}
-          </InputGroup>
-        </Form.Group>
-        <Row className="mb-3">
+        <Form.Group as={Col} className={styles.inputGroup}>
+        <InputGroup>
+  <Form.Control
+    type="text"
+    className={styles.formControl}
+    value={stakeAmount}
+    onChange={handleInputChange}
+    placeholder="Amount to stake"
+  />
+  {isNativeToken ? (
+    <OverlayTrigger
+      overlay={<Tooltip id="disabled-tooltip">Disabled to avoid accidental deposit of all gas token</Tooltip>}
+      placement="top"
+    >
+      <span className="d-inline-block" style={{ cursor: 'not-allowed' }}>
+        <Button className={styles.disabledMaxButton} disabled style={{ pointerEvents: 'none' }}>
+          Max
+        </Button>
+      </span>
+    </OverlayTrigger>
+  ) : (
+    <Button className={styles.maxButton} onClick={setMaxAmount}>Max</Button>
+  )}
+</InputGroup>
 
-    {/* ERC20 TOKEN VAULTING */}
-    {!isNativeToken && (
-      <>
-        <Col md={6} className="mb-2">
-          <VaultStakeButton
-            amount={stakeAmount}
-            vaultContractAddress={vaultTokenContract}
-            onUpdate={handleUpdateAfterStake} 
-            tokenAddress={stakedTokenContract}
-          />
-        </Col>
-        <Col md={6} className="mb-2">
-          <VaultWithdrawButton
-            vaulttokenAddress={vaultTokenContract}
-            stakedTokenContract={stakedTokenContract}
-            amount={stakeAmount}
-            onUpdate={handleUpdateAfterStake} 
-          />
-        </Col>
-        <Col md={6} className="mb-2">
-          <VaultApproveButton
-            tokenAddress={stakedTokenContract}
-            stakingContractAddress={vaultTokenContract}
-            onUpdate={handleUpdateAfterStake}
-          />
-        </Col>
-        <Col md={6} className="mb-2">
-        <Button
-        onClick={() => setOpen(!open)}
-        aria-controls="collapse-text"
-        aria-expanded={open}
-        variant="outline-info"
-        style={{ margin: '0px', fontSize: '16px', padding: '2px', width: '100%', borderRadius: '0px',
-height: '31px', alignContent: 'center'
+</Form.Group>
 
-        }}
-      >
-        {open ? 'Hide Details' : 'Show Details'}
-      </Button>
-        </Col>
-      </>
-      
-    )}
 
-    {/* BNB VAULTING */}
-    {isNativeToken && (
-      <>
-        <Col md={6} className="mb-2">
-          <VaultStakeButtonBNB
-            amount={stakeAmount}
-            vaultContractAddress={vaultTokenContract}
-            onUpdate={handleUpdateAfterStake}
-          />
-        </Col>
-        <Col md={6} className="mb-2">
-          <VaultWithdrawButtonBNB
-            vaultTokenAddress={vaultTokenContract}
-            amount={stakeAmount}
-            wrap={false} // Assuming you want to pass 'false' for the 'wrap' argument; adjust based on your needs
-            onUpdate={handleUpdateAfterStake}
-          />
-        </Col>
-        
-        <Col md={12} className="mb-2">
-        <Button
-        onClick={() => setOpen(!open)}
-        aria-controls="collapse-text"
-        aria-expanded={open}
-        variant="outline-info"
-        style={{ margin: '0px', fontSize: '16px', padding: '2px', width: '100%', borderRadius: '0px',
-        height: '31px', alignContent: 'center'
-
-        }}
-      >
-        {open ? 'Hide Details' : 'Show Details'}
-      </Button>
-        </Col>
-      </>
-    )}
+        <Row className={styles.vaultButtons}>
+  {!isNativeToken && (
+    <>
+      <Col xs={12} md={4} className={styles.vaultColumn}>
+        <VaultStakeButton
+          amount={stakeAmount}
+          vaultContractAddress={vaultTokenContract}
+          onUpdate={handleUpdateAfterStake}
+          tokenAddress={stakedTokenContract}
+        />
+      </Col>
+      <Col xs={12} md={4} className={styles.vaultColumn}>
+        <VaultWithdrawButton
+          vaulttokenAddress={vaultTokenContract}
+          stakedTokenContract={stakedTokenContract}
+          amount={stakeAmount}
+          onUpdate={handleUpdateAfterStake}
+        />
+      </Col>
+      <Col xs={12} md={4} className={styles.vaultColumn}>
+        <VaultApproveButton
+          userAddress={userAddress}
+          tokenAddress={stakedTokenContract}
+          stakingContractAddress={vaultTokenContract}
+          onUpdate={handleUpdateAfterStake}
+          inputValue={stakeAmount}
+        />
+      </Col>
+    </>
+  )}
+  {isNativeToken && (
+    <>
+      <Col xs={12} md={6} className={styles.vaultColumn}>
+        <VaultStakeButtonBNB
+          amount={stakeAmount}
+          vaultContractAddress={vaultTokenContract}
+          onUpdate={handleUpdateAfterStake}
+        />
+      </Col>
+      <Col xs={12} md={6} className={styles.vaultColumn}>
+        <VaultWithdrawButtonBNB
+          vaultTokenAddress={vaultTokenContract}
+          amount={stakeAmount}
+          wrap={false}
+          onUpdate={handleUpdateAfterStake}
+        />
+      </Col>
+    </>
+  )}
   </Row>
+  <Button
+    onClick={() => setOpen(!open)}
+    aria-controls="collapse-text"
+    aria-expanded={open}
+    variant="outline-info"
+    className={styles.showDetailsButton}
+  >
+    {open ? 'Hide Details' : 'Show Details'}
+  </Button>
+
+      </Card.Body>
   
-
-    </Card.Body>
-
-    <Collapse in={open}>
-      <div id="collapse-text">
-        <Card.Footer>
-          <Table striped bordered hover variant="dark" size="sm">
-            <thead style={{ backgroundColor: '#34483c8a', color: '#e0e0e0' }}>
-              <tr>
-                <th></th>
-                <th>{stakedTokenName}</th>
-                <th>{vaultTokenName}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Holdings</td>
-                <td>{renderBalance(userBalance)}</td>
-                <td>{renderBalance(vaultTokenBalance)}</td>
-              </tr>
-              <tr>
-                <td>Price</td>
-                <td>${priceDisplay}</td>
-                <td>$X</td>
-              </tr>
-              <tr>
-                <td>Holdings Value</td>
-                <td>$Z</td>
-                <td>$Y</td>
-              </tr>
-            </tbody>
-          </Table>
-        </Card.Footer>
+      <Collapse in={open}>
+  <div className={`collapseText ${styles.collapseText}`}>
+    <Card.Footer>
+      <div className={styles.statsContainer}>
+        {/* Top row with first section blank */}
+        <div className={styles.statsRow}>
+          <div></div> {/* Blank section for alignment */}
+          <div>{stakedTokenName}</div>
+          <div>{vaultTokenName}</div>
+        </div>
+        {/* Data rows */}
+        <div className={styles.statsRow}>
+          <div>Holdings</div>
+          <div>{renderBalance(userBalance)}</div>
+          <div>{renderBalance(vaultTokenBalance)}</div>
+        </div>
+        <div className={styles.statsRow}>
+          <div>Price</div>
+          <div>${priceDisplay}</div>
+          <div>$X</div>
+        </div>
+        <div className={styles.statsRow}>
+          <div>Holdings Value</div>
+          <div>$Z</div>
+          <div>$Y</div>
+        </div>
       </div>
-    </Collapse>
-  </Card>
-);
+    </Card.Footer>
+  </div>
+</Collapse>
+
+
+
+
+
+
+
+
+    </Card>
+  );
+  
 };
 
 export default VaultCard;
