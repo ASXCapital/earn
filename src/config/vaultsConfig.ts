@@ -5,6 +5,7 @@ import { contracts } from './contracts';
 
 import { ASXVaultsABINative } from '../abis/ASXVaultsABINative';
 import { ASXVaultsABI } from '../abis/ASXVaultsABI';
+import { PancakeV2LPABI } from '../abis/PancakeV2LPABI';
 
 
 
@@ -21,6 +22,11 @@ const vASX = contracts.bscVaults.vASX;
 const vASXwBNB = contracts.bscVaults.vASXwBNB;
 const vASXETH = contracts.bscVaults.vASXETH;
 const vASXBTCB = contracts.bscVaults.vASXBTCB;
+
+const ASXBNBLP = contracts.bscLPs.ASXBNBLP;
+const ASXETHLP = contracts.bscLPs.ASXETHLP;
+const ASXBTCBLP = contracts.bscLPs.ASXBTCBLP;
+
 
 export interface VaultToken {
   address: string;
@@ -42,6 +48,16 @@ export interface VaultConfig {
     address: string;
     abi: any;
   };
+  underlyingLP?: {
+    address: string,
+    abi: any,
+    name: string,
+  },
+  underlyingAsset?: {
+    address: string,
+    abi: any,
+    name: string,
+  }
 }
 
 export const vaultsConfig: VaultConfig[] = [
@@ -63,6 +79,12 @@ export const vaultsConfig: VaultConfig[] = [
       address: vASX,
       abi: ASXVaultsABINative,
     },
+    underlyingAsset: {
+      name: 'ASX',
+      address: ASX,
+      abi: ERC20ABI,
+    }
+
   },
   {
     id: 'asxbnb',
@@ -81,6 +103,11 @@ export const vaultsConfig: VaultConfig[] = [
     vaultContract: {
       address: vASXwBNB,
       abi: ASXVaultsABI,
+    },
+    underlyingLP: {
+      name: 'ASX-wBNB LP',
+      address: ASXBNBLP,
+      abi: PancakeV2LPABI,
     },
   },
   {
@@ -101,6 +128,11 @@ export const vaultsConfig: VaultConfig[] = [
       address: vASXETH,
       abi: ASXVaultsABI,
     },
+    underlyingLP: {
+      name: 'ASX-ETH LP',
+      address: ASXETHLP,
+      abi: PancakeV2LPABI,
+    },
   },
   {
     id: 'asxbtcb',
@@ -119,6 +151,11 @@ export const vaultsConfig: VaultConfig[] = [
     vaultContract: {
       address: vASXBTCB,
       abi: ASXVaultsABI,
+    },
+    underlyingLP: {
+      name: 'ASX-BTCB LP',
+      address: ASXBTCBLP,
+      abi: PancakeV2LPABI,
     },
   },
 ];

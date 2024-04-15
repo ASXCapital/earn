@@ -13,8 +13,11 @@ import VaultStakeButtonBNB from './VaultStakeButtonBNB';
 import VaultWithdrawButtonBNB from './VaultWithdrawButtonBNB';
 import { Card, Button, Row, Col, Form, Table, InputGroup, OverlayTrigger, Tooltip, Collapse } from 'react-bootstrap';
 import { ethers, BigNumber } from 'ethers';
+import UnderlyingLPInfo from './UnderlyingLPInfo';
+import UnderlyingAssetInfo from './UnderlyingAssetInfo';
 
 import TVLAndAPRDisplay from '../TVLAndAPRDisplay';
+import vaultsConfig from '../../config/vaultsConfig';
 
 const VaultCard: React.FC<VaultCardProps> = ({
   title,
@@ -35,6 +38,8 @@ const VaultCard: React.FC<VaultCardProps> = ({
 
   const [maxClickState, setMaxClickState] = useState(0); 
   const [refetchTrigger, setRefetchTrigger] = useState(0);  
+
+  const vaultConfig = vaultsConfig.find((vault) => vault.id === poolId);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStakeAmount(e.target.value);
@@ -207,6 +212,24 @@ const VaultCard: React.FC<VaultCardProps> = ({
   
       <Collapse in={open}>
   <div className={`collapseText ${styles.collapseText}`}>
+    <Row>
+      {vaultConfig?.underlyingLP && (
+        <Col>
+          <UnderlyingLPInfo
+            name={vaultConfig.underlyingLP.name}
+            address={vaultConfig.underlyingLP.address}
+          />
+        </Col>
+      )}
+      {vaultConfig?.underlyingAsset && (
+        <Col>
+          <UnderlyingAssetInfo
+            name={vaultConfig.underlyingAsset.name}
+            address={vaultConfig.underlyingAsset.address}
+          />
+        </Col>
+      )}
+    </Row>
     <Card.Footer>
       <div className={styles.statsContainer}>
         {/* Top row with first section blank */}
