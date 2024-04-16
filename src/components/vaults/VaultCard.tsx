@@ -35,38 +35,70 @@ const VaultCard: React.FC<VaultCardProps> = ({
   const [stakeAmount, setStakeAmount] = useState('');
   const { data: nativeBalance, refetch: refetchNativeBalance } = useBalance({ address: userAddress });
   const { data: erc20TokenBalance, refetch: refetchErc20TokenBalance } = useTokenBalance(stakedTokenContract, userAddress);
+  const [copySuccess, setCopySuccess] = useState('');
+  const [showWarning, setShowWarning] = useState(false);
 
   const [maxClickState, setMaxClickState] = useState(0); 
   const [refetchTrigger, setRefetchTrigger] = useState(0);  
 
   const vaultConfig = vaultsConfig.find((vault) => vault.id === poolId);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setStakeAmount(e.target.value);
+  const copyToClipboard = (text) => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopySuccess('Copied!');
+        setTimeout(() => setCopySuccess(''), 1500);
+      }, () => {
+        setCopySuccess('Failed to copy');
+        setTimeout(() => setCopySuccess(''), 1500);
+      });
+    } else {
+      setCopySuccess('Clipboard not supported');
+      setTimeout(() => setCopySuccess(''), 1500);
+    }
   };
 
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    if (value === '' || /^[0-9]*\.?[0-9]*$/.test(value)) {
+      setStakeAmount(value);
+      if (vaultConfig && vaultConfig.vaultToken.depositToken.max < parseFloat(value)) {
+        setShowWarning(true);
+      } else {
+        setShowWarning(false);
+      }
+    }
+  };
+
+
   const setMaxAmount = () => {
+    if (!userAddress) { // Check if the user's wallet is connected
+      return; // Exit the function if no wallet is connected
+    }
+  
     switch (maxClickState) {
       case 0: 
-        if (isNativeToken) {
-          const ninetyFivePercent = ethers.BigNumber.from(nativeBalance).mul(95).div(100); 
-          setStakeAmount(ethers.utils.formatEther(ninetyFivePercent)); 
-        } else {
-          setStakeAmount(ethers.utils.formatEther(erc20TokenBalance)); 
+        if (isNativeToken && nativeBalance !== undefined) {
+          const ninetyFivePercent = ethers.BigNumber.from(nativeBalance.toString()).mul(95).div(100);
+          setStakeAmount(ethers.utils.formatEther(ninetyFivePercent));
+        } else if (erc20TokenBalance !== undefined) {
+          setStakeAmount(ethers.utils.formatEther(erc20TokenBalance.toString()));
         }
         break;
-      case 1: 
-        setStakeAmount(ethers.utils.formatEther(vaultTokenBalance));
+      case 1:
+        if (vaultTokenBalance !== undefined) {
+          setStakeAmount(ethers.utils.formatEther(vaultTokenBalance.toString()));
+        }
         break;
-      case 2: 
+      case 2:
         setStakeAmount('');
         break;
       default:
         break;
     }
-    setMaxClickState((prevState) => (prevState + 1) % 3); 
+    setMaxClickState((prevState) => (prevState + 1) % 3);
   };
-
+  
   const MaxButton = () => (
     <OverlayTrigger overlay={<Tooltip>Disabled to avoid accidental deposit of all gas token</Tooltip>} placement="top">
       <span className="d-inline-block">
@@ -114,21 +146,51 @@ const VaultCard: React.FC<VaultCardProps> = ({
 
   const [open, setOpen] = useState(false);
 
+  const calculateHoldingsValue = (balance, price) => {
+    if (balance !== undefined && balance !== null && price) {
+      let balanceNum;
+      if (typeof balance === 'object' && balance.value) {
+        // If balance is an object and has a 'value' property
+        balanceNum = parseFloat(ethers.utils.formatUnits(balance.value.toString(), balance.decimals));
+      } else if (typeof balance === 'bigint') {
+        // If balance is directly a bigint
+        balanceNum = parseFloat(ethers.utils.formatUnits(balance.toString(), 18));
+      } else {
+        // Fallback in case balance is neither an object nor a bigint
+        console.error('Invalid balance type', balance);
+        return "0.00";
+      }
+      const priceNum = parseFloat(price); // Ensure price is a number, stripping any formatting
+      return (balanceNum * priceNum).toFixed(2); // Calculate holdings value and format it to two decimal places
+    }
+    return "0.00"; // Return 0.00 if balance or price is not available
+  };
+  
+
   return (
     <Card className={styles.vaultCard}>
       <Card.Header className={styles.vaultHeader}>{stakedTokenName}</Card.Header>
       <Card.Body className={styles.vaultBody}>
-        <Card.Text>Receive: {receiveToken}</Card.Text>
+      <Card.Text>
+          Stake: <strong className={styles.copyableToken} onClick={() => copyToClipboard(stakedTokenContract)}>{stakedTokenName}</strong>
+          ⇔ Receive: <strong className={styles.copyableToken} onClick={() => copyToClipboard(vaultTokenContract)}>{receiveToken}</strong>
+        </Card.Text>
+        {copySuccess && <span className={styles.copySuccess}>{copySuccess}</span>}
         <TVLAndAPRDisplay poolId={poolId} />
+        {showWarning && (
+          <div className={styles.warning}>
+            Important! You are about to enter an amount that will likely be front-run during this transaction if not using one of the above mentioned RPC URLs. Proceed with caution.
+          </div>
+        )}
         <Form.Group as={Col} className={styles.inputGroup}>
-        <InputGroup>
-  <Form.Control
-    type="text"
-    className={styles.formControl}
-    value={stakeAmount}
-    onChange={handleInputChange}
-    placeholder="Amount to stake"
-  />
+          <InputGroup>
+            <Form.Control
+              type="text"
+              className={styles.formControl}
+              value={stakeAmount}
+              onChange={handleInputChange}
+              placeholder="Amount to stake"
+            />
   {isNativeToken ? (
     <OverlayTrigger
       overlay={<Tooltip id="disabled-tooltip">Disabled to avoid accidental deposit of all gas token</Tooltip>}
@@ -231,40 +293,31 @@ const VaultCard: React.FC<VaultCardProps> = ({
       )}
     </Row>
     <Card.Footer>
-      <div className={styles.statsContainer}>
-        {/* Top row with first section blank */}
-        <div className={styles.statsRow}>
-          <div></div> {/* Blank section for alignment */}
-          <div>{stakedTokenName}</div>
-          <div>{vaultTokenName}</div>
-        </div>
-        {/* Data rows */}
-        <div className={styles.statsRow}>
-          <div>Holdings</div>
-          <div>{renderBalance(userBalance)}</div>
-          <div>{renderBalance(vaultTokenBalance)}</div>
-        </div>
-        <div className={styles.statsRow}>
-          <div>Price</div>
-          <div>${priceDisplay}</div>
-          <div>$X</div>
-        </div>
-        <div className={styles.statsRow}>
-          <div>Holdings Value</div>
-          <div>$Z</div>
-          <div>$Y</div>
-        </div>
-      </div>
-    </Card.Footer>
+          <div className={styles.statsContainer}>
+            <div className={styles.statsRow}>
+              <div></div> {/* Blank section for alignment */}
+              <div>{stakedTokenName}</div>
+              <div>{vaultTokenName}</div>
+            </div>
+            <div className={styles.statsRow}>
+              <div>Holdings</div>
+              <div>{renderBalance(userBalance)}</div>
+              <div>{renderBalance(vaultTokenBalance)}</div>
+            </div>
+            <div className={styles.statsRow}>
+              <div>Price</div>
+              <div>${priceDisplay}</div>
+              <div>$X</div>
+            </div>
+            <div className={styles.statsRow}>
+              <div>Holdings Value</div>
+              <div>${calculateHoldingsValue(userBalance, priceDisplay)}</div>
+              <div>$Y</div>
+            </div>
+          </div>
+        </Card.Footer>
   </div>
 </Collapse>
-
-
-
-
-
-
-
 
     </Card>
   );

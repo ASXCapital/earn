@@ -1,41 +1,69 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap'; // Import Container, Row, and Col from react-bootstrap
+import React, { useState } from 'react';
+import { Container, Row, Col, Button, FormCheck } from 'react-bootstrap';
 import VaultCard from '../components/vaults/VaultCard';
-import { vaultsConfig } from '../config/vaultsConfig'; // Ensure this path matches your file structure
-import { useAccount } from 'wagmi'; // Import useAccount from wagmi
-import AddMeowRPC from '../components/addrpc/meowrpc';
-import AddBloxRPC from '../components/addrpc/bloxrpc';
-import AddBlockPiRPC from '../components/addrpc/blockpi';
+import { vaultsConfig } from '../config/vaultsConfig';
+import { useAccount } from 'wagmi';
 
-const VaultsPage: React.FC = () => {
-  const { address: userAddress } = useAccount(); // Get the connected user's address
+import styles from '../styles/VaultsPage.module.css';
+
+import RpcPingTest from '../components/vaults/RpcUrlForm';
+
+const VaultsPage = () => {
+  const { address: userAddress } = useAccount();
+  const [showVaults, setShowVaults] = useState(false); // State to toggle vaults visibility
+  const [agreed, setAgreed] = useState(false); // State for agreement checkbox
+
+  const handleCheckbox = (event) => {
+    setAgreed(event.target.checked);
+  };
 
   return (
-    <Container className="vaultsPageContainer" fluid="lg"> {/* 'fluid="lg"' will ensure the Container is fluid until the 'lg' breakpoint */}
-      <h1 className="mb-4">Vaults</h1> {/* 'mb-4' adds a margin bottom for spacing */}
-      <Row>
-      <AddMeowRPC />
-      <AddBloxRPC />
-      <AddBlockPiRPC />
-        {vaultsConfig.map((vault) => (
-          <Col key={vault.id} md={6} xs={12} className="mb-4"> {/* 'md={6}' for 2 columns on medium devices and larger, 'xs={12}' for full width on smaller screens */}
-            <VaultCard
-              title={vault.title}
-              isNativeToken={vault.isNativeToken}
-              receiveToken={vault.vaultToken.symbol}
-              stakedTokenName={vault.vaultToken.depositToken.symbol} // Name of the staked token
-              vaultTokenName={vault.vaultToken.symbol} // Name of the vault (liquid) token
-              stakedTokenContract={vault.vaultToken.depositToken.address} // Contract address of the staked token
-              vaultTokenContract={vault.vaultToken.address} // Contract address of the vault (liquid) token
-              tvl={"$1,000,000"} // Placeholder for TVL, replace with actual data
-              apy={10} // Placeholder for APY, replace with actual data
-              userAddress={userAddress} // Connected user's address
-              poolId={vault.id} // Pool ID for TVL and APR data
+    <div className={styles.stakingWrapper}>
+      <Container fluid="lg">
+        <h1 className={styles.headerTitle}>Vaults</h1>
+        <div className={styles.stakingIntro}>
+          <p>Ben can you come up with something snazzy here?</p>
+          <div className={styles.stakingWrapper2}>
+            <p>By consolidating transactions and reducing unnecessary contract interactions, our solution achieves approximately 70% savings on gas costs. However, due to the nature of the transactions, which include swaps and liquidity pair creations, there is a potential exposure to malicious MEV (Miner Extractable Value).</p>
+            <p>To mitigate this risk and enhance security, users are required to connect via one of the specified RPC URLs below. Please use the MetaMask logo to add the appropriate network to your wallet. Once this setup is complete, you may proceed.</p>
+            <Row>
+              <RpcPingTest />
+            </Row>
+            <FormCheck
+              type="checkbox"
+              label="I agree to the terms stated above."
+              checked={agreed}
+              onChange={handleCheckbox}
+              className={styles.agreementCheck}
             />
-          </Col>
-        ))}
-      </Row>
-    </Container>
+            <Button onClick={() => setShowVaults(!showVaults)} variant="secondary" className={styles.toggleButton}>
+              {showVaults ? 'Hide Vaults' : 'Show Vaults'}
+            </Button>
+          </div>
+        </div>
+        {showVaults && agreed && (
+          <Row className={styles.transparentTable}>
+            {vaultsConfig.map((vault) => (
+              <Col key={vault.id} md={6} xs={12} className={styles.vaultCol}>
+                <VaultCard
+                  title={vault.title}
+                  isNativeToken={vault.isNativeToken}
+                  receiveToken={vault.vaultToken.symbol}
+                  stakedTokenName={vault.vaultToken.depositToken.symbol}
+                  vaultTokenName={vault.vaultToken.symbol}
+                  stakedTokenContract={vault.vaultToken.depositToken.address}
+                  vaultTokenContract={vault.vaultToken.address}
+                  tvl={"loading..."}
+                  apy={0}
+                  userAddress={userAddress}
+                  poolId={vault.id}
+                />
+              </Col>
+            ))}
+          </Row>
+        )}
+      </Container>
+    </div>
   );
 };
 

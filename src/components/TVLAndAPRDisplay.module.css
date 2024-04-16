@@ -7,9 +7,11 @@
   background-color: #16001d00;
   color: #cfcfcf;
   padding: 0rem 0rem;
+  margin-bottom: -.2rem;
+  margin-top: -.2rem;
     /* Top-left, Top-right, Bottom-right, Bottom-left */
 
-  border-top: #0ad9e3 0.2rem solid;
+  border-top: #0ad8e374 0.2rem solid;
 }
 
   

@@ -36,6 +36,7 @@ export interface VaultToken {
     address: string;
     symbol: string;
     abi: any;
+    max: number;
   };
 }
 
@@ -72,7 +73,8 @@ export const vaultsConfig: VaultConfig[] = [
       depositToken: {
         address: null, // Using wBNB for the native BNB deposits
         symbol: 'BNB',
-        abi: null // Using the ERC20 ABI for wBNB
+        abi: null, // Using the ERC20 ABI for wBNB
+        max: 1
       }
     },
     vaultContract: {
@@ -97,7 +99,8 @@ export const vaultsConfig: VaultConfig[] = [
       depositToken: {
         address: wBNB,
         symbol: 'WBNB',
-        abi: ERC20ABI // Using the ERC20 ABI for wBNB
+        abi: ERC20ABI,
+        max: 2
       }
     },
     vaultContract: {
@@ -121,7 +124,8 @@ export const vaultsConfig: VaultConfig[] = [
       depositToken: {
         address: ETH, // ETH address for deposit token
         symbol: 'ETH',
-        abi: ERC20ABI // Using the ERC20 ABI for ETH
+        abi: ERC20ABI,
+        max: 0.2
       }
     },
     vaultContract: {
@@ -145,7 +149,8 @@ export const vaultsConfig: VaultConfig[] = [
       depositToken: {
         address: BTCB, // BTCB address for deposit token
         symbol: 'BTCB',
-        abi: ERC20ABI // Using the ERC20 ABI for BTCB
+        abi: ERC20ABI,
+        max: 0.012
       }
     },
     vaultContract: {
