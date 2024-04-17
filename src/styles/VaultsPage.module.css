@@ -54,6 +54,8 @@
 }
 
 .stakingWrapper2 {
+  background-color: rgba(255, 255, 255, 0.319); /* Adjust opacity as needed for desired transparency */
+
   position:relative;
   max-width: 900px;
   margin: auto;
@@ -70,10 +72,10 @@
   backdrop-filter: blur(8.5px) ;
   
 
-  border: 1px solid rgba(247, 2, 206, 0.18);
+  border: 1px solid rgba(202, 2, 247, 0.18);
 
   /* Tunnel effect */
-  background: linear-gradient(180deg, #7e122486, #e7042a86);
+  background: linear-gradient(180deg, #00000086, rgb(0, 0, 0));
   background-size: 200% 200%;
 
   z-index: 1; /* Ensure it doesn't overlap everything */

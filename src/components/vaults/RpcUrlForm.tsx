@@ -89,15 +89,26 @@ const RpcPingTest = () => {
 
   return (
     <Container>
-      <ListGroup className="mt-3">
+       <ListGroup className="mt-3">
         {rpcUrls.map(rpc => (
-          <ListGroup.Item key={rpc.url} style={{ display: 'flex', alignItems: 'center', backgroundColor: 'grey' }}>
-            <Image src="/logos/metamask.webp" alt="MetaMask logo" width={24} height={24} style={{ cursor: 'pointer', marginRight: '10px' }}
-                   onClick={() => addNetworkToMetaMask(rpc.url, rpc.name)} />
+          <ListGroup.Item 
+            key={rpc.url} 
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              background: 'rgba(1, 50, 50, 0.44)',
+              color: 'white',
+              cursor: 'pointer',
+              transition: 'transform 0.3s ease-in-out'
+            }}
+            onClick={() => addNetworkToMetaMask(rpc.url, rpc.name)}
+            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            <Image src="/logos/metamask.webp" alt="MetaMask logo" width={24} height={24} style={{ marginRight: '10px' }} />
             <strong style={{ marginRight: '5px' }}>
-              <a href={rpc.link} target="_blank" rel="noopener noreferrer">{rpc.name}</a>
+              <a href={rpc.link} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>{rpc.name}</a>
             </strong>
-            
             <span style={{ marginLeft: 'auto', marginRight: '10px' }}>{speeds[rpc.url]} ms</span>
             <div
               style={{

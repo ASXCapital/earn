@@ -22,7 +22,7 @@ const VaultsPage = () => {
       <Container fluid="lg">
         <h1 className={styles.headerTitle}>Vaults</h1>
         <div className={styles.stakingIntro}>
-          <p>Ben can you come up with something snazzy here?</p>
+          <p>ASX Vaults are auto-compounding staking pools. By depositing a single token, our vaults will create the underlying position, and compound the yield daily. Users can withdraw at any time.</p>
           <div className={styles.stakingWrapper2}>
             <p>By consolidating transactions and reducing unnecessary contract interactions, our solution achieves approximately 70% savings on gas costs. However, due to the nature of the transactions, which include swaps and liquidity pair creations, there is a potential exposure to malicious MEV (Miner Extractable Value).</p>
             <p>To mitigate this risk and enhance security, users are required to connect via one of the specified RPC URLs below. Please use the MetaMask logo to add the appropriate network to your wallet. Once this setup is complete, you may proceed.</p>
