@@ -3,7 +3,7 @@
   /* background: linear-gradient(180deg, #00ffff 0%, #74ffc7 10%, #0be3d8 50%, #0dd7cd 75%, #00d46a 100%); */
   color: #b7b7b7;
   padding: 20px 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .footerContent {
@@ -12,13 +12,10 @@
   /* Center the footer sections */
   align-items: center;
 
-
   display: flex;
 
   border-bottom: 1px solid #2e353c45;
   /* Add a top border for visual separation */
-
-
 }
 
 .footerSection {
@@ -27,7 +24,6 @@
   align-items: center;
   /* Center align the items in the section */
   margin-top: -20px;
-
 }
 
 .footerSection h4 {
@@ -41,12 +37,12 @@
   /* Center the list items */
   list-style: none;
   padding: 0;
-  gap: .4rem;
+  gap: 0.4rem;
   flex-direction: column;
 }
 
 .footerSection li {
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 .footerSection li a {

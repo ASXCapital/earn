@@ -3,7 +3,7 @@
   flex-direction: row;
   width: 100%;
   overflow: show; /* Hide overflow */
-  
+
   gap: 40px;
   justify-content: flex-start;
   animation: scroll 100s linear infinite; /* Adjust time as needed */
@@ -14,7 +14,9 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%); /* Scroll to the left; adjust based on content width */
+    transform: translateX(
+      -100%
+    ); /* Scroll to the left; adjust based on content width */
   }
 }
 

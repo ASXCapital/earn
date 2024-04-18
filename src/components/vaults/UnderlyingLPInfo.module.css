@@ -1,34 +1,31 @@
 /* UnderlyingLPInfo.module.css */
 .copyButton {
+  font-size: 75%;
+  line-height: 1;
+  border-radius: 0.2rem;
+  background-color: #009c8d;
+  width: 4rem;
+  margin-right: 1rem;
+}
 
-    font-size: 75%;
-    line-height: 1;
-    border-radius: 0.2rem;
-    background-color: #009c8d;
-    width: 4rem;
-    margin-right: 1rem;
-    
-  }
+.copyButton:hover {
+  background-color: #00c9b5;
+}
 
-  .copyButton:hover {
-    background-color: #00c9b5;
-  }
+.lpTitle {
+  font-size: 0.8rem; /* Larger font size */
+  font-weight: 500; /* Bold text for visibility */
+  margin-left: 1rem;
+}
+.container {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
 
-  .lpTitle {
-    font-size: .8rem; /* Larger font size */
-    font-weight: 500; /* Bold text for visibility */
-    margin-left: 1rem;
-  }
-  .container {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-  
-    padding: 1rem;
-  }
-  
-  .assetTitle {
-    margin-right: 10px;
-    font-weight: 500;
-  }
-  
+  padding: 1rem;
+}
+
+.assetTitle {
+  margin-right: 10px;
+  font-weight: 500;
+}

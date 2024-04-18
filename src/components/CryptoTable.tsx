@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import styles from './CryptoTable.module.css'; // Ensure the path is correct
-import CoinGeckoWidget from '../utils/CoinGeckoWidget';
+import React, { useEffect, useState } from "react";
+import styles from "./CryptoTable.module.css"; // Ensure the path is correct
+import CoinGeckoWidget from "../utils/CoinGeckoWidget";
 
 interface CryptoTableProps {
   className?: string; // Make className an optional prop
@@ -20,10 +20,10 @@ const CryptoTable: React.FC<CryptoTableProps> = ({ className }) => {
 
   useEffect(() => {
     const loadCoinList = async () => {
-      const response = await fetch('/info/CoinList.json');
+      const response = await fetch("/info/CoinList.json");
       const coinList: Coin[] = await response.json();
       const map: { [key: string]: string } = {};
-      coinList.forEach(coin => {
+      coinList.forEach((coin) => {
         map[coin.id] = coin.symbol.toUpperCase();
       });
       setCoinMap(map);
@@ -35,10 +35,11 @@ const CryptoTable: React.FC<CryptoTableProps> = ({ className }) => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const url = 'https://pro-api.coingecko.com/api/v3/coins/id/contract/0xebd3619642d78f0c98c84f6fa9a678653fb5a99b';
+      const url =
+        "https://pro-api.coingecko.com/api/v3/coins/id/contract/0xebd3619642d78f0c98c84f6fa9a678653fb5a99b";
       const options = {
-        method: 'GET',
-        headers: { 'x-cg-pro-api-key': process.env.NEXT_PUBLIC_CG_API }
+        method: "GET",
+        headers: { "x-cg-pro-api-key": process.env.NEXT_PUBLIC_CG_API },
       };
 
       try {
@@ -47,16 +48,18 @@ const CryptoTable: React.FC<CryptoTableProps> = ({ className }) => {
           throw new Error(`Error: ${response.statusText}`);
         }
         const jsonResponse = await response.json();
-        
+
         // Find highest and lowest prices
-        const prices = jsonResponse.tickers.map((ticker: any) => ticker.converted_last.usd);
+        const prices = jsonResponse.tickers.map(
+          (ticker: any) => ticker.converted_last.usd,
+        );
         setHighestPrice(Math.max(...prices));
         setLowestPrice(Math.min(...prices));
 
         setData(jsonResponse);
         setIsLoading(false);
       } catch (error) {
-        console.error('Fetching data failed:', error);
+        console.error("Fetching data failed:", error);
         setIsLoading(false);
       }
     };
@@ -65,8 +68,8 @@ const CryptoTable: React.FC<CryptoTableProps> = ({ className }) => {
   }, []);
 
   const getPriceStyle = (price: number) => {
-    if (price === highestPrice) return { color: 'lime' };
-    if (price === lowestPrice) return { color: 'red' };
+    if (price === highestPrice) return { color: "lime" };
+    if (price === lowestPrice) return { color: "red" };
     return {};
   };
 
@@ -107,15 +110,29 @@ const CryptoTable: React.FC<CryptoTableProps> = ({ className }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {`${ticker.base.includes('0X') ? coinMap[ticker.coin_id] || ticker.base : ticker.base}/${ticker.target.includes('0X') ? coinMap[ticker.target_coin_id] || ticker.target : ticker.target}`}
+                    {`${ticker.base.includes("0X") ? coinMap[ticker.coin_id] || ticker.base : ticker.base}/${ticker.target.includes("0X") ? coinMap[ticker.target_coin_id] || ticker.target : ticker.target}`}
                   </a>
                 </td>
-                <td className={styles.priceColumn} style={getPriceStyle(ticker.converted_last.usd)}>
+                <td
+                  className={styles.priceColumn}
+                  style={getPriceStyle(ticker.converted_last.usd)}
+                >
                   ${ticker.converted_last.usd.toFixed(4)}
                 </td>
-                <td className={styles.spreadColumn}>{ticker.bid_ask_spread_percentage.toFixed(2)}%</td>
-                <td className={styles.volumeColumn}>${ticker.converted_volume.usd.toFixed(2)}</td>
-                <td className={styles.volumePercentColumn}>{((ticker.converted_volume.usd / data.market_data.total_volume.usd) * 100).toFixed(2)}%</td>
+                <td className={styles.spreadColumn}>
+                  {ticker.bid_ask_spread_percentage.toFixed(2)}%
+                </td>
+                <td className={styles.volumeColumn}>
+                  ${ticker.converted_volume.usd.toFixed(2)}
+                </td>
+                <td className={styles.volumePercentColumn}>
+                  {(
+                    (ticker.converted_volume.usd /
+                      data.market_data.total_volume.usd) *
+                    100
+                  ).toFixed(2)}
+                  %
+                </td>
               </tr>
             ))}
           </tbody>

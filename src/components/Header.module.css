@@ -45,8 +45,8 @@
 }
 
 .buttonStyle {
-  padding: .4rem;
-  padding-inline: .6rem;
+  padding: 0.4rem;
+  padding-inline: 0.6rem;
   margin: 0 5px;
   /* Provides spacing between buttons */
   background-color: #292929;
@@ -54,7 +54,9 @@
   border: none;
   border-radius: 4px;
   box-shadow: rgba(126, 126, 126, 0.349) 0 0 2px 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
   cursor: pointer;
   font-size: 16px;
 }
@@ -74,8 +76,6 @@
   box-shadow: 0 0 0 2px #0dfcd0;
 }
 
-
-
 .navLinks {
   position: absolute;
   /* Position the navigation container absolutely */
@@ -92,7 +92,7 @@
 }
 
 .header::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   height: 4px;
@@ -106,22 +106,21 @@
 .navLinks,
 .navLinks a {
   box-sizing: border-box;
-
 }
 
 .navLink {
-
   text-decoration: none;
   /* Remove underline */
   padding: 0.5rem 1rem;
   /* Adjust padding as needed */
   border-radius: 5px;
   /* Optional: for rounded links */
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
   /* Smooth transition for hover effects */
   position: relative;
   /* Needed for absolute positioning of the pseudo-element */
-
 }
 
 .navLink:not(:last-child)::after {
@@ -175,10 +174,8 @@
 
   border: none;
   box-shadow: #00ffe529;
-  ;
   background-color: #1e1e1e;
   backdrop-filter: blur(10px);
-
 }
 
 .dropdownItem {
@@ -197,8 +194,6 @@
   cursor: pointer;
   /* Changes cursor to pointer on hover */
 }
-
-
 
 /* Remove any border, box-shadow, or background styling that causes 'box' appearance */
 
@@ -224,7 +219,6 @@
   align-items: center;
 }
 
-
 .navLinks {
   display: flex;
   /* Align links side by side */
@@ -239,7 +233,9 @@
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .navLink:hover {
@@ -269,5 +265,4 @@
   flex-direction: row;
   font-size: 14px;
   justify-content: baseline;
-
 }

@@ -1,11 +1,10 @@
-import { NextPage } from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
-import styles from '../styles/Home.module.css';
+import { NextPage } from "next";
+import Head from "next/head";
+import Link from "next/link";
+import styles from "../styles/Home.module.css";
 
-import Image from 'next/image'; 
-import CoinGeckoWidget from '../utils/CoinGeckoWidget';
-
+import Image from "next/image";
+import CoinGeckoWidget from "../utils/CoinGeckoWidget";
 
 const Home: NextPage = () => {
   return (
@@ -15,7 +14,6 @@ const Home: NextPage = () => {
         <meta name="description" content="Earn with ASX" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-     
 
       <main className={styles.main}>
         <h1 className={styles.title}>
@@ -28,41 +26,56 @@ const Home: NextPage = () => {
 
         <div className={styles.grid}>
           <div className={styles.CardContainer}>
-          <Link href="/staking" passHref>
-            <div className={styles.card}>
-              <h2>Staking &rarr;</h2>
-              <p>Stake ASX & LP tokens and earn rewards</p>
-            </div>
-          </Link>
+            <Link href="/staking" passHref>
+              <div className={styles.card}>
+                <h2>Staking &rarr;</h2>
+                <p>Stake ASX & LP tokens and earn rewards</p>
+              </div>
+            </Link>
           </div>
           <div className={styles.CardContainer}>
-  <Link href="/dashboard" passHref>
-    <div className={styles.card} style={{ position: 'relative' }}> {/* Add relative positioning to the card container */}
-      <h2>Dashboard &rarr;</h2>
-      <p>EVM DeFi hub</p>
-      {/* "Powered By" section with Moralis logo */}
-      <div style={{ position: 'absolute', bottom: '.4rem', right: '10px', display: 'flex',  fontSize: '0.7rem', alignItems: 'center', }}>
-        Powered By{' '}
-        <Image src="/logos/partners/moralis.png" alt="Moralis Logo" width={65} height={20} />
-      </div>
-    </div>
-  </Link>
-</div>
-          
+            <Link href="/dashboard" passHref>
+              <div className={styles.card} style={{ position: "relative" }}>
+                {" "}
+                {/* Add relative positioning to the card container */}
+                <h2>Dashboard &rarr;</h2>
+                <p>EVM DeFi hub</p>
+                {/* "Powered By" section with Moralis logo */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: ".4rem",
+                    right: "10px",
+                    display: "flex",
+                    fontSize: "0.7rem",
+                    alignItems: "center",
+                  }}
+                >
+                  Powered By{" "}
+                  <Image
+                    src="/logos/partners/moralis.png"
+                    alt="Moralis Logo"
+                    width={65}
+                    height={20}
+                  />
+                </div>
+              </div>
+            </Link>
+          </div>
 
-<div className={styles.CardContainer}>
-<Link href="/vaults" passHref>
-<div className={styles.card} style={{ position: 'relative' }}>
-              <h2>Vaults &rarr;</h2>
-              <p>Earn Yield on BNB, ETH and BTC</p>
-              {/*
+          <div className={styles.CardContainer}>
+            <Link href="/vaults" passHref>
+              <div className={styles.card} style={{ position: "relative" }}>
+                <h2>Vaults &rarr;</h2>
+                <p>Earn Yield on BNB, ETH and BTC</p>
+                {/*
               <div style={{ position: 'absolute', bottom: '.4rem', right: '10px', display: 'flex', alignItems: 'center', fontSize: '0.7rem' }}>
         Powered By{' '}
         <Image src="/logos/partners/moralis.png" alt="Moralis Logo" width={65} height={20} />
       </div>
       */}
-            </div>
-          </Link>
+              </div>
+            </Link>
           </div>
 
           {/*
@@ -96,10 +109,9 @@ const Home: NextPage = () => {
           </Link>
 
   */}
-</div>
+        </div>
       </main>
     </div>
-        
   );
 };
 

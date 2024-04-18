@@ -1,34 +1,30 @@
-.InfoList{
-    display: flex;
-    flex-direction: row;
-    font-size: 1rem;
-
+.InfoList {
+  display: flex;
+  flex-direction: row;
+  font-size: 1rem;
 }
 
+.tokenInfoItem {
+  margin-bottom: 20px; /* Adjust the space between items */
+  display: flex;
+  justify-content: space-between; /* This spreads the items across the width of the container */
+  align-items: flex-end; /* Aligns items at the bottom of the container */
+  padding-right: 20px;
+}
 
-  
-  .tokenInfoItem {
-    margin-bottom: 20px; /* Adjust the space between items */
-    display: flex;
-    justify-content: space-between; /* This spreads the items across the width of the container */
-    align-items: flex-end; /* Aligns items at the bottom of the container */
-    padding-right: 20px;
-  }
-  
-  .smallDecimals {
-    font-size: 0.75em;
-  }
-  
-  .red {
-    color: #ff6666; /* Lighter shade of red */
-  }
-  
-  .green {
-    color: #66ff66; /* Lighter shade of green */
-  }
-  
-  .arrow {
-    display: inline-block;
-    vertical-align: bottom; /* Ensures the arrow is aligned at the bottom */
-  }
-  
+.smallDecimals {
+  font-size: 0.75em;
+}
+
+.red {
+  color: #ff6666; /* Lighter shade of red */
+}
+
+.green {
+  color: #66ff66; /* Lighter shade of green */
+}
+
+.arrow {
+  display: inline-block;
+  vertical-align: bottom; /* Ensures the arrow is aligned at the bottom */
+}

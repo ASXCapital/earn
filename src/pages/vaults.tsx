@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Button, FormCheck, Image } from 'react-bootstrap';
-import VaultCard from '../components/vaults/VaultCard';
-import { vaultsConfig } from '../config/vaultsConfig';
-import { useAccount } from 'wagmi';
+import React, { useState } from "react";
+import { Container, Row, Col, Button, FormCheck, Image } from "react-bootstrap";
+import VaultCard from "../components/vaults/VaultCard";
+import { vaultsConfig } from "../config/vaultsConfig";
+import { useAccount } from "wagmi";
 
+import styles from "../styles/VaultsPage.module.css";
 
-import styles from '../styles/VaultsPage.module.css';
+import RpcPingTest from "../components/vaults/RpcUrlForm";
 
-import RpcPingTest from '../components/vaults/RpcUrlForm';
-
-import TotalTVLDisplay from '../components/TotalTVLDisplay';
+import TotalTVLDisplay from "../components/TotalTVLDisplay";
 
 const VaultsPage = () => {
   const { address: userAddress } = useAccount();
@@ -22,29 +21,51 @@ const VaultsPage = () => {
 
   return (
     <div className={styles.stakingWrapper}>
-      
       <Container fluid="lg">
         <h2 className={styles.headerTitle}>Vaults</h2>
         <br />
         <TotalTVLDisplay />
         <br />
         <div className={styles.stakingIntro}>
-          <p>ASX Vaults are auto-compounding staking pools. 
-            By depositing a single token, our vaults will create the underlying position, and compound the yield daily. Users can withdraw at any time.</p>
+          <p>
+            ASX Vaults are auto-compounding staking pools. By depositing a
+            single token, our vaults will create the underlying position, and
+            compound the yield daily. Users can withdraw at any time.
+          </p>
           <br />
           {/* How does it work section with diagram */}
           <h1 className={styles.howItWorksTitle}></h1>
-          <Image src="/vaultFlow.png" alt="Vault Workflow Diagram" className={styles.vaultFlowImage}/>
-          <br /><br />
+          <Image
+            src="/vaultFlow.png"
+            alt="Vault Workflow Diagram"
+            className={styles.vaultFlowImage}
+          />
+          <br />
+          <br />
           <p className={styles.howItWorksDescription}>
-            Simply deposit BNB, WBNB, ETH or BTCB and gain exposure to the ASX ecosystem.
-            <br /><br />
-            Recieve vASX tokens in return which can then be deposited or burned to then recieve back the initial token.</p>
+            Simply deposit BNB, WBNB, ETH or BTCB and gain exposure to the ASX
+            ecosystem.
+            <br />
+            <br />
+            Recieve vASX tokens in return which can then be deposited or burned
+            to then recieve back the initial token.
+          </p>
 
           <div className={styles.stakingWrapper2}>
-            <p>By consolidating transactions and reducing unnecessary contract interactions, our solution achieves approximately 70% savings on gas costs. However, due to the nature of the transactions, which include swaps and liquidity pair creations, there is a potential exposure to malicious MEV (Miner Extractable Value).</p>
+            <p>
+              By consolidating transactions and reducing unnecessary contract
+              interactions, our solution achieves approximately 70% savings on
+              gas costs. However, due to the nature of the transactions, which
+              include swaps and liquidity pair creations, there is a potential
+              exposure to malicious MEV (Miner Extractable Value).
+            </p>
             <div className={styles.stakingWrapper3}>
-            <p>To mitigate this risk and enhance security, users are required to connect via one of the specified RPC URLs below. Please use the MetaMask logo to add the appropriate network to your wallet. Once this setup is complete, you may proceed.</p>
+              <p>
+                To mitigate this risk and enhance security, users are required
+                to connect via one of the specified RPC URLs below. Please use
+                the MetaMask logo to add the appropriate network to your wallet.
+                Once this setup is complete, you may proceed.
+              </p>
             </div>
             <Row>
               <RpcPingTest />
@@ -56,8 +77,12 @@ const VaultsPage = () => {
               onChange={handleCheckbox}
               className={styles.agreementCheck}
             />
-            <Button onClick={() => setShowVaults(!showVaults)} variant="secondary" className={styles.toggleButton}>
-              {showVaults ? 'Hide Vaults' : 'Show Vaults'}
+            <Button
+              onClick={() => setShowVaults(!showVaults)}
+              variant="secondary"
+              className={styles.toggleButton}
+            >
+              {showVaults ? "Hide Vaults" : "Show Vaults"}
             </Button>
           </div>
         </div>

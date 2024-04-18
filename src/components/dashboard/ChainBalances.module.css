@@ -1,6 +1,6 @@
 .chainBalancesTableContainer {
   background-color: #0207077a;
-  
+
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
@@ -9,12 +9,11 @@
   display: block;
   max-width: 60rem;
   width: 100%;
-  margin:  auto;
+  margin: auto;
   color: #cfcfcf;
 }
 
 .chainBalancesTableHeader {
-
   margin-bottom: 20px;
   font-size: 1.5rem;
   color: #00dab6;
@@ -37,7 +36,6 @@
 .chainBalancesTable th {
   background-color: #34483c8a;
   color: #e0e0e0;
-  
 }
 
 .chainBalancesTable td {
@@ -67,7 +65,6 @@
   background-color: #1d1f2133; /* Slightly darker on hover for interactivity */
 }
 
-
 .sortArrow {
   margin-left: 4px; /* Space between header title and arrow */
 }
@@ -87,7 +84,6 @@
 .totalNetWorth {
   float: right;
   margin-right: 1rem; /* Adjust as needed */
-
 }
 .omittedChains {
   font-size: 0.8em;

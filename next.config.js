@@ -1,18 +1,17 @@
 const nextConfig = {
-
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'assets.coingecko.com',
+        protocol: "https",
+        hostname: "assets.coingecko.com",
       },
     ],
   },
-  
+
   reactStrictMode: true,
   i18n: {
-    locales: ['default',],
-    defaultLocale: 'default',
+    locales: ["default"],
+    defaultLocale: "default",
   },
   webpack: (config) => {
     config.externals.push("pino-pretty", "lokijs", "encoding");

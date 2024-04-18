@@ -12,24 +12,27 @@ ______ _________________ _____ _____   ___ _____ ___________
   
   */
 
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const CoinData = () => {
   const [coinData, setCoinData] = useState([]);
-  const [currency, setCurrency] = useState('usd');
+  const [currency, setCurrency] = useState("usd");
 
   useEffect(() => {
     const fetchCoinData = async () => {
-      const url = 'https://pro-api.coingecko.com/api/v3/coins/bsc/contract/0xebD3619642d78F0C98c84f6Fa9a678653fB5A99B';
-      const options = { method: 'GET', headers: { 'x-cg-pro-api-key': process.env.NEXT_PUBLIC_CG_API } };
+      const url =
+        "https://pro-api.coingecko.com/api/v3/coins/bsc/contract/0xebD3619642d78F0C98c84f6Fa9a678653fB5A99B";
+      const options = {
+        method: "GET",
+        headers: { "x-cg-pro-api-key": process.env.NEXT_PUBLIC_CG_API },
+      };
 
       try {
         const response = await fetch(url, options);
         const data = await response.json();
         setCoinData(data.tickers);
       } catch (error) {
-        console.error('Error fetching coin data:', error);
+        console.error("Error fetching coin data:", error);
       }
     };
 
@@ -63,12 +66,16 @@ const CoinData = () => {
         <tbody>
           {coinData.map((item, index) => (
             <tr key={index}>
-              <td>{item.base}/{item.target}</td>
-              <td>{item.market.identifier.includes('v3') ? 'V3' : 'V2'}</td>
+              <td>
+                {item.base}/{item.target}
+              </td>
+              <td>{item.market.identifier.includes("v3") ? "V3" : "V2"}</td>
               <td>{item.converted_last[currency]}</td>
               <td>{/* Placeholder for liquidity amount */}</td>
               <td>{item.converted_volume[currency]}</td>
-              <td>{/* Placeholder for 24h change, calculate if necessary */}</td>
+              <td>
+                {/* Placeholder for 24h change, calculate if necessary */}
+              </td>
               {/* Populate other columns as needed */}
             </tr>
           ))}

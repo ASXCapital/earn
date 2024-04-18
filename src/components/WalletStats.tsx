@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const WalletStats = () => {
   const [chainsData, setChainsData] = useState([]);
-  const [totalNetworth, setTotalNetworth] = useState('');
+  const [totalNetworth, setTotalNetworth] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -10,17 +10,17 @@ const WalletStats = () => {
     const fetchWalletData = async () => {
       const apiURL = process.env.NEXT_PUBLIC_MORALIS_API_URL; // Replace with your actual API endpoint
       const options = {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'X-API-Key': process.env.NEXT_PUBLIC_MORALIS_API_KEY,
+          "Content-Type": "application/json",
+          "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_API_KEY,
         },
       };
 
       try {
         const response = await fetch(apiURL, options);
         if (!response.ok) {
-          throw new Error('Failed to fetch wallet data');
+          throw new Error("Failed to fetch wallet data");
         }
         const data = await response.json();
         setChainsData(data.chains);

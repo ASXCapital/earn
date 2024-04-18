@@ -1,8 +1,11 @@
 // src/pages/api/moralis/walletNetWorth.ts
 
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const { address } = req.query; // Assuming you pass the address as a query parameter
 
   try {
@@ -11,21 +14,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const moralisResponse = await fetch(url, {
       headers: {
-        'X-API-Key': process.env.NEXT_PUBLIC_MORALIS_API, // Use your Moralis API key
-        'Accept': 'application/json',
-        
+        "X-API-Key": process.env.NEXT_PUBLIC_MORALIS_API, // Use your Moralis API key
+        Accept: "application/json",
       },
-      
     });
 
     if (!moralisResponse.ok) {
-      throw new Error('Failed to fetch from Moralis');
+      throw new Error("Failed to fetch from Moralis");
     }
 
     const data = await moralisResponse.json();
     res.status(200).json(data); // Send back the data from Moralis to the frontend
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
-}console.log
+}
+console.log;

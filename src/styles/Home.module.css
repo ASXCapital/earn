@@ -1,39 +1,48 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
-
-
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext");
 
 @keyframes moveLight {
-
   0%,
   100% {
-    text-shadow: -10px 0 10px #00e65c8c, -20px 0 20px #00ffff81, -30px 0 30px #00e6c0, -40px 0 40prgba(0, 230, 230, 0.449)e6, -50px 0 50px #00e6e6, -60px 0 60px #00e6e6, -70px 0 70px #c000e6c1;
+    text-shadow:
+      -10px 0 10px #00e65c8c,
+      -20px 0 20px #00ffff81,
+      -30px 0 30px #00e6c0,
+      -40px 0 40prgba (0, 230, 230, 0.449) e6,
+      -50px 0 50px #00e6e6,
+      -60px 0 60px #00e6e6,
+      -70px 0 70px #c000e6c1;
   }
 
   50% {
-    text-shadow: 10px 0 10px #00e6e67e, 20px 0 20px #8500a099, 30px 0 30px #00e6c0, 40px 0 40px #00e6e6, 50px 0 50px #00e6e6, 60px 0 60px #00e6e6, 70px 0 70px #6f0085c1;
+    text-shadow:
+      10px 0 10px #00e6e67e,
+      20px 0 20px #8500a099,
+      30px 0 30px #00e6c0,
+      40px 0 40px #00e6e6,
+      50px 0 50px #00e6e6,
+      60px 0 60px #00e6e6,
+      70px 0 70px #6f0085c1;
   }
 }
 
 .IndexHeader {
-  font: 4rem 'Urbanist', sans-serif;
+  font:
+    4rem "Urbanist",
+    sans-serif;
   /* Fallback to sans-serif if TRON is not available */
   color: #b7b7b7;
   /* Changed text color to black */
   font-size: 10rem;
   animation: moveLight 44s linear infinite;
   font-weight: 600;
-
 }
-
 
 /* The rest of your CSS... */
 
 .container {
-
   max-width: 100%;
   /* Prevents overflow on small screens */
 }
-
 
 .main {
   min-height: 100vh;
@@ -43,7 +52,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 .footer {
@@ -142,14 +150,14 @@
   text-decoration: none;
 
   border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
   width: 400px;
   max-width: 400px;
 
   box-shadow: rgba(126, 126, 126, 0.349) 0 0 2px 0;
 }
-
-
 
 @media (max-width: 500px) {
   .card {
@@ -157,7 +165,6 @@
     padding: 1rem;
   }
 }
-
 
 .card:hover,
 .card:focus,

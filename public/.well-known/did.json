@@ -1,1 +1,33 @@
-{"@context":["https://www.w3.org/ns/did/v1","https://w3id.org/security/suites/jws-2020/v1"],"id":"did:web:www.earn.asx.capital","verificationMethod":[{"id":"did:web:www.earn.asx.capital#wc-notify-subscribe-key","type":"JsonWebKey2020","controller":"did:web:www.earn.asx.capital","publicKeyJwk":{"kty":"OKP","crv":"X25519","x":"ZjEXD6TM0gJ-OdTgj3B1ztOje8VjLLHO4ST0GHUmeFI"}},{"id":"did:web:www.earn.asx.capital#wc-notify-authentication-key","type":"JsonWebKey2020","controller":"did:web:www.earn.asx.capital","publicKeyJwk":{"kty":"OKP","crv":"Ed25519","x":"bdhzwzuPeBSoQ5OohGtyIMChHi17w19S8Bx8-dQQJes"}}],"keyAgreement":["did:web:www.earn.asx.capital#wc-notify-subscribe-key"],"authentication":["did:web:www.earn.asx.capital#wc-notify-authentication-key"]}
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:www.earn.asx.capital",
+  "verificationMethod": [
+    {
+      "id": "did:web:www.earn.asx.capital#wc-notify-subscribe-key",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:www.earn.asx.capital",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "X25519",
+        "x": "ZjEXD6TM0gJ-OdTgj3B1ztOje8VjLLHO4ST0GHUmeFI"
+      }
+    },
+    {
+      "id": "did:web:www.earn.asx.capital#wc-notify-authentication-key",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:www.earn.asx.capital",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "bdhzwzuPeBSoQ5OohGtyIMChHi17w19S8Bx8-dQQJes"
+      }
+    }
+  ],
+  "keyAgreement": ["did:web:www.earn.asx.capital#wc-notify-subscribe-key"],
+  "authentication": [
+    "did:web:www.earn.asx.capital#wc-notify-authentication-key"
+  ]
+}

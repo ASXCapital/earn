@@ -1,8 +1,8 @@
 // file: earn/components/TotalTVLDisplay.tsx
 
-import React, { useState, useEffect } from 'react';
-import poolsConfig from '../config/poolsConfig';
-import TVLAndAPRDisplay from './TVLAndAPRDisplay';
+import React, { useState, useEffect } from "react";
+import poolsConfig from "../config/poolsConfig";
+import TVLAndAPRDisplay from "./TVLAndAPRDisplay";
 
 /**
  * Component to display the aggregate Total Value Locked (TVL) across all configured pools.
@@ -21,7 +21,7 @@ const OverallTVLDisplay: React.FC = () => {
    * @param {string} poolId - The identifier of the pool that the TVL comes from.
    */
   const handleUpdateTVL = (newTVL: number, poolId: string) => {
-    setTotalTVL(prevTotalTVL => prevTotalTVL + newTVL);
+    setTotalTVL((prevTotalTVL) => prevTotalTVL + newTVL);
   };
 
   // Effect to initialize and cleanup component state.
@@ -46,12 +46,12 @@ const OverallTVLDisplay: React.FC = () => {
   return (
     <div>
       <h3>TVL: ${totalTVL.toFixed(2)}</h3>
-      {poolsConfig.map(pool => (
+      {poolsConfig.map((pool) => (
         <TVLAndAPRDisplay
           key={pool.id}
           poolId={pool.id}
           onUpdateTVL={(tvl) => handleUpdateTVL(tvl, pool.id)}
-          isVisible={false}  // This prevents the TVLAndAPRDisplay components from rendering visually.
+          isVisible={false} // This prevents the TVLAndAPRDisplay components from rendering visually.
         />
       ))}
     </div>

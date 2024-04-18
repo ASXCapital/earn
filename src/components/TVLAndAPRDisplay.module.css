@@ -7,30 +7,27 @@
   background-color: #16001d00;
   color: #cfcfcf;
   padding: 0rem 0rem;
-  margin-bottom: -.2rem;
-  margin-top: -.2rem;
-    /* Top-left, Top-right, Bottom-right, Bottom-left */
+  margin-bottom: -0.2rem;
+  margin-top: -0.2rem;
+  /* Top-left, Top-right, Bottom-right, Bottom-left */
 
   border-top: #0ad8e374 0.2rem solid;
 }
 
-  
-  .tvl {
-    font-size: 1rem; /* Standard text size for TVL */
-  }
-  
-  .apy {
-    display: flex;
-    align-items: baseline;
-  }
-  
-  .apyValue {
-    font-size: 2rem; /* Larger font size for the APY value */
-    color:  #0ad9e3;
-    
-  }
-  
-  .apyLabel {
-    font-size: 1rem; /* Smaller font size for the text '% APY' */
-  }
-  
+.tvl {
+  font-size: 1rem; /* Standard text size for TVL */
+}
+
+.apy {
+  display: flex;
+  align-items: baseline;
+}
+
+.apyValue {
+  font-size: 2rem; /* Larger font size for the APY value */
+  color: #0ad9e3;
+}
+
+.apyLabel {
+  font-size: 1rem; /* Smaller font size for the text '% APY' */
+}
