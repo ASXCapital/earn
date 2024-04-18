@@ -2,11 +2,12 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import styles from './Header.module.css'; 
-import Image from 'next/image'; 
-import logo from '/public/logo.png'; 
-import CoinGeckoWidget from '../utils/CoinGeckoWidget'; 
+import styles from './Header.module.css';
+import Image from 'next/image';
+import logo from '/public/logo.png';
+import CoinGeckoWidget from '../utils/CoinGeckoWidget';
 import TokenInfo from '../components/TokenInfo';
+
 
 
 const Header = () => {
@@ -14,9 +15,9 @@ const Header = () => {
   const dropdownRef = useRef(null); // Ref to the dropdown menu
   const burgerRef = useRef(null); // Ref to the burger icon
   const [isHovered, setIsHovered] = useState(false);
-  
 
-  
+
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -51,15 +52,15 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div style={{ position: 'absolute', top: 0, width: '100%', zIndex: 1 }}>
-            
+
       </div>
       <nav className={styles.navbar} style={{ marginTop: '0px' }}> {/* Adjust the marginTop value as needed */}
-      <div className={styles.LogoAndInfo}>
-        <Link href="/" passHref>
-          <Image src={logo} alt="ASX Logo" width={100} height={37} className={styles.logo} />
-          
-        </Link>
-      
+        <div className={styles.LogoAndInfo}>
+          <Link href="/" passHref>
+            <Image src={logo} alt="ASX Logo" width={100} height={37} className={styles.logo} />
+
+          </Link>
+
         </div>
 
 
@@ -89,25 +90,98 @@ const Header = () => {
 
   */}
 
-   
-   </div>
+
+        </div>
 
 
-        
-        
-   <ConnectButton
-  accountStatus={{
-    smallScreen: 'avatar',
-    largeScreen: 'full',
-    
-  }}
-  showBalance={{
-    smallScreen: false,
-    largeScreen: true,
-  }}
-/>
-        
-  
+
+
+        <ConnectButton.Custom>
+          {({
+            account,
+            chain,
+            openAccountModal,
+            openChainModal,
+            openConnectModal,
+            authenticationStatus,
+            mounted,
+          }) => {
+            const ready = mounted && authenticationStatus !== 'loading';
+            const connected = ready && account && chain && (!authenticationStatus || authenticationStatus === 'authenticated');
+
+            return (
+              <div
+                {...(!ready && {
+                  'aria-hidden': true,
+                  'style': {
+                    opacity: 0,
+                    pointerEvents: 'none',
+                    userSelect: 'none',
+                  },
+                })}
+              >
+                {(() => {
+                  if (!connected) {
+                    return (
+                      <button className={styles.buttonStyle} onClick={openConnectModal} type="button">
+                        Connect Wallet
+                      </button>
+                    );
+                  }
+
+                  if (chain.unsupported) {
+                    return (
+                      <button className={styles.buttonStyle} onClick={openChainModal} type="button">
+                        Wrong network
+                      </button>
+                    );
+                  }
+
+                  return (
+                    <div style={{ display: 'flex', gap: 12 }}>
+                      <button
+                        className={styles.buttonStyle}
+                        onClick={openChainModal}
+                        style={{ display: 'flex', alignItems: 'center' }}
+                        type="button"
+                      >
+                        {chain.hasIcon && (
+                          <div
+                            style={{
+                              background: chain.iconBackground,
+                              width: 12,
+                              height: 12,
+                              borderRadius: 999,
+                              overflow: 'hidden',
+                              marginRight: 4,
+                            }}
+                          >
+                            {chain.iconUrl && (
+                              <img
+                                alt={chain.name ?? 'Chain icon'}
+                                src={chain.iconUrl}
+                                style={{ width: 12, height: 12 }}
+                              />
+                            )}
+                          </div>
+                        )}
+                        {chain.name}
+                      </button>
+
+                      <button className={styles.buttonStyle} onClick={openAccountModal} type="button">
+                        {account.displayName}
+                        {account.displayBalance ? ` (${account.displayBalance})` : ''}
+                      </button>
+                    </div>
+                  );
+                })()}
+              </div>
+            );
+          }}
+        </ConnectButton.Custom>
+
+
+
       </nav>
     </header>
   );

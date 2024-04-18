@@ -1,20 +1,22 @@
 .footer {
-background-color: black;
+  background-color: #0d0d0d;
   /* background: linear-gradient(180deg, #00ffff 0%, #74ffc7 10%, #0be3d8 50%, #0dd7cd 75%, #00d46a 100%); */
-  color: #fff;
+  color: #b7b7b7;
   padding: 20px 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .footerContent {
   display: flex;
-  justify-content: center; /* Center the footer sections */
+  justify-content: center;
+  /* Center the footer sections */
   align-items: center;
-  
+
 
   display: flex;
 
-  border-bottom: 1px solid #2e353c45; /* Add a top border for visual separation */
+  border-bottom: 1px solid #2e353c45;
+  /* Add a top border for visual separation */
 
 
 }
@@ -22,18 +24,21 @@ background-color: black;
 .footerSection {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align the items in the section */
+  align-items: center;
+  /* Center align the items in the section */
   margin-top: -20px;
 
 }
 
 .footerSection h4 {
-  text-align: center; /* Center the title */
+  text-align: center;
+  /* Center the title */
 }
 
 .footerSection ul {
   display: flex;
-  justify-content: center; /* Center the list items */
+  justify-content: center;
+  /* Center the list items */
   list-style: none;
   padding: 0;
   gap: .4rem;
@@ -57,11 +62,16 @@ background-color: black;
 
 .footerBottom {
   display: flex;
-  justify-content: space-between; /* Ensure elements are spread out */
-  align-items: center; /* Vertically center the items */
-  border-top: 1px solid #2e353c8f; /* Add a top border for visual separation */
-  padding-top: 20px; /* Add some padding at the top */
-  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  justify-content: space-between;
+  /* Ensure elements are spread out */
+  align-items: center;
+  /* Vertically center the items */
+  border-top: 1px solid #2e353c8f;
+  /* Add a top border for visual separation */
+  padding-top: 20px;
+  /* Add some padding at the top */
+  flex-wrap: wrap;
+  /* Allow items to wrap on smaller screens */
 }
 
 .followUs {
@@ -70,45 +80,62 @@ background-color: black;
 }
 
 .rights {
-  text-align: right; /* Right-align the copyright text */
-  font-size: 14px; /* Set a suitable font size */
+  text-align: right;
+  /* Right-align the copyright text */
+  font-size: 14px;
+  /* Set a suitable font size */
 }
 
 .socialLinks {
   display: flex;
-  align-items: center; /* Vertically align icons */
+  align-items: center;
+  /* Vertically align icons */
 }
 
 .socialLinks a {
-  margin-right: 10px; /* Add some space between icons */
+  margin-right: 10px;
+  /* Add some space between icons */
 }
 
 .socialLinks a:last-child {
-  margin-right: 0; /* Remove margin for the last icon */
+  margin-right: 0;
+  /* Remove margin for the last icon */
 }
 
 .socialLinks a img {
-  width: 24px; /* Set a fixed width for icons */
+  width: 24px;
+  /* Set a fixed width for icons */
 }
 
 .joinUsText {
-  text-align: center; /* Center-align the text */
-  flex-grow: 1; /* Allow the text to take up available space */
-  padding: 0 20px; /* Add some horizontal padding */
-  font-size: 10px; /* Set a smaller font size */
+  text-align: center;
+  /* Center-align the text */
+  flex-grow: 1;
+  /* Allow the text to take up available space */
+  padding: 0 20px;
+  /* Add some horizontal padding */
+  font-size: 10px;
+  /* Set a smaller font size */
 }
 
 @media (max-width: 768px) {
   .footerBottom {
-    flex-direction: column; /* Stack elements on top of each other on small screens */
-    text-align: center; /* Center-align everything */
+    flex-direction: column;
+    /* Stack elements on top of each other on small screens */
+    text-align: center;
+    /* Center-align everything */
   }
 
-  .socialLinks, .joinUsText, .rights {
-    margin-bottom: 10px; /* Add some vertical space between items */
+  .socialLinks,
+  .joinUsText,
+  .rights {
+    margin-bottom: 10px;
+    /* Add some vertical space between items */
   }
 
-  .socialLinks, .rights {
-    justify-content: center; /* Center-align icons and text */
+  .socialLinks,
+  .rights {
+    justify-content: center;
+    /* Center-align icons and text */
   }
 }

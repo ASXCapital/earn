@@ -2,9 +2,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -12,19 +14,25 @@
 
 
 .layoutContainer {
-  display: flex; /* Enable flex layout */
-  flex-direction: column; /* Stack children vertically */
-  min-height: 100vh; /* Minimum height of the container to full viewport height */
-  background-color: rgba(0, 0, 0, 0); /* Existing style kept */
+  display: flex;
+  /* Enable flex layout */
+  flex-direction: column;
+  /* Stack children vertically */
+  min-height: 100vh;
+  /* Minimum height of the container to full viewport height */
+  background-color: rgba(0, 0, 0, 0);
+  /* Existing style kept */
 }
 
 .mainContent {
-  flex-grow: 1; /* Allow the main content to grow and fill the available space */
-  background: linear-gradient(-45deg, #fb00ff,  #00002e,#00b7c7, #140015, #292e49);
+  flex-grow: 1;
+  /* Allow the main content to grow and fill the available space */
+  background: #0d0d0d;
   background-size: 400% 400%;
   animation: gradientAnimation 60s ease infinite;
   padding: 0.2rem;
-  padding-bottom: 60px; /* You might want to adjust or remove this, depending on your footer's height */
+  padding-bottom: 60px;
+  /* You might want to adjust or remove this, depending on your footer's height */
 }
 
 /* Ensure you also have styles for your Header and Footer for a complete layout */
