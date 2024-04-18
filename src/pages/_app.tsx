@@ -30,11 +30,16 @@ import {  ledgerWallet, zerionWallet, braveWallet,
 
 import { TokenPricesProvider } from '../contexts/TokenPricesContext';
 
+import { SessionProvider } from "next-auth/react";
+import { RainbowKitSiweNextAuthProvider, GetSiweMessageOptions, } from '@rainbow-me/rainbowkit-siwe-next-auth';
 
 
 
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
 
+const getSiweMessageOptions: GetSiweMessageOptions = () => ({
+  statement: 'Bingbang BO!',
+});
 
 
 const chains: readonly [Chain, ...Chain[]] = [
@@ -82,6 +87,7 @@ const config = createConfig({
   ssr: true, 
   syncConnectedChain: true, 
   connectors: connectors,
+  
 
   
 });
@@ -110,9 +116,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiProvider 
     config={config}
     >     
-    
+
       <QueryClientProvider 
       client={queryClient}>
+       
         <RainbowKitProvider
           initialChain={56}
    
@@ -145,8 +152,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             </TokenPricesProvider>
             </FinanceDataProvider>
           </RainbowKitProvider>
+         
         </QueryClientProvider>
-        
+       
       </WagmiProvider>
       
   );

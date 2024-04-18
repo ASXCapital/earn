@@ -60,7 +60,7 @@
   max-width: 900px;
   margin: auto;
   padding-inline: 3vw;
-  margin-top: 150px;
+  margin-top: 50px;
   padding-top: 50px;
   font-size: 1rem;
   margin-bottom: 50px;
@@ -76,6 +76,41 @@
 
   /* Tunnel effect */
   background: linear-gradient(180deg, #00000086, rgb(0, 0, 0));
+  background-size: 200% 200%;
+
+  z-index: 1; /* Ensure it doesn't overlap everything */
+
+}
+
+/* in VaultsPage.module.css */
+.vaultFlowImage {
+  max-width:20em; /* Ensures image is never wider than its container */
+  height: auto;   /* Maintains the aspect ratio */
+  display: block; /* Removes any extra space below the image */
+  margin: 0 auto; /* Centers the image horizontally if it's smaller than the container */
+}
+
+.stakingWrapper3 {
+  background-color: rgba(255, 255, 255, 0.319); /* Adjust opacity as needed for desired transparency */
+
+  position:relative;
+  max-width: 900px;
+  margin: auto;
+  padding: 1rem;
+  font-size: 1rem;
+  margin-bottom: 50px;
+
+  border-radius: 20px;
+  color: #98d5d3;
+  
+  box-shadow: 0 8px 32px 0 rgba(139, 26, 164, 0.37);
+  backdrop-filter: blur(8.5px) ;
+  
+
+  border: 1px solid rgba(202, 2, 247, 0.18);
+
+  /* Tunnel effect */
+  background: linear-gradient(180deg, #3e0000, rgb(84, 0, 0));
   background-size: 200% 200%;
 
   z-index: 1; /* Ensure it doesn't overlap everything */
@@ -188,10 +223,20 @@
   transform: scale(1.00); /* Added transform hover effect */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 1);
 }
+.headerTitle {
+  font-size: 6rem;
+  font-weight: 400;
+  color: #00ffe5;
+  display: flex;
+  align-items: center;
+  white-space: nowrap; /* Prevents text from wrapping */
+  padding-bottom: 3px;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #c3fdff;
+}
 
 
-
-.poolCardHeader {
+.poolCarHeaderd {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -341,7 +386,7 @@
   flex-direction: column;
   font-size: 1rem; /* Adjust size as needed */
   margin-bottom: 10px;
-  color: #c3fdff;
+  color: #c3ffe0;
 }
 
 .stakeInput {

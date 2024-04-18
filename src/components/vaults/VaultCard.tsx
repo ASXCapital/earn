@@ -19,6 +19,8 @@ import UnderlyingAssetInfo from './UnderlyingAssetInfo';
 import TVLAndAPRDisplay from '../TVLAndAPRDisplay';
 import vaultsConfig from '../../config/vaultsConfig';
 
+import TotalTVLDisplay from '../TotalTVLDisplay';
+
 const VaultCard: React.FC<VaultCardProps> = ({
   title,
   receiveToken,
@@ -169,6 +171,7 @@ const VaultCard: React.FC<VaultCardProps> = ({
 
   return (
     <Card className={styles.vaultCard}>
+      
       <Card.Header className={styles.vaultHeader}>{stakedTokenName}</Card.Header>
       <Card.Body className={styles.vaultBody}>
       <Card.Text>
