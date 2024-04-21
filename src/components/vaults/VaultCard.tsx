@@ -30,7 +30,9 @@ import UnderlyingAssetInfo from "./UnderlyingAssetInfo";
 import TVLAndAPRDisplay from "../TVLAndAPRDisplay";
 import vaultsConfig from "../../config/vaultsConfig";
 
-import TotalTVLDisplay from "../TotalTVLDisplay";
+import { useVTokenPrice } from "../../hooks/useVTokenPrice";
+
+
 
 const VaultCard: React.FC<VaultCardProps> = ({
   title,
@@ -53,11 +55,20 @@ const VaultCard: React.FC<VaultCardProps> = ({
     useTokenBalance(stakedTokenContract, userAddress);
   const [copySuccess, setCopySuccess] = useState("");
   const [showWarning, setShowWarning] = useState(false);
+  const platformId = 'binance-smart-chain'; // Define the platform ID for price fetching
+
 
   const [maxClickState, setMaxClickState] = useState(0);
   const [refetchTrigger, setRefetchTrigger] = useState(0);
 
   const vaultConfig = vaultsConfig.find((vault) => vault.id === poolId);
+
+  const vTokenPrice = useVTokenPrice(
+    vaultConfig.vaultContract.address,
+    vaultConfig.underlyingStakingContract.address,
+    vaultConfig.vaultToken.depositToken.address,
+    'binance-smart-chain'
+  );
 
   const copyToClipboard = (text) => {
     if (navigator.clipboard) {
@@ -157,7 +168,7 @@ const VaultCard: React.FC<VaultCardProps> = ({
   const stakingTokenAddressForPrice = isNativeToken
     ? contracts.bscTokens.WBNB.toLowerCase()
     : stakedTokenContract.toLowerCase();
-  const platformId = "binance-smart-chain";
+
   const prices = useTokenPrices(platformId, [stakingTokenAddressForPrice]);
   const priceDisplay =
     prices[stakingTokenAddressForPrice]?.toFixed(2) || "Loading...";
@@ -224,6 +235,14 @@ const VaultCard: React.FC<VaultCardProps> = ({
     }
     return "0.00"; // Return 0.00 if balance or price is not available
   };
+
+  const displayVTokenPrice = () => {
+    if (typeof vTokenPrice === "number") {
+      return `$${vTokenPrice.toFixed(2)}`;
+    }
+    return "Loading...";
+  };
+
 
   return (
     <Card className={styles.vaultCard}>
@@ -393,14 +412,16 @@ const VaultCard: React.FC<VaultCardProps> = ({
               <div className={styles.statsRow}>
                 <div>Price</div>
                 <div>${priceDisplay}</div>
-                <div>$X</div>
+                <div>{displayVTokenPrice()}</div>
               </div>
               <div className={styles.statsRow}>
                 <div>Holdings Value</div>
                 <div>${calculateHoldingsValue(userBalance, priceDisplay)}</div>
-                <div>$Y</div>
+                <div>$Y</div> {/* Update with actual value */}
               </div>
+
             </div>
+
           </Card.Footer>
         </div>
       </Collapse>

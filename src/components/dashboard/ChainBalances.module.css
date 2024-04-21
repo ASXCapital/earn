@@ -4,13 +4,14 @@
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  margin-top: 2rem;
+
   overflow-x: auto;
   display: block;
   max-width: 60rem;
   width: 100%;
   margin: auto;
   color: #cfcfcf;
+  margin-bottom: 4rem;
 }
 
 .chainBalancesTableHeader {
@@ -39,7 +40,8 @@
 }
 
 .chainBalancesTable td {
-  color: #cfcfcf; /* Adjusting text color for better readability */
+  color: #cfcfcf;
+  /* Adjusting text color for better readability */
 }
 
 .chainBalancesTable a {
@@ -62,34 +64,43 @@
 
 /* Additional styling for hover effects on rows */
 .chainBalancesTable tr:hover {
-  background-color: #1d1f2133; /* Slightly darker on hover for interactivity */
+  background-color: #1d1f2133;
+  /* Slightly darker on hover for interactivity */
 }
 
 .sortArrow {
-  margin-left: 4px; /* Space between header title and arrow */
+  margin-left: 4px;
+  /* Space between header title and arrow */
 }
 
 .decimals {
-  font-size: 0.75em; /* Adjust as needed */
+  font-size: 0.75em;
+  /* Adjust as needed */
 }
+
 /* In ChainBalances.module.css */
 .zeroValue {
   color: grey;
 }
 
 .decimals {
-  font-size: 0.75em; /* Adjust as needed */
+  font-size: 0.75em;
+  /* Adjust as needed */
 }
 
 .totalNetWorth {
   float: right;
-  margin-right: 1rem; /* Adjust as needed */
+  margin-right: 1rem;
+  /* Adjust as needed */
 }
+
 .omittedChains {
   font-size: 0.8em;
   font-style: italic;
-  margin-top: 1rem; /* Adjust as needed */
+  margin-top: 1rem;
+  /* Adjust as needed */
 }
+
 .headerContainer {
   display: flex;
   justify-content: space-between;

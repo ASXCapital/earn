@@ -46,7 +46,7 @@ import {
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
 
 const getSiweMessageOptions: GetSiweMessageOptions = () => ({
-  statement: "Bingbang BO!",
+  statement: "Please sign this message to connect your wallet to ASX",
 });
 
 const chains: readonly [Chain, ...Chain[]] = [
@@ -111,34 +111,40 @@ const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider
-          initialChain={56}
-          showRecentTransactions={true}
-          appInfo={{
-            appName: "ASX",
-            disclaimer: Disclaimer,
-          }}
-          coolMode
-          theme={midnightTheme({
-            accentColor: "#0BF3E7",
-            accentColorForeground: "black",
-            borderRadius: "medium",
-            fontStack: "system",
-            overlayBlur: "small",
-          })}
-        >
-          <FinanceDataProvider>
-            <TokenPricesProvider>
-              <PoolDataProvider>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </PoolDataProvider>
-            </TokenPricesProvider>
-          </FinanceDataProvider>
-        </RainbowKitProvider>
-      </QueryClientProvider>
+      <SessionProvider session={pageProps.session} refetchInterval={0}>
+        <QueryClientProvider client={queryClient}>
+          <RainbowKitSiweNextAuthProvider
+            getSiweMessageOptions={getSiweMessageOptions}
+          >
+            <RainbowKitProvider
+              initialChain={56}
+              showRecentTransactions={true}
+              appInfo={{
+                appName: "ASX",
+                disclaimer: Disclaimer,
+              }}
+              coolMode
+              theme={midnightTheme({
+                accentColor: "#0BF3E7",
+                accentColorForeground: "black",
+                borderRadius: "medium",
+                fontStack: "system",
+                overlayBlur: "small",
+              })}
+            >
+              <FinanceDataProvider>
+                <TokenPricesProvider>
+                  <PoolDataProvider>
+                    <Layout>
+                      <Component {...pageProps} />
+                    </Layout>
+                  </PoolDataProvider>
+                </TokenPricesProvider>
+              </FinanceDataProvider>
+            </RainbowKitProvider>
+          </RainbowKitSiweNextAuthProvider>
+        </QueryClientProvider>
+      </SessionProvider>
     </WagmiProvider>
   );
 }

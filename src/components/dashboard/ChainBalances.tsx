@@ -1,18 +1,6 @@
-// file: src/components/dashboard/ChainBalances.tsx
-
-// This file is a React component that fetches and displays the net worth of a user's wallet on different chains.
-// It fetches the data from a Moralis server and displays it in a table.
-// The table has the following columns:
-// - Chain: The name of the chain
-// - Balance (ETH): The balance in ETH on the chain
-// - ETH in USD: The balance in USD on the chain
-// - Token Balance (USD): The token balance in USD on the chain
-// - Net Worth (USD): The total net worth in USD on the chain
-// The table also displays the total net worth across all chains.
-
 import React, { useEffect, useState, useMemo } from "react";
 import { useAccount } from "wagmi";
-import styles from "./ChainBalances.module.css";
+import styles from "./CryptoTable.module.css";
 
 const chainLogos = {
   base: "base-logo-in-blue.svg",
@@ -34,6 +22,7 @@ const ChainBalances = () => {
     key: null,
     direction: "ascending",
   });
+  const [isContentVisible, setIsContentVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,7 +66,7 @@ const ChainBalances = () => {
   };
 
   const getSortDirectionArrow = (key) => {
-    if (sortConfig.key !== key) return "⇵";
+    if (sortConfig.key !== key) return "↕";
     return sortConfig.direction === "descending" ? "▲" : "▼";
   };
 
@@ -104,63 +93,74 @@ const ChainBalances = () => {
     return { sortedData: sorted, omittedChains: omitted };
   }, [chainData, sortConfig]);
 
+  const toggleContentVisibility = () => {
+    setIsContentVisible(!isContentVisible);
+  };
+
   return (
-    <div className={styles.chainBalancesTableContainer}>
-      <div className={styles.tableHeader}>
-        <h2 className={styles.chainBalancesTableHeader}>
-          Wallet Net Worth by Chain
-        </h2>
-        <div className={styles.totalNetWorth}>
-          TOTAL Net Worth (USD): {formatNumber(totalNetWorth)}
+    <div className={styles.cryptoTableContainer}>
+      <div className={styles.cryptoTableHeader2} onClick={toggleContentVisibility}>
+        <div className={styles.headerContent}>
+          <h2 className={styles.cryptoTableHeader}>Wallet Net Worth by Chain</h2>
+          <div className={styles.subTitle}>Cumulative value of an address across all EVM chains</div>
+
+          <div className={styles.dropdownArrow}>{isContentVisible ? "▼" : "◀︎"}</div>
         </div>
       </div>
-      {chainData.length > 0 ? (
-        <>
-          <table className={styles.chainBalancesTable}>
-            <thead>
-              <tr>
-                <th>Chain</th>
-                <th>Balance (ETH)</th>
-                <th>ETH in USD</th>
-                <th>Token Balance (USD)</th>
-                <th>Net Worth (USD)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedData.map((chain, index) => (
-                <tr key={index}>
-                  <td>
-                    {chainLogos[chain.chain] && (
-                      <img
-                        src={`/logos/${chainLogos[chain.chain]}`}
-                        alt=""
-                        style={{
-                          width: "20px",
-                          marginRight: "8px",
-                          verticalAlign: "middle",
-                        }}
-                      />
-                    )}
-                    {chain.chain}
-                  </td>
-                  <td>
-                    {parseFloat(chain.native_balance_formatted).toFixed(2)}
-                  </td>
-                  <td>${parseFloat(chain.native_balance_usd).toFixed(2)}</td>
-                  <td>${parseFloat(chain.token_balance_usd).toFixed(2)}</td>
-                  <td>${parseFloat(chain.networth_usd).toFixed(2)}</td>
+      {isContentVisible && (
+        <div>
+          <div className="scrollContainer">
+            <table className={styles.cryptoTable}>
+              <thead>
+                <tr>
+                  <th onClick={() => requestSort('chain')}>Chain {getSortDirectionArrow('chain')}</th>
+                  <th onClick={() => requestSort('native_balance_formatted')}>Balance (ETH) {getSortDirectionArrow('native_balance_formatted')}</th>
+                  <th onClick={() => requestSort('native_balance_usd')}>ETH in USD {getSortDirectionArrow('native_balance_usd')}</th>
+                  <th onClick={() => requestSort('token_balance_usd')}>Token Balance (USD) {getSortDirectionArrow('token_balance_usd')}</th>
+                  <th onClick={() => requestSort('networth_usd')}>Net Worth (USD) {getSortDirectionArrow('networth_usd')}</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {sortedData.map((chain, index) => (
+                  <tr key={index}>
+                    <td>
+                      {chainLogos[chain.chain] && (
+                        <img
+                          src={`/logos/${chainLogos[chain.chain]}`}
+                          alt={chain.chain}
+                          style={{
+                            width: "20px",
+                            marginRight: "8px",
+                            verticalAlign: "middle",
+                          }}
+                        />
+                      )}
+                      {chain.chain}
+                    </td>
+                    <td>
+                      {parseFloat(chain.native_balance_formatted).toFixed(2)}
+                    </td>
+                    <td>${parseFloat(chain.native_balance_usd).toFixed(2)}</td>
+                    <td>${parseFloat(chain.token_balance_usd).toFixed(2)}</td>
+                    <td>${parseFloat(chain.networth_usd).toFixed(2)}</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colSpan={4} style={{ textAlign: "right" }}>Total Net Worth:</td>
+                  <td>${parseFloat(totalNetWorth).toFixed(2)}</td>
+
+                </tr>
+              </tfoot>
+            </table>
+          </div>
           {omittedChains.length > 0 && (
             <div className={styles.omittedChains}>
               Omitted {omittedChains.join(", ")} due to 0 balance
             </div>
           )}
-        </>
-      ) : (
-        <p>Loading...</p>
+        </div>
       )}
     </div>
   );

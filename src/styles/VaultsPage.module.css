@@ -73,14 +73,15 @@
 }
 
 .stakingWrapper3 {
-  background-color: rgba(255, 255, 255, 0.319);
+
   /* Adjust opacity as needed for desired transparency */
 
   position: relative;
   max-width: 900px;
   margin: auto;
-  padding: 1rem;
-  font-size: 1rem;
+  padding-inline: 1rem;
+  padding-top: .7rem;
+  font-size: .8rem;
   margin-bottom: 20px;
 
   border: #c3c3c3 5px solid;
@@ -88,7 +89,7 @@
   backdrop-filter: blur(8.5px);
 
   /* Tunnel effect */
-  background: linear-gradient(180deg, #3e0000, rgb(84, 0, 0));
+  background: rgb(0, 0, 0);
   background-size: 200% 200%;
 
   z-index: 1;
@@ -113,6 +114,7 @@
 }
 
 @media (max-width: 750px) {
+
   .maxAndInput,
   .Buttons3 {
     margin-top: 0.4rem;
@@ -137,6 +139,7 @@
 }
 
 @media (min-width: 750px) {
+
   .maxAndInput,
   .Buttons3 {
     margin-top: 0.4rem;
@@ -199,14 +202,12 @@
   width: 100%;
   height: 100%;
   scroll-padding: 1rem;
-  background: linear-gradient(
-    180deg,
-    #073f453c,
-    #1c1d2146,
-    #0b0b0b48,
-    #33044c4c,
-    #1c202141
-  );
+  background: linear-gradient(180deg,
+      #073f453c,
+      #1c1d2146,
+      #0b0b0b48,
+      #33044c4c,
+      #1c202141);
   backdrop-filter: brightness(0);
 }
 
@@ -219,7 +220,7 @@
 .headerTitle {
   font-size: 6rem;
   font-weight: 400;
-  color: #00b18e;
+  color: #00ee93;
   display: flex;
   align-items: center;
   white-space: nowrap;
@@ -339,14 +340,12 @@
 
 .cardBody {
   padding: 3px;
-  background: linear-gradient(
-    90deg,
-    #073f453c,
-    #1c1d2146,
-    #0b0b0b48,
-    #33044c4c,
-    #1c202141
-  );
+  background: linear-gradient(90deg,
+      #073f453c,
+      #1c1d2146,
+      #0b0b0b48,
+      #33044c4c,
+      #1c202141);
   display: flex;
   flex-direction: column;
   /* Added for .cardBody */

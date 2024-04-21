@@ -1,0 +1,283 @@
+/* CryptoTable.module.css */
+.cryptoTableContainer {
+  background-color: #0207077a;
+  border-radius: 10px;
+  padding: 1px 20px 20px 20px;
+  box-shadow: 0 0 3px 0 rgba(201, 201, 201, 0.241);
+
+  overflow-x: auto;
+  /* Enable horizontal scrolling */
+  display: block;
+  /* Ensure the container is block-level to respect the overflow property */
+  width: 100%;
+  /* Adjust if necessary */
+
+  color: #cfcfcf;
+  margin: 4rem auto;
+  max-width: 60rem;
+}
+
+.cryptoTableHeader {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0rem;
+  font-size: 1.5rem;
+  color: #00dab6;
+  /* Adjust the color as needed */
+}
+
+.headerContent {
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+}
+
+.dropdownArrow {
+  font-size: 1.5em;
+
+  margin-left: auto;
+
+  /* Space between the header text and the arrow */
+}
+
+.cryptoTable {
+  width: 100%;
+  min-width: 600px;
+  /* Adjust as necessary to ensure scrolling */
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+
+.portfolioBar {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+
+.cryptoTable th,
+.cryptoTable td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  /* Light grey border for rows */
+}
+
+.cryptoTable th {
+  background-color: #34483c8a;
+  /* Light grey background for header */
+  color: #e0e0e0;
+  /* Dark grey text for header */
+}
+
+.cryptoTable a {
+  color: #09e1b3;
+  /* Default link color, adjust as needed */
+  text-decoration: none;
+}
+
+.cryptoTable a:hover {
+  text-decoration: underline;
+}
+
+.cryptoTable .pairColumn {
+  color: #0ddebb;
+  /* Color for the Pair column */
+}
+
+.cryptoTable .priceColumn {
+  font-weight: bold;
+  /* Bold text for price */
+}
+
+.cryptoTable .volumeColumn,
+.cryptoTable .volumePercentColumn {
+  color: #b3b3b3;
+  /* Dark grey color for volume columns */
+}
+
+.cryptoTable .spreadColumn {
+  color: #0bd0ef;
+  /* Red color for spread, indicating cost/risk */
+}
+
+.cryptoTableHeader2 {
+  cursor: pointer;
+  display: flex;
+  /* Flex container */
+  align-items: center;
+  /* Align items vertically in the center */
+  justify-content: space-between;
+  /* Space between the elements */
+  padding: 10px;
+
+  border-bottom: 1px solid #6a6a6a45;
+  width: 100%;
+  /* Take full width */
+}
+
+.filterOptions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.styledSelect,
+.styledButton {
+  color: #b3b3b3;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.styledButton {
+  cursor: pointer;
+  background-color: #F37021;
+  color: #e0e0e0;
+  border: none;
+  width: 6rem;
+}
+
+.checkboxContainer {
+  display: flex;
+  flex-direction: column;
+  font-size: .5rem;
+
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.copyIcon {
+  height: 16px;
+  cursor: pointer;
+}
+
+.chainBalancesTableContainer {
+  background-color: #0207077a;
+
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+  overflow-x: auto;
+  display: block;
+  max-width: 60rem;
+  width: 100%;
+  margin: auto;
+  color: #cfcfcf;
+  margin-bottom: 4rem;
+}
+
+.chainBalancesTableHeader {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #00dab6;
+}
+
+.chainBalancesTable {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.chainBalancesTable th,
+.chainBalancesTable td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.chainBalancesTable th {
+  background-color: #34483c8a;
+  color: #e0e0e0;
+}
+
+.chainBalancesTable td {
+  color: #cfcfcf;
+  /* Adjusting text color for better readability */
+}
+
+.chainBalancesTable a {
+  color: #09e1b3;
+  text-decoration: none;
+}
+
+.chainBalancesTable a:hover {
+  text-decoration: underline;
+}
+
+/* Specific column styling, if needed */
+.chainBalancesTable .pairColumn,
+.chainBalancesTable .priceColumn,
+.chainBalancesTable .spreadColumn,
+.chainBalancesTable .volumeColumn,
+.chainBalancesTable .volumePercentColumn {
+  /* Add specific column styles here, similar to the CryptoTable styling */
+}
+
+/* Additional styling for hover effects on rows */
+.chainBalancesTable tr:hover {
+  background-color: #1d1f2133;
+  /* Slightly darker on hover for interactivity */
+}
+
+.sortArrow {
+  margin-left: 4px;
+  /* Space between header title and arrow */
+}
+
+.decimals {
+  font-size: 0.75em;
+  /* Adjust as needed */
+}
+
+/* In ChainBalances.module.css */
+.zeroValue {
+  color: grey;
+}
+
+.decimals {
+  font-size: 0.75em;
+  /* Adjust as needed */
+}
+
+.totalNetWorth {
+  float: right;
+  margin-right: 1rem;
+  /* Adjust as needed */
+}
+
+.omittedChains {
+  font-size: 0.8em;
+  font-style: italic;
+  margin-top: 1rem;
+  /* Adjust as needed */
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.totalNetWorth {
+  margin-top: -1.5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.subTitle {
+
+  font-size: .9rem;
+  color: #777777;
+  padding-left: 1rem;
+}

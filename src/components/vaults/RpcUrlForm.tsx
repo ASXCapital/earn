@@ -111,21 +111,23 @@ const RpcPingTest = () => {
 
   return (
     <Container>
-      <ListGroup className="mt-3">
+      <ListGroup className="mt-1">
         {rpcUrls.map((rpc) => (
           <ListGroup.Item
             key={rpc.url}
             style={{
+              fontSize: ".8rem",
+              fontWeight: "regular",
               display: "flex",
               alignItems: "center",
-              background: "rgba(1, 50, 50, 0.44)",
+              background: "rgba(1, 1, 1, 0.1)",
               color: "white",
               cursor: "pointer",
               transition: "transform 0.3s ease-in-out",
             }}
             onClick={() => addNetworkToMetaMask(rpc.url, rpc.name)}
             onMouseOver={(e) =>
-              (e.currentTarget.style.transform = "scale(1.05)")
+              (e.currentTarget.style.transform = "scale(1.01)")
             }
             onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
           >

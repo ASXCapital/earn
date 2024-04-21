@@ -23,6 +23,25 @@ body {
   scroll-behavior: smooth;
 }
 
+p {
+  font-family:
+    "Urbanist",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+  font-weight: 400;
+  font-size: .9em;
+  color: #b7b7b7;
+}
+
 h1 {
   font-family:
     "Urbanist",
@@ -105,4 +124,15 @@ a {
   padding: 100px 50px;
   overflow-y: auto;
   /* Ensure content is scrollable */
+}
+
+.TVL {
+  font-size: 6rem;
+  /* Use viewport width units */
+  color: #c3fdff;
+  margin: 0;
+  /* Remove margin to prevent extra space */
+  text-shadow: 0 0 10px #00ffee;
+  white-space: nowrap;
+  /* Prevent text from wrapping */
 }

@@ -6,6 +6,8 @@ import { ASXVaultsABINative } from "../abis/ASXVaultsABINative";
 import { ASXVaultsABI } from "../abis/ASXVaultsABI";
 import { PancakeV2LPABI } from "../abis/PancakeV2LPABI";
 
+import { ASXStakingABI } from "../abis/ASXStakingABI";
+
 import { erc20Abi } from "viem";
 
 const ERC20ABI = erc20Abi;
@@ -19,6 +21,11 @@ const vASX = contracts.bscVaults.vASX;
 const vASXwBNB = contracts.bscVaults.vASXwBNB;
 const vASXETH = contracts.bscVaults.vASXETH;
 const vASXBTCB = contracts.bscVaults.vASXBTCB;
+
+const ASXStake = contracts.bscStaking.ASXASXContract
+const ASXwBNBStake = contracts.bscStaking.ASXBNBContract
+const ASXETHStake = contracts.bscStaking.ASXETHContract
+const ASXBTCBStake = contracts.bscStaking.ASXBTCBContract
 
 const ASXBNBLP = contracts.bscLPs.ASXBNBLP;
 const ASXETHLP = contracts.bscLPs.ASXETHLP;
@@ -55,6 +62,11 @@ export interface VaultConfig {
     abi: any;
     name: string;
   };
+  underlyingStakingContract?: {
+    address: string;
+    abi: any;
+    // where this shits from we don't need names homie.
+  };
 }
 
 export const vaultsConfig: VaultConfig[] = [
@@ -82,6 +94,10 @@ export const vaultsConfig: VaultConfig[] = [
       address: ASX,
       abi: ERC20ABI,
     },
+    underlyingStakingContract: {
+      address: ASXStake,
+      abi: ASXStakingABI,
+    },
   },
   {
     id: "asxbnb",
@@ -106,6 +122,10 @@ export const vaultsConfig: VaultConfig[] = [
       name: "ASX-wBNB LP",
       address: ASXBNBLP,
       abi: PancakeV2LPABI,
+    },
+    underlyingStakingContract: {
+      address: ASXwBNBStake,
+      abi: ASXStakingABI,
     },
   },
   {
@@ -132,6 +152,10 @@ export const vaultsConfig: VaultConfig[] = [
       address: ASXETHLP,
       abi: PancakeV2LPABI,
     },
+    underlyingStakingContract: {
+      address: ASXETHStake,
+      abi: ASXStakingABI,
+    },
   },
   {
     id: "asxbtcb",
@@ -156,6 +180,10 @@ export const vaultsConfig: VaultConfig[] = [
       name: "ASX-BTCB LP",
       address: ASXBTCBLP,
       abi: PancakeV2LPABI,
+    },
+    underlyingStakingContract: {
+      address: ASXBTCBStake,
+      abi: ASXStakingABI,
     },
   },
 ];
