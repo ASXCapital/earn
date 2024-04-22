@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext");
 
 @keyframes moveLight {
+
   0%,
   100% {
     text-shadow:
@@ -25,6 +26,36 @@
   }
 }
 
+@keyframes blackA {
+
+  0%,
+  100% {
+    color: #b7b7b7;
+  }
+
+  20%,
+  80% {
+    color: #000000;
+  }
+
+  /* Black color for A */
+}
+
+@keyframes turquoiseX {
+
+  0%,
+  100% {
+    color: #b7b7b7;
+  }
+
+  20%,
+  80% {
+    color: #00e6e6;
+  }
+
+  /* Bright turquoise for X */
+}
+
 .IndexHeader {
   font:
     4rem "Urbanist",
@@ -35,6 +66,18 @@
   font-size: 10rem;
   animation: moveLight 44s linear infinite;
   font-weight: 600;
+  transform: scaleX(0.8);
+  /* Adjust this value to compress more or less */
+
+}
+
+.IndexHeaderA {
+  animation: blackA 18s ease-in-out infinite, moveLight 22s ease-in-out infinite;
+
+}
+
+.IndexHeaderX {
+  animation: turquoiseX 22s ease-in-out infinite, moveLight 16s ease-in-out infinite;
 }
 
 /* The rest of your CSS... */
@@ -85,6 +128,7 @@
   margin: 3rem 0 1.5rem 0;
   line-height: 1;
   font-size: 2.5rem;
+  transform: scaleY(0.91);
 }
 
 .title,

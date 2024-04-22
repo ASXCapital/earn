@@ -17,7 +17,9 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          <span className={styles.IndexHeader}>ASX</span>
+          <span className={`${styles.IndexHeader} ${styles.IndexHeaderA}`}>A</span>
+          <span className={`${styles.IndexHeader} ${styles.IndexHeaderA}`}>S</span>
+          <span className={`${styles.IndexHeader} ${styles.IndexHeaderX}`}>X</span>
         </h1>
 
         <p className={styles.description}>

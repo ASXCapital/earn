@@ -46,7 +46,7 @@ import {
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
 
 const getSiweMessageOptions: GetSiweMessageOptions = () => ({
-  statement: "Please sign this message to connect your wallet to ASX",
+  statement: "By signing this message you are agreeing to ASX Terms and Conditions",
 });
 
 const chains: readonly [Chain, ...Chain[]] = [
