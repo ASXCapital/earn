@@ -239,9 +239,7 @@ const VaultCard: React.FC<VaultCardProps> = ({
 
   return (
     <Card className={styles.vaultCard}>
-      <div>
-        The total value locked in the pool is: {typeof tvlHook === 'number' ? tvlHook.toLocaleString(undefined, { maximumFractionDigits: 2 }) : 'Loading...'}
-      </div>
+
 
 
       <Card.Header className={styles.vaultHeader}>
