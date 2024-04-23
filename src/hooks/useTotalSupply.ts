@@ -8,4 +8,5 @@ export const useTotalSupply = (lpContractAddress: string) => {
     abi: PancakeV2LPABI,
     functionName: "totalSupply",
   });
+
 };

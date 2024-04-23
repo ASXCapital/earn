@@ -30,8 +30,9 @@ import UnderlyingAssetInfo from "./UnderlyingAssetInfo";
 import TVLAndAPRDisplay from "../TVLAndAPRDisplay";
 import vaultsConfig from "../../config/vaultsConfig";
 
-import { useVTokenPrice } from "../../hooks/useVTokenPrice";
+import useVTokenPrice from "../../hooks/useVTokenPrice";
 
+import useTVL from "../../hooks/useTVL";
 
 
 const VaultCard: React.FC<VaultCardProps> = ({
@@ -55,20 +56,18 @@ const VaultCard: React.FC<VaultCardProps> = ({
     useTokenBalance(stakedTokenContract, userAddress);
   const [copySuccess, setCopySuccess] = useState("");
   const [showWarning, setShowWarning] = useState(false);
-  const platformId = 'binance-smart-chain'; // Define the platform ID for price fetching
+  const platformId = 'binance-smart-chain';
 
+  const tvlHook = useTVL(poolId);
+  const stakingContractAddress = vaultsConfig.find(v => v.id === poolId)?.underlyingStakingContract?.address; // Ensure this is correctly retrieved
+  const vTokenPrice = useVTokenPrice(vaultTokenContract, stakingContractAddress, poolId,);
 
   const [maxClickState, setMaxClickState] = useState(0);
   const [refetchTrigger, setRefetchTrigger] = useState(0);
 
   const vaultConfig = vaultsConfig.find((vault) => vault.id === poolId);
 
-  const vTokenPrice = useVTokenPrice(
-    vaultConfig.vaultContract.address,
-    vaultConfig.underlyingStakingContract.address,
-    vaultConfig.vaultToken.depositToken.address,
-    'binance-smart-chain'
-  );
+
 
   const copyToClipboard = (text) => {
     if (navigator.clipboard) {
@@ -236,16 +235,15 @@ const VaultCard: React.FC<VaultCardProps> = ({
     return "0.00"; // Return 0.00 if balance or price is not available
   };
 
-  const displayVTokenPrice = () => {
-    if (typeof vTokenPrice === "number") {
-      return `$${vTokenPrice.toFixed(2)}`;
-    }
-    return "Loading...";
-  };
 
 
   return (
     <Card className={styles.vaultCard}>
+      <div>
+        The total value locked in the pool is: {typeof tvlHook === 'number' ? tvlHook.toLocaleString(undefined, { maximumFractionDigits: 2 }) : 'Loading...'}
+      </div>
+
+
       <Card.Header className={styles.vaultHeader}>
         {stakedTokenName}
       </Card.Header>
@@ -412,12 +410,12 @@ const VaultCard: React.FC<VaultCardProps> = ({
               <div className={styles.statsRow}>
                 <div>Price</div>
                 <div>${priceDisplay}</div>
-                <div>{displayVTokenPrice()}</div>
+                <div>{vTokenPrice}</div>
               </div>
               <div className={styles.statsRow}>
                 <div>Holdings Value</div>
                 <div>${calculateHoldingsValue(userBalance, priceDisplay)}</div>
-                <div>$Y</div> {/* Update with actual value */}
+                <div>${calculateHoldingsValue(vaultTokenBalance, vTokenPrice)}</div> {/* Update with actual value */}
               </div>
 
             </div>

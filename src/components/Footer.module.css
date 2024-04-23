@@ -24,6 +24,8 @@
   align-items: center;
   /* Center align the items in the section */
   margin-top: -20px;
+  padding-bottom: 1rem;
+
 }
 
 .footerSection h4 {

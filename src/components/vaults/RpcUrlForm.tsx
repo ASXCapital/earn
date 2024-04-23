@@ -121,7 +121,7 @@ const RpcPingTest = () => {
               display: "flex",
               alignItems: "center",
               background: "rgba(1, 1, 1, 0.1)",
-              color: "white",
+              color: " #b7b7b7",
               cursor: "pointer",
               transition: "transform 0.3s ease-in-out",
             }}
@@ -138,16 +138,16 @@ const RpcPingTest = () => {
               height={24}
               style={{ marginRight: "10px" }}
             />
-            <strong style={{ marginRight: "5px" }}>
-              <a
-                href={rpc.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {rpc.name}
-              </a>
-            </strong>
+
+            <a
+              href={rpc.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {rpc.name}
+            </a>
+
             <span style={{ marginLeft: "auto", marginRight: "10px" }}>
               {speeds[rpc.url]} ms
             </span>

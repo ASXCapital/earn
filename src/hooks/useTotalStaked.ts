@@ -1,3 +1,5 @@
+//file earn/src/hooks/useTotalStaked.ts
+
 import { useReadContract } from "wagmi";
 import { ASXStakingABI } from "../abis/ASXStakingABI";
 import { useEffect, useState } from "react";
