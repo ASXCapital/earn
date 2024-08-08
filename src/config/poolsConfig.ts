@@ -7,11 +7,13 @@ import { ASXABI } from "../abis/ASXABI";
 import { ETHABI } from "../abis/ETHABI";
 import { BNBABI } from "../abis/BNBABI";
 import { BTCBABI } from "../abis/BTCBABI";
+import { erc20Abi } from "viem";
 
 const ASX = contracts.bscTokens.ASX;
 const BNB = contracts.bscTokens.WBNB;
 const ETH = contracts.bscTokens.ETH;
 const BTCB = contracts.bscTokens.BTCB;
+const SOL = contracts.bscTokens.SOL;
 
 type PoolType = "single" | "lp";
 
@@ -71,6 +73,29 @@ export const poolsConfig: PoolConfig[] = [
     },
     stakingContract: {
       address: contracts.bscStaking.ASXASXContract,
+      abi: ASXStakingABI,
+    },
+  },
+  {
+    id: "asxsol",
+    title: "ASX-SOL",
+    type: "single",
+    chainId: 56,
+    stakingToken: {
+      address: contracts.bscTokens.SOL,
+      symbol: "SOL",
+      abi: erc20Abi,
+      buyLink:
+        "https://pancakeswap.finance/swap?outputCurrency=0x93Cf6C75f0a468835C59687f39bf2661559b3b89",
+      image: "/logos/Solana_logo.png",
+    },
+    rewardToken: {
+      address: ASX,
+      symbol: "ASX",
+      abi: ASXABI,
+    },
+    stakingContract: {
+      address: contracts.bscStaking.ASXSOLContract,
       abi: ASXStakingABI,
     },
   },

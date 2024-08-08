@@ -7,6 +7,7 @@ export const contracts = {
     WBNB: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
     ETH: "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
     BTCB: "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
+    SOL: "0x93Cf6C75f0a468835C59687f39bf2661559b3b89"
   },
   // BSC Vault Contracts
   bscVaults: {
@@ -26,6 +27,7 @@ export const contracts = {
     ASXBNBContract: "0x5578bffb8D14821E52fd34198E5eF9d9cE968257",
     ASXETHContract: "0xE6e897D7Eac4DdC8E320CB378060727b30A01220",
     ASXBTCBContract: "0x50f9CCA82084D0A1215e627944b629376A9c6070",
+    ASXSOLContract: "0x648fF88fB3e661dC5bb75FB4356483eda31DDdc8"
   },
   bscLPs: {
     // BSC LP Contracts (PancakeV2)
