@@ -82,7 +82,7 @@ export const poolsConfig: PoolConfig[] = [
     type: "lp",
     chainId: 56,
     stakingToken: {
-      address: contracts.bscTokens.SOL,
+      address: contracts.bscLPs.ASXSOLLP,
       symbol: "ASX-SOL LP",
       abi: PancakeV2LPABI,
       buyLink:
