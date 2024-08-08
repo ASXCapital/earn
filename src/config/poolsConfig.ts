@@ -78,16 +78,28 @@ export const poolsConfig: PoolConfig[] = [
   },
   {
     id: "asxsol",
-    title: "ASX-SOL",
-    type: "single",
+    title: "ASX-SOL LP",
+    type: "lp",
     chainId: 56,
     stakingToken: {
       address: contracts.bscTokens.SOL,
-      symbol: "SOL",
-      abi: erc20Abi,
+      symbol: "ASX-SOL LP",
+      abi: PancakeV2LPABI,
       buyLink:
-        "https://pancakeswap.finance/swap?outputCurrency=0x93Cf6C75f0a468835C59687f39bf2661559b3b89",
+        "https://pancakeswap.finance/v2/add/0xebD3619642d78F0C98c84f6Fa9a678653fB5A99B/0x570A5D26f7765Ecb712C0924E4De545B89fD43dF",
       image: "/logos/Solana_logo.png",
+      constituents: {
+        token1: {
+          address: ASX,
+          symbol: "ASX",
+          abi: ASXABI,
+        },
+        token2: {
+          address: SOL,
+          symbol: "SOL",
+          abi: erc20Abi,
+        },
+      },
     },
     rewardToken: {
       address: ASX,
