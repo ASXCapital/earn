@@ -25,35 +25,7 @@ const Home: NextPage = () => {
         <p className={styles.description}>
           Asset Diversitification Made Simple.
         </p>
-        <div className={styles.CardContainer}>
-          <Link href="/dashboard" passHref>
-            <div className={styles.card} style={{ position: "relative" }}>
-              {" "}
-              {/* Add relative positioning to the card container */}
-              <h2>DASHBOARD &rarr;</h2>
-              <p>EVM DeFi hub</p>
-              {/* "Powered By" section with Moralis logo */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: ".4rem",
-                  right: "10px",
-                  display: "flex",
-                  fontSize: "0.7rem",
-                  alignItems: "center",
-                }}
-              >
-                Powered By{" "}
-                <Image
-                  src="/logos/partners/moralis.png"
-                  alt="Moralis Logo"
-                  width={65}
-                  height={20}
-                />
-              </div>
-            </div>
-          </Link>
-        </div>
+
         <div className={styles.grid}>
           <div className={styles.CardContainer}>
             <Link href="/staking" passHref>
@@ -63,6 +35,7 @@ const Home: NextPage = () => {
               </div>
             </Link>
           </div>
+
 
 
           <div className={styles.CardContainer}>
@@ -111,6 +84,36 @@ const Home: NextPage = () => {
           </Link>
 
   */}
+
+          <div className={styles.CardContainer}>
+            <Link href="/dashboard" passHref>
+              <div className={styles.card} style={{ position: "relative" }}>
+                {" "}
+                {/* Add relative positioning to the card container */}
+                <h2>DASHBOARD &rarr;</h2>
+                <p>EVM DeFi hub</p>
+                {/* "Powered By" section with Moralis logo */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: ".4rem",
+                    right: "10px",
+                    display: "flex",
+                    fontSize: "0.7rem",
+                    alignItems: "center",
+                  }}
+                >
+                  Powered By{" "}
+                  <Image
+                    src="/logos/partners/moralis.png"
+                    alt="Moralis Logo"
+                    width={65}
+                    height={20}
+                  />
+                </div>
+              </div>
+            </Link>
+          </div>
         </div>
       </main>
     </div>
