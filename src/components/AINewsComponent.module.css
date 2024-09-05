@@ -1,0 +1,25 @@
+/* styles/AINewsComponent.module.css */
+.filters {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.newsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.newsArticle {
+    flex: 1 1 300px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    /* Adjust height as needed */
+}

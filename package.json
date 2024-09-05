@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@1inch/embedded-widget": "^0.0.2",
+    "@chaingpt/ainews": "^0.0.8",
     "@heroicons/react": "^1.0.6",
     "@moralisweb3/next": "^2.25.4",
     "@quicknode/sdk": "^2.2.2",

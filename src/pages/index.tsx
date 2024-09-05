@@ -1,10 +1,9 @@
+// pages/index.tsx
 import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
-
-import Image from "next/image";
-import CoinGeckoWidget from "../utils/CoinGeckoWidget";
+import AINewsComponent from "../components/AINewsComponent";
 
 const Home: NextPage = () => {
   return (
@@ -23,98 +22,35 @@ const Home: NextPage = () => {
         </h1>
 
         <p className={styles.description}>
-          Asset Diversitification Made Simple.
+          Asset Diversification Made Simple.
         </p>
 
         <div className={styles.grid}>
-          <div className={styles.CardContainer}>
-            <Link href="/staking" passHref>
-              <div className={styles.card}>
-                <h2>STAKE &rarr;</h2>
-                <p>Stake ASX & LP tokens and earn rewards</p>
-              </div>
-            </Link>
-          </div>
-
-
-
-          <div className={styles.CardContainer}>
-            <Link href="/vaults" passHref>
-              <div className={styles.card} style={{ position: "relative" }}>
-                <h2>VAULTS &rarr;</h2>
-                <p>Earn Yield on BNB, ETH and BTC</p>
-                {/*
-              <div style={{ position: 'absolute', bottom: '.4rem', right: '10px', display: 'flex', alignItems: 'center', fontSize: '0.7rem' }}>
-        Powered By{' '}
-        <Image src="/logos/partners/moralis.png" alt="Moralis Logo" width={65} height={20} />
-      </div>
-      */}
-              </div>
-            </Link>
-          </div>
-
-          {/*
-
-          <Link href="/vaults" passHref>
-            <div className={styles.card}>
-              <h2>Vaults &rarr;</h2>
-              <p>Deposit into optimized yield-generating vaults.</p>
-            </div>
-          </Link>
-
-          <Link href="/treasury" passHref>
-            <div className={styles.card}>
-              <h2>Treasury Dashboard &rarr;</h2>
-              <p>Track CONTENT.</p>
-            </div>
-          </Link>
-
-          <Link href="/lp-dashboard" passHref>
-            <div className={styles.card}>
-              <h2>LP Dashboard &rarr;</h2>
-              <p>Manage your liquidity provider positions.</p>
-            </div>
-          </Link>
-
-          <Link href="/rwa" passHref>
-            <div className={styles.card}>
-              <h2>Real World Assets &rarr;</h2>
-              <p>Explore tokenized real-world asset opportunities.</p>
-            </div>
-          </Link>
-
-  */}
-
-          <div className={styles.CardContainer}>
-            <Link href="/dashboard" passHref>
-              <div className={styles.card} style={{ position: "relative" }}>
-                {" "}
-                {/* Add relative positioning to the card container */}
-                <h2>DASHBOARD &rarr;</h2>
-                <p>EVM DeFi hub</p>
-                {/* "Powered By" section with Moralis logo */}
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: ".4rem",
-                    right: "10px",
-                    display: "flex",
-                    fontSize: "0.7rem",
-                    alignItems: "center",
-                  }}
-                >
-                  Powered By{" "}
-                  <Image
-                    src="/logos/partners/moralis.png"
-                    alt="Moralis Logo"
-                    width={65}
-                    height={20}
-                  />
+          <div className={styles.row}>
+            <div className={styles.CardContainer}>
+              <Link href="/staking" passHref>
+                <div className={styles.card}>
+                  <h2>STAKE &rarr;</h2>
+                  <p>Stake ASX & LP tokens and earn rewards</p>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
+
+            <div className={styles.CardContainer}>
+              <Link href="/vaults" passHref>
+                <div className={styles.card}>
+                  <h2>VAULTS &rarr;</h2>
+                  <p>Earn Yield on BNB, ETH and BTC</p>
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
+
+        {/* AI News Section */}
+        <section className={styles.newsSection}>
+          <AINewsComponent />
+        </section>
       </main>
     </div>
   );
