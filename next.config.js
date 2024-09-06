@@ -5,6 +5,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "assets.coingecko.com",
       },
+      {
+        protocol: "https",
+        hostname: "chaingpt.s3.us-east-2.amazonaws.com", // Add the S3 bucket domain here
+      },
     ],
   },
 

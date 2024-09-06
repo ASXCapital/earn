@@ -1,29 +1,39 @@
-// File: pages/api/news.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { AINews } from '@chaingpt/ainews';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const apiKey = process.env.CHAINGPT_API_KEY;
-    if (!apiKey) {
-        return res.status(403).json({ error: 'API Key is missing' });
-    }
-
-    const ainews = new AINews({ apiKey });
-    const { categoryId, subCategoryId } = req.query;
-    const options = {
-        limit: 10,
-        offset: 0,
-        ...(categoryId && { categoryId: [parseInt(categoryId as string, 10)] }),
-        ...(subCategoryId && { subCategoryId: [parseInt(subCategoryId as string, 10)] })
-    };
-
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        const response = await ainews.getNews(options);
-        // Ensure response is always an array
-        const newsData = Array.isArray(response.data.rows) ? response.data.rows : [];
-        res.status(200).json(newsData);
+        const { categoryId, subCategoryId, tokenId, searchQuery, fetchAfter, limit } = req.query;
+
+        // Initialize AINews SDK
+        const ainews = new AINews({
+            apiKey: process.env.CHAINGPT_API_KEY!,
+        });
+
+        // Fetch the news with the provided query parameters
+        const response = await ainews.getNews({
+            categoryId: categoryId ? [Number(categoryId)] : undefined,
+            subCategoryId: subCategoryId ? [Number(subCategoryId)] : undefined,
+            tokenId: tokenId ? [Number(tokenId)] : undefined,
+            searchQuery: searchQuery as string || undefined,
+            fetchAfter: fetchAfter ? new Date(fetchAfter as string) : undefined,
+            limit: limit ? Number(limit) : 3, // Default to 10 articles if no limit is provided
+        });
+
+        // Log the full response to inspect structure
+        console.log('AINews API Response:', JSON.stringify(response, null, 2));
+
+        // Check the response structure and send the appropriate data
+        if (response?.statusCode === 200 && Array.isArray(response.data)) {
+            res.status(200).json(response.data); // Send the data array directly
+        } else {
+            console.error('Unexpected response format:', response);
+            res.status(500).json({ error: 'Unexpected response format from AI News API.' });
+        }
     } catch (error) {
-        console.error('Failed to fetch news:', error);
-        res.status(500).json({ error: 'Failed to fetch news', details: error.message });
+        console.error('Error fetching AI news:', (error as Error).message, (error as Error).stack);
+        res.status(500).json({ error: `Failed to fetch AI news: ${(error as Error).message}` });
     }
-}
+};
+
+export default handler;
