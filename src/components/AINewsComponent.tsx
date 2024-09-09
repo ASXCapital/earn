@@ -116,7 +116,7 @@ export default function AINewsComponent() {
                     blockchainId: selectedBlockchain || undefined,
                     tokenId: selectedToken || undefined,
                     searchQuery: searchQuery || undefined,
-                    limit: 6 // Automatically load 6 articles
+                    limit: 4 // Automatically load 6 articles
                 }
             });
             const shuffledNews = shuffleArray(response.data); // Randomize order
