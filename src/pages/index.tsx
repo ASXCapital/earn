@@ -1,9 +1,9 @@
-// pages/index.tsx
 import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import AINewsComponent from "../components/AINewsComponent";
+import CoinGeckoWidget from "../utils/CoinGeckoWidget";
 
 const Home: NextPage = () => {
   return (
@@ -13,6 +13,8 @@ const Home: NextPage = () => {
         <meta name="description" content="Earn with ASX" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+
 
       <main className={styles.main}>
         <h1 className={styles.title}>
@@ -25,30 +27,30 @@ const Home: NextPage = () => {
           Asset Diversification Made Simple.
         </p>
 
-        <div className={styles.grid}>
-          <div className={styles.row}>
-            <div className={styles.CardContainer}>
-              <Link href="/staking" passHref>
-                <div className={styles.card}>
-                  <h2>STAKE &rarr;</h2>
-                  <p>Stake ASX & LP tokens and earn rewards</p>
-                </div>
-              </Link>
-            </div>
+        {/* Staking and Vaults Side by Side */}
+        <div className={styles.sideBySide}>
+          <div className={styles.CardContainer}>
+            <Link href="/staking" passHref>
+              <div className={styles.card}>
+                <h2>STAKE &rarr;</h2>
+                <p>Stake ASX & LP tokens and earn rewards</p>
+              </div>
+            </Link>
+          </div>
 
-            <div className={styles.CardContainer}>
-              <Link href="/vaults" passHref>
-                <div className={styles.card}>
-                  <h2>VAULTS &rarr;</h2>
-                  <p>Earn Yield on BNB, ETH and BTC</p>
-                </div>
-              </Link>
-            </div>
+          <div className={styles.CardContainer}>
+            <Link href="/vaults" passHref>
+              <div className={styles.card}>
+                <h2>VAULTS &rarr;</h2>
+                <p>Earn Yield on BNB, ETH and BTC</p>
+              </div>
+            </Link>
           </div>
         </div>
 
         {/* AI News Section */}
         <section className={styles.newsSection}>
+          <CoinGeckoWidget />
           <AINewsComponent />
         </section>
       </main>

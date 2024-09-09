@@ -1,90 +1,189 @@
 /* AINewsComponent.module.css */
 .container {
+
     font-family: 'Roboto', sans-serif;
     color: #FFFFFF;
-    background-color: #1A1A1D;
     padding: 20px;
     border-radius: 10px;
-    width: 90%;
+    max-width: 1200px;
     margin: auto;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    background-image: linear-gradient(135deg, #2D2D34, #191919);
+    border-top: #00B4D8 1px solid;
+    position: relative;
+    /* Needed for pseudo-element positioning */
+    overflow: hidden;
+    /* Keeps the pseudo-element within the container's bounds */
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    /* Height of the animated border */
+    background: linear-gradient(to right, transparent 0%, #12ffe7 50%, transparent 100%);
+    animation: nightrider 8s linear infinite;
+}
+
+@keyframes nightrider {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 .heading {
     text-align: center;
     color: #00B4D8;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .filters {
-    display: flex;
-    justify-content: space-between;
+
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 20px;
+    justify-content: left;
+
 }
+
+
 
 .dropdown {
     background-color: #333;
     color: #FFF;
     border: none;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    width: 100%;
+    padding: 2px;
+    font-size: 11px;
+    border-radius: 2px;
+    margin-left: 5px;
 }
 
-.searchBox {
-    display: flex;
-    gap: 10px;
-    flex-grow: 1;
+.searchContainer {
+
+    text-align: center;
 }
 
-.searchBtn,
-.generateBtn {
-    background-color: #00B4D8;
+.searchInput {
+
+    background-color: #333;
     color: #FFF;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    padding: 1px;
+    font-size: 11px;
+    border-radius: 2px;
+    margin-left: 5px;
+
 }
 
-.searchBtn:hover,
-.generateBtn:hover {
-    background-color: #0096C7;
+.searchBtn {
+    background-color: #116d70;
+    color: #ffffff;
+    border: none;
+    padding: 1px;
+    border-radius: 2px;
+    margin-left: 5px;
+    font-size: 11px;
+
 }
 
+/* Main grid layout for news articles with staggered effect */
 .newsArticles {
-    display: flex;
-    flex-wrap: wrap;
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
     gap: 20px;
-    justify-content: space-around;
+    /* This is the regular gap between items */
+    position: relative;
 }
+
+
+
+@media (max-width: 1000px) {
+    .newsArticles {
+        grid-template-columns: 1fr;
+        /* Switch to 1 column when width is less than 1000px */
+    }
+
+    .newsArticles .article {
+        margin-top: 0;
+        /* Remove staggered effect on smaller screens */
+    }
+}
+
 
 .article {
-    background-color: #2D2D34;
+    columns: 2;
+    column-gap: 25px;
+    color: rgb(195, 177, 209);
+    background-color: #000000;
+    padding: 10px;
+    border-radius: 4px;
+    border: #12ffe73a 1px solid;
     padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    width: 45%;
+    font-size: 12px;
 }
+
+@media (max-width: 600px) {
+    .article {
+        columns: 1;
+        /* Switch to 1 column when width is less than 1000px */
+    }
+}
+
+.article h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #6ab9c9;
+}
+
+.article p {
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+
 
 .articleImage {
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 4px;
+    filter: sepia(10%);
+    position: relative;
+}
+
+.articleImage::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.5));
+    border-radius: 4px;
 }
 
 .loadingAnimation {
     text-align: center;
-    color: #00B4D8;
-    font-size: 18px;
+    color: #00d1d86d;
 }
 
 .errorMessage {
-    color: red;
+    color: rgba(255, 0, 0, 0.552);
     text-align: center;
+}
+
+.poweredBy {
+    text-align: right;
+    color: #cbcbcb;
+    margin-right: 10px;
+}
+
+.poweredBy span {
+    color: #c6c6c6;
+    margin-right: 5px;
 }
