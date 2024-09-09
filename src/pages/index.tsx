@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 import AINewsComponent from "../components/AINewsComponent";
 import CoinGeckoWidget from "../utils/CoinGeckoWidget";
 
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -50,8 +51,10 @@ const Home: NextPage = () => {
 
         {/* AI News Section */}
         <section className={styles.newsSection}>
+
           <CoinGeckoWidget />
           <AINewsComponent />
+
         </section>
       </main>
     </div>
