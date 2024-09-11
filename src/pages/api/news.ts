@@ -9,6 +9,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             apiKey: process.env.CHAINGPT_API_KEY!,
         });
 
+        // Fetch the news based on provided filters
         const response = await ainews.getNews({
             categoryId: categoryId ? [Number(categoryId)] : undefined,
             subCategoryId: subCategoryId ? [Number(subCategoryId)] : undefined,
@@ -18,10 +19,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             limit: limit ? Number(limit) : 3,
         });
 
-        // local only
-        // console.log('AINews API Response:', JSON.stringify(response, null, 2));
+        // Set Cache-Control headers to cache the response for 5 minutes (300 seconds)
+        res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate');
 
         if (response?.statusCode === 200 && Array.isArray(response.data)) {
+            // Return the cached data
             res.status(200).json(response.data);
         } else {
             console.error('Unexpected response format:', response);
