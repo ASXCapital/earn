@@ -38,6 +38,7 @@
     "react-google-recaptcha": "^3.1.0",
     "react-moralis": "^1.4.2",
     "react-table": "^7.8.0",
+    "sharp": "^0.33.5",
     "siwe": "^2.3.1",
     "splitting": "^1.0.6",
     "styled-components": "^6.1.8",
