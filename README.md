@@ -22,7 +22,7 @@ To achieve full functionality within the ASX ecosystem, the following tools are 
 - Express
 - Ethers
 - etc, etc...
-- Full list below;
+- Full list below (or just check package.json);
   "@quicknode/sdk": "^2.1.3",
   "@rainbow-me/rainbowkit-siwe-next-auth": "^0.4.0",
   "@tanstack/react-query": "^5.28.6",
