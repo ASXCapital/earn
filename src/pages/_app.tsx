@@ -5,6 +5,8 @@ import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, createConfig, http } from "wagmi";
 
+
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { FinanceDataProvider } from "../contexts/FinanceDataContext";
@@ -110,6 +112,7 @@ const Disclaimer: DisclaimerComponent = ({ Text, Link }) => (
 const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
   return (
+
     <WagmiProvider config={config}>
       <SessionProvider session={pageProps.session} refetchInterval={0}>
         <QueryClientProvider client={queryClient}>
@@ -146,6 +149,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </QueryClientProvider>
       </SessionProvider>
     </WagmiProvider>
+
   );
 }
 export default MyApp;

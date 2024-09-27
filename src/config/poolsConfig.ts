@@ -14,6 +14,7 @@ const BNB = contracts.bscTokens.WBNB;
 const ETH = contracts.bscTokens.ETH;
 const BTCB = contracts.bscTokens.BTCB;
 const SOL = contracts.bscTokens.SOL;
+const CAT = contracts.bscTokens.CAT;
 
 type PoolType = "single" | "lp";
 
@@ -53,6 +54,7 @@ export interface PoolConfig {
 }
 
 export const poolsConfig: PoolConfig[] = [
+
   {
     id: "asxasx",
     title: "ASX",
@@ -73,6 +75,42 @@ export const poolsConfig: PoolConfig[] = [
     },
     stakingContract: {
       address: contracts.bscStaking.ASXASXContract,
+      abi: ASXStakingABI,
+    },
+  },
+  {
+    id: "asxcat",
+    title: "ASX-CAT LP",
+    type: "lp", // Indicate this is an LP token pool
+    chainId: 56,
+    stakingToken: {
+      address: contracts.bscLPs.ASXCATLP,
+      symbol: "ASX-CAT LP",
+      abi: PancakeV2LPABI,
+      buyLink:
+        "https://pancakeswap.finance/v2/add/0x908e7cad50d4a48ac8f3919306cbf68b89a3217f/BNB",
+      image: "/logos/simonscat.png",
+      constituents: {
+        // Specify the constituent tokens for the LP token
+        token1: {
+          address: ASX,
+          symbol: "ASX",
+          abi: ASXABI,
+        },
+        token2: {
+          address: CAT,
+          symbol: "CAT",
+          abi: BNBABI,
+        },
+      },
+    },
+    rewardToken: {
+      address: ASX,
+      symbol: "ASX",
+      abi: ASXABI,
+    },
+    stakingContract: {
+      address: contracts.bscStaking.ASXBNBContract,
       abi: ASXStakingABI,
     },
   },

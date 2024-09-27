@@ -4,11 +4,16 @@ import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import AINewsComponent from "../components/AINewsComponent";
 import CoinGeckoWidget from "../utils/CoinGeckoWidget";
+import LiquidityPairs from "../components/LiquidityPairs";
+import CryptoTable from "../components/dashboard/CryptoTable";
+import CoinGeckoCard from "../utils/CoinGeckoCard";
 
 
 const Home: NextPage = () => {
   return (
+
     <div className={styles.container}>
+      <CoinGeckoWidget />
       <Head>
         <title>ASX - Earn Products</title>
         <meta name="description" content="Earn with ASX" />
@@ -18,15 +23,26 @@ const Home: NextPage = () => {
 
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          <span className={`${styles.IndexHeader} ${styles.IndexHeaderA}`}>A</span>
-          <span className={`${styles.IndexHeader} ${styles.IndexHeaderA}`}>S</span>
-          <span className={`${styles.IndexHeader} ${styles.IndexHeaderX}`}>X</span>
-        </h1>
 
-        <p className={styles.description}>
-          Asset Diversification Made Simple.
-        </p>
+        <div className={styles.TitleBlock}>
+          <h1 className={styles.title}>
+            <span className={`${styles.IndexHeader} ${styles.IndexHeaderA}`}>A</span>
+            <span className={`${styles.IndexHeader} ${styles.IndexHeaderA}`}>S</span>
+            <span className={`${styles.IndexHeader} ${styles.IndexHeaderX}`}>X</span>
+          </h1>
+
+          <p className={styles.description}>
+            Asset Diversification Made Simple.
+          </p>
+
+
+          <div className={styles.coinGeckoCard}>
+
+            <CoinGeckoCard />
+          </div>
+
+
+        </div>
 
         {/* Staking and Vaults Side by Side */}
         <div className={styles.sideBySide}>
@@ -52,7 +68,9 @@ const Home: NextPage = () => {
         {/* AI News Section */}
         <section className={styles.newsSection}>
 
-          <CoinGeckoWidget />
+
+
+
           <AINewsComponent />
 
         </section>

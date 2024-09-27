@@ -170,6 +170,8 @@
   text-decoration: none;
 }
 
+
+
 @media (max-width: 500px) {
   .card {
     width: 90vw;
@@ -177,8 +179,7 @@
   }
 }
 
-.card:hover,
-.card:focus,
+.card:hover .card:focus,
 .card:active {
   color: #0dfcd0;
   border-color: #ffffff;
@@ -227,4 +228,22 @@
 .newsSection {
   margin-top: 2rem;
   width: 100%;
+}
+
+.coinGeckoCard {
+  display: flex;
+  justify-content: center;
+  width: auto;
+
+
+}
+
+
+
+.TitleBlock {
+
+  justify-content: space-between;
+
+  margin-bottom: 1rem;
+  margin: 40px;
 }

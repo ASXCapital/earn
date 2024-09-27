@@ -1,0 +1,67 @@
+/* file: /components/LiquidityPairs.module.css */
+.cryptoTableContainer {
+    background-color: #0207077a;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 3px 0 rgba(201, 201, 201, 0.241);
+    overflow-x: auto;
+    display: block;
+    width: 100%;
+    color: #cfcfcf;
+    margin: 4rem auto;
+    max-width: 60rem;
+}
+
+.cryptoTableHeader {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #00dab6;
+}
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cryptoTable {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.cryptoTable th,
+.cryptoTable td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cryptoTable th {
+    background-color: #34483c8a;
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+.cryptoTable a {
+    color: #09e1b3;
+    text-decoration: none;
+}
+
+.cryptoTable a:hover {
+    text-decoration: underline;
+}
+
+.pairColumn {
+    color: #0ddebb;
+}
+
+.loading {
+    font-size: 24px;
+    color: #ffeaa7;
+    text-align: center;
+    margin-top: 20px;
+}

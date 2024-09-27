@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 
-const CoinGeckoWidget = () => {
+const CoinGeckoCard = () => {
   useEffect(() => {
     // Create a script element
     const script = document.createElement("script");
-    script.src =
-      "https://widgets.coingecko.com/gecko-coin-price-marquee-widget.js";
+    script.src = "https://widgets.coingecko.com/gecko-coin-ticker-widget.js";
     script.async = true;
 
     // Append the script to the document body
@@ -18,14 +17,20 @@ const CoinGeckoWidget = () => {
   }, []);
 
   return (
-    <gecko-coin-price-marquee-widget
+    <gecko-coin-ticker-widget
       locale="en"
       dark-mode="true"
+      transparent-background="true"
       outlined="true"
-      coin-ids="asx-capital,bitcoin,solana,ethereum,tether-gold,ripple,dogecoin,the-open-network"
+      coin-id="asx-capital"
       initial-currency="usd"
-    ></gecko-coin-price-marquee-widget>
+      width="800"
+      display="flex"
+      justify-content="center"
+
+      // align to centre:
+    ></gecko-coin-ticker-widget>
   );
 };
 
-export default CoinGeckoWidget;
+export default CoinGeckoCard;
