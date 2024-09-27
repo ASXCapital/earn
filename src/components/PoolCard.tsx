@@ -120,7 +120,7 @@ const PoolCard: React.FC<PoolCardProps> = ({
     const lpTokenPriceUSD =
       totalSupplyUnits > 0 ? totalReserveUSD / totalSupplyUnits : 0;
 
-    return lpTokenPriceUSD.toFixed(2);
+    return lpTokenPriceUSD.toFixed(4);
   };
 
   // Use useMemo to avoid recalculating LP price on every render
