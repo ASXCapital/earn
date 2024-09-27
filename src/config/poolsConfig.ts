@@ -8,6 +8,7 @@ import { ETHABI } from "../abis/ETHABI";
 import { BNBABI } from "../abis/BNBABI";
 import { BTCBABI } from "../abis/BTCBABI";
 import { erc20Abi } from "viem";
+import { ERC20ABI } from "../abis/ERC20ABI";
 
 const ASX = contracts.bscTokens.ASX;
 const BNB = contracts.bscTokens.WBNB;
@@ -99,7 +100,7 @@ export const poolsConfig: PoolConfig[] = [
         token2: {
           address: CAT,
           symbol: "CAT",
-          abi: BNBABI,
+          abi: ERC20ABI,
         },
       },
     },
@@ -109,7 +110,7 @@ export const poolsConfig: PoolConfig[] = [
       abi: ASXABI,
     },
     stakingContract: {
-      address: contracts.bscStaking.ASXBNBContract,
+      address: contracts.bscStaking.ASXCATContract,
       abi: ASXStakingABI,
     },
   },
