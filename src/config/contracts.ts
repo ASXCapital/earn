@@ -8,7 +8,7 @@ export const contracts = {
     ETH: "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
     BTCB: "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
     SOL: "0x570A5D26f7765Ecb712C0924E4De545B89fD43dF",
-    CAT: "0x6894cde390a3f51155ea41ed24a33a4827d3063d",
+    CAT: "0x6894CDe390a3f51155ea41Ed24a33A4827d3063D",
   },
   // BSC Vault Contracts
   bscVaults: {
