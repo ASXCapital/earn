@@ -88,7 +88,7 @@ export const poolsConfig: PoolConfig[] = [
       symbol: "ASX-CAT LP",
       abi: PancakeV2LPABI,
       buyLink:
-        "https://pancakeswap.finance/v2/add/0x908e7cad50d4a48ac8f3919306cbf68b89a3217f/BNB",
+        "https://pancakeswap.finance/add/0xebD3619642d78F0C98c84f6Fa9a678653fB5A99B/0x6894CDe390a3f51155ea41Ed24a33A4827d3063D",
       image: "/logos/simonscat.png",
       constituents: {
         // Specify the constituent tokens for the LP token
