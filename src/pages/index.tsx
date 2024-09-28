@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import AINewsComponent from "../components/AINewsComponent";
 import CoinGeckoWidget from "../utils/CoinGeckoWidget";
+import DebankLPTrack from "../components/DebankLPTrack";
 
 
 const Home: NextPage = () => {
@@ -51,6 +52,8 @@ const Home: NextPage = () => {
 
         {/* AI News Section */}
         <section className={styles.newsSection}>
+
+
 
           <CoinGeckoWidget />
           <AINewsComponent />

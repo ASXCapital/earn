@@ -7,11 +7,14 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "chaingpt.s3.us-east-2.amazonaws.com", // Add the S3 bucket domain here
+        hostname: "chaingpt.s3.us-east-2.amazonaws.com",
+      },
+      {
+        protocol: "https",
+        hostname: "static.debank.com", // Add this line for Debank images
       },
     ],
   },
-
   reactStrictMode: true,
   i18n: {
     locales: ["default"],
