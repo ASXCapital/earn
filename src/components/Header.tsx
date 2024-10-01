@@ -34,30 +34,25 @@ const Header = () => {
           </Link>
         </div>
         <div className={styles.navLinks}>
-          {/*
-        
-            <Link href="/staking" passHref>
-              <button className={styles.dropdownItem}>Staking</button>
-            </Link>
-            <Link href="https://www.asx.capital/" passHref>
-              <button className={styles.dropdownItem}>Back to V1</button>
-            </Link>
 
-          
-            <Link href="/vaults" passHref>
-              <button className={styles.dropdownItem}>Vaults</button>
-            </Link>
-            <Link href="/treasury" passHref>
-              <button className={styles.dropdownItem}>Treasury Dashboard</button>
-            </Link>
-            <Link href="/lp-dashboard" passHref>
-              <button className={styles.dropdownItem}>LP Dashboard</button>
-            </Link>
-            <Link href="/rwa" passHref>
-              <button className={styles.dropdownItem}>Real World Assets</button>
-            </Link>
+          <Link href="/" passHref>
+            <button className={styles.dropdownItem}>Home</button>
+          </Link>
 
-  */}
+          <Link href="/staking" passHref>
+            <button className={styles.dropdownItem}>Stake</button>
+          </Link>
+
+          <Link href="/vaults" passHref>
+            <button className={styles.dropdownItem}>Vaults</button>
+          </Link>
+
+          <Link href="/lpinfo" passHref>
+            <button className={styles.dropdownItem}>LP Info</button>
+          </Link>
+
+
+
         </div>
         <ConnectButton
           accountStatus={{

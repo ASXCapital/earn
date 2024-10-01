@@ -50,6 +50,11 @@ const Home: NextPage = () => {
           </div>
         </div>
 
+        {/* Debank LP Track Section */}
+        <div className={styles.LPSection}>
+          <DebankLPTrack />
+        </div>
+
         {/* AI News Section */}
         <section className={styles.newsSection}>
 

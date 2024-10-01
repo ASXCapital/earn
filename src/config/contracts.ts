@@ -23,7 +23,7 @@ export const contracts = {
   },
   // BSC Staking Contracts
   bscStaking: {
-    ASXASXOldContract: "0x3D61AA125583181D9071018edd555838Da6D21dC",
+    // ASXASXOldContract: "0x3D61AA125583181D9071018edd555838Da6D21dC",
     ASXASXContract: "0x26A699ebAFFd04B7Fd8D21445F247fD71e9dce5f",
     ASXBNBContract: "0x5578bffb8D14821E52fd34198E5eF9d9cE968257",
     ASXETHContract: "0xE6e897D7Eac4DdC8E320CB378060727b30A01220",
