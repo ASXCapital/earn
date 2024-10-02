@@ -4,5 +4,11 @@
       "source": "/.well-known/did.json",
       "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/updateCache",
+      "schedule": "0 * * * *"
+    }
   ]
 }
