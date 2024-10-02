@@ -1,0 +1,15 @@
+# .github/workflows/update-cache.yml
+name: Update Debank Cache
+
+on:
+  schedule:
+    - cron: "0 * * * *" # Runs every hour at the start of the hour
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  update-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Cache Update
+        run: |
+          curl -X GET http://localhost:3000/api/updateCache

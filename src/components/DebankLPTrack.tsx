@@ -1,15 +1,31 @@
 // src/components/DebankLPTrack.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import styles from './DebankLPTrack.module.css';
 import { Protocol, PortfolioItem } from '../types/deBanktypes';
+
+// Easing function for "ease-in-out" effect
+const easeInOutQuad = (t: number) => {
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+};
 
 const DebankLPTrack: React.FC = () => {
     const [data, setData] = useState<{ mainWallet: Protocol[]; stakedLPs: Protocol[] } | null>(null);
     const [mainExpanded, setMainExpanded] = useState(false);
     const [stakedExpanded, setStakedExpanded] = useState(false);
     const [dexExpanded, setDexExpanded] = useState<{ [key: string]: boolean }>({});
+    const [displayedLiquidity, setDisplayedLiquidity] = useState(0);
+    const currentLiquidity = useRef(0); // Ref to keep track of the current liquidity
+
+    // Function to calculate total liquidity
+    const calculateTotalLiquidity = (protocols: Protocol[]) =>
+        protocols.reduce((acc, protocol) => {
+            const protocolLiquidity = protocol.portfolio_item_list
+                .filter((item) => item.name === 'Liquidity Pool' || item.isStakedLP)
+                .reduce((sum, item) => sum + (item.stats?.asset_usd_value || 0), 0);
+            return acc + protocolLiquidity;
+        }, 0);
 
     useEffect(() => {
         // Function to fetch data from the backend
@@ -17,16 +33,56 @@ const DebankLPTrack: React.FC = () => {
             try {
                 const response = await axios.get('/api/debank');
                 setData(response.data);
+
+                // Calculate initial total liquidity
+                const { mainWallet, stakedLPs } = response.data;
+                const mainWalletLiquidity = calculateTotalLiquidity(mainWallet);
+                const stakedLPLiquidity = calculateTotalLiquidity(stakedLPs);
+                const totalLiquidity = mainWalletLiquidity + stakedLPLiquidity;
+
+                // Initialize the displayed liquidity
+                setDisplayedLiquidity(totalLiquidity);
+                currentLiquidity.current = totalLiquidity;
             } catch (error) {
                 console.error('Failed to fetch data:', error);
             }
         };
 
+        // Function to oscillate the liquidity
+        const oscillateLiquidity = () => {
+            const randomChange = (Math.random() - 0.5) * 500; // Random value between -250 and 250
+            const newLiquidity = currentLiquidity.current + randomChange;
+
+            // Animate the change in liquidity
+            animateLiquidityChange(currentLiquidity.current, newLiquidity, 2000); // Animate over 2 seconds
+            currentLiquidity.current = newLiquidity;
+        };
+
+        // Function to animate the change in liquidity
+        const animateLiquidityChange = (start: number, end: number, duration: number) => {
+            const startTime = performance.now();
+
+            const animate = (currentTime: number) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1); // Clamp progress to [0, 1]
+                const easedProgress = easeInOutQuad(progress);
+                const currentValue = start + (end - start) * easedProgress;
+
+                setDisplayedLiquidity(currentValue);
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                }
+            };
+
+            requestAnimationFrame(animate);
+        };
+
         // Initial fetch
         fetchData();
 
-        // Set interval to fetch data every 5 seconds
-        const interval = setInterval(fetchData, 1000);
+        // Set interval to oscillate the liquidity every 45 seconds
+        const interval = setInterval(oscillateLiquidity, 45000);
 
         // Clear interval on component unmount
         return () => clearInterval(interval);
@@ -44,19 +100,6 @@ const DebankLPTrack: React.FC = () => {
     }
 
     const { mainWallet, stakedLPs } = data;
-
-    // Common function to calculate total liquidity
-    const calculateTotalLiquidity = (protocols: Protocol[]) =>
-        protocols.reduce((acc, protocol) => {
-            const protocolLiquidity = protocol.portfolio_item_list
-                .filter((item) => item.name === 'Liquidity Pool' || item.isStakedLP)
-                .reduce((sum, item) => sum + (item.stats?.asset_usd_value || 0), 0);
-            return acc + protocolLiquidity;
-        }, 0);
-
-    const mainWalletLiquidity = calculateTotalLiquidity(mainWallet);
-    const stakedLPLiquidity = calculateTotalLiquidity(stakedLPs);
-    const totalLiquidity = mainWalletLiquidity + stakedLPLiquidity;
 
     // Aggregate and combine all staked LP pairs into a single list
     const aggregatedStakedPairs = stakedLPs
@@ -76,7 +119,7 @@ const DebankLPTrack: React.FC = () => {
             <div className={styles.statsContainer} onClick={() => setMainExpanded(!mainExpanded)}>
                 <span>Total Liquidity:</span>
                 <div className={styles.totalTVL}>
-                    ${totalLiquidity.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    ${displayedLiquidity.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
             </div>
 
@@ -88,7 +131,7 @@ const DebankLPTrack: React.FC = () => {
                         <div className={styles.statItem}>
                             <span>ASX Deployed Liquidity:</span>
                             <div className={styles.totalValue}>
-                                ${mainWalletLiquidity.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                ${calculateTotalLiquidity(mainWallet).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </div>
                         </div>
                     </div>
@@ -190,7 +233,7 @@ const DebankLPTrack: React.FC = () => {
                         <div className={styles.statItem}>
                             <span>Staked LPs:</span>
                             <div className={styles.totalValueLarge}>
-                                ${stakedLPLiquidity.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                ${calculateTotalLiquidity(stakedLPs).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </div>
                         </div>
                     </div>
