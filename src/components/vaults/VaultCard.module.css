@@ -1,7 +1,8 @@
 /* VaultCard.module.css - Styles for the entire card */
 .vaultCard {
   margin-top: 3rem;
-  background: rgba(26, 26, 26, 0.997); /* Dark background for the card */
+  background: rgba(26, 26, 26, 0.997);
+  /* Dark background for the card */
   color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
@@ -9,7 +10,8 @@
 }
 
 .vaultHeader {
-  background-color: #16213e00; /* Slightly lighter dark shade for the header */
+  background-color: #16213e00;
+  /* Slightly lighter dark shade for the header */
   color: #e1e1e1;
   font-size: 1.8rem;
   padding: 0.2rem 1rem;
@@ -26,34 +28,47 @@
 /* VaultCard.module.css - Enhancing compactness and alignment */
 .inputGroup {
   display: flex;
-  border-radius: 0.25rem; /* Smooth rounded corners for the whole group */
+  border-radius: 0.25rem;
+  /* Smooth rounded corners for the whole group */
   margin-top: 0.2rem;
-  overflow: hidden; /* Keeps child elements contained within the border */
+  overflow: hidden;
+  /* Keeps child elements contained within the border */
 }
 
 .formControl {
   border-radius: 0.2rem;
-  flex-grow: 1; /* Allows the input to fill the space */
-  height: 32px; /* Reduced height for compactness */
-  margin: 0; /* Remove margins for tight fitting */
-  padding: 0 8px; /* Reduced padding */
-  border: 1px solid #191919; /* Uniform border */
-  border-right: none; /* Removes the right border where the button meets the input */
+  flex-grow: 1;
+  /* Allows the input to fill the space */
+  height: 32px;
+  /* Reduced height for compactness */
+  margin: 0;
+  /* Remove margins for tight fitting */
+  padding: 0 8px;
+  /* Reduced padding */
+  border: 1px solid #191919;
+  /* Uniform border */
+  border-right: none;
+  /* Removes the right border where the button meets the input */
   background-color: #c0c0c0be;
   color: #000000;
 }
 
 .maxButton {
-  background-color: #009c8d; /* Accent color for interactive elements */
+  background-color: #009c8d;
+  /* Accent color for interactive elements */
   border: none;
-  height: 32px; /* Match the input height for perfect alignment */
-  padding: 0 12px; /* Adequate padding for the button text */
-  color: white; /* Ensures text is clearly visible */
+  height: 32px;
+  /* Match the input height for perfect alignment */
+  padding: 0 12px;
+  /* Adequate padding for the button text */
+  color: white;
+  /* Ensures text is clearly visible */
   border: #000000 1px solid;
 }
 
 .maxButton:hover {
-  background-color: #00c9b5; /* Slightly darker on hover for a subtle effect */
+  background-color: #00c9b5;
+  /* Slightly darker on hover for a subtle effect */
 }
 
 .vaultButtons {
@@ -81,11 +96,14 @@
 .showDetailsButton:hover {
   background-color: #8a8a8a;
 }
+
 @keyframes slide {
+
   0%,
   100% {
     background-position: 0% center;
   }
+
   50% {
     background-position: 100% center;
   }
@@ -94,18 +112,17 @@
 .collapseText {
   padding: 0rem;
 
-  background-image: linear-gradient(
-    to right,
-    #00000000,
-    #00000000,
-    #00fffb24,
-    #00d3d300
-  );
+  background-image: linear-gradient(to right,
+      #00000000,
+      #00000000,
+      #00fffb24,
+      #00d3d300);
   background-size: 300% 100%;
   animation: slide 50s linear infinite;
   border-radius: 0.6rem;
   border: #e100ff21 3px solid;
 }
+
 .statsContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -125,6 +142,7 @@
 .statsRow div:first-child {
   text-align: left;
 }
+
 .warning {
   color: rgb(255, 166, 166);
   margin-top: 10px;
@@ -138,29 +156,44 @@
 }
 
 .actionButton {
-  width: 100%; /* Ensures button width is consistent and fills the container */
-  height: 32px; /* Matches the height of the input and max button for consistency */
-  background-color: #16213e; /* Dark color for the button */
-  color: white; /* Text color for readability */
-  border: none; /* Removes border to keep the design sleek */
-  border-radius: 0.25rem; /* Rounded corners to match the input group style */
-  padding: 0 12px; /* Ensures padding is not too large, controlling overall width */
+  width: 100%;
+  /* Ensures button width is consistent and fills the container */
+  height: 32px;
+  /* Matches the height of the input and max button for consistency */
+  background-color: #16213e;
+  /* Dark color for the button */
+  color: white;
+  /* Text color for readability */
+  border: none;
+  /* Removes border to keep the design sleek */
+  border-radius: 0.25rem;
+  /* Rounded corners to match the input group style */
+  padding: 0 12px;
+  /* Ensures padding is not too large, controlling overall width */
 }
 
 .actionButton:hover {
-  background-color: #0f3460; /* Darker shade on hover */
+  background-color: #0f3460;
+  /* Darker shade on hover */
 }
 
 /* VaultCard.module.css - Updated styles for the disabled Max button */
 .disabledMaxButton {
-  background-color: #6c757d !important; /* Grey background for disabled appearance */
-  color: #ffffff !important; /* White text color for contrast */
-  border: 1px solid #000000 !important; /* Solid border to match */
-  height: 32px; /* Match the height of other input elements */
-  padding: 0px 12px; /* Consistent padding */
-  border-radius: 0rem 0.4rem 0.4rem 0rem; /* Rounded corners for a polished look */
+  background-color: #6c757d !important;
+  /* Grey background for disabled appearance */
+  color: #ffffff !important;
+  /* White text color for contrast */
+  border: 1px solid #000000 !important;
+  /* Solid border to match */
+  height: 32px;
+  /* Match the height of other input elements */
+  padding: 0px 12px;
+  /* Consistent padding */
+  border-radius: 0rem 0.4rem 0.4rem 0rem;
+  /* Rounded corners for a polished look */
 }
 
 .disabledMaxButton:hover {
-  background-color: #5a6268 !important; /* Slightly darker grey on hover */
+  background-color: #5a6268 !important;
+  /* Slightly darker grey on hover */
 }

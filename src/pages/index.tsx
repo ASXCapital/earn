@@ -41,19 +41,19 @@ const Home: NextPage = () => {
           </div>
 
           <div className={styles.CardContainer}>
-            <Link href="/vaults" passHref>
+            <Link href="/lpinfo" passHref>
               <div className={styles.card}>
-                <h2>VAULTS &rarr;</h2>
-                <p>Earn Yield on BNB, ETH and BTC</p>
+                <h2>LP Info &rarr;</h2>
+                <p>Explore ASX LP Diversification</p>
               </div>
             </Link>
           </div>
+
+
         </div>
 
         {/* Debank LP Track Section */}
-        <div className={styles.LPSection}>
-          <DebankLPTrack />
-        </div>
+
 
         {/* AI News Section */}
         <section className={styles.newsSection}>

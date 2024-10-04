@@ -1,215 +1,31 @@
-@keyframes moveLight {
+/* Keyframes for the flash animation */
+@keyframes flash {
   0% {
-    left: -100%;
-  }
-
-  50% {
-    left: 100%;
+    background-color: #0ae1f0;
   }
 
   100% {
-    left: -100%;
+    background-color: transparent;
   }
 }
 
+/* Flash animation class */
+.flash {
+  animation: flash 0.3s forwards;
+}
+
+/* General Styles */
 .header {
   display: flex;
   position: relative;
-  /* Establish relative positioning context */
-  height: 100px;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 10;
   background-color: #292929;
-  padding: 1rem 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #00fff7;
-  overflow: visible;
+  padding: 1rem;
   box-sizing: border-box;
-  padding-top: 1rem;
   transition: top 0.3s;
-}
-
-.visible {
-  top: 0;
-  transition: top 0.3s ease-in-out;
-}
-
-.hidden {
-  top: -100%;
-  /* Adjust based on your header's height */
-  transition: top 0.3s ease-in-out;
-}
-
-.buttonStyle {
-  padding: 0.4rem;
-  padding-inline: 0.6rem;
-  margin: 0 5px;
-  /* Provides spacing between buttons */
-  background-color: #292929;
-  color: #c3c3c3;
-  border: none;
-  border-radius: 4px;
-  box-shadow: rgba(126, 126, 126, 0.349) 0 0 2px 0;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.buttonStyle:hover {
-  background-color: #0d0d0d;
-  color: white;
-}
-
-.buttonStyle:active {
-  background-color: #0d0d0d;
-}
-
-.buttonStyle:focus {
-  outline: none;
-  border-color: #ffffff;
-  box-shadow: 0 0 0 2px #0dfcd0;
-}
-
-.navLinks {
-  position: absolute;
-  /* Position the navigation container absolutely */
-  left: 50%;
-  /* Move to the middle of the container */
-  top: 66%;
-  /* Align vertically in the middle */
-  transform: translate(-50%, -75%);
-  /* Offset the container by its own dimensions to truly center it */
-  display: flex;
-  /* Align links side by side */
-  gap: 20px;
-  /* Adjust the space between links */
-}
-
-.header::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  height: 4px;
-  left: -150%;
-  width: 300%;
-  background: linear-gradient(90deg, transparent, #00ffbf, transparent);
-  animation: moveLight 20s infinite linear;
-}
-
-.navbar,
-.navLinks,
-.navLinks a {
-  box-sizing: border-box;
-}
-
-.navLink {
-  text-decoration: none;
-  /* Remove underline */
-  padding: 0.5rem 1rem;
-  /* Adjust padding as needed */
-  border-radius: 5px;
-  /* Optional: for rounded links */
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-  /* Smooth transition for hover effects */
-  position: relative;
-  /* Needed for absolute positioning of the pseudo-element */
-}
-
-.navLink:not(:last-child)::after {
-  content: "";
-  /* Required for pseudo-elements */
-  position: absolute;
-  right: 0;
-  /* Position the line at the right edge of the link */
-  top: 50%;
-  /* Center the line vertically */
-  transform: translateY(-50%);
-  /* Adjust the line's position to truly center it */
-  height: 20px;
-  /* Height of the line, adjust based on your design */
-  width: 1px;
-  /* Width of the line */
-  background-color: #adb5bd;
-  /* Color of the line */
-}
-
-@media (max-width: 768px) {
-  .header {
-    padding: 1rem;
-  }
-
-  .navLinks {
-    gap: 10px;
-  }
-
-  .navLinks a {
-    padding: 0.5rem;
-  }
-}
-
-.burger {
-  cursor: pointer;
-}
-
-.dropdownMenu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  /* Start here and adjust as necessary */
-  transform: translateX(-100%);
-  /* Adjusts the position to the left by its own width */
-  background-color: rgba(10, 225, 240, 0.3);
-  border-radius: 5px;
-  padding: 10px;
-  z-index: 1;
-  box-shadow: 0 0 10px rgba(10, 225, 240, 0.3);
-
-  border: none;
-  box-shadow: #00ffe529;
-  background-color: #1e1e1e;
-  backdrop-filter: blur(10px);
-}
-
-.dropdownItem {
-  display: block;
-  /* Stack items vertically */
-  padding: 10px;
-  /* Uniform padding for each item */
-  color: #eeeeee;
-  /* White text for better readability */
-  text-decoration: none;
-  /* Remove underline from links */
-  transition: background-color 0.3s ease;
-  /* Transition for hover effect */
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  /* Changes cursor to pointer on hover */
-}
-
-/* Remove any border, box-shadow, or background styling that causes 'box' appearance */
-
-.dropdownItem {
-  background-color: transparent;
-  /* Transparent background for items */
-  border: none;
-  box-shadow: none;
-}
-
-/* On hover, only change the text color instead of adding a background */
-.dropdownItem:hover {
-  background-color: transparent;
-  /* Keep background transparent on hover */
-  color: #0ae1f0;
-  /* Only text color changes on hover */
 }
 
 .navbar {
@@ -217,41 +33,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.navLinks {
-  display: flex;
-  /* Align links side by side */
-  justify-content: center;
-  /* Center links horizontally */
-  gap: 20px;
-  /* Optional: adjust the space between links */
-}
-
-.navLinks a {
-  color: #adb5bd;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-}
-
-.navLink:hover {
-  background-color: #0bf3e7;
-  /* Background color on hover */
-  color: #1a202c;
-  /* Text color on hover */
-  cursor: pointer;
-  /* Change cursor to pointer on hover */
-}
-
-.WalletAndBurger {
-  position: inline-flex;
-  display: flex;
-  gap: 20px;
-  align-items: center;
+  position: relative;
 }
 
 .LogoAndInfo {
@@ -260,9 +42,94 @@
   align-items: center;
 }
 
-.TokenInfo {
+.WalletAndBurger {
   display: flex;
-  flex-direction: row;
-  font-size: 14px;
-  justify-content: baseline;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Navigation Links */
+.navLinks {
+  display: flex;
+  gap: 20px;
+}
+
+.navLinks a {
+  color: #adb5bd;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navLinks a:hover {
+  background-color: #0bf3e7;
+  color: #1a202c;
+  cursor: pointer;
+}
+
+/* Dropdown Items */
+.dropdownItem {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  color: #eeeeee;
+  padding: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.dropdownItem:hover {
+  color: #0ae1f0;
+}
+
+/* Burger Menu Button */
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #c3c3c3;
+  cursor: pointer;
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .navLinks {
+    display: none;
+  }
+
+  .burger {
+    display: block;
+  }
+
+  .mobileMenu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #292929;
+    padding: 1rem;
+    z-index: 10;
+    width: auto;
+    min-width: max-content;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+  }
+
+  .mobileMenu a {
+    margin-bottom: 1rem;
+  }
+
+  .WalletAndBurger {
+    gap: 10px;
+  }
 }
