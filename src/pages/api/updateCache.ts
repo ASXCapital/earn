@@ -19,18 +19,17 @@ const fetchDataFromDebank = async () => {
     const stakingAddresses = Object.values(contracts.bscStaking);
 
     try {
+        console.log('Fetching data from Debank...'); // Add this log
+
         // Fetch data for the main wallet address
-        console.log('Fetching data for main wallet...');
         const mainWalletResponse = await axios.get(
             `https://pro-openapi.debank.com/v1/user/all_complex_protocol_list?id=${LP_TRACKING_ADDRESS}`,
             {
                 headers: { 'AccessKey': DEBANK_API_KEY },
             }
         );
-        console.log('Main wallet data fetched successfully.');
 
         // Fetch data for each staking address
-        console.log('Fetching data for staking addresses...');
         const stakedLPsResponses = await Promise.all(
             stakingAddresses.map((address) =>
                 axios.get(`https://pro-openapi.debank.com/v1/user/all_complex_protocol_list?id=${address}`, {
@@ -38,7 +37,8 @@ const fetchDataFromDebank = async () => {
                 })
             )
         );
-        console.log('Staking addresses data fetched successfully.');
+
+        console.log('Fetched data successfully.'); // Add this log
 
         // Flatten and filter the data
         const filteredStakedData = stakedLPsResponses.filter((response) => response.status === 200).map((res) => res.data);
@@ -51,7 +51,8 @@ const fetchDataFromDebank = async () => {
             },
             timestamp: Date.now(),
         };
-        console.log('Cache updated successfully.');
+
+        console.log('Cache updated at:', new Date(cache.timestamp).toISOString()); // Add this log
 
         return cache.data;
     } catch (error) {
@@ -60,14 +61,18 @@ const fetchDataFromDebank = async () => {
     }
 };
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    // Fetch new data and update the cache
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    // Authorization check using the CRON_SECRET
+    if (req.headers['authorization'] !== `Bearer ${process.env.CRON_SECRET}`) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    console.log('Cron job triggered.'); // Add this log
+
     const data = await fetchDataFromDebank();
     if (data) {
         res.status(200).json(data);
     } else {
         res.status(500).json({ error: 'Failed to update cache' });
     }
-};
-
-export default handler;
+}
