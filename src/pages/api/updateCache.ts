@@ -8,7 +8,7 @@ export let cache: { data: any | null; timestamp: number } = {
     timestamp: 0,
 };
 
-const fetchDataFromDebank = async () => {
+export const fetchDataFromDebank = async () => {
     const { DEBANK_API_KEY, LP_TRACKING_ADDRESS } = process.env;
 
     if (!DEBANK_API_KEY || !LP_TRACKING_ADDRESS) {
@@ -19,7 +19,7 @@ const fetchDataFromDebank = async () => {
     const stakingAddresses = Object.values(contracts.bscStaking);
 
     try {
-        console.log('Fetching data from Debank...'); // Add this log
+        console.log('Fetching data from Debank...');
 
         // Fetch data for the main wallet address
         const mainWalletResponse = await axios.get(
@@ -38,7 +38,7 @@ const fetchDataFromDebank = async () => {
             )
         );
 
-        console.log('Fetched data successfully.'); // Add this log
+        console.log('Fetched data successfully.');
 
         // Flatten and filter the data
         const filteredStakedData = stakedLPsResponses.filter((response) => response.status === 200).map((res) => res.data);
@@ -52,7 +52,7 @@ const fetchDataFromDebank = async () => {
             timestamp: Date.now(),
         };
 
-        console.log('Cache updated at:', new Date(cache.timestamp).toISOString()); // Add this log
+        console.log('Cache updated at:', new Date(cache.timestamp).toISOString());
 
         return cache.data;
     } catch (error) {
@@ -62,12 +62,10 @@ const fetchDataFromDebank = async () => {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    // Authorization check using the CRON_SECRET
+    // Add an authorization check using a secret to secure your cron job
     if (req.headers['authorization'] !== `Bearer ${process.env.CRON_SECRET}`) {
         return res.status(401).json({ error: 'Unauthorized' });
     }
-
-    console.log('Cron job triggered.'); // Add this log
 
     const data = await fetchDataFromDebank();
     if (data) {
