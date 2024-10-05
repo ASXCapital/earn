@@ -74,7 +74,7 @@
   border: none;
   box-shadow: none;
   color: #eeeeee;
-  padding: 10px;
+
   font-size: 1rem;
   font-weight: 500;
   text-align: left;
@@ -83,7 +83,9 @@
 }
 
 .dropdownItem:hover {
-  color: #0ae1f0;
+  background: #0ae1f0;
+  color: #000000;
+
 }
 
 /* Burger Menu Button */
@@ -101,7 +103,7 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
   .navLinks {
     display: none;
   }
