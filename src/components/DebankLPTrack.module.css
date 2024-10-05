@@ -76,7 +76,7 @@
 }
 
 .protocolName {
-  font-size: 1.2em;
+  font-size: 1em;
   color: #ffffff;
 }
 
@@ -110,6 +110,7 @@
   display: flex;
   align-items: center;
   height: 62px;
+  font-size: x-small;
 }
 
 .tokenLogo {
@@ -119,6 +120,7 @@
 
 .balanceItem {
   color: #d0d0e0;
+  font-size: 10px;
 }
 
 .usdValue {
