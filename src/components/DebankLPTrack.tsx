@@ -1,4 +1,3 @@
-// src/components/DebankLPTrack.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
@@ -17,6 +16,7 @@ const DebankLPTrack: React.FC = () => {
     const [dexExpanded, setDexExpanded] = useState<{ [key: string]: boolean }>({});
     const [displayedLiquidity, setDisplayedLiquidity] = useState(0);
     const currentLiquidity = useRef(0); // Ref to keep track of the current liquidity
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
     // Function to calculate total liquidity
     const calculateTotalLiquidity = (protocols: Protocol[]) =>
@@ -81,8 +81,8 @@ const DebankLPTrack: React.FC = () => {
         // Initial fetch
         fetchData();
 
-        // Set interval to oscillate the liquidity every 45 seconds
-        const interval = setInterval(oscillateLiquidity, 45000);
+        // Set interval to oscillate the liquidity every 99 seconds
+        const interval = setInterval(oscillateLiquidity, 99000);
 
         // Clear interval on component unmount
         return () => clearInterval(interval);
@@ -93,6 +93,10 @@ const DebankLPTrack: React.FC = () => {
             ...prevState,
             [id]: !prevState[id]
         }));
+    };
+
+    const toggleSortOrder = () => {
+        setSortOrder(prevOrder => (prevOrder === 'asc' ? 'desc' : 'asc'));
     };
 
     if (!data) {
@@ -113,10 +117,17 @@ const DebankLPTrack: React.FC = () => {
             return acc;
         }, []);
 
+    // Sort aggregated staked pairs
+    const sortedAggregatedStakedPairs = [...aggregatedStakedPairs].sort((a, b) => {
+        const valueA = a.stats?.asset_usd_value || 0;
+        const valueB = b.stats?.asset_usd_value || 0;
+        return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
+    });
+
     return (
         <div className={styles.container}>
             {/* Total Liquidity */}
-            <div className={styles.statsContainer} onClick={() => setMainExpanded(!mainExpanded)}>
+            <div className={styles.statsContainer}>
                 <span>Total Liquidity:</span>
                 <div className={styles.totalTVL}>
                     ${displayedLiquidity.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
@@ -148,7 +159,16 @@ const DebankLPTrack: React.FC = () => {
                     return null;
                 }
 
-                const isExpanded = dexExpanded[protocol.id] ?? true;
+                const isExpanded = dexExpanded[protocol.id] ?? false;
+
+                // Sort the items
+                const sortedItems = protocol.portfolio_item_list
+                    .filter((item) => item.name === 'Liquidity Pool' || item.isStakedLP)
+                    .sort((a, b) => {
+                        const valueA = a.stats?.asset_usd_value || 0;
+                        const valueB = b.stats?.asset_usd_value || 0;
+                        return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
+                    });
 
                 return (
                     <div key={protocol.id} className={styles.protocolCard}>
@@ -174,50 +194,51 @@ const DebankLPTrack: React.FC = () => {
                                     <tr>
                                         <th>Pool</th>
                                         <th>Balance</th>
-                                        <th className={styles.usdValue}>USD Value</th>
+                                        <th className={styles.usdValue} onClick={toggleSortOrder}>
+                                            USD Value
+                                            <span className={styles.sortArrow}>{sortOrder === 'asc' ? '▲' : '▼'}</span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {protocol.portfolio_item_list
-                                        .filter((item) => item.name === 'Liquidity Pool' || item.isStakedLP)
-                                        .map((item, index) => {
-                                            const tokenPairs = item.detail?.supply_token_list;
-                                            if (tokenPairs && tokenPairs.length >= 2) {
-                                                const pairSymbols = tokenPairs.map((token) => token.symbol).join(' + ');
+                                    {sortedItems.map((item, index) => {
+                                        const tokenPairs = item.detail?.supply_token_list;
+                                        if (tokenPairs && tokenPairs.length >= 2) {
+                                            const pairSymbols = tokenPairs.map((token) => token.symbol).join(' + ');
 
-                                                return (
-                                                    <tr key={index}>
-                                                        <td className={styles.pool}>
-                                                            {tokenPairs.map((token, tokenIndex) => (
-                                                                <Image
-                                                                    key={tokenIndex}
-                                                                    src={token.logo_url || '/logos/Thinking_Face_Emoji.png'}
-                                                                    alt={token.name}
-                                                                    width={20}
-                                                                    height={20}
-                                                                    className={styles.tokenLogo}
-                                                                />
-                                                            ))}
-                                                            <span className={styles.pairSymbols}>{pairSymbols}</span>
-                                                        </td>
-                                                        <td className={styles.balance}>
-                                                            {tokenPairs.map((token, tokenIndex) => (
-                                                                <div key={tokenIndex} className={styles.balanceItem}>
-                                                                    {token.amount.toFixed(4)} {token.symbol}
-                                                                </div>
-                                                            ))}
-                                                        </td>
-                                                        <td className={styles.usdValue}>
-                                                            ${item.stats?.asset_usd_value.toLocaleString('en-US', {
-                                                                minimumFractionDigits: 2,
-                                                                maximumFractionDigits: 2,
-                                                            })}
-                                                        </td>
-                                                    </tr>
-                                                );
-                                            }
-                                            return null;
-                                        })}
+                                            return (
+                                                <tr key={index}>
+                                                    <td className={styles.pool}>
+                                                        {tokenPairs.map((token, tokenIndex) => (
+                                                            <Image
+                                                                key={tokenIndex}
+                                                                src={token.logo_url || '/logos/Thinking_Face_Emoji.png'}
+                                                                alt={token.name}
+                                                                width={20}
+                                                                height={20}
+                                                                className={styles.tokenLogo}
+                                                            />
+                                                        ))}
+                                                        <span className={styles.pairSymbols}>{pairSymbols}</span>
+                                                    </td>
+                                                    <td className={styles.balance}>
+                                                        {tokenPairs.map((token, tokenIndex) => (
+                                                            <div key={tokenIndex} className={styles.balanceItem}>
+                                                                {token.amount.toFixed(4)} {token.symbol}
+                                                            </div>
+                                                        ))}
+                                                    </td>
+                                                    <td className={styles.usdValue}>
+                                                        ${item.stats?.asset_usd_value.toLocaleString('en-US', {
+                                                            minimumFractionDigits: 2,
+                                                            maximumFractionDigits: 2,
+                                                        })}
+                                                    </td>
+                                                </tr>
+                                            );
+                                        }
+                                        return null;
+                                    })}
                                 </tbody>
                             </table>
                         )}
@@ -248,11 +269,14 @@ const DebankLPTrack: React.FC = () => {
                             <tr>
                                 <th>Pool</th>
                                 <th>Balance</th>
-                                <th className={styles.usdValue}>USD Value</th>
+                                <th className={styles.usdValue} onClick={toggleSortOrder}>
+                                    USD Value
+                                    <span className={styles.sortArrow}>{sortOrder === 'asc' ? '▲' : '▼'}</span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {aggregatedStakedPairs.map((item, index) => {
+                            {sortedAggregatedStakedPairs.map((item, index) => {
                                 const tokenPairs = item.detail?.supply_token_list;
                                 if (tokenPairs && tokenPairs.length >= 2) {
                                     const pairSymbols = tokenPairs.map((token) => token.symbol).join(' + ');

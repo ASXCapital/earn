@@ -17,11 +17,8 @@
     color: #f0f0f5;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 8px;
-
   }
 }
-
-
 
 .statsContainer {
   padding: 12px;
@@ -30,7 +27,6 @@
   margin-bottom: 12px;
   color: #ffffff;
   cursor: pointer;
-
 }
 
 .statsHeader {
@@ -69,6 +65,8 @@
   padding: 16px;
   margin-bottom: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: max-height 0.3s ease;
 }
 
 .header {
@@ -116,8 +114,11 @@
 .table th,
 .table td {
   padding: 10px 12px;
-
   border-bottom: 1px solid #3a3a4a;
+}
+
+.table th {
+  cursor: pointer;
 }
 
 .pool {
@@ -144,6 +145,11 @@
   text-align: right;
 }
 
+.sortArrow {
+  margin-left: 5px;
+  font-size: 0.75em;
+}
+
 .loading {
   text-align: center;
   font-size: 1.2em;
@@ -161,9 +167,6 @@
   white-space: nowrap;
   /* Prevent text from wrapping */
 }
-
-/* TOTAL TVL smaller font after decimal point */
-
 
 /* Add media queries to cap the font size */
 @media (min-width: 1200px) {

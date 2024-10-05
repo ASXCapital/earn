@@ -62,11 +62,7 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.navLinks a:hover {
-  background-color: #0bf3e7;
-  color: #1a202c;
-  cursor: pointer;
-}
+
 
 /* Dropdown Items */
 .dropdownItem {
@@ -83,8 +79,10 @@
 }
 
 .dropdownItem:hover {
-  background: #0ae1f0;
+  background: #0af79ce9;
   color: #000000;
+  box-shadow: 0 5px 10px rgba(0, 6, 3, 0.636);
+  border-radius: 5px;
 
 }
 
