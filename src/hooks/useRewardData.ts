@@ -1,29 +1,49 @@
-// src/hooks/useRewardData.ts
-import { useReadContract } from "wagmi";
-import { ASXStakingABI } from "../abis/ASXStakingABI"; // Adjust the import path according to your project structure
-import { ethers } from "ethers";
+import { useEffect, useState } from "react";
+import { PublicClient } from "viem";
+
+interface RewardData {
+  rewardRate: bigint;
+  periodFinish: bigint;
+}
 
 export const useRewardData = (
-  stakingContractAddress: string,
-  rewardTokenAddress: string,
+  stakingContractAddress: `0x${string}`,
+  rewardTokenAddress: `0x${string}`,
+  publicClient: PublicClient,
+  abi: any // Type can be improved based on actual ABI structure
 ) => {
-  const { data, isError, isLoading } = useReadContract({
-    address: stakingContractAddress as `0x${string}`, // Your staking contract address
-    abi: ASXStakingABI, // The ABI for your staking contract
-    functionName: "rewardData", // The function that returns the reward data
-    args: [rewardTokenAddress as `0x${string}`], // The address of the reward token
-  });
+  const [rewardData, setRewardData] = useState<RewardData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Parsing the returned data into structured reward data
-  const rewardData = data
-    ? {
-        periodFinish: ethers.BigNumber.from(data[0]),
-        rewardRate: ethers.BigNumber.from(data[1]),
-        lastUpdateTime: ethers.BigNumber.from(data[2]),
-        rewardPerTokenStored: ethers.BigNumber.from(data[3]),
+  useEffect(() => {
+    const fetchRewardData = async () => {
+      try {
+        setIsLoading(true);
+        const data = await publicClient.readContract({
+          address: stakingContractAddress,
+          abi: abi,
+          functionName: "rewardData",
+          args: [rewardTokenAddress], // Ensure args is an array
+        });
+
+        // Assuming the rewardRate is the second item and periodFinish is the first
+        setRewardData({
+          rewardRate: data[1],
+          periodFinish: data[0],
+        });
+      } catch (error) {
+        console.error("Error fetching reward data:", error);
+        setError("Error fetching reward data");
+      } finally {
+        setIsLoading(false);
       }
-    : null;
-  // Returning the reward data, error status, and loading status
+    };
 
-  return { rewardData, isError, isLoading };
+    if (stakingContractAddress && rewardTokenAddress && publicClient && abi) {
+      fetchRewardData();
+    }
+  }, [stakingContractAddress, rewardTokenAddress, publicClient, abi]);
+
+  return { rewardData, error, isLoading };
 };

@@ -1,23 +1,19 @@
-// src/pages/StakingPage.tsx
+// file: src/pages/StakingPage.tsx
+
 import React, { useEffect, useState } from "react";
 import { usePools } from "../hooks/usePools";
 import styles from "../styles/StakingPage.module.css";
-import { useAccount } from "wagmi";
 import PoolCard from "../components/PoolCard";
-import { useTotalClaimableRewards } from "../hooks/useTotalClaimableRewards";
+import Image from "next/image";
+import { useAccount } from "wagmi";
 
 const StakingPage = () => {
-  const { pools } = usePools();
-  const { address, chain } = useAccount(); // Destructure `chain` from the useAccount hook
+  const { address } = useAccount();
   const [clientReady, setClientReady] = useState(false);
-  const [totalStakedUSD, setTotalStakedUSD] = useState<number>(0);
-  const [totalClaimableRewardsUSD, setTotalClaimableRewardsUSD] =
-    useState<number>(0);
 
-  const { totalClaimableRewards, isLoading: isTotalRewardsLoading } =
-    useTotalClaimableRewards(address);
+  const { pools } = usePools();
 
-  const [poolTVLs, setPoolTVLs] = useState<Record<string | number, number>>({}); // Updated type for poolTVLs
+  const [poolTVLs, setPoolTVLs] = useState<Record<string | number, number>>({});
 
   const handleTVLChange = (poolId: string | number, tvl: number) => {
     setPoolTVLs((prevTVLs) => ({
@@ -26,33 +22,37 @@ const StakingPage = () => {
     }));
   };
 
-  // Ensure all values in poolTVLs are numbers for TypeScript
   const overallTVL = Object.values(poolTVLs).reduce(
-    (acc, tvl) => acc + (tvl as number),
-    0,
+    (acc, tvl) => acc + tvl,
+    0
   );
-  const roundedOverallTVL = Math.round(overallTVL); // Round to the nearest integer
+  const roundedOverallTVL = Math.round(overallTVL);
   const formattedOverallTVL = new Intl.NumberFormat("en-US").format(
-    roundedOverallTVL,
-  ); // Format the rounded TVL
+    roundedOverallTVL
+  );
 
   useEffect(() => {
-    setClientReady(true); // Set clientReady to true once the component mounts on the client
+    setClientReady(true);
   }, []);
 
-  const handleStakedUSDChange = (amount: number) => {
-    setTotalStakedUSD((prevTotal) => prevTotal + amount);
-  };
+  // State for selected chain
+  const [selectedChainId, setSelectedChainId] = useState<number>(56);
 
-  const handleClaimableRewardsUSDChange = (amount: number) => {
-    setTotalClaimableRewardsUSD((prevTotal) => prevTotal + amount);
+  const chainOptions = [
+    { id: 56, name: "BNB", logo: "logos/bnb-bnb-logo.svg" },
+    { id: 1116, name: "CORE", logo: "logos/core-dao-core-logo.svg" },
+  ];
+
+  const handleChainChange = (chainId: number) => {
+    setSelectedChainId(chainId);
   };
 
   if (!clientReady) {
-    return <div>Loading...</div>; // Render a consistent loading state initially
+    return <div>Loading...</div>;
   }
 
-  const filteredPools = pools.filter((pool) => pool.chainId === chain?.id);
+  // Filter pools based on selectedChainId
+  const filteredPools = pools.filter((pool) => pool.chainId === selectedChainId);
 
   return (
     <div className={styles.stakingWrapper}>
@@ -62,9 +62,9 @@ const StakingPage = () => {
         </h1>
         <div className={styles.StakingIntro}>
           <p>
-            Earn via staking with ASX. Simply stake your ASX tokens and recieve
+            Earn via staking with ASX. Simply stake your ASX tokens and receive
             ASX as the reward token. Alternatively, diversify your position and
-            create an LP with either Ethereum, BNB or Bitcoin
+            create an LP with either Ethereum, BNB, or Bitcoin.
           </p>
           <p>
             A comprehensive guide to staking with ASX and creation of LP tokens
@@ -76,19 +76,6 @@ const StakingPage = () => {
           </p>
 
           <div>
-            {/* 
-      {isTotalRewardsLoading ? (
-
-        <div>Loading total claimable rewards...</div>
-      ) : (
-        <div>Total Claimable Rewards: {totalClaimableRewards.toString()} ASX</div>
-      )}
-   */}
-
-            {/* 
-  <div>Total USD Staked: {totalStakedUSD.toFixed(2)}</div>
-  <div>Total USD in Claimable Rewards: {totalClaimableRewardsUSD.toFixed(2)}</div>
-  */}
             {roundedOverallTVL > 0 && (
               <div style={{ display: "flex", alignItems: "center" }}>
                 <div style={{ flexGrow: 1 }}></div>
@@ -102,6 +89,32 @@ const StakingPage = () => {
             )}
           </div>
         </div>
+
+        {/* Chain selector */}
+        <div className={styles.chainSelector}>
+          {chainOptions.map((chain) => (
+            <button
+              key={chain.id}
+              onClick={() => handleChainChange(chain.id)}
+              className={
+                selectedChainId === chain.id
+                  ? styles.activeChainButton
+                  : styles.chainButton
+              }
+            >
+              {chain.name}
+              <div className={styles.chainLogoContainer}>
+                <Image
+                  src={chain.logo}
+                  alt={`${chain.name} logo`}
+                  width={20}
+                  height={20}
+                  className={styles.chainLogo}
+                />
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className={styles.poolsContainer}>
@@ -109,12 +122,16 @@ const StakingPage = () => {
           <PoolCard
             key={pool.id}
             pool={pool}
-            accountAddress={address || ""}
-            onStakedUSDChange={handleStakedUSDChange}
-            onClaimableRewardsUSDChange={handleClaimableRewardsUSDChange}
             onTVLChange={handleTVLChange}
-            poolId={pool.id}
+            accountAddress={address} // Pass the actual account address here
+            onStakedUSDChange={function (amount: number): void {
+              throw new Error("Function not implemented.");
+            }}
+            onClaimableRewardsUSDChange={function (amount: number): void {
+              throw new Error("Function not implemented.");
+            }} poolId={pool.id} // Pass the correct pool id here
           />
+
         ))}
       </div>
     </div>

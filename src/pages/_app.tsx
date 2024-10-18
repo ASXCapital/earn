@@ -5,6 +5,10 @@ import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, createConfig, http } from "wagmi";
 
+import { createPublicClient } from "viem";
+import { getHttpRpcClient } from "viem/utils";
+
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { FinanceDataProvider } from "../contexts/FinanceDataContext";
@@ -42,6 +46,9 @@ import {
   RainbowKitSiweNextAuthProvider,
   GetSiweMessageOptions,
 } from "@rainbow-me/rainbowkit-siwe-next-auth";
+
+import { chainRpcUrls } from "../config/chainConfig";
+
 
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
 
@@ -84,11 +91,27 @@ const connectors = connectorsForWallets(
   },
 );
 
+////////////////////////// PUBLIC CLIENT //////////////////////////
+
+export const publicClientBsc = createPublicClient({
+  chain: bsc,
+  transport: http(chainRpcUrls[bsc.id]), // Use the correct function
+});
+
+export const publicClientCoreDao = createPublicClient({
+  chain: coreDao,
+  transport: http(chainRpcUrls[coreDao.id]), // Use the correct function
+});
+
+////////////////////////// CONFIG //////////////////////////
+
+
 const config = createConfig({
+
   chains,
   transports: {
-    [bsc.id]: http(process.env.NEXT_PUBLIC_BSC_PROVIDER_QNODE),
-    [coreDao.id]: http("https://rpc.ankr.com/core"),
+    [bsc.id]: http(process.env.NEXT_PUBLIC_BSC_RPC_1),
+    [coreDao.id]: http(process.env.NEXT_PUBLIC_CORE_RPC_1),
   },
 
   ssr: true,

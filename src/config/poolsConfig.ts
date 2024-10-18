@@ -8,9 +8,10 @@ import { ETHABI } from "../abis/ETHABI";
 import { BNBABI } from "../abis/BNBABI";
 import { BTCBABI } from "../abis/BTCBABI";
 import { erc20Abi } from "viem";
-import { ERC20ABI } from "../abis/ERC20ABI";
+import { ASXcoreABI } from "../abis/ASXcoreABI";
 
 const ASX = contracts.bscTokens.ASX;
+const ASXCore = contracts.coreTokens.ASXcore;
 const BNB = contracts.bscTokens.WBNB;
 const ETH = contracts.bscTokens.ETH;
 const BTCB = contracts.bscTokens.BTCB;
@@ -78,6 +79,35 @@ export const poolsConfig: PoolConfig[] = [
       abi: ASXStakingABI,
     },
   },
+
+  // CORE ASX:
+
+  {
+    id: "asxasxcore",
+    title: "ASX",
+    type: "single",
+    chainId: 1116,
+    stakingToken: {
+      address: contracts.coreTokens.ASXcore,
+      symbol: "ASX",
+      abi: ASXcoreABI,
+      buyLink:
+        "https://icecreamswap.com/swap?outputCurrency=0xB28B43209d9de61306172Af0320f4f55e50E2f29",
+      image: "/logoX.png",
+    },
+    rewardToken: {
+      address: contracts.coreTokens.ASXcore,
+      symbol: "ASX",
+      abi: ASXcoreABI,
+    },
+    stakingContract: {
+      address: contracts.coreStaking.ASXASXCoreContract,
+      abi: ASXStakingABI,
+    },
+  },
+
+  // END CORE ASX
+
   {
     id: "asxcat",
     title: "ASX-CAT LP",
@@ -100,7 +130,7 @@ export const poolsConfig: PoolConfig[] = [
         token2: {
           address: CAT,
           symbol: "CAT",
-          abi: ERC20ABI,
+          abi: erc20Abi,
         },
       },
     },

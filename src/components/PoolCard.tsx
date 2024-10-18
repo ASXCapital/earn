@@ -20,8 +20,11 @@ import GetRewardButton from "../hooks/GetRewardButton";
 import { useTokenPricesContext } from "../contexts/TokenPricesContext";
 import { useMemo } from "react";
 import { useTotalStaked } from "../hooks/useTotalStaked";
-import { useAccount } from "wagmi";
+import { useAccount, usePublicClient } from "wagmi";
 import poolsConfig from "../config/poolsConfig";
+import { ASXStakingABI } from "../abis/ASXStakingABI";
+
+
 
 // INTERFACE/S
 
@@ -43,15 +46,39 @@ const PoolCard: React.FC<PoolCardProps> = ({
 }) => {
   const prices = useTokenPricesContext();
 
+  const publicClient = usePublicClient({ chainId: pool.chainId });
+
+
+
   const { chain } = useAccount();
   const currentChainId = chain?.id;
   const relevantPools = poolsConfig.filter(
     (pool) => pool.chainId === chain?.id,
   );
+  const [totalStaked, setTotalStaked] = useState<bigint | null>(null);
+  const [isTotalStakedLoading, setIsTotalStakedLoading] = useState(true);
 
-  const { totalStaked, isLoading: isTotalStakedLoading } = useTotalStaked(
-    pool.stakingContract.address,
-  );
+  useEffect(() => {
+    const fetchTotalStaked = async () => {
+      try {
+        setIsTotalStakedLoading(true);
+        const totalStakedData = await publicClient.readContract({
+          address: pool.stakingContract.address as `0x${string}`,
+          abi: ASXStakingABI,
+          functionName: "totalSupply",
+        });
+        setTotalStaked(totalStakedData);
+      } catch (error) {
+        console.error("Error fetching total staked:", error);
+      } finally {
+        setIsTotalStakedLoading(false);
+      }
+    };
+
+    fetchTotalStaked();
+  }, [pool.stakingContract.address, publicClient]);
+
+
   const ASXTokenAddress = contracts.bscTokens.ASX;
   const [stakeAmount, setStakeAmount] = useState<string>("0.01");
   const [inputContent, setInputContent] = useState<string>("0.01"); // New state for tracking input field content
@@ -66,11 +93,11 @@ const PoolCard: React.FC<PoolCardProps> = ({
   const [claimableRewards, setClaimableRewards] = useState<bigint | null>(null);
   const [tokenBalance, setTokenBalance] = useState<bigint | null>(null);
   const stakedAmountResult = useStakedAmount(
-    pool.stakingContract.address,
+    pool.stakingContract.address as `0x${string}`,
     accountAddress,
   );
   const claimableRewardsResult = useClaimableRewards(
-    pool.stakingContract.address,
+    pool.stakingContract.address as `0x${string}`,
     accountAddress,
   );
   const tokenBalanceResult = useTokenBalance(
@@ -85,11 +112,24 @@ const PoolCard: React.FC<PoolCardProps> = ({
     ];
   }
 
-  const { reserve0, reserve1 } = useLPReserves(pool.stakingToken.address);
-  const totalSupply = useTotalSupply(pool.stakingToken.address);
+  const { reserve0, reserve1 } = useLPReserves(
+    pool.stakingToken.address as `0x${string}`,
+    publicClient,
+    pool.stakingToken.abi // Use the correct ABI from the pool config
+  );
+
+  const totalSupply = useTotalSupply(
+    pool.stakingToken.address as `0x${string}`,
+    publicClient,
+    pool.stakingToken.abi // Use the correct ABI from the pool config
+  );
+
+
   const { rewardData } = useRewardData(
-    pool.stakingContract.address,
-    pool.rewardToken.address,
+    pool.stakingContract.address as `0x${string}`,
+    pool.rewardToken.address as `0x${string}`,
+    publicClient,
+    pool.stakingContract.abi // Use the correct ABI from the pool config
   );
 
   /// LP PRICE CALC ///////////////////
@@ -116,7 +156,7 @@ const PoolCard: React.FC<PoolCardProps> = ({
     const totalReserveUSD =
       Number(formatUnits(reserve0, 18)) * token1Price +
       Number(formatUnits(reserve1, 18)) * token2Price;
-    const totalSupplyUnits = Number(formatUnits(totalSupply.data, 18));
+    const totalSupplyUnits = Number(formatUnits(totalSupply.data as BigNumberish, 18));
     const lpTokenPriceUSD =
       totalSupplyUnits > 0 ? totalReserveUSD / totalSupplyUnits : 0;
 
@@ -162,9 +202,16 @@ const PoolCard: React.FC<PoolCardProps> = ({
   ) => {
     if (amountInWei === null) return <span>Loading...</span>;
     const amountInEther = parseFloat(formatUnits(amountInWei, 18));
+
+    // Map the Core DAO ASX address to the BSC ASX address
+    const tokenAddressForPrice =
+      tokenAddress.toLowerCase() === contracts.coreTokens.ASXcore.toLowerCase()
+        ? contracts.bscTokens.ASX.toLowerCase()
+        : tokenAddress.toLowerCase();
+
     let price = useLpTokenPrice
       ? parseFloat(lpTokenPriceUSD)
-      : prices[tokenAddress] || 0;
+      : prices[tokenAddressForPrice] || 0;
 
     const amountInUSD = amountInEther * price;
 
@@ -183,6 +230,7 @@ const PoolCard: React.FC<PoolCardProps> = ({
     );
   };
 
+
   /// REWARD DATA CALC APR  ///////////////////
 
   const [apr, setApr] = useState<number | null>(null);
@@ -194,15 +242,26 @@ const PoolCard: React.FC<PoolCardProps> = ({
       !isTotalStakedLoading &&
       totalStaked &&
       rewardData?.rewardRate &&
-      prices[pool.rewardToken.address]
+      prices
     ) {
       try {
+        // Map addresses if necessary
+        const stakingTokenAddressForPrice =
+          pool.stakingToken.address.toLowerCase() === contracts.coreTokens.ASXcore.toLowerCase()
+            ? contracts.bscTokens.ASX.toLowerCase()
+            : pool.stakingToken.address.toLowerCase();
+
+        const rewardTokenAddressForPrice =
+          pool.rewardToken.address.toLowerCase() === contracts.coreTokens.ASXcore.toLowerCase()
+            ? contracts.bscTokens.ASX.toLowerCase()
+            : pool.rewardToken.address.toLowerCase();
+
         const stakingTokenPriceUSD =
           pool.type === "lp"
             ? parseFloat(lpTokenPriceUSD)
-            : prices[pool.stakingToken.address.toLowerCase()] || 0;
-        const rewardTokenPriceUSD =
-          prices[pool.rewardToken.address.toLowerCase()] || 0;
+            : prices[stakingTokenAddressForPrice] || 0;
+        const rewardTokenPriceUSD = prices[rewardTokenAddressForPrice] || 0;
+
         const totalRewardsPerYearTokens =
           parseFloat(formatUnits(rewardData.rewardRate, 18)) *
           SECONDS_IN_A_YEAR;
@@ -237,6 +296,7 @@ const PoolCard: React.FC<PoolCardProps> = ({
     lpTokenPriceUSD,
     SECONDS_IN_A_YEAR,
   ]);
+
 
   /// STAKING UPDATE/REFRESH
 
@@ -300,38 +360,41 @@ const PoolCard: React.FC<PoolCardProps> = ({
   /// TVL ///////////////////
 
   // Inside your component
-  const totalSupplyResult = useTotalSupply(pool.stakingContract.address);
+
 
   // Inside your component
   const calculateTVLinUSD = () => {
-    if (!totalSupplyResult.data) return "Loading...";
+    if (!totalStaked) return "Loading...";
 
-    // Total staked tokens
-    const totalStakedTokens = parseFloat(
-      formatUnits(totalSupplyResult.data, 18),
-    );
+    // Total staked tokens in the pool (converted from Wei to a normal number)
+    const totalStakedTokens = parseFloat(formatUnits(totalStaked, 18));
     let totalStakedInUSD = 0;
 
+    // For LP token pools
     if (pool.type === "lp") {
-      // For LP tokens, use the LP token price calculated from reserves
+      // Use the LP token price calculated from reserves
       const lpTokenPriceUSD = parseFloat(calculateLPPrice());
       totalStakedInUSD = totalStakedTokens * lpTokenPriceUSD;
     } else {
-      // For single tokens, directly use the token price from the prices object
-      const tokenPriceUSD = prices[pool.stakingToken.address] || 0;
+      // For single token pools, use the price from the token prices context
+      const stakingTokenAddressForPrice =
+        pool.stakingToken.address.toLowerCase() === contracts.coreTokens.ASXcore.toLowerCase()
+          ? contracts.bscTokens.ASX.toLowerCase()
+          : pool.stakingToken.address.toLowerCase();
+
+      const tokenPriceUSD = prices[stakingTokenAddressForPrice] || 0;
       totalStakedInUSD = totalStakedTokens * tokenPriceUSD;
     }
 
     return formatNumber(totalStakedInUSD);
   };
 
+
   const tvlInUSD = calculateTVLinUSD();
   const lastReportedTVL = useRef<number>();
 
   useEffect(() => {
     const currentTVLString = calculateTVLinUSD().replace(/,/g, "");
-
-    // This might be a string
     const currentTVL = parseFloat(currentTVLString);
 
     if (
@@ -340,9 +403,87 @@ const PoolCard: React.FC<PoolCardProps> = ({
       currentTVL !== lastReportedTVL.current
     ) {
       onTVLChange(pool.id, currentTVL);
-      lastReportedTVL.current = currentTVL; // Update the ref's current value
+      lastReportedTVL.current = currentTVL;
     }
-  }, [pool.id, onTVLChange, calculateTVLinUSD]);
+  }, [pool.id, onTVLChange, totalStaked, totalSupply, reserve0, reserve1, prices]);
+
+  useEffect(() => {
+    const formatData = (data: any) => (typeof data === 'bigint' ? data.toString() : data);
+
+    console.group(`%c PoolCard Debug Info for Pool: ${pool.title}`, 'color: green; font-weight: bold;');
+    console.log('%cSelected Pool Info:', 'color: blue; font-weight: bold;', {
+      poolId: pool.id,
+      poolTitle: pool.title,
+      chainId: pool.chainId,
+      stakingToken: pool.stakingToken.address,
+      rewardToken: pool.rewardToken.address,
+    });
+
+    console.log('%cStaked Amount Result:', 'color: purple; font-weight: bold;', {
+      data: formatData(stakedAmountResult.data),
+      isLoading: stakedAmountResult.isLoading,
+      isError: stakedAmountResult.isError,
+    });
+
+    console.log('%cClaimable Rewards Result:', 'color: teal; font-weight: bold;', {
+      data: formatData(claimableRewardsResult.data),
+      isLoading: claimableRewardsResult.isLoading,
+      isError: claimableRewardsResult.isError,
+    });
+
+    console.log('%cToken Balance Result:', 'color: darkorange; font-weight: bold;', {
+      data: formatData(tokenBalanceResult.data),
+      isLoading: tokenBalanceResult.isLoading,
+      isError: tokenBalanceResult.isError,
+    });
+
+    console.log('%cTotal Staked Info:', 'color: crimson; font-weight: bold;', {
+      totalStaked: formatData(totalStaked),
+      isLoading: isTotalStakedLoading,
+    });
+
+    console.log('%cReserves (LP):', 'color: darkblue; font-weight: bold;', {
+      reserve0: formatData(reserve0),
+      reserve1: formatData(reserve1),
+    });
+
+    console.log('%cReward Data:', 'color: darkgreen; font-weight: bold;', {
+      rewardRate: rewardData?.rewardRate?.toString(),
+      periodFinish: rewardData?.periodFinish?.toString(),
+    });
+
+    console.log('%cTotal Supply:', 'color: darkred; font-weight: bold;', {
+      totalSupply: formatData(totalSupply?.data),
+      isLoading: totalSupply?.isLoading,
+      isError: totalSupply?.isError,
+    });
+
+    console.log('%cAPR Calculation:', 'color: blueviolet; font-weight: bold;', {
+      aprStatus,
+      calculatedAPR: apr,
+    });
+
+    console.log('%cTVL Calculation:', 'color: goldenrod; font-weight: bold;', {
+      tvlInUSD,
+    });
+
+    console.log('%cAccount Address:', 'color: darkcyan; font-weight: bold;', accountAddress);
+    console.groupEnd();
+  }, [
+    pool,
+    stakedAmountResult,
+    claimableRewardsResult,
+    tokenBalanceResult,
+    totalStaked,
+    isTotalStakedLoading,
+    reserve0,
+    reserve1,
+    rewardData,
+    totalSupply,
+    apr,
+    tvlInUSD,
+    accountAddress
+  ]);
 
   /// FRONTEND/RENDER ///////////////////
 
@@ -396,8 +537,13 @@ const PoolCard: React.FC<PoolCardProps> = ({
               Price: $
               {pool.type === "lp"
                 ? lpTokenPriceUSD
-                : prices[ASXTokenAddress.toLowerCase()] || "Loading..."}
+                : prices[
+                pool.stakingToken.address.toLowerCase() === contracts.coreTokens.ASXcore.toLowerCase()
+                  ? contracts.bscTokens.ASX.toLowerCase()
+                  : pool.stakingToken.address.toLowerCase()
+                ] || "Loading..."}
             </div>
+
           </div>
           <div className={styles.UserStats}>
             <div className={styles.poolInfo}>

@@ -33,6 +33,7 @@
 }
 
 @media (max-width: 750px) {
+
   .maxAndInput,
   .Buttons3 {
     margin-top: 0.4rem;
@@ -57,6 +58,7 @@
 }
 
 @media (min-width: 750px) {
+
   .maxAndInput,
   .Buttons3 {
     margin-top: 0.4rem;
@@ -595,4 +597,71 @@
 
 .buttonWrapper:last-child {
   padding-right: 0;
+}
+
+.chainSelector {
+  display: flex;
+  justify-content: left;
+  margin-top: 20px;
+
+}
+
+.chainButton {
+
+  background-color: #232323;
+  color: #848484;
+  border: 1px solid #525252;
+  border-radius: 4px;
+  padding: 5px;
+  margin: 0 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
+
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  width: 90px;
+  padding-left: 12px;
+  border: rgba(89, 89, 89, 0) 2px solid;
+
+  /* Adjust font size as needed */
+
+  /* Add a subtle shadow */
+
+}
+
+.chainButton:hover {
+  background-color: #00ff77;
+  transition: background-color 0.6s, color 0.3s;
+  color: #0d0d0d;
+  border: rgb(89, 89, 89) 2px solid;
+}
+
+.activeChainButton {
+  background-color: #51fcf7;
+  color: #000000;
+  border: 1px solid #525252;
+  border-radius: 4px;
+  padding: 5px;
+  margin: 0 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 1s, color 1s;
+  box-shadow: #00e350 0 0 10px;
+
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  width: 90px;
+  padding-left: 12px;
+  border: whitesmoke 2px solid;
+}
+
+.chainLogoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  width: 20px;
 }

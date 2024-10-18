@@ -17,10 +17,18 @@ export const contracts = {
     vASXETH: "0x3E54D1D4f78D7cDbE14278145806bf40036cfbD4",
     vASXBTCB: "0xfcc8cB41d3eB4Bd0927ec87ECA688B460538Ce45",
   },
+
+  ////////////////////////// CORE DAO //////////////////////////
   // CORE Token Contracts
   coreTokens: {
     ASXcore: "0xB28B43209d9de61306172Af0320f4f55e50E2f29",
   },
+  // CORE mapping to BSC for price fetching
+  ASXcoreToBSCMapping: {
+    ASXcore: "0xebd3619642d78f0c98c84f6fa9a678653fb5a99b",
+  },
+  /////////////////////////////////////////////////////////////////
+
   // BSC Staking Contracts
   bscStaking: {
     // ASXASXOldContract: "0x3D61AA125583181D9071018edd555838Da6D21dC",
@@ -30,6 +38,11 @@ export const contracts = {
     ASXBTCBContract: "0x50f9CCA82084D0A1215e627944b629376A9c6070",
     ASXSOLContract: "0x648fF88fB3e661dC5bb75FB4356483eda31DDdc8",
     ASXCATContract: "0x19a2c786C03c1cf6ffF8ECB4972a774f752C12FE",
+  },
+  // Core Staking Contracts
+  coreStaking: {
+    ASXASXCoreContract: "0x9990C20f9F65c38AeA24D7941Afa6b3cA3DF7deD",
+
   },
   bscLPs: {
     // BSC LP Contracts (PancakeV2)

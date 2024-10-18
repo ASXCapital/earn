@@ -23,11 +23,7 @@ const rpcUrls = [
     name: "Blockpi",
     link: "https://blockpi.io/",
   },
-  {
-    url: "https://practical-methodical-gadget.bsc.quiknode.pro/",
-    name: "ASX RPC (via Merkle - rate limited)",
-    link: "https://merkle.network/",
-  },
+
 ];
 
 const addNetworkToMetaMask = async (rpcUrl, name) => {

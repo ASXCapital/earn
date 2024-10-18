@@ -4,14 +4,19 @@ import { useTotalStaked } from "./useTotalStaked";
 import useLPReserves from "./useLPReserves";
 import { useTotalSupply } from "./useTotalSupply";
 import poolsConfig from "../config/poolsConfig";
+import { usePublicClient } from "wagmi";  // Add this to get publicClient
 
-export const useTVL = (poolId) => {
+export const useTVL = (poolId: string) => {
     const [tvl, setTvl] = useState(0); // Default to 0 or some other initial value
     const pool = poolsConfig.find(p => p.id === poolId);
     const prices = useTokenPricesContext();
+
+    const publicClient = usePublicClient({ chainId: pool?.chainId || 1 }); // Use chainId from pool or default to 1
+
+    // Pass publicClient to hooks
     const { totalStaked } = useTotalStaked(pool ? pool.stakingContract.address : "");
-    const { reserve0, reserve1 } = useLPReserves(pool ? pool.stakingToken.address : "");
-    const { data: totalSupply } = useTotalSupply(pool ? pool.stakingToken.address : "");
+    const { reserve0, reserve1 } = useLPReserves(pool ? (pool.stakingToken.address as `0x${string}`) : "" as `0x${string}`, publicClient, pool ? pool.stakingToken.abi : {});
+    const { data: totalSupply } = useTotalSupply(pool ? (pool.stakingToken.address as `0x${string}`) : "" as `0x${string}`, publicClient, pool ? pool.stakingToken.abi : {});
 
     const calculateTVL = useCallback(() => {
         if (!totalStaked || !totalSupply) return 0;
