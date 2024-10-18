@@ -10,6 +10,7 @@ import { useTotalSupply } from "../hooks/useTotalSupply";
 import { useRewardData } from "../hooks/useRewardData";
 import { formatUnits } from "ethers/lib/utils";
 import { CSSProperties } from "react";
+import { usePublicClient } from "wagmi";
 
 /**
  * Interface for TVL and APR display props.
@@ -41,17 +42,24 @@ const TVLAndAPRDisplay: React.FC<TVLAndAPRDisplayProps> = ({
   const pool = poolsConfig.find((p) => p.id === poolId);
   const prices = useTokenPricesContext();
   const { totalStaked } = useTotalStaked(
-    pool ? pool.stakingContract.address : "",
+    pool ? (pool.stakingContract.address as `0x${string}`) : "" as `0x${string}`,
   );
+  const publicClient = usePublicClient();
   const { reserve0, reserve1 } = useLPReserves(
-    pool ? pool.stakingToken.address : "",
+    pool ? (pool.stakingToken.address as `0x${string}`) : "" as `0x${string}`,
+    publicClient,
+    pool ? pool.stakingToken.abi : {}
   );
   const { data: totalSupply } = useTotalSupply(
-    pool ? pool.stakingToken.address : "",
+    pool ? (pool.stakingToken.address as `0x${string}`) : "0x0000000000000000000000000000000000000000" as `0x${string}`,
+    publicClient,
+    pool ? pool.stakingToken.abi : {}
   );
   const { rewardData } = useRewardData(
-    pool ? pool.stakingContract.address : "",
-    pool ? pool.rewardToken.address : "",
+    pool ? (pool.stakingContract.address as `0x${string}`) : "" as `0x${string}`,
+    pool ? (pool.rewardToken.address as `0x${string}`) : "" as `0x${string}`,
+    publicClient,
+    pool ? pool.stakingContract.abi : {}
   );
   const [apy, setApy] = useState<string>("Calculating...");
   const [tvl, setTvl] = useState<string>("Calculating...");
