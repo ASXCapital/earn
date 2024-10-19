@@ -1,10 +1,11 @@
 // file: asx/earn/src/components/PoolCard.tsx
+
 // IMPORTS
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { ethers } from "ethers";
 import { formatUnits } from "ethers/lib/utils";
 import Image from "next/image";
-import { BigNumberish, BigNumber } from "ethers";
+import { BigNumberish } from "ethers";
 import styles from "../styles/StakingPage.module.css";
 import { PoolConfig } from "../config/poolsConfig";
 import { contracts } from "../config/contracts";
@@ -18,15 +19,19 @@ import StakeButton from "../hooks/StakeButton";
 import WithdrawButton from "../hooks/WithdrawButton";
 import GetRewardButton from "../hooks/GetRewardButton";
 import { useTokenPricesContext } from "../contexts/TokenPricesContext";
-import { useMemo } from "react";
-import { useTotalStaked } from "../hooks/useTotalStaked";
 import { useAccount, usePublicClient } from "wagmi";
 import poolsConfig from "../config/poolsConfig";
 import { ASXStakingABI } from "../abis/ASXStakingABI";
 
+// Map of chain IDs to block explorer URLs
+const explorerUrls = {
+  56: "https://bscscan.com/address/",            // BSC Mainnet
+  97: "https://testnet.bscscan.com/address/",    // BSC Testnet
+  1116: "https://scan.coredao.org/address/",     // CoreDAO Mainnet
+  // Add other chain IDs as needed
+};
 
-
-// INTERFACE/S
+// INTERFACES
 
 interface PoolCardProps {
   pool: PoolConfig;
@@ -48,13 +53,60 @@ const PoolCard: React.FC<PoolCardProps> = ({
 
   const publicClient = usePublicClient({ chainId: pool.chainId });
 
-
-
-  const { chain } = useAccount();
-  const currentChainId = chain?.id;
-  const relevantPools = poolsConfig.filter(
-    (pool) => pool.chainId === chain?.id,
+  const ASXTokenAddress = contracts.bscTokens.ASX;
+  const [stakeAmount, setStakeAmount] = useState<string>("0.01");
+  const [inputContent, setInputContent] = useState<string>("0.01"); // New state for tracking input field content
+  const [imageSrc, setImageSrc] = useState(
+    pool.stakingToken.image || "/default_image.png",
   );
+  const handleImageError = () => {
+    setImageSrc("/default_image.png");
+  };
+  const SECONDS_IN_A_YEAR = 365 * 24 * 60 * 60;
+  const [stakedAmount, setStakedAmount] = useState<bigint | null>(null);
+  const [claimableRewards, setClaimableRewards] = useState<bigint | null>(null);
+  const [tokenBalance, setTokenBalance] = useState<bigint | null>(null);
+
+  const stakedAmountResult = useStakedAmount(
+    pool.stakingContract.address as `0x${string}`,
+    accountAddress,
+  );
+  const claimableRewardsResult = useClaimableRewards(
+    pool.stakingContract.address as `0x${string}`,
+    accountAddress,
+  );
+  const tokenBalanceResult = useTokenBalance(
+    pool.stakingToken.address,
+    accountAddress,
+  );
+
+  let contractAddresses = [pool.stakingToken.address];
+  if (pool.type === "lp" && pool.stakingToken.constituents) {
+    contractAddresses = [
+      pool.stakingToken.constituents.token1.address,
+      pool.stakingToken.constituents.token2.address,
+    ];
+  }
+
+  const { reserve0, reserve1 } = useLPReserves(
+    pool.stakingToken.address as `0x${string}`,
+    publicClient,
+    pool.stakingToken.abi // Use the correct ABI from the pool config
+  );
+
+  const totalSupply = useTotalSupply(
+    pool.stakingToken.address as `0x${string}`,
+    publicClient,
+    pool.stakingToken.abi // Use the correct ABI from the pool config
+  );
+
+  const { rewardData } = useRewardData(
+    pool.stakingContract.address as `0x${string}`,
+    pool.rewardToken.address as `0x${string}`,
+    publicClient,
+    pool.stakingContract.abi // Use the correct ABI from the pool config
+  );
+
   const [totalStaked, setTotalStaked] = useState<bigint | null>(null);
   const [isTotalStakedLoading, setIsTotalStakedLoading] = useState(true);
 
@@ -78,61 +130,7 @@ const PoolCard: React.FC<PoolCardProps> = ({
     fetchTotalStaked();
   }, [pool.stakingContract.address, publicClient]);
 
-
-  const ASXTokenAddress = contracts.bscTokens.ASX;
-  const [stakeAmount, setStakeAmount] = useState<string>("0.01");
-  const [inputContent, setInputContent] = useState<string>("0.01"); // New state for tracking input field content
-  const [imageSrc, setImageSrc] = useState(
-    pool.stakingToken.image || "/default_image.png",
-  );
-  const handleImageError = () => {
-    setImageSrc("/default_image.png");
-  };
-  const SECONDS_IN_A_YEAR = 365 * 24 * 60 * 60;
-  const [stakedAmount, setStakedAmount] = useState<bigint | null>(null);
-  const [claimableRewards, setClaimableRewards] = useState<bigint | null>(null);
-  const [tokenBalance, setTokenBalance] = useState<bigint | null>(null);
-  const stakedAmountResult = useStakedAmount(
-    pool.stakingContract.address as `0x${string}`,
-    accountAddress,
-  );
-  const claimableRewardsResult = useClaimableRewards(
-    pool.stakingContract.address as `0x${string}`,
-    accountAddress,
-  );
-  const tokenBalanceResult = useTokenBalance(
-    pool.stakingToken.address,
-    accountAddress,
-  );
-  let contractAddresses = [pool.stakingToken.address];
-  if (pool.type === "lp" && pool.stakingToken.constituents) {
-    contractAddresses = [
-      pool.stakingToken.constituents.token1.address,
-      pool.stakingToken.constituents.token2.address,
-    ];
-  }
-
-  const { reserve0, reserve1 } = useLPReserves(
-    pool.stakingToken.address as `0x${string}`,
-    publicClient,
-    pool.stakingToken.abi // Use the correct ABI from the pool config
-  );
-
-  const totalSupply = useTotalSupply(
-    pool.stakingToken.address as `0x${string}`,
-    publicClient,
-    pool.stakingToken.abi // Use the correct ABI from the pool config
-  );
-
-
-  const { rewardData } = useRewardData(
-    pool.stakingContract.address as `0x${string}`,
-    pool.rewardToken.address as `0x${string}`,
-    publicClient,
-    pool.stakingContract.abi // Use the correct ABI from the pool config
-  );
-
-  /// LP PRICE CALC ///////////////////
+  /// LP PRICE CALCULATION ///////////////////
 
   const calculateLPPrice = () => {
     // Only proceed if it's an LP pool with all necessary data available
@@ -150,8 +148,6 @@ const PoolCard: React.FC<PoolCardProps> = ({
 
     const token2Price = prices[token1.address.trim().toLowerCase()];
     const token1Price = prices[token2.address.trim().toLowerCase()];
-
-    // Log the token addresses and their corresponding prices
 
     const totalReserveUSD =
       Number(formatUnits(reserve0, 18)) * token1Price +
@@ -230,8 +226,7 @@ const PoolCard: React.FC<PoolCardProps> = ({
     );
   };
 
-
-  /// REWARD DATA CALC APR  ///////////////////
+  /// REWARD DATA CALCULATION FOR APR ///////////////////
 
   const [apr, setApr] = useState<number | null>(null);
   const [aprStatus, setAprStatus] = useState<string>("Calculating...");
@@ -297,7 +292,6 @@ const PoolCard: React.FC<PoolCardProps> = ({
     SECONDS_IN_A_YEAR,
   ]);
 
-
   /// STAKING UPDATE/REFRESH
 
   const handleStakeUpdate = () => {
@@ -357,12 +351,8 @@ const PoolCard: React.FC<PoolCardProps> = ({
     }
   };
 
-  /// TVL ///////////////////
+  /// TVL CALCULATION ///////////////////
 
-  // Inside your component
-
-
-  // Inside your component
   const calculateTVLinUSD = () => {
     if (!totalStaked) return "Loading...";
 
@@ -389,7 +379,6 @@ const PoolCard: React.FC<PoolCardProps> = ({
     return formatNumber(totalStakedInUSD);
   };
 
-
   const tvlInUSD = calculateTVLinUSD();
   const lastReportedTVL = useRef<number>();
 
@@ -408,9 +397,7 @@ const PoolCard: React.FC<PoolCardProps> = ({
   }, [pool.id, onTVLChange, totalStaked, totalSupply, reserve0, reserve1, prices]);
 
   useEffect(() => {
-    const formatData = (data: any) => (typeof data === 'bigint' ? data.toString() : data);
-
-
+    const formatData = (data: any) => (typeof data === "bigint" ? data.toString() : data);
   }, [
     pool,
     stakedAmountResult,
@@ -424,10 +411,16 @@ const PoolCard: React.FC<PoolCardProps> = ({
     totalSupply,
     apr,
     tvlInUSD,
-    accountAddress
+    accountAddress,
   ]);
 
   /// FRONTEND/RENDER ///////////////////
+
+  // Get the chain ID from the pool
+  const chainId = pool.chainId;
+
+  // Get the appropriate block explorer URL
+  const explorerUrl = explorerUrls[chainId] || "https://etherscan.io/address/";
 
   return (
     <div className={styles.poolCard}>
@@ -485,7 +478,6 @@ const PoolCard: React.FC<PoolCardProps> = ({
                   : pool.stakingToken.address.toLowerCase()
                 ] || "Loading..."}
             </div>
-
           </div>
           <div className={styles.UserStats}>
             <div className={styles.poolInfo}>
@@ -568,7 +560,7 @@ const PoolCard: React.FC<PoolCardProps> = ({
       <div className={styles.cardFooter}>
         Contract Address (
         <a
-          href={`https://bscscan.com/address/${pool.stakingContract.address}`}
+          href={`${explorerUrl}${pool.stakingContract.address}`}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -579,4 +571,5 @@ const PoolCard: React.FC<PoolCardProps> = ({
     </div>
   );
 };
+
 export default PoolCard;
