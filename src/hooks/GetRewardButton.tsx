@@ -4,64 +4,164 @@ import { ASXStakingABI } from "../abis/ASXStakingABI";
 import styles from "../styles/StakingPage.module.css";
 import { useAddRecentTransaction } from "@rainbow-me/rainbowkit";
 
-const GetRewardButton = ({ stakingContractAddress, onUpdate }) => {
+const GetRewardButton = ({ stakingContractAddress, onUpdate, poolChainId }) => {
   const [statusMessage, setStatusMessage] = useState("Claim");
-  const [transactionHash, setTransactionHash] = useState("");
+  const [transactionHash, setTransactionHash] = useState<`0x${string}` | "">("");
   const [transactionInitiated, setTransactionInitiated] = useState(false);
   const addRecentTransaction = useAddRecentTransaction();
   const { writeContractAsync } = useWriteContract();
 
+  // State for network checking
+  const [currentChainId, setCurrentChainId] = useState<number | null>(null);
+  const [flashRed, setFlashRed] = useState(false);
+
+  // Function to convert decimal to hex string with '0x' prefix
+  const toHexString = (num) => "0x" + num.toString(16);
+
+  // Fetch current chain ID using window.ethereum
+  useEffect(() => {
+    const getChainId = async () => {
+      if (typeof window !== "undefined" && window.ethereum) {
+        try {
+          const chainIdHex = await window.ethereum.request({
+            method: "eth_chainId",
+          });
+          const chainId = parseInt(chainIdHex, 16);
+          setCurrentChainId(chainId);
+        } catch (error) {
+          console.error("Error getting chain ID:", error);
+        }
+      }
+    };
+
+    getChainId();
+
+    // Listen for chain changes
+    if (typeof window !== "undefined" && window.ethereum) {
+      const handleChainChanged = (chainIdHex) => {
+        const chainId = parseInt(chainIdHex, 16);
+        setCurrentChainId(chainId);
+      };
+
+      window.ethereum.on("chainChanged", handleChainChanged);
+
+      // Cleanup on unmount
+      return () => {
+        window.ethereum.removeListener("chainChanged", handleChainChanged);
+      };
+    }
+  }, []);
+
+  // Handle transaction status updates
   const { isLoading, isSuccess, isError } = useWaitForTransactionReceipt({
-    hash: transactionHash
-      ? `0x${transactionHash.replace(/^0x/, "")}`
-      : undefined,
+    hash: transactionHash || undefined,
   });
 
   useEffect(() => {
-    if ((isSuccess || isError) && transactionInitiated) {
-      const newStatus = isSuccess ? "Success" : "Error";
-      setStatusMessage(newStatus);
-      setTimeout(
-        () => {
+    if (transactionInitiated && transactionHash) {
+      if (isSuccess) {
+        setStatusMessage("Success");
+        setTimeout(() => {
           setStatusMessage("Claim");
-          setTransactionInitiated(false); // Reset the flag
-        },
-        isSuccess ? 3000 : 5000,
-      );
-      onUpdate();
+          setTransactionInitiated(false);
+        }, 3000);
+        onUpdate();
+      } else if (isError) {
+        setStatusMessage("Error");
+        setTimeout(() => {
+          setStatusMessage("Claim");
+          setTransactionInitiated(false);
+        }, 5000);
+      }
     }
   }, [isSuccess, isError, transactionInitiated, onUpdate]);
 
-  const handleAction = async () => {
-    if (isLoading) return; // Avoid initiating a new transaction if one is already in progress
-    setTransactionInitiated(true); // Set flag to indicate transaction has started
-    setStatusMessage("Claiming...");
+  // Update statusMessage based on network
+  useEffect(() => {
+    if (currentChainId !== poolChainId) {
+      setStatusMessage("Check network");
+    } else {
+      setStatusMessage("Claim");
+    }
+  }, [currentChainId, poolChainId]);
 
+  // Update isButtonDisabled based on loading state and network
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    const isDisabled = isLoading || currentChainId !== poolChainId;
+    setIsButtonDisabled(isDisabled);
+  }, [isLoading, currentChainId, poolChainId]);
+
+  const handleAction = async () => {
+    if (isLoading) return;
+
+    // Check if user is on the correct network
+    if (currentChainId !== poolChainId) {
+      if (typeof window !== "undefined" && window.ethereum) {
+        try {
+          await window.ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: toHexString(poolChainId) }],
+          });
+          // Network switch successful
+          setCurrentChainId(poolChainId);
+          return;
+        } catch (switchError) {
+          console.error("Error switching network:", switchError);
+          // Flash the button red
+          setFlashRed(true);
+          setTimeout(() => {
+            setFlashRed(false);
+          }, 300);
+          return;
+        }
+      } else {
+        console.error("window.ethereum is not available");
+        // Flash the button red
+        setFlashRed(true);
+        setTimeout(() => {
+          setFlashRed(false);
+        }, 300);
+        return;
+      }
+    }
+
+    // Proceed with claiming rewards
     try {
+      setTransactionInitiated(true);
+      setStatusMessage("Claiming...");
       const txResponse = await writeContractAsync({
         abi: ASXStakingABI,
         address: stakingContractAddress,
         functionName: "getReward",
       });
-      setTransactionHash(txResponse);
+      setTransactionHash(txResponse as `0x${string}`);
       addRecentTransaction({
         hash: txResponse,
-        description: "Claim", // Customize this description
-      }); // Ensure to use txResponse.hash for the transaction hash
+        description: "Claim",
+      });
     } catch (error) {
       console.error("Reward claim error:", error);
       setStatusMessage("Error");
-      setTimeout(() => setStatusMessage("Claim"), 5000);
-      setTransactionInitiated(false); // Reset the flag in case of error
+      setTimeout(() => {
+        setStatusMessage("Claim");
+      }, 5000);
+      setTransactionInitiated(false);
     }
   };
 
   return (
     <div className={styles.buttonWrapper}>
       <button
-        className={`${styles.actionButton} ${isLoading ? styles.disabledButton : ""} ${isSuccess && transactionInitiated ? styles.successPulse : isError && transactionInitiated ? styles.errorPulse : ""}`}
+        className={`${styles.actionButton} ${isButtonDisabled ? styles.disabledButton : ""
+          } ${isSuccess && transactionInitiated
+            ? styles.successPulse
+            : isError && transactionInitiated
+              ? styles.errorPulse
+              : ""
+          } ${flashRed ? styles.flashRed : ""}`}
         onClick={handleAction}
-        disabled={isLoading} // Only disable the button if a transaction is currently being processed
       >
         <div className={styles.buttonContent}>
           <span className={styles.mainText}>

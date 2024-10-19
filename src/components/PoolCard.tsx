@@ -410,65 +410,7 @@ const PoolCard: React.FC<PoolCardProps> = ({
   useEffect(() => {
     const formatData = (data: any) => (typeof data === 'bigint' ? data.toString() : data);
 
-    console.group(`%c PoolCard Debug Info for Pool: ${pool.title}`, 'color: green; font-weight: bold;');
-    console.log('%cSelected Pool Info:', 'color: blue; font-weight: bold;', {
-      poolId: pool.id,
-      poolTitle: pool.title,
-      chainId: pool.chainId,
-      stakingToken: pool.stakingToken.address,
-      rewardToken: pool.rewardToken.address,
-    });
 
-    console.log('%cStaked Amount Result:', 'color: purple; font-weight: bold;', {
-      data: formatData(stakedAmountResult.data),
-      isLoading: stakedAmountResult.isLoading,
-      isError: stakedAmountResult.isError,
-    });
-
-    console.log('%cClaimable Rewards Result:', 'color: teal; font-weight: bold;', {
-      data: formatData(claimableRewardsResult.data),
-      isLoading: claimableRewardsResult.isLoading,
-      isError: claimableRewardsResult.isError,
-    });
-
-    console.log('%cToken Balance Result:', 'color: darkorange; font-weight: bold;', {
-      data: formatData(tokenBalanceResult.data),
-      isLoading: tokenBalanceResult.isLoading,
-      isError: tokenBalanceResult.isError,
-    });
-
-    console.log('%cTotal Staked Info:', 'color: crimson; font-weight: bold;', {
-      totalStaked: formatData(totalStaked),
-      isLoading: isTotalStakedLoading,
-    });
-
-    console.log('%cReserves (LP):', 'color: darkblue; font-weight: bold;', {
-      reserve0: formatData(reserve0),
-      reserve1: formatData(reserve1),
-    });
-
-    console.log('%cReward Data:', 'color: darkgreen; font-weight: bold;', {
-      rewardRate: rewardData?.rewardRate?.toString(),
-      periodFinish: rewardData?.periodFinish?.toString(),
-    });
-
-    console.log('%cTotal Supply:', 'color: darkred; font-weight: bold;', {
-      totalSupply: formatData(totalSupply?.data),
-      isLoading: totalSupply?.isLoading,
-      isError: totalSupply?.isError,
-    });
-
-    console.log('%cAPR Calculation:', 'color: blueviolet; font-weight: bold;', {
-      aprStatus,
-      calculatedAPR: apr,
-    });
-
-    console.log('%cTVL Calculation:', 'color: goldenrod; font-weight: bold;', {
-      tvlInUSD,
-    });
-
-    console.log('%cAccount Address:', 'color: darkcyan; font-weight: bold;', accountAddress);
-    console.groupEnd();
   }, [
     pool,
     stakedAmountResult,
@@ -606,17 +548,20 @@ const PoolCard: React.FC<PoolCardProps> = ({
             stakingContractAddress={pool.stakingContract.address}
             amount={stakeAmount}
             onUpdate={handleStakeUpdate}
+            poolChainId={pool.chainId}
           />
 
           <WithdrawButton
             stakingContractAddress={pool.stakingContract.address}
             amount={handleWithdraw()}
             onUpdate={handleStakeUpdate}
+            poolChainId={pool.chainId}
           />
 
           <GetRewardButton
             stakingContractAddress={pool.stakingContract.address}
-            onUpdate={handleStakeUpdate} // Re-use the stake update function or create a specific one for rewards
+            onUpdate={handleStakeUpdate}
+            poolChainId={pool.chainId}
           />
         </div>
       </div>

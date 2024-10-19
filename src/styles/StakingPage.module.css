@@ -122,6 +122,7 @@
   height: 100%;
   scroll-padding: 1rem;
   background: linear-gradient(180deg, #2f2f2f, #0d0d0d, #0d0d0d);
+  -webkit-backdrop-filter: brightness(0);
   backdrop-filter: brightness(0);
 }
 
@@ -631,6 +632,15 @@
 
 }
 
+.checkNetworkMessage {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  text-align: center;
+}
+
+
+
 .chainButton:hover {
   background-color: #00ff77;
   transition: background-color 0.6s, color 0.3s;
@@ -664,4 +674,22 @@
   align-items: center;
   margin-left: 10px;
   width: 20px;
+}
+
+.flashRed {
+  animation: flashRedAnimation 0.3s ease-in-out;
+}
+
+@keyframes flashRedAnimation {
+  0% {
+    background-color: initial;
+  }
+
+  50% {
+    background-color: red;
+  }
+
+  100% {
+    background-color: initial;
+  }
 }
