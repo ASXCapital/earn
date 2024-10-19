@@ -51,9 +51,6 @@ const StakingPage = () => {
     return <div>Loading...</div>;
   }
 
-  // Filter pools based on selectedChainId
-  const filteredPools = pools.filter((pool) => pool.chainId === selectedChainId);
-
   return (
     <div className={styles.stakingWrapper}>
       <div className={styles.poolCardHeader}>
@@ -118,20 +115,21 @@ const StakingPage = () => {
       </div>
 
       <div className={styles.poolsContainer}>
-        {filteredPools.map((pool) => (
+        {pools.map((pool) => (
           <PoolCard
             key={pool.id}
             pool={pool}
             onTVLChange={handleTVLChange}
             accountAddress={address} // Pass the actual account address here
-            onStakedUSDChange={function (amount: number): void {
+            onStakedUSDChange={(amount: number): void => {
               throw new Error("Function not implemented.");
             }}
-            onClaimableRewardsUSDChange={function (amount: number): void {
+            onClaimableRewardsUSDChange={(amount: number): void => {
               throw new Error("Function not implemented.");
-            }} poolId={pool.id} // Pass the correct pool id here
+            }}
+            poolId={pool.id} // Pass the correct pool id here
+            className={pool.chainId === selectedChainId ? '' : styles.hidden}
           />
-
         ))}
       </div>
     </div>

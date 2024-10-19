@@ -40,6 +40,8 @@ interface PoolCardProps {
   onClaimableRewardsUSDChange: (amount: number) => void;
   onTVLChange: (poolId: string | number, tvl: number) => void;
   poolId: string | number; // This might already be included as part of `pool`
+  style?: React.CSSProperties; // Add optional style prop
+  className?: string; // Add optional className prop
 }
 
 /// MAIN FUNCTION ///////////////////
@@ -48,6 +50,8 @@ const PoolCard: React.FC<PoolCardProps> = ({
   pool,
   accountAddress,
   onTVLChange,
+  style,
+  className,
 }) => {
   const prices = useTokenPricesContext();
 
@@ -55,7 +59,7 @@ const PoolCard: React.FC<PoolCardProps> = ({
 
   const ASXTokenAddress = contracts.bscTokens.ASX;
   const [stakeAmount, setStakeAmount] = useState<string>("0.01");
-  const [inputContent, setInputContent] = useState<string>("0.01"); // New state for tracking input field content
+  const [inputContent, setInputContent] = useState<string>("0.01");
   const [imageSrc, setImageSrc] = useState(
     pool.stakingToken.image || "/default_image.png",
   );
@@ -66,6 +70,7 @@ const PoolCard: React.FC<PoolCardProps> = ({
   const [stakedAmount, setStakedAmount] = useState<bigint | null>(null);
   const [claimableRewards, setClaimableRewards] = useState<bigint | null>(null);
   const [tokenBalance, setTokenBalance] = useState<bigint | null>(null);
+
 
   const stakedAmountResult = useStakedAmount(
     pool.stakingContract.address as `0x${string}`,
@@ -423,7 +428,7 @@ const PoolCard: React.FC<PoolCardProps> = ({
   const explorerUrl = explorerUrls[chainId] || "https://etherscan.io/address/";
 
   return (
-    <div className={styles.poolCard}>
+    <div className={`${styles.poolCard} ${className || ""}`}>
       <div className={styles.cardHeader}>
         <div className={styles.titleAndLogoContainer}>
           <div className={styles.titleAndLogo}>

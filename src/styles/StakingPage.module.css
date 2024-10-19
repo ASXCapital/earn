@@ -693,3 +693,8 @@
     background-color: initial;
   }
 }
+
+/* In StakingPage.module.css */
+.hidden {
+  display: none !important;
+}
