@@ -698,3 +698,48 @@
 .hidden {
   display: none !important;
 }
+
+/* Chain TVLs container */
+.chainTVLs {
+
+  font-size: 1rem;
+  /* Same size as 'totalTVLmini' */
+  font-weight: 400;
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+/* Core TVL */
+.coreTVL {
+  color: orange;
+  text-shadow: 0 0 10px orange;
+}
+
+/* BNB TVL */
+.bnbTVL {
+  color: yellow;
+  text-shadow: 0 0 10px yellow;
+}
+
+/* Glow animation */
+@keyframes glowEffect {
+  0% {
+    text-shadow: 0 0 10px currentColor;
+    transform: scale(1);
+  }
+
+  50% {
+    text-shadow: 0 0 5px currentColor;
+    transform: scale(1.05);
+  }
+
+  100% {
+    text-shadow: 0 0 10px currentColor;
+    transform: scale(1);
+  }
+}
+
+.glow {
+  animation: glowEffect 1s ease-in-out;
+}

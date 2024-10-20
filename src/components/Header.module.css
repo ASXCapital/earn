@@ -30,8 +30,10 @@
 
 .navbar {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  /* Changed from flex to grid */
+  grid-template-columns: auto 1fr auto;
+  /* Define three columns */
   align-items: center;
   position: relative;
 }
@@ -51,6 +53,8 @@
 /* Navigation Links */
 .navLinks {
   display: flex;
+  justify-content: center;
+  /* Center the nav links */
   gap: 20px;
 }
 
@@ -62,15 +66,12 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-
-
 /* Dropdown Items */
 .dropdownItem {
   background-color: transparent;
   border: none;
   box-shadow: none;
   color: #eeeeee;
-
   font-size: 1rem;
   font-weight: 500;
   text-align: left;
@@ -83,7 +84,6 @@
   color: #000000;
   box-shadow: 0 5px 10px rgba(0, 6, 3, 0.636);
   border-radius: 5px;
-
 }
 
 /* Burger Menu Button */
@@ -102,6 +102,12 @@
 }
 
 @media (max-width: 1100px) {
+  .navbar {
+    display: flex;
+    /* Switch back to flex for mobile */
+    justify-content: space-between;
+  }
+
   .navLinks {
     display: none;
   }

@@ -71,7 +71,6 @@ const PoolCard: React.FC<PoolCardProps> = ({
   const [claimableRewards, setClaimableRewards] = useState<bigint | null>(null);
   const [tokenBalance, setTokenBalance] = useState<bigint | null>(null);
 
-
   const stakedAmountResult = useStakedAmount(
     pool.stakingContract.address as `0x${string}`,
     accountAddress,
@@ -427,6 +426,12 @@ const PoolCard: React.FC<PoolCardProps> = ({
   // Get the appropriate block explorer URL
   const explorerUrl = explorerUrls[chainId] || "https://etherscan.io/address/";
 
+  // Define the image source based on the chain ID
+  const buyLogoSrc =
+    chainId === 1116 // CoreDAO Mainnet chain ID
+      ? "/logos/icecream.webp" // Path to your ice cream logo
+      : "/logos/PancakeSwap Logos/Full Logo/bunny-color.svg"; // Default PancakeSwap logo
+
   return (
     <div className={`${styles.poolCard} ${className || ""}`}>
       <div className={styles.cardHeader}>
@@ -440,10 +445,10 @@ const PoolCard: React.FC<PoolCardProps> = ({
               className={styles.buyLink}
             >
               <Image
-                src="/logos/PancakeSwap Logos/Full Logo/bunny-color.svg"
-                alt="PancakeSwap Logo"
-                width={12}
-                height={22}
+                src={buyLogoSrc}
+                alt="Buy Logo"
+                width={16}
+                height={16}
               />
             </a>
           </div>
