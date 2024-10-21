@@ -52,7 +52,7 @@
 
 /* Navigation Links */
 .navLinks {
-  display: flex;
+
   justify-content: center;
   /* Center the nav links */
   gap: 20px;
@@ -106,6 +106,7 @@
     display: flex;
     /* Switch back to flex for mobile */
     justify-content: space-between;
+
   }
 
   .navLinks {

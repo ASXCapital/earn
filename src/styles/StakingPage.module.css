@@ -702,7 +702,7 @@
 /* Chain TVLs container */
 .chainTVLs {
 
-  font-size: 1rem;
+  font-size: .9rem;
   /* Same size as 'totalTVLmini' */
   font-weight: 400;
   display: flex;
@@ -713,13 +713,13 @@
 /* Core TVL */
 .coreTVL {
   color: orange;
-  text-shadow: 0 0 10px orange;
+  text-shadow: 0 0 8px orange;
 }
 
 /* BNB TVL */
 .bnbTVL {
   color: yellow;
-  text-shadow: 0 0 10px yellow;
+  text-shadow: 0 0 8px rgb(239, 223, 0);
 }
 
 /* Glow animation */
