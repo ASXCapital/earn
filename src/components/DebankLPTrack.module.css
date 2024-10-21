@@ -2,27 +2,29 @@
 @media (min-width: 800px) {
   .container {
     padding: 16px;
-    background-color: #1c1c24;
+    background-color: #1c1c2400;
     color: #f0f0f5;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 8px;
     width: 800px;
+    box-shadow: 0 2px 8px rgba(2, 217, 255, 0.829);
   }
 }
 
 @media (max-width: 800px) {
   .container {
     padding: 16px;
-    background-color: #1c1c24;
+
     color: #f0f0f5;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(2, 217, 255, 0.829);
   }
 }
 
 .statsContainer {
   padding: 12px;
-  background-color: #2b2b36;
+  background-color: #2b2b362d;
   border-radius: 8px;
   margin-bottom: 12px;
   color: #ffffff;
@@ -60,7 +62,7 @@
 }
 
 .protocolCard {
-  background-color: #2b2b36;
+  background-color: #2b2b362d;
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 12px;
@@ -95,7 +97,7 @@
 .totalValue {
   font-size: 1em;
   font-weight: bold;
-  color: #76c7c0;
+  color: #1cd496;
 }
 
 .totalValueLarge {

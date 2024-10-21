@@ -303,6 +303,7 @@
     transform 0.2s;
   font-weight: 600;
   height: 31px;
+  font-size: .8rem;
   /* You might want to adjust the height as well */
 }
 
@@ -665,7 +666,7 @@
   align-items: stretch;
   width: 90px;
   padding-left: 12px;
-  border: whitesmoke 2px solid;
+  border: rgb(0, 255, 204) 1px solid;
 }
 
 .chainLogoContainer {
@@ -702,7 +703,7 @@
 /* Chain TVLs container */
 .chainTVLs {
 
-  font-size: .9rem;
+  font-size: .8rem;
   /* Same size as 'totalTVLmini' */
   font-weight: 400;
   display: flex;
@@ -712,13 +713,13 @@
 
 /* Core TVL */
 .coreTVL {
-  color: orange;
+  color: rgba(255, 166, 0, 0.56);
   text-shadow: 0 0 8px orange;
 }
 
 /* BNB TVL */
 .bnbTVL {
-  color: yellow;
+  color: rgba(255, 255, 0, 0.663);
   text-shadow: 0 0 8px rgb(239, 223, 0);
 }
 

@@ -79,7 +79,7 @@ const GetRewardButton = ({ stakingContractAddress, onUpdate, poolChainId }) => {
   // Update statusMessage based on network
   useEffect(() => {
     if (currentChainId !== poolChainId) {
-      setStatusMessage("Check network");
+      setStatusMessage("Check Network");
     } else {
       setStatusMessage("Claim");
     }

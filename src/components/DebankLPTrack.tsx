@@ -1,3 +1,4 @@
+// components/DebankLPTrack.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
@@ -128,7 +129,7 @@ const DebankLPTrack: React.FC = () => {
         <div className={styles.container}>
             {/* Total Liquidity */}
             <div className={styles.statsContainer}>
-                <span>Total Liquidity:</span>
+                <span className={styles.sectionTitle}>Total Liquidity:</span>
                 <div className={styles.totalTVL}>
                     ${displayedLiquidity.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
@@ -140,7 +141,7 @@ const DebankLPTrack: React.FC = () => {
                     <span className={`${styles.arrow} ${mainExpanded ? styles.expanded : ''}`} />
                     <div className={styles.statsInfo}>
                         <div className={styles.statItem}>
-                            <span>ASX Deployed Liquidity:</span>
+                            <span className={styles.sectionTitle}>ASX Deployed Liquidity:</span>
                             <div className={styles.totalValue}>
                                 ${calculateTotalLiquidity(mainWallet).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </div>
@@ -184,7 +185,7 @@ const DebankLPTrack: React.FC = () => {
                                 />
                                 <h2 className={styles.protocolName}>{protocol.name}</h2>
                             </div>
-                            <span className={styles.totalValueLarge}>
+                            <span className={styles.totalValue}>
                                 ${totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </span>
                         </div>
@@ -252,8 +253,8 @@ const DebankLPTrack: React.FC = () => {
                     <span className={`${styles.arrow} ${stakedExpanded ? styles.expanded : ''}`} />
                     <div className={styles.statsInfo}>
                         <div className={styles.statItem}>
-                            <span>Staked LPs:</span>
-                            <div className={styles.totalValueLarge}>
+                            <span className={styles.sectionTitle}>Staked LPs:</span>
+                            <div className={styles.totalValue}>
                                 ${calculateTotalLiquidity(stakedLPs).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </div>
                         </div>

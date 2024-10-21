@@ -91,7 +91,7 @@ const StakeButton = ({
   // Update statusMessage based on needsApproval and network
   useEffect(() => {
     if (currentChainId !== poolChainId) {
-      setStatusMessage("Check network");
+      setStatusMessage("Check Network");
     } else {
       setStatusMessage(needsApproval ? "Approve" : "Stake");
     }

@@ -90,7 +90,7 @@ const WithdrawButton = ({
   // Update statusMessage based on network
   useEffect(() => {
     if (currentChainId !== poolChainId) {
-      setStatusMessage("Check network");
+
     } else {
       setStatusMessage("Withdraw");
     }
