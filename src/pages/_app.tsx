@@ -8,6 +8,7 @@ import { WagmiProvider, createConfig, http } from "wagmi";
 import { createPublicClient } from "viem";
 import { getHttpRpcClient } from "viem/utils";
 
+import { Analytics } from "@vercel/analytics/react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -155,11 +156,14 @@ function MyApp({ Component, pageProps }: AppProps) {
                 overlayBlur: "small",
               })}
             >
+
               <FinanceDataProvider>
                 <TokenPricesProvider>
                   <PoolDataProvider>
+
                     <Layout>
                       <Component {...pageProps} />
+                      <Analytics />
                     </Layout>
                   </PoolDataProvider>
                 </TokenPricesProvider>
