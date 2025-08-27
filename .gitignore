@@ -64,3 +64,5 @@ package-lock.backup.json
 # Optional: ignore public docs PDFs if large (uncomment if desired)
 # public/docs/*.pdf
 .vercel/
+
+.vercel
