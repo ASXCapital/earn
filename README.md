@@ -1,4 +1,4 @@
-# ASX dApp — Skeleton (Next.js + thirdweb)
+# ASX earn — Skeleton (Next.js + thirdweb)
 
 A production-grade shell for ASX's new dApp with modern UI/UX, thirdweb wallet integration, and pre-wired multi-chain configuration for BSC and CORE.
 

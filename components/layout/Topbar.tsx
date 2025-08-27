@@ -48,7 +48,7 @@ export function Topbar({ onOpenSidebar }: TopbarProps) {
             })}
           />
         </div>
-  </div>
+      </div>
     </div>
   );
 }

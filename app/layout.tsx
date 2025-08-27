@@ -7,8 +7,8 @@ import { Shell } from "@/components/layout/Shell";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "ASX dApp",
-  description: "ASX Capital — staking, NFTs, and ecosystem dashboard",
+  title: "ASX earn",
+  description: "ASX earn — staking, NFTs, and ecosystem dashboard",
   metadataBase: new URL("https://asx.capital"),
   icons: { icon: "/asx_white_square1200_transparent.png" },
 };

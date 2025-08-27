@@ -9,35 +9,77 @@ const contracts = {
   wbnb: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
   weth: "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
   btcb: "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
-  sol:  "0x570A5D26f7765Ecb712C0924E4De545B89fD43dF",
+  sol: "0x570A5D26f7765Ecb712C0924E4De545B89fD43dF",
 };
 
-export async function getPricesServer() {
-  try {
-    const url = new URL(`https://pro-api.coingecko.com/api/v3/simple/token_price/${BSC_CHAIN_SLUG}`);
-    url.searchParams.set("contract_addresses", [
-      contracts.asxBsc, contracts.wbnb, contracts.weth, contracts.btcb, contracts.sol
-    ].join(","));
-    url.searchParams.set("vs_currencies", "usd");
+type PricesShape = { asxBsc: number | null; asxCore: number | null; bnb: number | null; eth: number | null; btcb: number | null; sol: number | null };
+const NULL_PRICES: PricesShape = { asxBsc: null, asxCore: null, bnb: null, eth: null, btcb: null, sol: null };
 
-    const res = await fetch(url.toString(), {
-      headers: { "accept": "application/json", "x-cg-pro-api-key": env.COINGECKO_API_KEY },
-      next: { revalidate: 60 }
-    });
+// Lightweight in-memory cache to reduce upstream calls & mitigate transient errors.
+let cache: { data: PricesShape; ts: number } | null = null;
+const CACHE_TTL_MS = 55_000; // just under ISR revalidate (60s) so we usually serve warm
 
-    if (!res.ok) throw new Error(`Coingecko error ${res.status}`);
-    const json = await res.json();
+function fromJson(json: any): PricesShape {
+  const asxBsc = json?.[contracts.asxBsc.toLowerCase()]?.usd ?? null;
+  const asxCore = asxBsc; // mapping ASX on Core to BSC price
+  const bnb = json?.[contracts.wbnb.toLowerCase()]?.usd ?? null;
+  const eth = json?.[contracts.weth.toLowerCase()]?.usd ?? null;
+  const btcb = json?.[contracts.btcb.toLowerCase()]?.usd ?? null;
+  const sol = json?.[contracts.sol.toLowerCase()]?.usd ?? null;
+  return { asxBsc, asxCore, bnb, eth, btcb, sol };
+}
 
-    const asxBsc = json[contracts.asxBsc.toLowerCase()]?.usd ?? null;
-    const asxCore = asxBsc; // mapping ASX on Core to BSC for price
-    const bnb = json[contracts.wbnb.toLowerCase()]?.usd ?? null;
-    const eth = json[contracts.weth.toLowerCase()]?.usd ?? null;
-    const btcb = json[contracts.btcb.toLowerCase()]?.usd ?? null;
-    const sol = json[contracts.sol.toLowerCase()]?.usd ?? null;
+export async function getPricesServer(): Promise<PricesShape> {
+  // Serve cache if fresh
+  if (cache && Date.now() - cache.ts < CACHE_TTL_MS) return cache.data;
 
-    return { asxBsc, asxCore, bnb, eth, btcb, sol };
-  } catch (e) {
-    console.error("Price fetch failed", e);
-    return { asxBsc: null, asxCore: null, bnb: null, eth: null, btcb: null, sol: null };
+  if (!env.COINGECKO_API_KEY) {
+    // Fail fast but cache nulls so we don't recompute each request
+    cache = { data: NULL_PRICES, ts: Date.now() };
+    return NULL_PRICES;
   }
+
+  const url = new URL(`https://pro-api.coingecko.com/api/v3/simple/token_price/${BSC_CHAIN_SLUG}`);
+  url.searchParams.set("contract_addresses", [contracts.asxBsc, contracts.wbnb, contracts.weth, contracts.btcb, contracts.sol].join(","));
+  url.searchParams.set("vs_currencies", "usd");
+
+  const maxAttempts = 3;
+  let lastError: any = null;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6_000);
+      const res = await fetch(url.toString(), {
+        headers: { accept: "application/json", "x-cg-pro-api-key": env.COINGECKO_API_KEY },
+        // 'next.revalidate' still allows ISR, while our own cache avoids hammering upstream during warm period
+        next: { revalidate: 60 },
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+      if (!res.ok) throw new Error(`Coingecko error ${res.status}`);
+      const json = await res.json();
+      const data = fromJson(json);
+      cache = { data, ts: Date.now() };
+      return data;
+    } catch (err: any) {
+      lastError = err;
+      const retriable = (
+        err?.name === 'AbortError' ||
+        err?.code === 'UND_ERR_SOCKET' ||
+        /ECONNRESET|ETIMEDOUT|EAI_AGAIN/i.test(err?.code || '') ||
+        /fetch failed/i.test(String(err))
+      );
+      if (attempt < maxAttempts && retriable) {
+        const delay = 250 * attempt + Math.random() * 150; // simple backoff + jitter
+        await new Promise(r => setTimeout(r, delay));
+        continue;
+      }
+      break;
+    }
+  }
+  console.error("Price fetch failed after retries", lastError);
+  // Return stale cache if present
+  if (cache) return cache.data;
+  cache = { data: NULL_PRICES, ts: Date.now() };
+  return NULL_PRICES;
 }
