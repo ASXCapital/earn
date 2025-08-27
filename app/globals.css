@@ -1,0 +1,252 @@
+/* Restore Tailwind layers so utility classes function */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom overrides */
+
+:root {
+  /* Using direct values since Tailwind v4 config not yet extended with custom 'asx' palette */
+  --bg: #0B0F14;
+  /* slate.900 */
+  --bg-soft: #0E141B;
+  /* slate.800 */
+  --text: #FFFFFF;
+  --brand: #19EFE4;
+  /* asx cyan */
+}
+
+/* Basic reset formerly provided by @tailwind base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  /* legacy Safari/iOS support */
+  text-size-adjust: 100%;
+  /* standard property for modern browsers */
+}
+
+body {
+  margin: 0;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+}
+
+body {
+  /* Expanded layered gradient spanning full viewport without mid-page restart */
+  background:
+    radial-gradient(1200px 800px at 85% -10%, rgba(25, 239, 228, 0.18), transparent 65%),
+    radial-gradient(900px 600px at 10% 110%, rgba(0, 140, 255, 0.10), transparent 70%),
+    linear-gradient(180deg, #0B0F14 0%, #0B0F14 100%);
+  color: var(--text);
+  font-feature-settings: "ss01" on, "cv11" on, "cv02" on;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Utility replacements for former @apply usage */
+.card {
+  border-radius: 0.45rem;
+  /* reverted subtle curve */
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background-color: var(--bg-soft);
+  box-shadow: 0 0 0 1px rgba(25, 239, 228, 0.04), 0 0 6px -2px rgba(25, 239, 228, 0.12);
+}
+
+.nav-item {
+  display: flex;
+  /* flex */
+  align-items: center;
+  /* items-center */
+  gap: 0.75rem;
+  /* gap-3 */
+  padding: 0.5rem 0.75rem;
+  /* py-2 px-3 */
+  border-radius: 0.5rem;
+  /* rounded-lg */
+  color: rgba(255, 255, 255, 0.8);
+  /* text-white/80 */
+  text-decoration: none;
+  background: transparent;
+  transition: color 150ms, background-color 150ms, border-color 150ms, box-shadow 150ms, transform 150ms;
+}
+
+.nav-item:hover {
+  color: #FFFFFF;
+  /* hover:text-white */
+  background-color: rgba(255, 255, 255, 0.05);
+  /* hover:bg-white/5 */
+}
+
+.nav-item-active {
+  background-color: rgba(255, 255, 255, 0.10);
+  /* bg-white/10 */
+  color: #FFFFFF;
+  /* text-white */
+}
+
+.asx-gradient {
+  background: linear-gradient(90deg, #0DD6CC, #19EFE4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Wallet connect button styling */
+.wallet-btn-wrapper [data-testid=wallet-connect-button],
+.wallet-btn-wrapper>button,
+.wallet-btn-wrapper button[data-testid],
+.wallet-btn-wrapper [role=button] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  /* tighter */
+  line-height: 1;
+  font-weight: 600;
+  padding: 0.35rem 0.7rem;
+  /* smaller */
+  border-radius: 0.45rem;
+  color: #0B0F14;
+  background: linear-gradient(135deg, #19EFE4, #0DD6CC 60%);
+  box-shadow: 0 0 0 1px rgba(25, 239, 228, 0.45), 0 3px 14px -5px rgba(25, 239, 228, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(5px) saturate(150%);
+  backdrop-filter: blur(5px) saturate(150%);
+  transition: background 140ms, box-shadow 140ms, transform 140ms;
+}
+
+.wallet-btn-wrapper [data-testid=wallet-connect-button]:hover,
+.wallet-btn-wrapper>button:hover,
+.wallet-btn-wrapper [role=button]:hover {
+  background: linear-gradient(135deg, #19EFE4, #12ffe1 70%);
+  box-shadow: 0 0 0 1px rgba(25, 239, 228, 0.6), 0 6px 26px -6px rgba(25, 239, 228, 0.55);
+}
+
+.wallet-btn-wrapper [data-testid=wallet-connect-button]:active,
+.wallet-btn-wrapper>button:active,
+.wallet-btn-wrapper [role=button]:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 0 1px rgba(25, 239, 228, 0.55), 0 3px 14px -4px rgba(25, 239, 228, 0.5);
+}
+
+.wallet-btn-wrapper [data-testid=wallet-connect-button] svg,
+.wallet-btn-wrapper>button svg,
+.wallet-btn-wrapper [role=button] svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Custom compact glass button used for wallet connect (replacement) */
+.btn-glass-cmp {
+  --btn-bg1: rgba(255, 255, 255, 0.06);
+  --btn-bg2: rgba(255, 255, 255, 0.02);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 600;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.45rem;
+  background: linear-gradient(145deg, var(--btn-bg1), var(--btn-bg2));
+  color: #19EFE4;
+  border: 1px solid rgba(25, 239, 228, 0.25);
+  box-shadow: 0 0 0 1px rgba(25, 239, 228, 0.15), 0 2px 6px -2px rgba(0, 0, 0, 0.6), 0 0 18px -6px rgba(25, 239, 228, 0.35);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  backdrop-filter: blur(8px) saturate(140%);
+  transition: color .15s, background .15s, box-shadow .15s, transform .15s;
+}
+
+/* Thirdweb connect button wrapper override */
+.tw-connect-wrapper button[class*="connect"] {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+  height: 45px !important;
+  font-size: 12px !important;
+  /* was 10px - slightly larger for readability */
+  line-height: 1.05 !important;
+}
+
+.tw-connect-wrapper button {
+  font-size: 13px !important;
+  /* bump base size up a notch */
+}
+
+/* Apply our glass style to the outer connect button shell */
+.tw-connect-wrapper [data-testid="connect-button"],
+.tw-connect-wrapper button[data-testid*="connect"],
+.tw-connect-wrapper>button {
+  background: linear-gradient(145deg, var(--btn-bg1, rgba(255, 255, 255, 0.06)), var(--btn-bg2, rgba(255, 255, 255, 0.02))) !important;
+  border: 1px solid rgba(25, 239, 228, 0.25) !important;
+  box-shadow: 0 0 0 1px rgba(25, 239, 228, 0.15), 0 2px 6px -2px rgba(0, 0, 0, 0.6), 0 0 18px -6px rgba(25, 239, 228, 0.35) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(140%) !important;
+  backdrop-filter: blur(8px) saturate(140%) !important;
+  padding: 0.45rem 0.8rem !important;
+  height: 32px !important;
+  border-radius: 0.45rem !important;
+  color: #19EFE4 !important;
+  font-weight: 600 !important;
+  letter-spacing: .3px;
+  transition: background .15s, box-shadow .15s, color .15s, transform .15s;
+  position: relative;
+}
+
+/* subtle inner line */
+.tw-connect-wrapper [data-testid="connect-button"]:before,
+.tw-connect-wrapper button[data-testid*="connect"]:before,
+.tw-connect-wrapper>button:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 0 rgba(0, 0, 0, 0.35);
+}
+
+.tw-connect-wrapper button:hover {
+  background: linear-gradient(145deg, rgba(25, 239, 228, 0.18), rgba(25, 239, 228, 0.05)) !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 1px rgba(25, 239, 228, 0.35), 0 3px 10px -2px rgba(0, 0, 0, 0.65), 0 0 22px -4px rgba(25, 239, 228, 0.45) !important;
+}
+
+.tw-connect-wrapper button:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 0 1px rgba(25, 239, 228, 0.4), 0 2px 6px -2px rgba(0, 0, 0, 0.7), 0 0 16px -4px rgba(25, 239, 228, 0.4) !important;
+}
+
+/* Add ~5px space before avatar / ENS image */
+.tw-connect-wrapper [data-testid="connect-button"]> :first-child,
+.tw-connect-wrapper button[data-testid*="connect"]> :first-child,
+.tw-connect-wrapper>button> :first-child {
+  margin-left: 6px !important;
+}
+
+.btn-glass-cmp:hover:not(:disabled) {
+  background: linear-gradient(145deg, rgba(25, 239, 228, 0.18), rgba(25, 239, 228, 0.05));
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(25, 239, 228, 0.35), 0 3px 10px -2px rgba(0, 0, 0, 0.65), 0 0 22px -4px rgba(25, 239, 228, 0.45);
+}
+
+.btn-glass-cmp:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 0 0 1px rgba(25, 239, 228, 0.4), 0 2px 6px -2px rgba(0, 0, 0, 0.7), 0 0 16px -4px rgba(25, 239, 228, 0.4);
+}
+
+.btn-glass-cmp:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 1px #19EFE4, 0 0 0 3px rgba(25, 239, 228, 0.4);
+}

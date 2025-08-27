@@ -1,0 +1,2 @@
+// Removed auth route
+export { };
