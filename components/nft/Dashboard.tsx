@@ -37,12 +37,6 @@ export default async function NftDashboard() {
     try { metas = await Promise.all(COLLECTIONS.map(fetchCollectionMeta)); } catch { metas = []; }
     return (
         <div className="space-y-8">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 items-start">
-                <StatTile label="Total ASX Distributed" value="1,936.2" />
-                <StatTile label="Distributions Made" value="2" />
-                <StatTile label="Aggregate Supply" value="8,000" />
-                <LegalTile />
-            </div>
             <div className="grid gap-6 lg:grid-cols-2">
                 {metas.length ? metas.map(m => (
                     <div key={m.address} className="card p-5 flex flex-col gap-4">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useRef, useCallback } from 'react';
+import LegalTile from './LegalTile';
 
 // Simple deterministic projection (non-compounded vs compounded annually/monthly)
 interface Point { year: number; value: number; }
@@ -67,13 +68,28 @@ export function YieldIntro() {
                         <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight leading-snug">ASX RWA NFTs provide exposure to US multifamily rental income</h2>
                         <p className="mt-2 text-sm sm:text-base text-white/70 max-w-3xl leading-relaxed">A professionally structured, on‑chain instrument offering pro‑rata access to a targeted annual cash distribution sourced from net apartment rental operations—delivered via a secured loan & promissory note framework.</p>
                     </div>
-                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 text-sm">
-                        <USP icon="🏢" title="Real Rental Link" text="Tenant rental flows underpin distribution capacity." />
-                        <USP icon="💵" title="Target Band" text={`$0.75–$0.85 per NFT p.a. (${aprLow.toFixed(1)}%–${aprHigh.toFixed(1)}% at $${floor.toFixed(2)})`} />
-                        <USP icon="🛡️" title="Non‑Dilutive" text="No emission inflation; economics tied to program cash flows." />
-                        <USP icon="⚖️" title="Scalable Entry" text="Allocate in small units; rebalance through secondary markets." />
-                        <USP icon="📈" title="Compounding Option" text="Toggle reinvestment to model cumulative exposure growth." />
-                        <USP icon="🔎" title="Transparent" text="On‑chain supply, distribution history & wallet analytics." />
+                    <div className="grid gap-3 md:grid-cols-4 items-stretch">
+                        <HeroStat label="Total ASX Distributed" value="1,999.13" image="/images/nft/B2.png" />
+                        <HeroStat label="Distributions Made" value="2" image="/images/nft/Vinyl.png" />
+                        <HeroStat label="Aggregate Supply" value="8,000" image="/images/nft/Garden.png" />
+                        <div className="rounded-lg border border-white/10 bg-white/[0.04] p-2 flex items-stretch"><LegalTile compact /></div>
+                    </div>
+                    <div className="grid gap-4 md:grid-cols-2">
+                        <DistMenu
+                            code="ASXRWA001"
+                            items={[
+                                { label: 'Mint Refund', tx: '0xb297a8ac9fd4202e7b308a118624d5097a7c768ab2e7088309abbb7c94016369' },
+                                { label: 'Distribution #1', tx: '0x67ca14b93e139289570481e7978928e16f275e85211ecf0d46d416bac1dc12ca' },
+                                { label: 'Distribution #2', tx: '0x0d54db5f939f4d46a368502fdc7829cc9a62811bb7d546a620fb343d54667f69' },
+                            ]}
+                        />
+                        <DistMenu
+                            code="ASXRWA002"
+                            items={[
+                                // Placeholder entries – update when distributions occur
+                                { label: 'No distributions yet', tx: '' },
+                            ]}
+                        />
                     </div>
                     <div className="text-[12px] text-white/45 max-w-4xl leading-relaxed">
                         Target figures are indicative and subject to change with occupancy, operating costs, timing and other variables. NFTs convey no equity, governance, redemption right or direct real estate ownership; economic value is derived solely from participation in the distribution mechanism. Review Terms & Risk Factors before allocating capital.
@@ -182,14 +198,56 @@ function Metric({ label, value }: { label: string; value: React.ReactNode }) {
     );
 }
 
-function USP({ icon, title, text }: { icon: string; title: string; text: string }) {
+function HeroStat({ label, value, image }: { label: string; value: React.ReactNode; image?: string }) {
     return (
-        <div className="group relative rounded-lg border border-white/10 bg-white/[0.035] px-3 py-3 flex flex-col gap-1 hover:border-teal-500/50 transition-colors">
-            <div className="flex items-center gap-2">
-                <span className="text-base">{icon}</span>
-                <span className="text-[12px] font-semibold tracking-wide uppercase text-white/70">{title}</span>
+        <div className={"relative rounded-lg border border-white/10 bg-white/[0.045] px-4 py-2 min-w-[150px] " + (image ? 'pr-16' : '')}>
+            <div className="flex flex-col leading-tight gap-0.5">
+                <span className="text-[10px] uppercase tracking-wide text-white/55 font-medium">{label}</span>
+                <span className="text-sm font-semibold text-white tabular-nums">{value}</span>
             </div>
-            <div className="text-[12px] leading-snug text-white/55">{text}</div>
+            {image && (
+                <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={image} alt="" className="w-14 h-14 object-contain rounded-md shadow shadow-black/40" loading="lazy" />
+                </div>
+            )}
+        </div>
+    );
+}
+
+// Distribution dropdown menu component
+function DistMenu({ code, items }: { code: string; items: { label: string; tx: string }[] }) {
+    const [open, setOpen] = useState(false);
+    return (
+        <div className="rounded-lg border border-white/10 bg-white/[0.035] overflow-hidden">
+            <button
+                type="button"
+                onClick={() => setOpen(o => !o)}
+                className="w-full flex items-center justify-between px-4 py-2 text-left text-sm font-medium tracking-wide hover:bg-white/5 transition-colors"
+                aria-controls={`dist-${code}`}
+            >
+                <span className="flex items-center gap-2">
+                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-teal-600/20 text-teal-300 text-[11px] font-semibold">{code.slice(-3)}</span>
+                    {code} Distributions
+                </span>
+                <svg className={"h-4 w-4 text-white/60 transition-transform " + (open ? 'rotate-180' : '')} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+            {open && (
+                <ul id={`dist-${code}`} className="divide-y divide-white/5 text-sm" aria-label={`${code} distribution transactions`}>
+                    {items.map((it, idx) => (
+                        <li key={idx} className="flex">
+                            {it.tx ? (
+                                <a href={`https://scan.coredao.org/tx/${it.tx}`} target="_blank" rel="noopener noreferrer" className="flex-1 px-4 py-2 hover:bg-white/5 flex items-center justify-between gap-3">
+                                    <span className="text-white/75">{it.label}</span>
+                                    <span className="text-[10px] uppercase tracking-wide text-teal-300">View Tx</span>
+                                </a>
+                            ) : (
+                                <div className="flex-1 px-4 py-2 text-white/40">{it.label}</div>
+                            )}
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 }

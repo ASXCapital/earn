@@ -21,10 +21,11 @@ const BUNDLES: BundleFiles = {
     ]
 };
 
-export default function LegalTile() {
+export default function LegalTile({ compact = false }: { compact?: boolean }) {
     const [bundle, setBundle] = useState<keyof typeof BUNDLES | ''>('');
-    const [open, setOpen] = useState(false); // dropdown
-    const [showDocs, setShowDocs] = useState(true); // collapse docs
+    const [open, setOpen] = useState(false); // bundle dropdown
+    // If compact, keep docs collapsed by default and render them as overlay so height stays minimal
+    const [showDocs, setShowDocs] = useState(!compact);
     const menuRef = useRef<HTMLDivElement | null>(null);
     const files = bundle ? BUNDLES[bundle] : [];
 
@@ -51,11 +52,15 @@ export default function LegalTile() {
         setShowDocs(true);
     }
 
+    const rootBase = compact
+        ? 'relative flex flex-col gap-1 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 min-w-[140px]'
+        : 'card p-4 flex flex-col gap-2 relative';
+
     return (
-        <div className="card p-4 flex flex-col gap-2 relative" ref={menuRef}>
-            <div className="text-[11px] uppercase tracking-wide text-white/45 flex items-center justify-between">
+        <div className={rootBase} ref={menuRef}>
+            <div className="text-[10px] uppercase tracking-wide text-white/50 flex items-center justify-between">
                 <span>Legal</span>
-                {bundle && (
+                {bundle && !compact && (
                     <button
                         onClick={() => setShowDocs(s => !s)}
                         className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition"
@@ -65,33 +70,31 @@ export default function LegalTile() {
                     </button>
                 )}
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
                 <button
                     type="button"
                     onClick={() => setOpen(o => !o)}
-                    className="group relative w-full text-left px-2 py-1.5 rounded-md bg-white/[0.04] border border-white/10 hover:bg-white/[0.07] text-xs text-white/80 flex items-center justify-between gap-2 transition"
+                    className={"group relative w-full text-left rounded-md border flex items-center justify-between gap-2 transition text-xs " + (compact
+                        ? 'px-2 py-1 bg-white/[0.05] border-white/10 hover:bg-white/[0.08] text-white/70'
+                        : 'px-2 py-1.5 bg-white/[0.04] border-white/10 hover:bg-white/[0.07] text-white/80')}
                     aria-haspopup="listbox"
                 >
                     <span className="truncate">{bundle || 'Select Bundle'}</span>
                     <svg width="12" height="12" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${open ? 'rotate-180' : ''}`}> <polyline points="6 9 12 15 18 9" /> </svg>
-                    {/* focus ring */}
                     <span className="pointer-events-none absolute inset-0 rounded-md ring-0 group-focus-visible:ring-2 ring-teal-400/60" />
                 </button>
                 {open && (
                     <div
-                        role="listbox"
-                        aria-label="Legal bundles"
-                        className="absolute z-20 mt-1 w-[calc(100%-2rem)] left-4 bg-white/[0.07] backdrop-blur-md border border-white/10 rounded-md shadow-lg p-1 flex flex-col gap-0.5 animate-in fade-in slide-in-from-top-1"
+                        className={"absolute z-30 left-0 right-0 mt-1 bg-white/[0.07] backdrop-blur-md border border-white/10 rounded-md shadow-lg p-1 flex flex-col gap-0.5 animate-in fade-in slide-in-from-top-1 text-xs"}
                     >
                         {Object.keys(BUNDLES).map(b => {
                             const active = b === bundle;
                             return (
                                 <button
                                     key={b}
-                                    role="option"
                                     data-selected={active ? 'true' : 'false'}
                                     onClick={() => choose(b as keyof typeof BUNDLES)}
-                                    className={`text-xs px-2 py-1 rounded-md text-left flex items-center justify-between gap-2 transition ${active ? 'bg-teal-500/20 text-teal-300' : 'text-white/70 hover:bg-white/10 hover:text-white'}`}
+                                    className={`px-2 py-1 rounded-md text-left flex items-center justify-between gap-2 transition ${active ? 'bg-teal-500/20 text-teal-300' : 'text-white/70 hover:bg-white/10 hover:text-white'}`}
                                 >
                                     <span>{b}</span>
                                     {active && <svg width="10" height="10" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
@@ -100,7 +103,7 @@ export default function LegalTile() {
                         })}
                     </div>
                 )}
-                {bundle && showDocs && (
+                {bundle && showDocs && !compact && (
                     <ul className="flex flex-col gap-1 max-h-48 overflow-auto pr-1 rounded-md border border-white/10 bg-white/[0.03] divide-y divide-white/5">
                         {files.map(file => {
                             const b = (bundle as string).toLowerCase();
@@ -122,7 +125,7 @@ export default function LegalTile() {
                         })}
                     </ul>
                 )}
-                {bundle && !showDocs && (
+                {bundle && !showDocs && !compact && (
                     <button
                         onClick={() => setShowDocs(true)}
                         className="text-[10px] self-start mt-1 px-2 py-1 rounded bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition"
