@@ -72,7 +72,7 @@ export function YieldIntro() {
                         <HeroStat label="Total ASX Distributed" value="1,999.13" image="/images/nft/B2.png" />
                         <HeroStat label="Distributions Made" value="2" image="/images/nft/Vinyl.png" />
                         <HeroStat label="Aggregate Supply" value="8,000" image="/images/nft/Garden.png" />
-                        <div className="rounded-lg border border-white/10 bg-white/[0.04] p-2 flex items-stretch"><LegalTile compact /></div>
+                        <div className="flex items-stretch"><LegalTile compact /></div>
                     </div>
                     <div className="grid gap-4 md:grid-cols-2">
                         <DistMenu
