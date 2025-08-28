@@ -41,6 +41,7 @@ export interface PoolComputedView {
     stakingTokenAddress?: string;
     totalStakedDisplay: string;
     userStakedDisplay: string;
+    userStakedExact?: string; // non-rounded exact decimal string (no thousands separators)
     walletBalanceDisplay: string;
     claimableDisplay: string;
     aprDisplay: string;

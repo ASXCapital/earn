@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import { STAKING_POOLS } from '@/data/staking';
 import { priceForSymbol } from '@/lib/pricing';
 import { getStakingContract, getStakedBalance, getTotalSupply, getClaimableRewards, getRewardTokens, getRewardRate, getStakingToken, getErc20Decimals, getErc20Symbol, getErc20Balance } from '@/lib/staking';
@@ -21,15 +21,25 @@ export function useStakingPools({ debug, chainKey, prices }: Options): UseStakin
     const [reloadNonce, setReloadNonce] = useState(0);
     const [autoRefreshedOnConnect, setAutoRefreshedOnConnect] = useState(false);
     const [states, setStates] = useState<Record<string, PoolRawState>>({});
-    const pools = STAKING_POOLS.filter(p => p.chain === chainKey);
+    const pools = useMemo(() => STAKING_POOLS.filter(p => p.chain === chainKey), [chainKey]);
 
     // auto refresh once on connect
+    const poolKeys = pools.map(p => p.key).join(',');
     useEffect(() => {
         if (account?.address && !autoRefreshedOnConnect) {
             setAutoRefreshedOnConnect(true);
             setReloadNonce(n => n + 1);
         }
     }, [account?.address, autoRefreshedOnConnect]);
+
+    // Always perform an initial load on first mount (independent of wallet connect)
+    const didInitial = useRef(false);
+    useEffect(() => {
+        if (!didInitial.current) {
+            didInitial.current = true;
+            setReloadNonce(n => n + 1);
+        }
+    }, []);
 
     // sequential loader
     useEffect(() => {
@@ -101,22 +111,25 @@ export function useStakingPools({ debug, chainKey, prices }: Options): UseStakin
             }
         })();
         return () => { cancelled = true; };
-    }, [pools.map(p => p.key).join(','), chainKey, reloadNonce, account?.address, debug, prices]);
+    }, [poolKeys, chainKey, reloadNonce, account?.address, debug, prices, pools]);
 
     // recompute tvl+apr when prices change (lightweight)
     useEffect(() => {
+        // Recompute APR/TVL whenever prices arrive OR underlying pool state updates.
+        // (Fix: previously only ran on price change; if prices loaded before pool data finished, APR stayed empty until manual refresh.)
         if (!prices) return;
         setStates(s => {
             let changed = false; const next = { ...s };
             for (const k of Object.keys(s)) {
-                const st = s[k]; if (!st || st.loading) continue;
+                const st = s[k]; if (!st) continue; // allow computing even if still loading; harmless
                 if (!st.totalStaked || st.totalStaked === 0n) continue;
                 const { tvlUsd, aprPct } = deriveTvlApr({ totalStaked: st.totalStaked, decimals: st.decimals || 18, symbol: st.symbol || '', lp: st.lp, rewardRateTotal: st.rewardRateTotal || 0n, prices, chainKey });
-                if (tvlUsd && tvlUsd !== st.tvlUsd || aprPct && aprPct !== st.aprPct) { next[k] = { ...st, tvlUsd, aprPct }; changed = true; }
+                const needUpdate = (tvlUsd !== undefined && tvlUsd !== st.tvlUsd) || (aprPct !== undefined && aprPct !== st.aprPct);
+                if (needUpdate) { next[k] = { ...st, tvlUsd, aprPct }; changed = true; }
             }
             return changed ? next : s;
         });
-    }, [prices, chainKey]);
+    }, [prices, chainKey, states]);
 
     const refresh = useCallback(() => setReloadNonce(n => n + 1), []);
 
@@ -131,11 +144,23 @@ export function useStakingPools({ debug, chainKey, prices }: Options): UseStakin
         };
         const totalStakedDisplay = st.totalStaked !== undefined ? formatToken(st.totalStaked, 2) : (st.loading ? '…' : '—');
         const userStakedDisplay = st.userStaked !== undefined ? formatToken(st.userStaked, 4) : (st.loading ? '…' : '—');
+        // Exact (non-rounded) decimal string for full precision math-safe max actions
+        let userStakedExact: string | undefined;
+        if (st.userStaked !== undefined) {
+            const denom = BigInt(10) ** BigInt(decimals);
+            const intPart = st.userStaked / denom;
+            const fracPart = st.userStaked % denom;
+            if (fracPart === 0n) userStakedExact = intPart.toString();
+            else {
+                const fracStr = fracPart.toString().padStart(decimals, '0').replace(/0+$/, '');
+                userStakedExact = intPart.toString() + '.' + fracStr;
+            }
+        }
         const walletBalanceDisplay = st.walletBalance !== undefined ? formatToken(st.walletBalance, 4) : (st.loading ? '…' : '—');
         const claimableDisplay = st.claimable !== undefined ? ((Number(st.claimable) / 10 ** decimals).toLocaleString(undefined, { maximumFractionDigits: 4 }) + ' $ASX') : (st.loading ? '…' : '—');
         const aprDisplay = st.aprPct !== undefined ? st.aprPct.toFixed(2) + '%' : (st.loading ? '…' : '—');
         const tvlDisplay = st.tvlUsd !== undefined ? ('$' + st.tvlUsd.toLocaleString(undefined, { maximumFractionDigits: 2 })) : (st.loading ? '…' : '—');
-        view[pool.key] = { loading: st.loading, error: st.error, symbol: st.symbol, decimals, stakingTokenAddress: st.stakingTokenAddress, totalStakedDisplay, userStakedDisplay, walletBalanceDisplay, claimableDisplay, aprDisplay, tvlDisplay, tvlUsd: st.tvlUsd, aprPct: st.aprPct, lp: st.lp, debug: st.debug };
+        view[pool.key] = { loading: st.loading, error: st.error, symbol: st.symbol, decimals, stakingTokenAddress: st.stakingTokenAddress, totalStakedDisplay, userStakedDisplay, userStakedExact, walletBalanceDisplay, claimableDisplay, aprDisplay, tvlDisplay, tvlUsd: st.tvlUsd, aprPct: st.aprPct, lp: st.lp, debug: st.debug };
     }
 
     const loadingAny = Object.values(states).some(s => s.loading);

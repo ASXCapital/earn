@@ -37,7 +37,14 @@ export function PoolCard({ poolKey, view, chainKey, accountAddress, refresh, net
         if (kind === 'stake') setStakeAmount(v); else setUnstakeAmount(v);
     };
     const maxStake = () => walletFloat != null && setStakeAmount(walletFloat.toString());
-    const maxUnstake = () => stakedFloat != null && setUnstakeAmount(stakedFloat.toString());
+    const maxUnstake = () => {
+        if (st?.userStakedExact) {
+            setUnstakeAmount(st.userStakedExact);
+        } else if (stakedFloat != null) {
+            // Use toFixed with many decimals then trim to avoid scientific notation
+            setUnstakeAmount(stakedFloat.toString());
+        }
+    };
 
     return (
         <div className="card p-6 flex flex-col gap-6" key={pool.key}>
