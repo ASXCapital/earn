@@ -1,4 +1,5 @@
 import { core } from '@/lib/thirdweb';
+import { safeFetch } from '@/lib/safeFetch';
 
 // Fallback to chain's rpc field if env not provided
 // @ts-ignore thirdweb defineChain exposes rpc field
@@ -9,11 +10,13 @@ async function rpc(method: string, params: any[] = []) {
     let lastErr: any;
     for (let i = 0; i < attempts; i++) {
         try {
-            const res = await fetch(RPC_URL, {
+            const res = await safeFetch(RPC_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({ jsonrpc: '2.0', id: Date.now(), method, params })
-            });
+                body: JSON.stringify({ jsonrpc: '2.0', id: Date.now(), method, params }),
+                timeoutMs: 8_000,
+                retries: 0,
+            } as any);
             const ct = res.headers.get('content-type') || '';
             if (!ct.includes('json')) {
                 // not JSON (rate limit HTML, etc.)

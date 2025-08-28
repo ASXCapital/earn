@@ -1,4 +1,5 @@
 import { getBlockNumber } from './coreRpc';
+import { safeFetch } from '@/lib/safeFetch';
 
 // Safe, low-impact analyzer with adaptive chunking, per-collection isolation, and short cache.
 
@@ -34,7 +35,7 @@ async function rpc(method: string, params: any[]) {
 	for (const url of urls) {
 		for (let attempt = 0; attempt < 3; attempt++) {
 			try {
-				const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: Date.now(), method, params }) });
+				const res = await safeFetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: Date.now(), method, params }), timeoutMs: 8_000, retries: 1 } as any);
 				const ct = res.headers.get('content-type') || '';
 				if (!ct.includes('json')) throw new Error('non-json');
 				const j = await res.json();

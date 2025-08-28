@@ -185,7 +185,8 @@ async function manualLpMeta(address: string, chain: SupportedChainKey) {
         try {
             const call = async (data: string) => {
                 const body = { jsonrpc: '2.0', id: Date.now(), method: 'eth_call', params: [{ to: address, data }, 'latest'] };
-                const res = await fetch(rpcUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+                const { safeFetch } = await import('@/lib/safeFetch');
+                const res = await safeFetch(rpcUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), timeoutMs: 7_000, retries: 1 } as any);
                 const j = await res.json(); if (j.error) throw new Error(j.error.message || 'rpc error'); return j.result as string;
             };
             // Sequential rather than Promise.all to lower burst rate

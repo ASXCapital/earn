@@ -8,17 +8,21 @@ export interface SimplePriceResult {
 
 const BASE = "https://pro-api.coingecko.com/api/v3"; // pro endpoint
 
+import { safeFetch } from '@/lib/safeFetch';
+
 async function fetchJSON<T>(url: string, init?: RequestInit): Promise<T> {
-    const res = await fetch(url, {
+    const res = await safeFetch(url, {
         ...init,
         headers: {
             ...(init?.headers || {}),
             "x-cg-pro-api-key": process.env.COINGECKO_API_KEY || "",
         },
-        // Enable ISR so the page can remain static with periodic revalidation
-        next: { revalidate: 120 }, // 2 minutes
-    });
-    if (!res.ok) throw new Error(`Coingecko error ${res.status}`);
+        // ISR hint; safeFetch adds timeout+retries
+        // @ts-ignore next property passthrough
+        next: { revalidate: 120 },
+        timeoutMs: 8_000,
+        retries: 2,
+    } as any);
     return res.json() as Promise<T>;
 }
 
@@ -82,11 +86,12 @@ export async function getCoinsList(includePlatform = true): Promise<CoinListItem
     // Next.js incremental cache (using the `next: { revalidate }` option) triggers an error:
     // "Failed to set Next.js data cache, items over 2MB can not be cached". We avoid that by
     // doing a manual fetch with `cache: 'no-store'` and relying solely on our in-memory cache.
-    const res = await fetch(url, {
+    const res = await safeFetch(url, {
         headers: { "x-cg-pro-api-key": process.env.COINGECKO_API_KEY || "" },
-        cache: 'no-store', // prevent Next from attempting to persist this oversized payload
-    });
-    if (!res.ok) throw new Error(`Coingecko error ${res.status}`);
+        cache: 'no-store',
+        timeoutMs: 12_000,
+        retries: 2,
+    } as any);
     const data = await res.json() as CoinListItem[];
     _coinsCache = { ts: now, data };
     return data;

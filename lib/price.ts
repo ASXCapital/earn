@@ -1,4 +1,5 @@
 import { env } from "@/lib/env";
+import { safeFetch } from '@/lib/safeFetch';
 
 // Maps for fetching prices from CoinGecko Pro
 // We'll query by chain + contract address.
@@ -43,41 +44,21 @@ export async function getPricesServer(): Promise<PricesShape> {
   url.searchParams.set("contract_addresses", [contracts.asxBsc, contracts.wbnb, contracts.weth, contracts.btcb, contracts.sol].join(","));
   url.searchParams.set("vs_currencies", "usd");
 
-  const maxAttempts = 3;
-  let lastError: any = null;
-  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 6_000);
-      const res = await fetch(url.toString(), {
-        headers: { accept: "application/json", "x-cg-pro-api-key": env.COINGECKO_API_KEY },
-        // 'next.revalidate' still allows ISR, while our own cache avoids hammering upstream during warm period
-        next: { revalidate: 60 },
-        signal: controller.signal,
-      });
-      clearTimeout(timeout);
-      if (!res.ok) throw new Error(`Coingecko error ${res.status}`);
-      const json = await res.json();
-      const data = fromJson(json);
-      cache = { data, ts: Date.now() };
-      return data;
-    } catch (err: any) {
-      lastError = err;
-      const retriable = (
-        err?.name === 'AbortError' ||
-        err?.code === 'UND_ERR_SOCKET' ||
-        /ECONNRESET|ETIMEDOUT|EAI_AGAIN/i.test(err?.code || '') ||
-        /fetch failed/i.test(String(err))
-      );
-      if (attempt < maxAttempts && retriable) {
-        const delay = 250 * attempt + Math.random() * 150; // simple backoff + jitter
-        await new Promise(r => setTimeout(r, delay));
-        continue;
-      }
-      break;
-    }
+  try {
+    const res = await safeFetch(url.toString(), {
+      headers: { accept: "application/json", "x-cg-pro-api-key": env.COINGECKO_API_KEY },
+      // @ts-ignore next passthrough
+      next: { revalidate: 60 },
+      timeoutMs: 6_000,
+      retries: 2,
+    } as any);
+    const json = await res.json();
+    const data = fromJson(json);
+    cache = { data, ts: Date.now() };
+    return data;
+  } catch (lastError) {
+    console.error("Price fetch failed after retries", lastError);
   }
-  console.error("Price fetch failed after retries", lastError);
   // Return stale cache if present
   if (cache) return cache.data;
   cache = { data: NULL_PRICES, ts: Date.now() };
