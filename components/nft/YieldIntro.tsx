@@ -65,7 +65,7 @@ export function YieldIntro() {
                 <div className="pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(circle_at_25%_25%,white,transparent)]" />
                 <div className="relative space-y-6">
                     <div>
-                        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight leading-snug">ASX RWA NFTs provide exposure to US multifamily rental income</h2>
+                        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight leading-snug">ASX RWA NFTs provide exposure to Real Estate Cashflow</h2>
                         <p className="mt-2 text-sm sm:text-base text-white/70 max-w-3xl leading-relaxed">A professionally structured, on‑chain instrument offering pro‑rata access to a targeted annual cash distribution sourced from net apartment rental operations—delivered via a secured loan & promissory note framework.</p>
                     </div>
                     <div className="grid gap-3 md:grid-cols-4 items-stretch">
