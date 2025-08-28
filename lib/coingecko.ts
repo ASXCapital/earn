@@ -81,6 +81,10 @@ export async function getCoinsList(includePlatform = true): Promise<CoinListItem
     if (_coinsCache && now - _coinsCache.ts < 5 * 60 * 1000) { // 5 min cache
         return _coinsCache.data;
     }
+    // Allow skipping the large (>2MB) full list during production build or when explicitly requested.
+    if (process.env.LIGHT_COINGECKO === '1' || process.env.NEXT_PHASE === 'phase-production-build') {
+        return []; // consumer will synthesize minimal stubs
+    }
     const url = `${BASE}/coins/list?${includePlatform ? 'include_platform=true' : ''}`;
     // IMPORTANT: This endpoint returns a very large JSON (>2MB). Attempting to place it into
     // Next.js incremental cache (using the `next: { revalidate }` option) triggers an error:

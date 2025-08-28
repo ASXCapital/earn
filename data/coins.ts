@@ -27,15 +27,17 @@ export interface WatchedCoinMeta {
 
 let _watchCache: { ts: number; data: WatchedCoinMeta[] } | null = null;
 
+// Server-side aggregation (do NOT import this directly in client components)
 export async function getWatchedCoins(): Promise<WatchedCoinMeta[]> {
     const now = Date.now();
     if (_watchCache && now - _watchCache.ts < 5 * 60 * 1000) return _watchCache.data;
 
     const list = await getCoinsList(true);
+    const hasList = Array.isArray(list) && list.length > 0;
     const mapped: WatchedCoinMeta[] = WATCH_IDS.map(cfg => {
-        const coin = findCoinById(list, cfg.id);
+        const coin = hasList ? findCoinById(list, cfg.id) : undefined;
         // Prefer explicit override contractAddress, else try platform lookup
-        const discovered = cfg.platform ? getPlatformAddress(coin, cfg.platform) : undefined;
+        const discovered = (hasList && cfg.platform) ? getPlatformAddress(coin, cfg.platform) : undefined;
         const contract = cfg.contractAddress || discovered;
         return {
             id: cfg.id,
@@ -50,5 +52,8 @@ export async function getWatchedCoins(): Promise<WatchedCoinMeta[]> {
     _watchCache = { ts: now, data: mapped };
     return mapped;
 }
+
+// Client hook for lazy loading via API route ---------------------------------
+// Provides: data (array) | null while loading, error (string | null), refresh()
 
 export type { CoinListItem } from "@/lib/coingecko";
