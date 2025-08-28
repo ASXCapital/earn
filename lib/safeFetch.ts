@@ -33,11 +33,11 @@ async function delay(ms: number) { return new Promise(res => setTimeout(res, ms)
 export async function safeFetch(url: string, opts: SafeFetchOptions = {}) {
     const { timeoutMs = 10_000, retries = 2, retryDelayBaseMs = 300, cacheSeconds, idempotent = true, ...init } = opts;
 
-        // Derive host (relative URLs share 'app' bucket)
-        let host = 'app';
-        try { if (/^https?:/i.test(url)) host = new URL(url).host; } catch { /* ignore */ }
+    // Derive host (relative URLs share 'app' bucket)
+    let host = 'app';
+    try { if (/^https?:/i.test(url)) host = new URL(url).host; } catch { /* ignore */ }
 
-        return withLimit(host, async () => {
+    return withLimit(host, async () => {
         let lastErr: any;
         for (let attempt = 0; attempt <= retries; attempt++) {
             const controller = new AbortController();
@@ -48,33 +48,33 @@ export async function safeFetch(url: string, opts: SafeFetchOptions = {}) {
                 if (cacheSeconds !== undefined) fetchOpts.next = { revalidate: cacheSeconds };
                 const res = await fetch(url, fetchOpts);
                 const ms = Date.now() - started;
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 if (attempt > 0) console.info('[safeFetch:recovered]', { url, attempt, ms });
                 return res;
             } catch (e: any) {
                 const ms = Date.now() - started;
                 const code = e?.code || e?.name;
-                    const msg = String(e?.message || '').toLowerCase();
-                            // Detect HTTP status if pattern present in message (e.g. 'HTTP 502')
-                            let httpStatus: number | undefined;
-                            const m = msg.match(/http\s+(\d{3})/); if (m) httpStatus = parseInt(m[1], 10);
-                            const retriableHttp = httpStatus && ((httpStatus >= 500 && httpStatus < 600) || httpStatus === 429);
-                            const retriable = (
-                                retriableHttp ||
-                                code === 'UND_ERR_SOCKET' ||
-                                code === 'ETIMEDOUT' ||
-                                e?.name === 'AbortError' ||
-                                msg.includes('timeout') ||
-                                msg.includes('terminated') ||
-                                msg.includes('socket hang up') ||
-                                msg.includes('fetch failed') ||
-                                /econnreset|eai_again/.test(code || '')
-                            );
+                const msg = String(e?.message || '').toLowerCase();
+                // Detect HTTP status if pattern present in message (e.g. 'HTTP 502')
+                let httpStatus: number | undefined;
+                const m = msg.match(/http\s+(\d{3})/); if (m) httpStatus = parseInt(m[1], 10);
+                const retriableHttp = httpStatus && ((httpStatus >= 500 && httpStatus < 600) || httpStatus === 429);
+                const retriable = (
+                    retriableHttp ||
+                    code === 'UND_ERR_SOCKET' ||
+                    code === 'ETIMEDOUT' ||
+                    e?.name === 'AbortError' ||
+                    msg.includes('timeout') ||
+                    msg.includes('terminated') ||
+                    msg.includes('socket hang up') ||
+                    msg.includes('fetch failed') ||
+                    /econnreset|eai_again/.test(code || '')
+                );
                 console.warn('[safeFetch]', { url, attempt, code, ms, retriable, msg });
                 lastErr = e;
-                    if (!idempotent) break;
-                    if (!retriable) break;
-                    if (attempt === retries) break;
+                if (!idempotent) break;
+                if (!retriable) break;
+                if (attempt === retries) break;
                 // Backoff with jitter
                 const backoff = Math.round(retryDelayBaseMs * 2 ** attempt + Math.random() * 100);
                 await delay(backoff);
