@@ -1,8 +1,5 @@
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { YieldIntro } from '@/components/nft/YieldIntro';
-
-const NftDashboard = dynamic(() => import('@/components/nft/Dashboard'), { ssr: true });
+import { RwaTabs } from '@/components/nft/RwaTabs';
 
 export default function Page() {
     return (
@@ -11,8 +8,7 @@ export default function Page() {
                 <h1 className="text-2xl font-semibold tracking-tight">NFT / RWA</h1>
                 <Link href="/docs" className="text-sm text-white/70 hover:text-white underline underline-offset-4">Read Terms</Link>
             </div>
-            <YieldIntro />
-            <NftDashboard />
+            <RwaTabs />
         </div>
     );
 }

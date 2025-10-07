@@ -1,20 +1,11 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { getName, getSymbol } from './coreRpc';
-import OwnedCount from './OwnedCount';
 import InvestorOverview from './InvestorOverview';
 import InvestorOverviewFJC from './InvestorOverviewFJC';
 import { CollectionAddress } from './CollectionAddress';
 import LegalTile from './LegalTile';
 import type { CollectionConfig } from './types';
-import dynamic from 'next/dynamic';
-
-// Client-only NFT media loader (lazy to keep server render lean)
-// @ts-ignore module resolution handled by Next
-const NftMediaLoader = dynamic<{ contract: string; supply: number }>(
-    () => import('./NftMediaLoader').then(m => ({ default: m.NftMediaLoader })),
-    { ssr: false }
-);
 
 const COLLECTIONS: (CollectionConfig & { arr: number; marketplace?: string; supply: number })[] = [
     { address: '0x649edd9af91646348aa4ba197d71eb05b9546d5a', standard: 'ERC721', name: 'FJC', description: 'FJC NFT', arr: 0.075, marketplace: 'https://blockz.gg/collection/0x649edd9af91646348aa4ba197d71eb05b9546d5a/', supply: 3000 },
@@ -96,18 +87,14 @@ export default function NftDashboard() {
                             <MiniStat label="Total Supply" value={m.supply.toLocaleString()} />
                             <MiniStat label="ARR" value={(m.arr * 100).toFixed(1) + '%'} />
                             <MiniStat label="Marketplace" value={<MarketplaceLink url={(m as any).marketplace} />} />
-                            <MiniStat label="Owned" value={<OwnedCount address={m.address} />} />
-                            <MiniStat label="ASX Distributed" value={m.address.toLowerCase() === '0x649edd9af91646348aa4ba197d71eb05b9546d5a' ? '1,936.2' : '—'} />
-                            <MiniStat label="Distributions" value={m.address.toLowerCase() === '0x649edd9af91646348aa4ba197d71eb05b9546d5a' ? '2' : '—'} />
+                            <MiniStat label="ASX Distributed" value={m.address.toLowerCase() === '0x649edd9af91646348aa4ba197d71eb05b9546d5a' ? '3047.85' : '2,079.23'} />
+                            <MiniStat label="Distributions" value={m.address.toLowerCase() === '0x649edd9af91646348aa4ba197d71eb05b9546d5a' ? '3' : '1'} />
                         </div>
                         {m.address.toLowerCase() === '0x8a747b5797b3164a64759a3d77f5a0f4e758283b' ? (
                             <InvestorOverview />
                         ) : (
                             <InvestorOverviewFJC />
                         )}
-                        <div className="pt-2 border-t border-white/10 relative">
-                            <NftMediaLoader contract={m.address} supply={m.supply} />
-                        </div>
                     </div>
                 ))}
                 {!loading && metas && metas.length === 0 && !error && (
@@ -124,8 +111,8 @@ export default function NftDashboard() {
 function StatTile({ label, value }: { label: string; value: any }) {
     return (
         <div className="card p-4 flex flex-col gap-1">
-            <div className="text-2xs uppercase tracking-wide text-white/45">{label}</div>
-            <div className="text-lg font-semibold text-white/90">{value}</div>
+            <div className="text-2xs tracking-tight text-white/50">{label}</div>
+            <div className="text-lg font-medium text-white/90">{value}</div>
         </div>
     );
 }
@@ -133,7 +120,7 @@ function StatTile({ label, value }: { label: string; value: any }) {
 function MiniStat({ label, value }: { label: string; value: any }) {
     return (
         <div className="flex flex-col gap-0.5 rounded-md bg-white/[0.04] border border-white/10 px-2 py-1">
-            <span className="text-white/40 text-3xs tracking-wide uppercase">{label}</span>
+            <span className="text-white/40 text-3xs tracking-tight">{label}</span>
             <span className="text-white/85 font-medium">{value}</span>
         </div>
     );

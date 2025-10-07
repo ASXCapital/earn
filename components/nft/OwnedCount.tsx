@@ -72,7 +72,7 @@ export function OwnedCount({ address }: { address: string }) {
             }
         })();
         return () => { active = false; };
-    }, [address, account?.address]);
+    }, [address, account]);
 
     if (!account) return <span className="text-white/40">—</span>;
     if (owned === null) return <span className="text-white/40 animate-pulse">…</span>;

@@ -61,7 +61,7 @@ export default function PoolsTableClient({ initialRows, updatedAt }: { initialRo
             </div>
             <div className="overflow-x-auto rounded-lg border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent">
                 <table className="min-w-full text-sm">
-                    <thead className="text-xs uppercase tracking-wide text-white/50 sticky top-0 backdrop-blur bg-black/30">
+                    <thead className="text-xs tracking-tight text-white/50 sticky top-0 backdrop-blur bg-black/30">
                         <tr className="text-left">
                             <th className="px-3 py-2 font-medium" onClick={() => toggle('pair')}><HeaderButton label="Pair" active={sortKey === 'pair'} dir={sortDir} /></th>
                             <th className="px-3 py-2 font-medium">DEX</th>

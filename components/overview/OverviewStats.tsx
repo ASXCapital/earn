@@ -124,7 +124,7 @@ export async function OverviewStats() {
     return (
       <div className="card p-3 min-w-[150px] flex flex-col gap-2 justify-between">
         <div className="flex items-start justify-between gap-2 min-h-[22px]">
-          <div className="flex items-center gap-1 text-2xs uppercase tracking-wide text-white/50 font-medium whitespace-nowrap">
+          <div className="flex items-center gap-1 text-2xs tracking-tight text-white/60 whitespace-nowrap">
             {icon && <span className="flex h-5 w-5 items-center justify-center overflow-hidden rounded-full bg-white/5 ring-1 ring-white/10">
               {typeof icon === 'string' ? icon : icon}
             </span>}

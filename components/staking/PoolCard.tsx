@@ -147,7 +147,7 @@ export function PoolCard({ poolKey, view, chainKey, accountAddress, refresh, net
             <div className="mt-auto flex flex-col gap-3">
                 {currentSteps && currentSteps.length > 0 && (
                     <div className="rounded-md bg-white/[0.04] border border-white/10 p-3 flex flex-col gap-2">
-                        <p className="text-3xs uppercase tracking-wide text-white/40 font-medium">Steps</p>
+                        <p className="text-3xs tracking-wide text-white/40">Steps</p>
                         <div className="flex flex-col gap-1 text-2xs">
                             {currentSteps.map((s, i) => (
                                 <div key={s.id + i} className="flex items-center gap-2">
@@ -200,7 +200,7 @@ export function PoolCard({ poolKey, view, chainKey, accountAddress, refresh, net
 function StatBox({ label, value }: { label: string; value: ReactNode }) {
     return (
         <div className="flex flex-col justify-center gap-1 rounded-md bg-white/[0.035] border border-white/10 px-3 py-2 transition-colors hover:border-white/20">
-            <span className="text-3xs tracking-wide uppercase text-white/40 font-medium">{label}</span>
+            <span className="text-3xs tracking-tight text-white/50">{label}</span>
             <span className="text-sm font-medium text-white/90 leading-none truncate" title={String(value)}>{value}</span>
         </div>
     );
@@ -227,7 +227,7 @@ function PercentRow({ onPick, disabled }: { onPick(pct: number): void; disabled?
                     onClick={() => onPick(o[1])}
                     size="sm"
                     variant="ghost"
-                    className="px-2 bg-white/[0.06] hover:bg-white/[0.12] text-3xs tracking-wide uppercase"
+                    className="px-2 bg-white/[0.06] hover:bg-white/[0.12] text-3xs tracking-tight"
                 >
                     {o[0]}
                 </Button>
@@ -269,7 +269,7 @@ function ActionPanel({ title, context, amount, setAmount, symbol, disabled, onPc
                     disabled={disabled}
                     size="sm"
                     variant="ghost"
-                    className="px-2 text-3xs bg-white/[0.08] hover:bg-white/[0.18] disabled:opacity-40 disabled:cursor-not-allowed tracking-wide uppercase"
+                    className="px-2 text-3xs bg-white/[0.08] hover:bg-white/[0.18] disabled:opacity-40 disabled:cursor-not-allowed tracking-tight"
                 >
                     Max
                 </Button>

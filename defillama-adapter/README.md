@@ -8,8 +8,8 @@ Adapter to report ASX staking & LP staking TVL on BSC and Core.
 - SDK handles pricing (via CoinGecko etc.).
 
 ## Files
-- `projects/asx/index.js` – adapter implementation
-- `package.json` – local dependencies (`@defillama/sdk`)
+- `projects/asx/index.js` - adapter implementation
+- `package.json` - local dependencies (`@defillama/sdk`)
 
 ## Local Test
 From `defillama-adapter` directory:

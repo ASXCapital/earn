@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 // Static logo sources (prefer local for our own token to avoid network + rate limits)
 // Using Coingecko asset CDN (static images) instead of API endpoints eliminates 429 issues.
@@ -22,13 +22,14 @@ interface LogoProps {
 }
 
 export function TokenLogo({ symbol }: LogoProps) {
-  const symbols = Array.isArray(symbol) ? symbol : [symbol];
+  const symbols = useMemo(() => (Array.isArray(symbol) ? symbol : [symbol]), [symbol]);
   const [urls, setUrls] = useState<(string | null)[]>(() => symbols.map(s => logoCache.get(s.toUpperCase()) ?? null));
+  const depKey = symbols.join(',').toUpperCase();
 
   // Update if symbol list changes (rare) pulling from cache/static only
   useEffect(() => {
     setUrls(symbols.map(s => logoCache.get(s.toUpperCase()) ?? null));
-  }, [symbols.join(',')]);
+  }, [symbols, depKey]);
 
   if (symbols.length === 2) {
     return (

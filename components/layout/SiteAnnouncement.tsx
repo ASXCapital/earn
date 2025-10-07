@@ -36,7 +36,7 @@ export function AnnouncementBar() {
                     aria-label="Dismiss announcement"
                     size="sm"
                     variant="ghost"
-                    className="shrink-0 px-2 py-0.5 text-3xs uppercase tracking-wider bg-amber-400/20 hover:bg-amber-400/30 text-amber-100 border border-amber-300/30 shadow-sm hover:text-white"
+                    className="shrink-0 px-2 py-0.5 text-3xs tracking-tight bg-amber-400/20 hover:bg-amber-400/30 text-amber-100 border border-amber-300/30 shadow-sm hover:text-white"
                 >
                     Close
                 </Button>

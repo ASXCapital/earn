@@ -59,7 +59,7 @@ async function callUint(contract: string, selector: string): Promise<number> {
 
 // Removed heavy log scanning; deterministic bounded scan instead.
 const TRANSFER_TOPIC = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
-async function enumerateByLogs(contract: string, owner: string, expected: number, setProgress: (s: string)=>void): Promise<string[]> {
+async function enumerateByLogs(contract: string, owner: string, expected: number, setProgress: (s: string) => void): Promise<string[]> {
   try {
     const latestHex = await rpc('eth_blockNumber', []);
     if (typeof latestHex !== 'string') return [];
@@ -79,7 +79,7 @@ async function enumerateByLogs(contract: string, owner: string, expected: number
       const owned = new Set<string>();
       for (const id of allIncoming) owned.add(id);
       for (const id of allOutgoing) owned.delete(id);
-      setProgress(`logs pass ${expanded+1}: ${owned.size}/${expected}`);
+      setProgress(`logs pass ${expanded + 1}: ${owned.size}/${expected}`);
       if (owned.size === expected) return Array.from(owned);
       // expand further back
       expanded++;
@@ -178,25 +178,25 @@ export function NftMediaLoader({ contract, supply }: NftMediaLoaderProps) {
         // Try log-based reconstruction first
         const logIds = await enumerateByLogs(contract, account.address, bal, setProgress);
         if (logIds.length) {
-          logIds.sort((a,b)=> (BigInt(a) < BigInt(b) ? -1 : BigInt(a) > BigInt(b) ? 1 : 0));
+          logIds.sort((a, b) => (BigInt(a) < BigInt(b) ? -1 : BigInt(a) > BigInt(b) ? 1 : 0));
           logIds.slice(0, bal).forEach(id => ids.push({ id }));
         }
         if (ids.length !== bal) {
           // Fallback deterministic scan only for missing tokens
-            const missing = bal - ids.length;
-            const have = new Set(ids.map(i=>i.id));
-            const upperExclusive = supply && supply > 0 ? supply : Math.max(bal * 10, 1000);
-            for (let start = 0; start < upperExclusive && have.size < bal; start += 120) {
-              const range: number[] = []; for (let t = start; t < start + 120 && t < upperExclusive; t++) range.push(t);
-              const owners = await batchOwnerOf(contract, range);
-              owners.forEach((own, idx) => {
-                if (own && own.toLowerCase() === account.address.toLowerCase()) {
-                  const idStr = String(range[idx]);
-                  if (!have.has(idStr)) { ids.push({ id: idStr }); have.add(idStr); }
-                }
-              });
-              setProgress(`scan fallback: ${ids.length}/${bal}`);
-            }
+          const missing = bal - ids.length;
+          const have = new Set(ids.map(i => i.id));
+          const upperExclusive = supply && supply > 0 ? supply : Math.max(bal * 10, 1000);
+          for (let start = 0; start < upperExclusive && have.size < bal; start += 120) {
+            const range: number[] = []; for (let t = start; t < start + 120 && t < upperExclusive; t++) range.push(t);
+            const owners = await batchOwnerOf(contract, range);
+            owners.forEach((own, idx) => {
+              if (own && own.toLowerCase() === account.address.toLowerCase()) {
+                const idStr = String(range[idx]);
+                if (!have.has(idStr)) { ids.push({ id: idStr }); have.add(idStr); }
+              }
+            });
+            setProgress(`scan fallback: ${ids.length}/${bal}`);
+          }
         }
         setProgress('');
       }

@@ -4,7 +4,6 @@
   "version": "0.1.0",
   "license": "MIT",
   "description": "DefiLlama adapter for ASX staking & LP pools",
-  "type": "module",
   "dependencies": {
     "@defillama/sdk": "^2.3.1",
     "ethers": "^6.15.0"

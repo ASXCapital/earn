@@ -37,7 +37,7 @@ function GlassNavCard({ href, title, desc, gradient, icon }: { href: string; tit
         </div>
         <div className="flex flex-col leading-tight">
           <span className="text-xs font-medium tracking-wide text-white group-hover:drop-shadow">{title}</span>
-          <span className="text-4xs font-mono tracking-wide text-white/60 group-hover:text-white/80 transition-colors whitespace-nowrap">{desc}</span>
+          <span className="text-4xs font-mono uppercase tracking-wider text-white/60 group-hover:text-white/80 transition-colors whitespace-nowrap">{desc}</span>
         </div>
       </div>
       <div className="relative mt-auto flex justify-end">
