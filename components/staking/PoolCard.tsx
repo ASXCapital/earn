@@ -2,6 +2,7 @@ import { TokenLogo } from '@/components/tokens/TokenLogo';
 import { STAKING_POOLS } from '@/data/staking';
 import type { PoolComputedView, SupportedChainKey } from '@/types/staking';
 import { ReactNode, useState, useMemo } from 'react';
+import { Button } from '@/components/common/Button';
 import { useStakingActions } from '@/hooks/useStakingActions';
 
 export function PoolCard({ poolKey, view, chainKey, accountAddress, refresh, networkMismatch, onRequestSwitch }: { poolKey: string; view: PoolComputedView | undefined; chainKey: SupportedChainKey; accountAddress?: string; refresh?: () => void; networkMismatch?: boolean; onRequestSwitch?: () => void; }) {
@@ -53,12 +54,14 @@ export function PoolCard({ poolKey, view, chainKey, accountAddress, refresh, net
                 <div className="flex items-center gap-4 min-w-[220px]">
                     <TokenLogo symbol={pool.tokens.length > 1 ? [...pool.tokens] : pool.tokens[0]} />
                     <div className="leading-tight">
-                        <h3 className="font-semibold tracking-tight text-sm md:text-base">{pool.label}</h3>
-                        <div className="mt-0.5 flex items-center gap-1.5 text-[10px] text-white/40">
+                        <h3 className="font-medium tracking-tight text-sm md:text-base">{pool.label}</h3>
+                        <div className="mt-0.5 flex items-center gap-1.5 text-3xs text-white/40">
                             <span className="break-all" title={pool.address}>{short(pool.address)}</span>
-                            <button
+                            <Button
                                 type="button"
                                 aria-label="Copy contract address"
+                                size="icon"
+                                variant="outline"
                                 onClick={() => {
                                     const addr = pool.address;
                                     const doCopy = async () => {
@@ -74,15 +77,15 @@ export function PoolCard({ poolKey, view, chainKey, accountAddress, refresh, net
                                     };
                                     doCopy();
                                 }}
-                                className={`relative inline-flex items-center justify-center rounded-sm border border-white/15 hover:border-white/35 hover:text-white text-white/60 transition h-4 w-4 ${copied ? 'text-asx-cyan border-asx-cyan/70' : ''}`}
+                                className={`relative inline-flex items-center justify-center rounded-md border border-white/15 hover:border-white/35 hover:text-white text-white/60 transition h-4 w-4 ${copied ? 'text-asx-cyan border-asx-cyan/70' : ''}`}
                             >
                                 {/* copy icon */}
                                 <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                                     <path d="M5 15V5a2 2 0 0 1 2-2h10" />
                                 </svg>
-                                {copied && <span className="pointer-events-none select-none absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] font-semibold text-asx-cyan">OK</span>}
-                            </button>
+                                {copied && <span className="pointer-events-none select-none absolute -bottom-5 left-1/2 -translate-x-1/2 text-4xs font-medium text-asx-cyan">OK</span>}
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -97,7 +100,7 @@ export function PoolCard({ poolKey, view, chainKey, accountAddress, refresh, net
             </div>
 
             {/* Tabs */}
-            <div className="flex flex-wrap items-center gap-2 text-[11px] font-medium">
+            <div className="flex flex-wrap items-center gap-2 text-2xs font-medium">
                 <TabButton active={activeTab === 'stake'} onClick={() => setActiveTab('stake')}>Stake</TabButton>
                 <TabButton active={activeTab === 'unstake'} onClick={() => setActiveTab('unstake')}>Unstake</TabButton>
                 <TabButton active={activeTab === 'rewards'} onClick={() => setActiveTab('rewards')}>Rewards</TabButton>
@@ -137,34 +140,43 @@ export function PoolCard({ poolKey, view, chainKey, accountAddress, refresh, net
                             <p className="text-lg font-semibold text-white">{st?.claimableDisplay || '—'}</p>
                         </div>
                     </div>
-                    <p className="text-[10px] text-white/40 leading-relaxed">Claim sends accrued rewards to your wallet.</p>
+                    <p className="text-3xs text-white/40 leading-relaxed">Claim sends accrued rewards to your wallet.</p>
                 </div>
             )}
             {/* Steps & Footer Actions */}
             <div className="mt-auto flex flex-col gap-3">
                 {currentSteps && currentSteps.length > 0 && (
                     <div className="rounded-md bg-white/[0.04] border border-white/10 p-3 flex flex-col gap-2">
-                        <p className="text-[10px] uppercase tracking-wide text-white/40 font-semibold">Steps</p>
-                        <div className="flex flex-col gap-1 text-[11px]">
+                        <p className="text-3xs uppercase tracking-wide text-white/40 font-medium">Steps</p>
+                        <div className="flex flex-col gap-1 text-2xs">
                             {currentSteps.map((s, i) => (
                                 <div key={s.id + i} className="flex items-center gap-2">
                                     <StatusDot status={s.status} />
                                     <span className="flex-1">{i + 1}. {s.label}</span>
-                                    {s.txHash && <a href={txUrl(chainKey, s.txHash)} target="_blank" rel="noopener noreferrer" className="text-asx-cyan/80 hover:text-asx-cyan text-[10px]">Tx</a>}
+                                    {s.txHash && <a href={txUrl(chainKey, s.txHash)} target="_blank" rel="noopener noreferrer" className="text-asx-cyan/80 hover:text-asx-cyan text-3xs">Tx</a>}
                                 </div>
                             ))}
                         </div>
                     </div>
                 )}
                 {networkMismatch && (
-                    <div className="rounded bg-amber-500/10 border border-amber-500/30 p-2 text-[11px] text-amber-300 flex items-center justify-between gap-3">
+                    <div className="rounded bg-amber-500/10 border border-amber-500/30 p-2 text-2xs text-amber-300 flex items-center justify-between gap-3">
                         <span>Wrong network. Switch to {chainKey === 'bsc' ? 'BNB Smart Chain' : 'Core'}.</span>
-                        {onRequestSwitch && <button onClick={onRequestSwitch} className="px-2 py-1 rounded bg-amber-500/30 hover:bg-amber-500/40 text-amber-100 text-[10px]">Switch</button>}
+                        {onRequestSwitch && (
+                            <Button
+                                onClick={onRequestSwitch}
+                                size="sm"
+                                variant="ghost"
+                                className="px-2 py-1 text-3xs bg-amber-500/30 hover:bg-amber-500/40 text-amber-100"
+                            >
+                                Switch
+                            </Button>
+                        )}
                     </div>
                 )}
                 <div className="flex flex-col gap-2">
-                    {actionErrors({ stakeState, unstakeState, claimState }).map((e, i) => <p key={i} className="text-[10px] text-red-400">{e}</p>)}
-                    {st?.error && <p className="text-[10px] text-red-400">{st.error}</p>}
+                    {actionErrors({ stakeState, unstakeState, claimState }).map((e, i) => <p key={i} className="text-3xs text-red-400">{e}</p>)}
+                    {st?.error && <p className="text-3xs text-red-400">{st.error}</p>}
                 </div>
                 <div className="pt-1">
                     <PrimaryActionBar
@@ -188,28 +200,38 @@ export function PoolCard({ poolKey, view, chainKey, accountAddress, refresh, net
 function StatBox({ label, value }: { label: string; value: ReactNode }) {
     return (
         <div className="flex flex-col justify-center gap-1 rounded-md bg-white/[0.035] border border-white/10 px-3 py-2 transition-colors hover:border-white/20">
-            <span className="text-[10px] tracking-wide uppercase text-white/40 font-medium">{label}</span>
-            <span className="text-[13px] font-semibold text-white/90 leading-none truncate" title={String(value)}>{value}</span>
+            <span className="text-3xs tracking-wide uppercase text-white/40 font-medium">{label}</span>
+            <span className="text-sm font-medium text-white/90 leading-none truncate" title={String(value)}>{value}</span>
         </div>
     );
 }
 
 function ActionBtn({ children, disabled, color, onClick }: { children: ReactNode; disabled?: boolean; color?: 'primary' | 'outline'; onClick?: () => void }) {
-    const base = 'px-4 py-2 rounded-lg font-semibold text-sm transition disabled:opacity-50 disabled:cursor-not-allowed';
-    const styles = color === 'primary'
-        ? 'bg-asx-cyan/90 hover:bg-asx-cyan text-black'
-        : 'border border-white/20 text-white/90 hover:text-white hover:border-white/40';
-    return <button className={`${base} ${styles}`} disabled={disabled} onClick={onClick}>{children}</button>;
+    return (
+        <Button variant={color === 'primary' ? 'primary' : 'outline'} disabled={disabled} onClick={onClick}>
+            {children}
+        </Button>
+    );
 }
 
 function short(addr: string, chars = 4) { return addr ? addr.slice(0, 2 + chars) + '…' + addr.slice(-chars) : ''; }
 
 function PercentRow({ onPick, disabled }: { onPick(pct: number): void; disabled?: boolean }) {
-    const btn = 'px-2 py-1.5 rounded-md bg-white/[0.06] hover:bg-white/[0.12] text-[10px] tracking-wide uppercase disabled:opacity-40 disabled:cursor-not-allowed';
     const opts: [string, number][] = [['25%', 0.25], ['50%', 0.5], ['75%', 0.75], ['100%', 1]];
     return (
         <div className="flex gap-1.5 flex-wrap">
-            {opts.map(o => <button key={o[0]} disabled={disabled} onClick={() => onPick(o[1])} className={btn}>{o[0]}</button>)}
+            {opts.map(o => (
+                <Button
+                    key={o[0]}
+                    disabled={disabled}
+                    onClick={() => onPick(o[1])}
+                    size="sm"
+                    variant="ghost"
+                    className="px-2 bg-white/[0.06] hover:bg-white/[0.12] text-3xs tracking-wide uppercase"
+                >
+                    {o[0]}
+                </Button>
+            ))}
         </div>
     );
 }
@@ -229,7 +251,7 @@ function ActionPanel({ title, context, amount, setAmount, symbol, disabled, onPc
         <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between gap-2 flex-wrap">
                 <h4 className="text-sm font-semibold text-white/90">{title}</h4>
-                <span className="text-[11px] text-white/40" title={context}>{context}</span>
+                <span className="text-2xs text-white/40" title={context}>{context}</span>
             </div>
             <div className="flex items-center gap-2 bg-white/[0.04] border border-white/10 rounded-lg px-3 py-2 focus-within:border-asx-cyan/60">
                 <input
@@ -241,8 +263,17 @@ function ActionPanel({ title, context, amount, setAmount, symbol, disabled, onPc
                     className="flex-1 bg-transparent outline-none text-sm"
                     disabled={disabled}
                 />
-                <button type="button" onClick={onMax} disabled={disabled} className="text-[10px] px-2 py-1 rounded bg-white/[0.08] hover:bg-white/[0.18] disabled:opacity-40 disabled:cursor-not-allowed tracking-wide uppercase">Max</button>
-                <span className="text-[11px] text-white/40 select-none">{symbol || ''}</span>
+                <Button
+                    type="button"
+                    onClick={onMax}
+                    disabled={disabled}
+                    size="sm"
+                    variant="ghost"
+                    className="px-2 text-3xs bg-white/[0.08] hover:bg-white/[0.18] disabled:opacity-40 disabled:cursor-not-allowed tracking-wide uppercase"
+                >
+                    Max
+                </Button>
+                <span className="text-2xs text-white/40 select-none">{symbol || ''}</span>
             </div>
             <PercentRow disabled={disabled} onPick={onPct} />
         </div>
@@ -251,12 +282,14 @@ function ActionPanel({ title, context, amount, setAmount, symbol, disabled, onPc
 
 function TabButton({ active, children, onClick }: { active: boolean; children: ReactNode; onClick(): void }) {
     return (
-        <button
+        <Button
             onClick={onClick}
-            className={`px-3 py-1.5 rounded-md text-[11px] font-semibold tracking-wide transition border ${active ? 'bg-asx-cyan/90 text-black border-asx-cyan/90' : 'border-white/15 text-white/60 hover:text-white hover:border-white/40'}`}
+            size="sm"
+            variant={active ? 'primary' : 'outline'}
+            className="tracking-wide"
         >
             {children}
-        </button>
+        </Button>
     );
 }
 

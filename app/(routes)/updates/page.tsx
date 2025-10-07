@@ -29,7 +29,7 @@ export default async function UpdatesPage({ searchParams }: { searchParams: { [k
   return (
     <div className="space-y-8">
       <div className="flex items-baseline justify-between flex-wrap gap-3">
-        <h1 className="text-2xl font-semibold tracking-tight">Updates</h1>
+        <h1 className="text-2xl font-medium tracking-tight">Updates</h1>
         <div className="text-xs text-white/50">Powered by Paragraph RSS</div>
       </div>
       {error && (
@@ -55,12 +55,12 @@ export default async function UpdatesPage({ searchParams }: { searchParams: { [k
               )}
               <div className="relative space-y-3 flex flex-col h-full p-5">
                 <header className="space-y-1">
-                  <h2 className="text-base font-semibold leading-snug pr-6 group-hover:text-white drop-shadow-sm">{a.title}</h2>
-                  <time className="text-[11px] font-mono uppercase tracking-wider text-white/50">{formatRssDate(a.pubDate)}</time>
+                  <h2 className="text-base font-medium leading-snug pr-6 group-hover:text-white drop-shadow-sm">{a.title}</h2>
+                  <time className="text-2xs font-mono uppercase tracking-wider text-white/50">{formatRssDate(a.pubDate)}</time>
                 </header>
                 <p className="text-sm text-white/70 leading-relaxed line-clamp-5 min-h-[4.5rem]">{excerpt}</p>
                 <div className="mt-auto flex items-center justify-between pt-2">
-                  <Link href={a.link} target="_blank" rel="noreferrer" className="text-[11px] font-semibold tracking-wide text-cyan-300 hover:text-cyan-200 transition-colors inline-flex items-center gap-1">
+                  <Link href={a.link} target="_blank" rel="noreferrer" className="text-2xs font-medium tracking-wide text-cyan-300 hover:text-cyan-200 transition-colors inline-flex items-center gap-1">
                     Read Article →
                   </Link>
                 </div>
@@ -81,9 +81,9 @@ export default async function UpdatesPage({ searchParams }: { searchParams: { [k
 }
 
 function PageLink({ page, children, disabled }: { page: number; children: React.ReactNode; disabled?: boolean }) {
-  if (disabled) return <span className="px-3 py-1.5 text-[11px] rounded border border-white/10 bg-white/5 text-white/30 cursor-not-allowed select-none">{children}</span>;
+  if (disabled) return <span className="px-3 py-1.5 text-2xs rounded border border-white/10 bg-white/5 text-white/30 cursor-not-allowed select-none">{children}</span>;
   return (
-    <Link href={`/updates?page=${page}`} className="px-3 py-1.5 text-[11px] rounded border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white text-white/70 transition-colors">
+    <Link href={`/updates?page=${page}`} className="px-3 py-1.5 text-2xs rounded border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white text-white/70 transition-colors">
       {children}
     </Link>
   );

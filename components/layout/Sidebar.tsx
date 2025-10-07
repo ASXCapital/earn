@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import clsx from "clsx";
 import { BookText, Boxes, Coins, LayoutDashboard, Layers3, X } from "lucide-react";
+import { Button } from "@/components/common/Button";
 
 const NAV = [
   { href: "/", label: "Overview", icon: LayoutDashboard },
@@ -29,14 +30,16 @@ export function Sidebar({ variant = 'desktop', open, onClose }: SidebarProps) {
           <span className="sr-only">ASX</span>
         </Link>
         {variant === 'mobile' && (
-          <button
+          <Button
             type="button"
             onClick={onClose}
             aria-label="Close menu"
-            className="p-2 rounded-md hover:bg-white/10 focus:outline-none focus:ring focus:ring-cyan-500"
+            size="icon"
+            variant="ghost"
+            className="focus:outline-none focus:ring focus:ring-cyan-500"
           >
             <X size={18} />
-          </button>
+          </Button>
         )}
       </div>
       <nav className="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
@@ -80,10 +83,11 @@ export function Sidebar({ variant = 'desktop', open, onClose }: SidebarProps) {
         </aside>
         {/* Backdrop */}
         {open && (
-          <button
+          <Button
             aria-label="Close menu backdrop"
-            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
             onClick={onClose}
+            variant="ghost"
+            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden rounded-none p-0"
           />
         )}
       </>

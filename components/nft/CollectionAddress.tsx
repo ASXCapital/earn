@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { Button } from '@/components/common/Button';
 
 export function CollectionAddress({ address }: { address: string }) {
     const [copied, setCopied] = useState(false);
@@ -31,10 +32,12 @@ export function CollectionAddress({ address }: { address: string }) {
             >
                 {address}
             </a>
-            <button
+            <Button
                 type="button"
                 onClick={copy}
-                className="p-1 -m-1 rounded hover:bg-white/10 text-white/50 hover:text-white transition-colors"
+                size="icon"
+                variant="ghost"
+                className="p-1 -m-1 text-white/50 hover:text-white"
                 aria-label={copied ? 'Copied' : 'Copy address'}
                 title={copied ? 'Copied!' : 'Copy address'}
             >
@@ -48,7 +51,7 @@ export function CollectionAddress({ address }: { address: string }) {
                         <path d="M4 16V6a2 2 0 0 1 2-2h10" />
                     </svg>
                 )}
-            </button>
+            </Button>
         </div>
     );
 }

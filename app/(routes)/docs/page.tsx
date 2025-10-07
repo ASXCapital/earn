@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Button } from "@/components/common/Button";
 
 const MAIN_DOCS = [
   { name: "Directors’ Resolutions — ASX Limited (2025-07-28)", file: "/docs/2025-07-28-Directors-Resolutions-ASX-Limited.pdf" },
@@ -68,10 +69,10 @@ function LegalFolder({ folder }: { folder: typeof LEGAL_FOLDERS[number] }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border border-white/10 rounded-lg overflow-hidden">
-      <button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between px-4 py-2 bg-white/5 hover:bg-white/10 text-left">
+      <Button onClick={() => setOpen(o => !o)} className="w-full flex items-center justify-between px-4 py-2 bg-white/5 hover:bg-white/10 text-left" variant="ghost">
         <span className="font-medium">{folder.title}</span>
         <span className="text-xs text-white/50">{open ? 'Hide' : 'Show'} ({folder.files.length})</span>
-      </button>
+      </Button>
       {open && (
         <ul className="divide-y divide-white/5 text-sm">
           {folder.files.map(f => (
@@ -90,8 +91,8 @@ export default function Page() {
   return (
     <div className="space-y-10">
       <div className="space-y-4">
-        <h1 className="text-2xl font-semibold tracking-tight">Docs</h1>
-        <div className="text-[11px] px-3 py-2 rounded-md inline-block bg-white/5 border border-white/10 text-white/70">
+        <h1 className="text-2xl font-medium tracking-tight">Docs</h1>
+        <div className="text-2xs px-3 py-2 rounded-md inline-block bg-white/5 border border-white/10 text-white/70">
           This section is being expanded over the next few weeks. For comprehensive documentation visit{' '}
           <a href="https://asx-1.gitbook.io/asx-docs" target="_blank" rel="noreferrer noopener" className="text-cyan-300 hover:text-cyan-200 font-semibold">GitBook Docs ↗</a>.
         </div>

@@ -4,7 +4,7 @@ import { ConnectButton, darkTheme } from "thirdweb/react";
 import { Menu } from "lucide-react";
 import { createWallet } from "thirdweb/wallets";
 import { client, supportedChains } from "@/lib/thirdweb";
-import { CoreBalance } from "@/components/wallet/CoreBalance";
+import { Button } from "@/components/common/Button";
 
 // Keep original simple wallet list
 const wallets = [
@@ -21,14 +21,16 @@ export function Topbar({ onOpenSidebar }: TopbarProps) {
   return (
     <div className="h-16 border-b border-white/5 flex items-center justify-between px-4 md:px-6 lg:px-8">
       <div className="flex items-center gap-3">
-        <button
+        <Button
           type="button"
           onClick={onOpenSidebar}
-          className="md:hidden p-2 rounded-md hover:bg-white/10 focus:outline-none focus:ring focus:ring-cyan-500"
+          size="icon"
+          variant="ghost"
+          className="md:hidden focus:outline-none focus:ring focus:ring-cyan-500"
           aria-label="Open menu"
         >
           <Menu size={20} />
-        </button>
+        </Button>
       </div>
       <div className="flex items-center gap-3">
 

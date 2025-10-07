@@ -37,7 +37,7 @@ export function TokenLogo({ symbol }: LogoProps) {
           const u = urls[i];
           return (
             <div key={s + i} className={`w-8 h-8 rounded-full border border-black/30 overflow-hidden bg-black flex items-center justify-center ${i === 1 ? '-ml-3' : ''}`}>
-              {u ? <img src={u} alt={s} className="w-full h-full object-contain" /> : <span className="text-[10px] font-semibold text-black/70">{s.slice(0, 4).toUpperCase()}</span>}
+              {u ? <img src={u} alt={s} className="w-full h-full object-contain" /> : <span className="text-3xs font-medium text-black/70">{s.slice(0, 4).toUpperCase()}</span>}
             </div>
           );
         })}
@@ -47,7 +47,7 @@ export function TokenLogo({ symbol }: LogoProps) {
   const u = urls[0];
   return (
     <div className="w-8 h-8 rounded-full border border-black/30 overflow-hidden flex items-center justify-center bg-black">
-      {u ? <img src={u} alt={symbols[0]} className="w-full h-full object-contain" /> : <span className="text-[10px] font-semibold text-black/70">{symbols[0].slice(0, 4).toUpperCase()}</span>}
+      {u ? <img src={u} alt={symbols[0]} className="w-full h-full object-contain" /> : <span className="text-3xs font-medium text-black/70">{symbols[0].slice(0, 4).toUpperCase()}</span>}
     </div>
   );
 }

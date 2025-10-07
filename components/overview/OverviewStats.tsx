@@ -112,19 +112,19 @@ export async function OverviewStats() {
     const color = change == null ? "text-white/50" : positive ? "text-emerald-400" : change === 0 ? "text-white/50" : "text-red-400";
     // Pre-calc placeholders to maintain uniform card height regardless of missing change/mc
     const changeEl = change != null ? (
-      <div className={`font-mono text-[11px] tabular-nums ${color} whitespace-nowrap`}>{formatChange(change)}</div>
+      <div className={`font-mono text-2xs tabular-nums ${color} whitespace-nowrap`}>{formatChange(change)}</div>
     ) : (
-      <div className="font-mono text-[11px] tabular-nums opacity-0 select-none whitespace-nowrap">+0.00%</div>
+      <div className="font-mono text-2xs tabular-nums opacity-0 select-none whitespace-nowrap">+0.00%</div>
     );
     const mcEl = mc != null ? (
-      <div className="font-mono text-[10px] text-white/40 tabular-nums whitespace-nowrap sm:text-right">{formatCompactUSD(mc)}</div>
+      <div className="font-mono text-3xs text-white/40 tabular-nums whitespace-nowrap sm:text-right">{formatCompactUSD(mc)}</div>
     ) : (
-      <div className="font-mono text-[10px] tabular-nums opacity-0 select-none whitespace-nowrap sm:text-right">$0.00B</div>
+      <div className="font-mono text-3xs tabular-nums opacity-0 select-none whitespace-nowrap sm:text-right">$0.00B</div>
     );
     return (
       <div className="card p-3 min-w-[150px] flex flex-col gap-2 justify-between">
         <div className="flex items-start justify-between gap-2 min-h-[22px]">
-          <div className="flex items-center gap-1 text-[11px] uppercase tracking-wide text-white/50 font-medium whitespace-nowrap">
+          <div className="flex items-center gap-1 text-2xs uppercase tracking-wide text-white/50 font-medium whitespace-nowrap">
             {icon && <span className="flex h-5 w-5 items-center justify-center overflow-hidden rounded-full bg-white/5 ring-1 ring-white/10">
               {typeof icon === 'string' ? icon : icon}
             </span>}

@@ -8,7 +8,7 @@ export default function Page() {
     <div className="space-y-10">
       <WelcomeBar />
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold">Markets</h2>
+        <h2 className="text-lg font-medium">Markets</h2>
         <Suspense fallback={<div className="opacity-60 text-sm">Loading market data…</div>}>
           <MarketsStats />
         </Suspense>
@@ -32,12 +32,12 @@ function GlassNavCard({ href, title, desc, gradient, icon }: { href: string; tit
       <div className={`absolute inset-0 pointer-events-none opacity-60 group-hover:opacity-80 transition-opacity bg-gradient-to-br ${gradient}`}></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.25),transparent_60%)] opacity-40 mix-blend-overlay"></div>
       <div className="relative flex items-center gap-1.5">
-        <div className="flex h-6 w-6 items-center justify-center rounded bg-white/10 ring-1 ring-white/20 text-white/80 group-hover:text-white group-hover:bg-white/15 transition-colors text-[13px]">
+        <div className="flex h-6 w-6 items-center justify-center rounded bg-white/10 ring-1 ring-white/20 text-white/80 group-hover:text-white group-hover:bg-white/15 transition-colors text-xs">
           {icon}
         </div>
         <div className="flex flex-col leading-tight">
-          <span className="text-[12px] font-semibold tracking-wide text-white group-hover:drop-shadow">{title}</span>
-          <span className="text-[9px] font-mono uppercase tracking-wider text-white/60 group-hover:text-white/80 transition-colors whitespace-nowrap">{desc}</span>
+          <span className="text-xs font-medium tracking-wide text-white group-hover:drop-shadow">{title}</span>
+          <span className="text-4xs font-mono uppercase tracking-wider text-white/60 group-hover:text-white/80 transition-colors whitespace-nowrap">{desc}</span>
         </div>
       </div>
       <div className="relative mt-auto flex justify-end">

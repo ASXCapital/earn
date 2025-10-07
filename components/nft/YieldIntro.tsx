@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useRef, useCallback } from 'react';
 import LegalTile from './LegalTile';
+import { Button } from '@/components/common/Button';
 
 // Simple deterministic projection (non-compounded vs compounded annually/monthly)
 interface Point { year: number; value: number; }
@@ -65,7 +66,7 @@ export function YieldIntro() {
                 <div className="pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(circle_at_25%_25%,white,transparent)]" />
                 <div className="relative space-y-6">
                     <div>
-                        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight leading-snug">ASX RWA NFTs provide exposure to Real Estate Cashflow</h2>
+                        <h2 className="text-2xl sm:text-3xl font-medium tracking-tight leading-snug">ASX RWA NFTs provide exposure to Real Estate Cashflow</h2>
                         <p className="mt-2 text-sm sm:text-base text-white/70 max-w-3xl leading-relaxed">A professionally structured, on‑chain instrument offering pro‑rata access to a targeted annual cash distribution sourced from net apartment rental operations—delivered via a secured loan & promissory note framework.</p>
                     </div>
                     <div className="grid gap-3 md:grid-cols-4 items-stretch">
@@ -91,7 +92,7 @@ export function YieldIntro() {
                             ]}
                         />
                     </div>
-                    <div className="text-[12px] text-white/45 max-w-4xl leading-relaxed">
+                    <div className="text-xs text-white/45 max-w-4xl leading-relaxed">
                         Target figures are indicative and subject to change with occupancy, operating costs, timing and other variables. NFTs convey no equity, governance, redemption right or direct real estate ownership; economic value is derived solely from participation in the distribution mechanism. Review Terms & Risk Factors before allocating capital.
                     </div>
                 </div>
@@ -108,7 +109,7 @@ export function YieldIntro() {
                     <div className="flex flex-col lg:flex-row lg:items-end gap-6">
                         <div className="flex-1 min-w-[260px] space-y-4">
                             <div>
-                                <label className="text-[11px] uppercase tracking-wide text-white/50 font-medium">Assumed Purchase Price (Floor)</label>
+                                <label className="text-2xs uppercase tracking-wide text-white/50 font-medium">Assumed Purchase Price (Floor)</label>
                                 <div className="flex items-center gap-2 mt-1">
                                     <input type="range" min={2} max={20} step={0.5} value={floor} onChange={e => setFloor(parseFloat(e.target.value))} className="w-full" aria-label="Assumed purchase price" />
                                     <span className="w-16 text-right text-sm tabular-nums">${floor.toFixed(2)}</span>
@@ -116,16 +117,16 @@ export function YieldIntro() {
                             </div>
                             <div className="flex flex-wrap gap-4">
                                 <div className="flex items-center gap-2">
-                                    <label className="text-[11px] uppercase tracking-wide text-white/50 font-medium"># NFTs</label>
+                                    <label className="text-2xs uppercase tracking-wide text-white/50 font-medium"># NFTs</label>
                                     <input type="number" min={1} max={5000} value={qty} onChange={e => setQty(Math.min(5000, Math.max(1, parseInt(e.target.value) || 1)))} className="w-24 bg-white/5 rounded px-2 py-1 text-sm" title="Number of NFTs" aria-label="Number of NFTs" />
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <label className="text-[11px] uppercase tracking-wide text-white/50 font-medium">Years</label>
+                                    <label className="text-2xs uppercase tracking-wide text-white/50 font-medium">Years</label>
                                     <input type="number" min={1} max={15} value={years} onChange={e => setYears(Math.min(15, Math.max(1, parseInt(e.target.value) || 1)))} className="w-20 bg-white/5 rounded px-2 py-1 text-sm" title="Projection years" aria-label="Projection years" />
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <label className="text-[11px] uppercase tracking-wide text-white/50 font-medium">Compound</label>
-                                    <button onClick={() => setCompound(v => !v)} className={"px-3 py-1 rounded-md text-sm font-medium border transition-colors " + (compound ? 'bg-teal-600/60 border-teal-500 text-white' : 'bg-white/5 border-white/15 text-white/70 hover:text-white')}>{compound ? 'ON' : 'OFF'}</button>
+                                    <label className="text-2xs uppercase tracking-wide text-white/50 font-medium">Compound</label>
+                                    <Button onClick={() => setCompound(v => !v)} className={"px-3 py-1 text-sm font-medium border transition-colors " + (compound ? 'bg-teal-600/60 border-teal-500 text-white' : 'bg-white/5 border-white/15 text-white/70 hover:text-white')}>{compound ? 'ON' : 'OFF'}</Button>
                                 </div>
                             </div>
                         </div>
@@ -178,12 +179,12 @@ export function YieldIntro() {
                             </g>
                         )}
                     </svg>
-                    <div className="absolute top-2 right-2 flex gap-3 text-[11px]">
+                    <div className="absolute top-2 right-2 flex gap-3 text-2xs">
                         <span className="flex items-center gap-1 text-cyan-300"><span className="w-2 h-2 bg-cyan-400 rounded-full" />Low</span>
                         <span className="flex items-center gap-1 text-emerald-300"><span className="w-2 h-2 bg-emerald-400 rounded-full" />High</span>
                     </div>
                 </div>
-                <p className="text-[11px] leading-relaxed text-white/40">Illustrative only. Constant target band; reinvestment assumes purchases at input price. Does not model slippage, premiums/discounts, tax or execution costs. Refer to Terms & Risk Factors.</p>
+                <p className="text-2xs leading-relaxed text-white/40">Illustrative only. Constant target band; reinvestment assumes purchases at input price. Does not model slippage, premiums/discounts, tax or execution costs. Refer to Terms & Risk Factors.</p>
             </section>
         </div>
     );
@@ -192,7 +193,7 @@ export function YieldIntro() {
 function Metric({ label, value }: { label: string; value: React.ReactNode }) {
     return (
         <div className="rounded-md bg-white/[0.04] border border-white/10 p-3 flex flex-col gap-1 min-w-[150px] flex-[1_1_160px]">
-            <div className="text-[10px] uppercase tracking-wide text-white/45 font-medium">{label}</div>
+            <div className="text-3xs uppercase tracking-wide text-white/45 font-medium">{label}</div>
             <div className="text-sm font-semibold text-white/90 tabular-nums">{value}</div>
         </div>
     );
@@ -202,7 +203,7 @@ function HeroStat({ label, value, image }: { label: string; value: React.ReactNo
     return (
         <div className={"relative rounded-lg border border-white/10 bg-white/[0.045] px-4 py-2 min-w-[150px] " + (image ? 'pr-16' : '')}>
             <div className="flex flex-col leading-tight gap-0.5">
-                <span className="text-[10px] uppercase tracking-wide text-white/55 font-medium">{label}</span>
+                <span className="text-3xs uppercase tracking-wide text-white/55 font-medium">{label}</span>
                 <span className="text-sm font-semibold text-white tabular-nums">{value}</span>
             </div>
             {image && (
@@ -220,18 +221,19 @@ function DistMenu({ code, items }: { code: string; items: { label: string; tx: s
     const [open, setOpen] = useState(false);
     return (
         <div className="rounded-lg border border-white/10 bg-white/[0.035] overflow-hidden">
-            <button
+            <Button
                 type="button"
                 onClick={() => setOpen(o => !o)}
                 className="w-full flex items-center justify-between px-4 py-2 text-left text-sm font-medium tracking-wide hover:bg-white/5 transition-colors"
+                variant="ghost"
                 aria-controls={`dist-${code}`}
             >
                 <span className="flex items-center gap-2">
-                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-teal-600/20 text-teal-300 text-[11px] font-semibold">{code.slice(-3)}</span>
+                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-teal-600/20 text-teal-300 text-2xs font-medium">{code.slice(-3)}</span>
                     {code} Distributions
                 </span>
                 <svg className={"h-4 w-4 text-white/60 transition-transform " + (open ? 'rotate-180' : '')} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
-            </button>
+            </Button>
             {open && (
                 <ul id={`dist-${code}`} className="divide-y divide-white/5 text-sm" aria-label={`${code} distribution transactions`}>
                     {items.map((it, idx) => (
@@ -239,7 +241,7 @@ function DistMenu({ code, items }: { code: string; items: { label: string; tx: s
                             {it.tx ? (
                                 <a href={`https://scan.coredao.org/tx/${it.tx}`} target="_blank" rel="noopener noreferrer" className="flex-1 px-4 py-2 hover:bg-white/5 flex items-center justify-between gap-3">
                                     <span className="text-white/75">{it.label}</span>
-                                    <span className="text-[10px] uppercase tracking-wide text-teal-300">View Tx</span>
+                                    <span className="text-3xs uppercase tracking-wide text-teal-300">View Tx</span>
                                 </a>
                             ) : (
                                 <div className="flex-1 px-4 py-2 text-white/40">{it.label}</div>
@@ -255,7 +257,7 @@ function DistMenu({ code, items }: { code: string; items: { label: string; tx: s
 function InlineStat({ label, value }: { label: string; value: React.ReactNode }) {
     return (
         <div className="flex flex-col text-left">
-            <span className="text-[10px] uppercase tracking-wide text-white/40">{label}</span>
+            <span className="text-3xs uppercase tracking-wide text-white/40">{label}</span>
             <span className="text-xs font-medium text-white/85 tabular-nums">{value}</span>
         </div>
     );

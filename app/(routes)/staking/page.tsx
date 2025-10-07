@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { Button } from '@/components/common/Button';
 import { useActiveAccount, useActiveWallet, useActiveWalletChain } from 'thirdweb/react';
 import { bsc, core } from '@/lib/thirdweb';
 import { usePrices } from '@/hooks/usePrices';
@@ -35,13 +36,13 @@ export default function Page() {
       <div className="flex items-center gap-3 flex-wrap">
         <ChainButton label="BSC" active={chainKey === 'bsc'} onClick={() => setChainKey('bsc')} />
         <ChainButton label="CORE" active={chainKey === 'core'} onClick={() => setChainKey('core')} />
-        <button onClick={refresh} className="text-xs px-2 py-1 rounded bg-white/10 hover:bg-white/20">Refresh</button>
-        {account?.address && <span className="text-[11px] text-white/50">Addr: {short(account.address, 6)}</span>}
+        <Button onClick={refresh} size="sm" variant="ghost" className="px-2 text-xs bg-white/10 hover:bg-white/20">Refresh</Button>
+        {account?.address && <span className="text-2xs text-white/50">Addr: {short(account.address, 6)}</span>}
       </div>
       {networkMismatch && (
         <div className="flex items-center flex-wrap gap-3 text-xs bg-red-500/10 border border-red-500/30 text-red-300 px-3 py-2 rounded">
           <span>Wrong network: connected to {activeChain?.name || activeChain?.id}, need {chainKey === 'bsc' ? 'BNB Smart Chain' : 'Core'}.</span>
-          <button onClick={switchToTarget} className="px-2 py-1 rounded bg-red-500/30 hover:bg-red-500/40 text-red-100">Switch Network</button>
+          <Button onClick={switchToTarget} size="sm" variant="ghost" className="px-2 py-1 bg-red-500/30 hover:bg-red-500/40 text-red-100">Switch Network</Button>
         </div>
       )}
       {/* Debug controls removed */}
@@ -65,7 +66,7 @@ export default function Page() {
 
 function ChainButton({ label, active, onClick }: { label: string; active: boolean; onClick(): void }) {
   return (
-    <button onClick={onClick} className={`px-3 py-1.5 rounded-lg border ${active ? 'border-asx-cyan text-white' : 'border-white/10 text-white/70 hover:text-white'}`}>{label}</button>
+    <Button onClick={onClick} size="sm" variant="ghost" className={`px-3 py-1.5 border rounded-lg ${active ? 'border-asx-cyan text-white' : 'border-white/10 text-white/70 hover:text-white'}`}>{label}</Button>
   );
 }
 

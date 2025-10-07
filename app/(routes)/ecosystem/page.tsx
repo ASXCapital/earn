@@ -37,7 +37,7 @@ export default async function Page() {
                         </div>
                         <div className="text-xs rounded bg-white/10 px-2 py-0.5 font-mono">{t.chain.toUpperCase()}</div>
                       </div>
-                      <div className="mt-2 text-white/60 text-[10px] font-mono break-all">{t.address}</div>
+                      <div className="mt-2 text-white/60 text-3xs font-mono break-all">{t.address}</div>
                     </a>
                   ))}
                 </div>
@@ -51,7 +51,7 @@ export default async function Page() {
                         <div className="font-semibold tracking-tight">{lp.label}</div>
                         <div className="text-xs rounded bg-white/10 px-2 py-0.5 font-mono">BSC</div>
                       </div>
-                      <div className="mt-2 text-white/60 text-[10px] font-mono break-all">{lp.address}</div>
+                      <div className="mt-2 text-white/60 text-3xs font-mono break-all">{lp.address}</div>
                     </a>
                   ))}
                 </div>
@@ -65,7 +65,7 @@ export default async function Page() {
                         <div className="font-semibold tracking-tight">{sp.label}</div>
                         <div className="text-xs rounded bg-white/10 px-2 py-0.5 font-mono">{sp.chain.toUpperCase()}</div>
                       </div>
-                      <div className="mt-2 text-white/60 text-[10px] font-mono break-all">{sp.address}</div>
+                      <div className="mt-2 text-white/60 text-3xs font-mono break-all">{sp.address}</div>
                     </a>
                   ))}
                 </div>
@@ -73,8 +73,8 @@ export default async function Page() {
               <div className="space-y-4">
                 <h2 className="text-lg font-semibold">Official NFT Contracts</h2>
                 <ul className="grid sm:grid-cols-2 gap-3 text-xs">
-                  <li className="card p-3"><div className="font-semibold mb-1 tracking-tight">FJC NFT</div><code className="text-[10px] break-all">0x8a747b5797b3164a64759a3d77f5a0f4e758283b</code></li>
-                  <li className="card p-3"><div className="font-semibold mb-1 tracking-tight">MVA NFT</div><code className="text-[10px] break-all">0x649edd9af91646348aa4ba197d71eb05b9546d5a</code></li>
+                  <li className="card p-3"><div className="font-medium mb-1 tracking-tight">FJC NFT</div><code className="text-3xs break-all">0x8a747b5797b3164a64759a3d77f5a0f4e758283b</code></li>
+                  <li className="card p-3"><div className="font-medium mb-1 tracking-tight">MVA NFT</div><code className="text-3xs break-all">0x649edd9af91646348aa4ba197d71eb05b9546d5a</code></li>
                 </ul>
               </div>
             </div>
@@ -108,18 +108,18 @@ export default async function Page() {
                       <div className="relative space-y-3 flex flex-col h-full p-4">
                         <header className="space-y-1">
                           <h3 className="text-sm font-semibold leading-snug pr-6 group-hover:text-white drop-shadow-sm">{a.title}</h3>
-                          <time className="text-[10px] font-mono uppercase tracking-wider text-white/50">{formatRssDate(a.pubDate)}</time>
+                          <time className="text-3xs font-mono uppercase tracking-wider text-white/50">{formatRssDate(a.pubDate)}</time>
                         </header>
-                        <p className="text-[13px] text-white/70 leading-relaxed line-clamp-5 min-h-[4rem]">{excerpt}</p>
+                        <p className="text-sm text-white/70 leading-relaxed line-clamp-5 min-h-[4rem]">{excerpt}</p>
                         <div className="mt-auto pt-2">
-                          <a href={a.link} target="_blank" rel="noreferrer" className="text-[10px] font-semibold tracking-wide text-cyan-300 hover:text-cyan-200 inline-flex items-center gap-1">Read Article →</a>
+                          <a href={a.link} target="_blank" rel="noreferrer" className="text-3xs font-medium tracking-wide text-cyan-300 hover:text-cyan-200 inline-flex items-center gap-1">Read Article →</a>
                         </div>
                       </div>
                     </article>
                   );
                 })}
               </div>
-              <a href="/updates" className="text-[11px] font-semibold tracking-wide text-cyan-300 hover:text-cyan-200">View All Updates →</a>
+              <a href="/updates" className="text-2xs font-medium tracking-wide text-cyan-300 hover:text-cyan-200">View All Updates →</a>
             </div>
           }
         />

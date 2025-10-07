@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
+import { Button } from '@/components/common/Button';
 
 interface BundleFiles { [bundle: string]: string[] }
 
@@ -59,23 +60,27 @@ export default function LegalTile({ compact = false }: { compact?: boolean }) {
 
     return (
         <div className={rootBase} ref={menuRef}>
-            <div className="text-[10px] uppercase tracking-wide text-white/50 flex items-center justify-between">
+            <div className="text-3xs uppercase tracking-wide text-white/50 flex items-center justify-between">
                 <span>Legal</span>
                 {bundle && !compact && (
-                    <button
+                    <Button
                         onClick={() => setShowDocs(s => !s)}
-                        className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition"
+                        size="sm"
+                        variant="ghost"
+                        className="px-1.5 py-0.5 text-3xs bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10"
                         aria-label={showDocs ? 'Collapse documents' : 'Expand documents'}
                     >
                         {showDocs ? '−' : '+'}
-                    </button>
+                    </Button>
                 )}
             </div>
             <div className="flex flex-col gap-1 relative">
-                <button
+                <Button
                     type="button"
                     onClick={() => setOpen(o => !o)}
-                    className={"group relative w-full text-left rounded-md border flex items-center justify-between gap-2 transition text-xs " + (compact
+                    size="sm"
+                    variant="outline"
+                    className={"group relative w-full text-left flex items-center justify-between gap-2 transition text-xs " + (compact
                         ? 'px-2 py-1 bg-white/[0.05] border-white/10 hover:bg-white/[0.08] text-white/70'
                         : 'px-2 py-1.5 bg-white/[0.04] border-white/10 hover:bg-white/[0.07] text-white/80')}
                     aria-haspopup="listbox"
@@ -83,20 +88,22 @@ export default function LegalTile({ compact = false }: { compact?: boolean }) {
                     <span className="truncate">{bundle || 'Select Bundle'}</span>
                     <svg width="12" height="12" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${open ? 'rotate-180' : ''}`}> <polyline points="6 9 12 15 18 9" /> </svg>
                     <span className="pointer-events-none absolute inset-0 rounded-md ring-0 group-focus-visible:ring-2 ring-teal-400/60" />
-                </button>
+                </Button>
                 {open && (
                     <div className="absolute z-40 top-full left-0 right-0 mt-1 bg-white/[0.09] backdrop-blur-md border border-white/10 rounded-md shadow-lg p-1 space-y-0.5 text-xs max-h-60 overflow-auto">
                         {Object.keys(BUNDLES).map(b => {
                             const active = b === bundle;
                             return (
-                                <button
+                                <Button
                                     key={b}
                                     onClick={() => choose(b as keyof typeof BUNDLES)}
-                                    className={`w-full px-2 py-1 rounded-md text-left flex items-center justify-between gap-2 transition ${active ? 'bg-teal-500/25 text-teal-300' : 'text-white/70 hover:bg-white/10 hover:text-white'}`}
+                                    size="sm"
+                                    variant="ghost"
+                                    className={`w-full px-2 py-1 text-left flex items-center justify-between gap-2 transition ${active ? 'bg-teal-500/25 text-teal-300' : 'text-white/70 hover:bg-white/10 hover:text-white'}`}
                                 >
                                     <span className="truncate">{b}</span>
                                     {active && <svg width="10" height="10" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
-                                </button>
+                                </Button>
                             );
                         })}
                     </div>
@@ -104,8 +111,8 @@ export default function LegalTile({ compact = false }: { compact?: boolean }) {
                 {bundle && showDocs && (
                     <div className="absolute z-50 top-full left-0 right-0 mt-2 rounded-lg border border-white/15 bg-[#0d1116]/95 backdrop-blur-sm shadow-lg p-2">
                         <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] uppercase tracking-wide text-white/50">Documents ({files.length})</span>
-                            <button onClick={() => setShowDocs(false)} className="text-[10px] px-1 py-0.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 hover:text-white transition">Close</button>
+                            <span className="text-3xs uppercase tracking-wide text-white/50">Documents ({files.length})</span>
+                            <Button onClick={() => setShowDocs(false)} size="sm" variant="ghost" className="px-1 py-0.5 text-3xs bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 hover:text-white">Close</Button>
                         </div>
                         <ul className="flex flex-col gap-1 max-h-48 overflow-auto pr-1 divide-y divide-white/5">
                             {files.map(file => {
@@ -117,7 +124,7 @@ export default function LegalTile({ compact = false }: { compact?: boolean }) {
                                             href={path}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="group flex items-center gap-1 px-2 py-1 text-[11px] text-teal-300 hover:text-white hover:bg-white/5 rounded-md transition truncate"
+                                            className="group flex items-center gap-1 px-2 py-1 text-2xs text-teal-300 hover:text-white hover:bg-white/5 rounded-md transition truncate"
                                         >
                                             <svg width="10" height="10" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-60 group-hover:opacity-100 flex-shrink-0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" /><path d="M14 2v6h6" /></svg>
                                             <span className="truncate" title={file}>{file}</span>
@@ -130,7 +137,7 @@ export default function LegalTile({ compact = false }: { compact?: boolean }) {
                     </div>
                 )}
                 {bundle && !showDocs && (
-                    <button onClick={() => setShowDocs(true)} className="absolute top-0 right-0 translate-y-[-115%] text-[10px] px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-white/50 hover:text-white hover:bg-white/10 transition" aria-label="Show documents">Docs</button>
+                    <Button onClick={() => setShowDocs(true)} size="sm" variant="ghost" className="absolute top-0 right-0 translate-y-[-115%] px-1.5 py-0.5 text-3xs bg-white/5 border border-white/10 text-white/50 hover:text-white hover:bg-white/10" aria-label="Show documents">Docs</Button>
                 )}
             </div>
         </div>

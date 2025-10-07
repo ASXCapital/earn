@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import { Button } from '@/components/common/Button';
 
 interface ContractRef { label: string; address: string; }
 
@@ -77,24 +78,38 @@ export const WelcomeBar: React.FC = () => {
         <div className="flex items-center gap-3">
           <img src="https://rabby.io/assets/logos/symbol-new.svg" alt="Rabby" className="h-8 w-8" />
           <div className="space-y-0.5">
-            <p className="text-sm font-semibold">Welcome to ASX Earn</p>
-            <p className="text-[11px] text-white/60 max-w-xl">We recommend using Rabby Wallet for the smoothest multi-chain experience. <a href="https://rabby.io/" target="_blank" rel="noopener" className="text-asx-cyan hover:underline">Download here</a>.</p>
+            <p className="text-sm font-medium">Welcome to ASX Earn</p>
+            <p className="text-2xs text-white/60 max-w-xl">We recommend using Rabby Wallet for the smoothest multi-chain experience. <a href="https://rabby.io/" target="_blank" rel="noopener" className="text-asx-cyan hover:underline">Download here</a>.</p>
           </div>
         </div>
         <div className="flex flex-wrap gap-2 md:ml-auto">
-          <button onClick={() => addNetwork('bsc')} className="px-3 py-1.5 rounded border border-white/15 text-[11px] hover:border-white/40">Add BSC</button>
-          <button onClick={() => addNetwork('core')} className="px-3 py-1.5 rounded border border-white/15 text-[11px] hover:border-white/40">Add Core</button>
-          <button onClick={() => addToken('asx-core')} className="px-3 py-1.5 rounded border border-asx-cyan/50 text-[11px] hover:border-asx-cyan/80 text-asx-cyan">Add ASX (Core)</button>
-          <button onClick={() => addToken('asx-bsc')} className="px-3 py-1.5 rounded border border-asx-cyan/30 text-[11px] hover:border-asx-cyan/60 text-asx-cyan/90">Add ASX (BSC)</button>
+          <Button onClick={() => addNetwork('bsc')} size="sm" variant="outline">Add BSC</Button>
+          <Button onClick={() => addNetwork('core')} size="sm" variant="outline">Add Core</Button>
+          <Button
+            onClick={() => addToken('asx-core')}
+            size="sm"
+            variant="outline"
+            className="border-asx-cyan/50 text-asx-cyan hover:border-asx-cyan/80 hover:text-asx-cyan"
+          >
+            Add ASX (Core)
+          </Button>
+          <Button
+            onClick={() => addToken('asx-bsc')}
+            size="sm"
+            variant="outline"
+            className="border-asx-cyan/30 text-asx-cyan/90 hover:border-asx-cyan/60 hover:text-asx-cyan/90"
+          >
+            Add ASX (BSC)
+          </Button>
         </div>
       </div>
-      <div className="text-[10px] text-white/50 space-y-1">
+      <div className="text-3xs text-white/50 space-y-1">
         <p className="font-semibold text-white/70">Verify official NFT contracts:</p>
         <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1">
           {NFT_CONTRACTS.map(c => (
             <li key={c.label} className="flex items-center gap-1.5">
               <span className="text-white/40">{c.label}:</span>
-              <code className="text-[9px] bg-white/5 px-1.5 py-0.5 rounded select-all">{c.address}</code>
+              <code className="text-4xs bg-white/5 px-1.5 py-0.5 rounded select-all">{c.address}</code>
             </li>
           ))}
         </ul>

@@ -34,7 +34,7 @@ function HeaderButton({ label, active, dir }: { label: string; active: boolean; 
     return (
         <span className={"inline-flex items-center gap-1 select-none cursor-pointer " + (active ? 'text-white' : 'text-white/50 hover:text-white/80')}>
             {label}
-            <span className="text-[10px] leading-none">{active ? (dir === 'asc' ? '▲' : '▼') : '↕'}</span>
+            <span className="text-3xs leading-none">{active ? (dir === 'asc' ? '▲' : '▼') : '↕'}</span>
         </span>
     );
 }
@@ -56,7 +56,7 @@ export default function PoolsTableClient({ initialRows, updatedAt }: { initialRo
     return (
         <div className="space-y-4">
             <div className="flex items-center gap-3">
-                <h2 className="text-xl font-semibold tracking-tight">Markets</h2>
+                <h2 className="text-xl font-medium tracking-tight">Markets</h2>
 
             </div>
             <div className="overflow-x-auto rounded-lg border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent">
@@ -82,7 +82,7 @@ export default function PoolsTableClient({ initialRows, updatedAt }: { initialRo
                                 <td className="px-3 py-2 text-xs"><span className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 font-medium">{r.network}</span></td>
                                 <td className="px-3 py-2 font-mono tabular-nums">{formatNumber(r.price)}</td>
                                 <td className="px-3 py-2 font-mono tabular-nums">{formatUSD(r.reserveUSD)}</td>
-                                <td className="px-3 py-2 text-[10px] text-white/40" title={r.derivation || ''}>{r.derivation ? r.derivation.replace(/_.+/, '') : '-'}</td>
+                                <td className="px-3 py-2 text-3xs text-white/40" title={r.derivation || ''}>{r.derivation ? r.derivation.replace(/_.+/, '') : '-'}</td>
                             </tr>
                         ))}
                     </tbody>
