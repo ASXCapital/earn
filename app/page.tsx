@@ -3,6 +3,8 @@ import Link from "next/link";
 import { WelcomeBar } from "../components/overview/WelcomeBar";
 import { MarketsStats } from "../components/overview/MarketsStats";
 
+export const dynamic = "force-dynamic"; // required because downstream CoinGecko fetch uses cache: 'no-store'
+
 export default function Page() {
   return (
     <div className="space-y-10">
