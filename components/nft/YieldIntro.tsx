@@ -70,8 +70,8 @@ export function YieldIntro() {
                         <p className="mt-2 text-sm sm:text-base text-white/70 max-w-3xl leading-relaxed">A professionally structured, on‑chain instrument offering pro‑rata access to a targeted annual cash distribution sourced from net apartment rental operations—delivered via a secured loan & promissory note framework.</p>
                     </div>
                     <div className="grid gap-3 md:grid-cols-4 items-stretch">
-                        <HeroStat label="Total ASX Distributed" value="5127.08" image="/images/nft/B2.png" />
-                        <HeroStat label="Distributions Made" value="4" image="/images/nft/Vinyl.png" />
+                        <HeroStat label="Total ASX Distributed" value="8510.58" image="/images/nft/B2.png" />
+                        <HeroStat label="Distributions Made" value="6" image="/images/nft/Vinyl.png" />
                         <HeroStat label="Aggregate Supply" value="8,000" image="/images/nft/Garden.png" />
                         <div className="flex items-stretch"><LegalTile compact /></div>
                     </div>
@@ -82,14 +82,15 @@ export function YieldIntro() {
                                 { label: 'Mint Refund', tx: '0xb297a8ac9fd4202e7b308a118624d5097a7c768ab2e7088309abbb7c94016369' },
                                 { label: 'Distribution #1', tx: '0x67ca14b93e139289570481e7978928e16f275e85211ecf0d46d416bac1dc12ca' },
                                 { label: 'Distribution #2', tx: '0x0d54db5f939f4d46a368502fdc7829cc9a62811bb7d546a620fb343d54667f69' },
-                                { label: 'Distribution #3', tx: '0x8360b962c4a38e2aa909949b5bb590c7599e325142cdb1a8b94cca0893f9f2b6' }, // placeholder
+                                { label: 'Distribution #3', tx: '0x8360b962c4a38e2aa909949b5bb590c7599e325142cdb1a8b94cca0893f9f2b6' },
+                                { label: 'Distribution #4', tx: '0xbc091fe5b55b0812d546f3898a928c69425b5dee83b831724fe74cad88f314f5' },
                             ]}
                         />
                         <DistMenu
                             code="ASXRWA002"
                             items={[
-                                // Placeholder entries – update when distributions occur
                                 { label: 'Distribution #1', tx: '0x460df738975ccfce048a2fa04589443c28fad4cef763ddf5cc8a53f001e88d97' },
+                                { label: 'Distribution #2', tx: '0x608b485aeae90cdfcb3b95c604a31b709708100c29710c160a00702b3bc892e7' },
                             ]}
                         />
                     </div>

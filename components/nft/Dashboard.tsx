@@ -87,8 +87,8 @@ export default function NftDashboard() {
                             <MiniStat label="Total Supply" value={m.supply.toLocaleString()} />
                             <MiniStat label="ARR" value={(m.arr * 100).toFixed(1) + '%'} />
                             <MiniStat label="Marketplace" value={<MarketplaceLink url={(m as any).marketplace} />} />
-                            <MiniStat label="ASX Distributed" value={m.address.toLowerCase() === '0x649edd9af91646348aa4ba197d71eb05b9546d5a' ? '3047.85' : '2,079.23'} />
-                            <MiniStat label="Distributions" value={m.address.toLowerCase() === '0x649edd9af91646348aa4ba197d71eb05b9546d5a' ? '3' : '1'} />
+                            <MiniStat label="ASX Distributed" value={m.address.toLowerCase() === '0x649edd9af91646348aa4ba197d71eb05b9546d5a' ? '4,232.55' : '4,278.03'} />
+                            <MiniStat label="Distributions" value={m.address.toLowerCase() === '0x649edd9af91646348aa4ba197d71eb05b9546d5a' ? '4' : '2'} />
                         </div>
                         {m.address.toLowerCase() === '0x8a747b5797b3164a64759a3d77f5a0f4e758283b' ? (
                             <InvestorOverview />
