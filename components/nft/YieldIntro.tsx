@@ -1,266 +1,1044 @@
 "use client";
 
-import { useState, useMemo, useRef, useCallback } from 'react';
-import LegalTile from './LegalTile';
+import { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { Button } from '@/components/common/Button';
+import { LEGAL_BUNDLES } from './LegalTile';
 
-// Simple deterministic projection (non-compounded vs compounded annually/monthly)
-interface Point { year: number; value: number; }
+type LegalBundleKey = keyof typeof LEGAL_BUNDLES;
 
-// Projection model:
-// Non-compound: value_t = principal + payout * t (principal plus cumulative distributions kept in cash)
-// Compound: each year's payout buys additional fractional NFTs at constant floor price F.
-// NFTs_t = (1 + payout/F)^t ; value_t = F * (1 + payout/F)^t
-function project({ floorPrice, payout, years, compound }: { floorPrice: number; payout: number; years: number; compound: boolean; }): Point[] {
-    const pts: Point[] = [];
-    for (let y = 0; y <= years; y++) {
-        let value: number;
-        if (compound) {
-            const growth = Math.pow(1 + (payout / floorPrice), y);
-            value = floorPrice * growth;
-        } else {
-            value = floorPrice + payout * y; // principal + cumulative distributions
-        }
-        pts.push({ year: y, value });
-    }
-    return pts;
+interface MarketplaceLinkInfo {
+    name: string;
+    url: string;
+    icon: string;
 }
 
+interface DistributionTx {
+    label: string;
+    tx: string;
+}
+
+type PropertyStatus = 'live' | 'pipeline';
+
+interface MintTableRow {
+    key: string;
+    status: PropertyStatus;
+    name: string;
+    image: string;
+    marketplaces: MarketplaceLinkInfo[];
+    apr?: number;
+    supply?: number | null;
+    targetSupply?: number;
+    symbol?: string;
+    address?: string;
+    networkLabel?: string;
+    networkIcon?: string;
+    legalBundle?: LegalBundleKey;
+    distributionTxs?: DistributionTx[];
+    unit?: string;
+    occupancy?: string;
+    valuation?: string;
+    maxRaise?: string;
+    showUnitInfo?: boolean;
+}
+
+const MINT_TABLE_ROWS: MintTableRow[] = [
+    {
+        key: 'mva',
+        status: 'live',
+        name: 'Mountain View Apartments',
+        symbol: 'MVA',
+        address: '0x8a747b5797b3164a64759a3d77f5a0f4e758283b',
+        image: '/images/nft/Mountain+View.webp',
+        marketplaces: [
+            {
+                name: 'Blockz',
+                url: 'https://blockz.gg/collection/0x8a747b5797b3164a64759a3d77f5a0f4e758283b/',
+                icon: '/images/nft/BZ%20Cadre%20White.png',
+            },
+            {
+                name: 'OKX',
+                url: 'https://web3.okx.com/nft/collection/core/asx-mountain-view-apts',
+                icon: '/images/nft/okx.webp',
+            },
+        ],
+        apr: 0.084,
+        supply: 3000,
+        targetSupply: 3000,
+        networkLabel: 'Core',
+        networkIcon: '/images/nft/coreIcon.svg',
+        legalBundle: 'ASXRWA002',
+        distributionTxs: [
+            { label: 'Distribution #1', tx: '0x460df738975ccfce048a2fa04589443c28fad4cef763ddf5cc8a53f001e88d97' },
+            { label: 'Distribution #2', tx: '0x608b485aeae90cdfcb3b95c604a31b709708100c29710c160a00702b3bc892e7' },
+        ],
+        maxRaise: '$30,000',
+    },
+    {
+        key: 'fjc',
+        status: 'live',
+        name: 'Franklin Jefferson Candlelight',
+        symbol: 'FJC',
+        address: '0x649edd9af91646348aa4ba197d71eb05b9546d5a',
+        image: '/images/nft/FJC.webp',
+        marketplaces: [
+            {
+                name: 'Blockz',
+                url: 'https://blockz.gg/collection/0x649edd9af91646348aa4ba197d71eb05b9546d5a/',
+                icon: '/images/nft/BZ%20Cadre%20White.png',
+            },
+            {
+                name: 'OKX',
+                url: 'https://web3.okx.com/nft/collection/core/asx-fjc-apts',
+                icon: '/images/nft/okx.webp',
+            },
+        ],
+        apr: 0.075,
+        supply: 5000,
+        targetSupply: 5000,
+        networkLabel: 'Core',
+        networkIcon: '/images/nft/coreIcon.svg',
+        legalBundle: 'ASXRWA001',
+        distributionTxs: [
+            { label: 'Mint Refund', tx: '0xb297a8ac9fd4202e7b308a118624d5097a7c768ab2e7088309abbb7c94016369' },
+            { label: 'Distribution #1', tx: '0x67ca14b93e139289570481e7978928e16f275e85211ecf0d46d416bac1dc12ca' },
+            { label: 'Distribution #2', tx: '0x0d54db5f939f4d46a368502fdc7829cc9a62811bb7d546a620fb343d54667f69' },
+            { label: 'Distribution #3', tx: '0x8360b962c4a38e2aa909949b5bb590c7599e325142cdb1a8b94cca0893f9f2b6' },
+            { label: 'Distribution #4', tx: '0xbc091fe5b55b0812d546f3898a928c69425b5dee83b831724fe74cad88f314f5' },
+        ],
+        maxRaise: '$50,000',
+    },
+    {
+        key: 'gwt',
+        status: 'pipeline',
+        name: 'Greens At Alvamar',
+        image: '/images/nft/GWT.webp',
+        marketplaces: [],
+        occupancy: '98.68%',
+        valuation: '$18.5M',
+        maxRaise: '$100,000',
+        showUnitInfo: false,
+        networkLabel: 'BNB',
+        networkIcon: 'https://assets.coingecko.com/coins/images/825/thumb/bnb-icon2_2x.png',
+    },
+    {
+        key: 'bvt',
+        status: 'pipeline',
+        name: 'Brookwood Village Townhomes',
+        image: '/images/nft/BVT.webp',
+        marketplaces: [],
+        occupancy: '97.22%',
+        valuation: '$35.5M',
+        maxRaise: '$100,000',
+        showUnitInfo: false,
+        networkLabel: 'BNB',
+        networkIcon: 'https://assets.coingecko.com/coins/images/825/thumb/bnb-icon2_2x.png',
+    },
+];
+
+const MINT_TABLE_TEMPLATE =
+    'minmax(220px,1.3fr) minmax(120px,0.7fr) minmax(220px,1.1fr) minmax(150px,0.9fr) minmax(150px,0.95fr) minmax(150px,1fr) minmax(140px,0.9fr)';
+
+const STAT_CAPTION_CLASS = 'text-[6px] uppercase tracking-[0.12em] text-white/45';
+
+type DropdownPosition = {
+    top: number;
+    left: number;
+    width: number;
+};
+
 export function YieldIntro() {
-    const [floor, setFloor] = useState(7.5); // default assumed purchase price
-    const [compound, setCompound] = useState(true);
-    const [years, setYears] = useState(10);
-    const [qty, setQty] = useState(1);
-
-    const aprLow = (0.75 / floor) * 100;
-    const aprHigh = (0.85 / floor) * 100;
-
-    const ptsLow = useMemo(() => project({ floorPrice: floor * qty, payout: 0.75 * qty, years, compound }), [floor, years, compound, qty]);
-    const ptsHigh = useMemo(() => project({ floorPrice: floor * qty, payout: 0.85 * qty, years, compound }), [floor, years, compound, qty]);
-
-    // Chart scaling (normalize min->0, max->100) so small differences still visible.
-    const maxY = Math.max(ptsHigh[ptsHigh.length - 1].value, ptsLow[ptsLow.length - 1].value, floor);
-    const minY = Math.min(floor, ptsLow[0].value);
-    const rangeY = Math.max(0.0001, maxY - minY);
-    const yPct = (v: number) => 100 - ((v - minY) / rangeY) * 100; // invert for SVG
-    const pathFor = (pts: Point[]) => pts.map((p, i) => `${(p.year / years) * 100},${yPct(p.value).toFixed(3)}`).join(' ');
-
-    // Tooltip state
-    const [hoverYear, setHoverYear] = useState<number | null>(null);
-    const svgRef = useRef<SVGSVGElement | null>(null);
-    const onMove = useCallback((e: React.MouseEvent) => {
-        const el = svgRef.current; if (!el) return;
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left; const rel = x / rect.width; const yr = Math.round(rel * years);
-        if (yr >= 0 && yr <= years) setHoverYear(yr);
-    }, [years]);
-    const onLeave = useCallback(() => setHoverYear(null), []);
-
-    const hoverLow = hoverYear != null ? ptsLow.find(p => p.year === hoverYear) : null;
-    const hoverHigh = hoverYear != null ? ptsHigh.find(p => p.year === hoverYear) : null;
+    const legalEntries = Object.entries(LEGAL_BUNDLES) as [LegalBundleKey, string[]][];
+    const [mobileOpen, setMobileOpen] = useState<string | null>(null);
 
     return (
         <div className="space-y-10">
-            {/* HERO */}
-            <section className="relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/[0.05] via-white/[0.02] to-transparent p-6 backdrop-blur-sm">
-                <div className="pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(circle_at_25%_25%,white,transparent)]" />
+            <LegalShowcase entries={legalEntries} />
+            <section className="relative overflow-visible rounded-2xl border border-white/10 bg-[#0c111a]/80 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
+                <div className="pointer-events-none absolute -top-32 right-16 h-72 w-72 rounded-full bg-teal-500/20 blur-[140px]" />
+                <div className="pointer-events-none absolute bottom-0 left-10 h-44 w-44 rounded-full bg-blue-500/15 blur-[120px]" />
                 <div className="relative space-y-6">
-                    <div>
-                        <h2 className="text-2xl sm:text-3xl font-medium tracking-tight leading-snug">ASX RWA NFTs provide exposure to Real Estate Cashflow</h2>
-                        <p className="mt-2 text-sm sm:text-base text-white/70 max-w-3xl leading-relaxed">A professionally structured, on‑chain instrument offering pro‑rata access to a targeted annual cash distribution sourced from net apartment rental operations—delivered via a secured loan & promissory note framework.</p>
+                    <header className="flex flex-wrap items-start justify-between gap-4">
+                        <div className="space-y-2 max-w-2xl">
+                            <span className="inline-flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-500/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.32em] text-teal-200">
+                                BUY / Mint Launchpad
+                            </span>
+
+
+                        </div>
+                        <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-[10px] uppercase tracking-[0.32em] text-white/55">
+                            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                            <span>Issuer snapshot updated</span>
+                        </div>
+                    </header>
+                    <div className="hidden md:block">
+                        <MintTable rows={MINT_TABLE_ROWS} />
                     </div>
-                    <div className="grid gap-3 md:grid-cols-4 items-stretch">
-                        <HeroStat label="Total ASX Distributed" value="8510.58" image="/images/nft/B2.png" />
-                        <HeroStat label="Distributions Made" value="6" image="/images/nft/Vinyl.png" />
-                        <HeroStat label="Aggregate Supply" value="8,000" image="/images/nft/Garden.png" />
-                        <div className="flex items-stretch"><LegalTile compact /></div>
-                    </div>
-                    <div className="grid gap-4 md:grid-cols-2">
-                        <DistMenu
-                            code="ASXRWA001"
-                            items={[
-                                { label: 'Mint Refund', tx: '0xb297a8ac9fd4202e7b308a118624d5097a7c768ab2e7088309abbb7c94016369' },
-                                { label: 'Distribution #1', tx: '0x67ca14b93e139289570481e7978928e16f275e85211ecf0d46d416bac1dc12ca' },
-                                { label: 'Distribution #2', tx: '0x0d54db5f939f4d46a368502fdc7829cc9a62811bb7d546a620fb343d54667f69' },
-                                { label: 'Distribution #3', tx: '0x8360b962c4a38e2aa909949b5bb590c7599e325142cdb1a8b94cca0893f9f2b6' },
-                                { label: 'Distribution #4', tx: '0xbc091fe5b55b0812d546f3898a928c69425b5dee83b831724fe74cad88f314f5' },
-                            ]}
-                        />
-                        <DistMenu
-                            code="ASXRWA002"
-                            items={[
-                                { label: 'Distribution #1', tx: '0x460df738975ccfce048a2fa04589443c28fad4cef763ddf5cc8a53f001e88d97' },
-                                { label: 'Distribution #2', tx: '0x608b485aeae90cdfcb3b95c604a31b709708100c29710c160a00702b3bc892e7' },
-                            ]}
+                    <div className="md:hidden">
+                        <MobilePropertyList
+                            rows={MINT_TABLE_ROWS}
+                            openKey={mobileOpen}
+                            onToggle={(key) => setMobileOpen((prev) => (prev === key ? null : key))}
                         />
                     </div>
                     <div className="text-xs text-white/45 max-w-4xl leading-relaxed">
-                        Target figures are indicative and subject to change with occupancy, operating costs, timing and other variables. NFTs convey no equity, governance, redemption right or direct real estate ownership; economic value is derived solely from participation in the distribution mechanism. Review Terms & Risk Factors before allocating capital.
+                        Target figures are indicative and subject to change with occupancy, operating costs, timing and other variables. NFTs convey no equity,
+                        governance, redemption right or direct real estate ownership; economic value is derived solely from participation in the promisory note distribution
+                        mechanism. Review Terms &amp; Risk Factors before allocating capital.
                     </div>
                 </div>
             </section>
+        </div>
+    );
+}
 
-            {/* INTERACTIVE MODEL */}
-            <section className="card p-6 space-y-6">
-                <header className="space-y-2">
-                    <h3 className="text-lg font-semibold tracking-tight">Interactive Distribution & Compounding Model</h3>
-                    <p className="text-xs text-white/55 max-w-xl">Adjust assumptions to view illustrative cumulative value paths (low / high target bands) with or without reinvestment. Not a projection.</p>
+function LegalShowcase({ entries }: { entries: [LegalBundleKey, string[]][] }) {
+    const [openBundle, setOpenBundle] = useState<LegalBundleKey | null>(null);
+    const [panelPos, setPanelPos] = useState<DropdownPosition | null>(null);
+    const triggersRef = useRef<Record<string, HTMLDivElement | null>>({});
+    const overlayRef = useRef<HTMLDivElement | null>(null);
+    const portalTarget = typeof document !== 'undefined' ? document.body : null;
+
+    const updatePosition = useCallback(() => {
+        if (!openBundle || typeof window === 'undefined') return;
+        const trigger = triggersRef.current[openBundle];
+        if (!trigger) return;
+        const rect = trigger.getBoundingClientRect();
+        const margin = 16;
+        const scrollY = window.scrollY || window.pageYOffset;
+        const scrollX = window.scrollX || window.pageXOffset;
+        const maxWidth = Math.max(window.innerWidth - margin * 2, 280);
+        const width = Math.min(Math.max(rect.width, 320), maxWidth);
+        const left = Math.min(Math.max(rect.left + scrollX, margin), scrollX + window.innerWidth - width - margin);
+        const top = rect.bottom + scrollY + 12;
+        setPanelPos({ top, left, width });
+    }, [openBundle]);
+
+    useLayoutEffect(() => {
+        if (!openBundle) return;
+        updatePosition();
+    }, [openBundle, updatePosition]);
+
+    useEffect(() => {
+        if (!openBundle || typeof window === 'undefined') return undefined;
+        const handler = () => updatePosition();
+        window.addEventListener('resize', handler);
+        window.addEventListener('scroll', handler, true);
+        return () => {
+            window.removeEventListener('resize', handler);
+            window.removeEventListener('scroll', handler, true);
+        };
+    }, [openBundle, updatePosition]);
+
+    useEffect(() => {
+        if (!openBundle || typeof document === 'undefined') return undefined;
+        const handle = (event: MouseEvent | TouchEvent) => {
+            const target = event.target as Node;
+            if (overlayRef.current?.contains(target)) return;
+            const trigger = triggersRef.current[openBundle];
+            if (trigger?.contains(target)) return;
+            setOpenBundle(null);
+        };
+        document.addEventListener('mousedown', handle);
+        document.addEventListener('touchstart', handle);
+        return () => {
+            document.removeEventListener('mousedown', handle);
+            document.removeEventListener('touchstart', handle);
+        };
+    }, [openBundle]);
+
+    useEffect(() => {
+        if (!openBundle || typeof window === 'undefined') return undefined;
+        const onKey = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') setOpenBundle(null);
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [openBundle]);
+
+    useEffect(() => {
+        if (!openBundle) setPanelPos(null);
+    }, [openBundle]);
+
+    const activeEntry = openBundle ? entries.find(([bundle]) => bundle === openBundle) : undefined;
+    const activeFiles = activeEntry ? activeEntry[1] : [];
+
+    function toggleBundle(bundle: LegalBundleKey) {
+        setOpenBundle(prev => (prev === bundle ? null : bundle));
+    }
+
+    return (
+        <section className="relative overflow-hidden rounded-2xl border border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-[#0c111a]/90 to-[#0c111a] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
+            <div className="pointer-events-none absolute -top-24 left-12 h-40 w-40 rounded-full bg-teal-500/30 blur-[120px]" />
+            <div className="pointer-events-none absolute bottom-0 right-10 h-44 w-44 rounded-full bg-blue-500/15 blur-[140px]" />
+            <div className="relative space-y-5">
+                <header className="space-y-2 max-w-3xl">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-teal-300/40 bg-teal-400/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.32em] text-teal-100">
+                        Legal
+                    </span>
+
+                    <p className="text-sm text-white/70 leading-relaxed">
+                        Each ASX housing drop is structured through enforceable loan agreements and promissory notes. All legal paperwork is published and accessible for review here.
+                    </p>
                 </header>
-                {/* Controls */}
-                <div className="space-y-6">
-                    <div className="flex flex-col lg:flex-row lg:items-end gap-6">
-                        <div className="flex-1 min-w-[260px] space-y-4">
-                            <div>
-                                <label className="text-2xs uppercase tracking-wide text-white/50 font-medium">Assumed Purchase Price (Floor)</label>
-                                <div className="flex items-center gap-2 mt-1">
-                                    <input type="range" min={2} max={20} step={0.5} value={floor} onChange={e => setFloor(parseFloat(e.target.value))} className="w-full" aria-label="Assumed purchase price" />
-                                    <span className="w-16 text-right text-sm tabular-nums">${floor.toFixed(2)}</span>
+                <div className="grid gap-4 lg:grid-cols-2">
+                    {entries.map(([bundle, files]) => {
+                        const active = openBundle === bundle;
+                        return (
+                            <div
+                                key={bundle}
+                                id={`legal-${bundle.toLowerCase()}`}
+                                ref={(node) => {
+                                    if (node) {
+                                        triggersRef.current[bundle] = node;
+                                    } else {
+                                        delete triggersRef.current[bundle];
+                                    }
+                                }}
+                                className={`flex flex-col gap-3 rounded-xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur transition ${active ? 'border-teal-400/60 shadow-[0_24px_60px_rgba(45,212,191,0.15)]' : 'hover:border-teal-400/40 hover:bg-white/[0.08]'
+                                    }`}
+                            >
+                                <div className="flex items-start justify-between gap-4">
+                                    <div className="space-y-1">
+                                        <span className={`${STAT_CAPTION_CLASS} text-white/45`}>Bundle</span>
+                                        <div className="text-base font-medium text-white">{bundle}</div>
+                                    </div>
+                                    <div className="text-right space-y-1">
+                                        <span className={`${STAT_CAPTION_CLASS} text-white/45`}>Documents</span>
+                                        <div className="text-sm font-medium text-white/80">{files.length}</div>
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => toggleBundle(bundle)}
+                                        aria-expanded={active}
+                                        className={`px-3 text-[8px] uppercase tracking-[0.18em] transition ${active
+                                            ? 'border-teal-400/50 bg-teal-500/15 text-teal-100 hover:border-teal-300/60 hover:text-white'
+                                            : 'border-white/15 bg-white/[0.05] text-white/75 hover:border-teal-400/50 hover:text-white'
+                                            }`}
+                                    >
+                                        {active ? 'Hide Docs' : 'View Docs'}
+                                    </Button>
+                                    <span className="text-[10px] uppercase tracking-[0.24em] text-white/40">
+                                        {files.length} file{files.length === 1 ? '' : 's'}
+                                    </span>
                                 </div>
                             </div>
-                            <div className="flex flex-wrap gap-4">
-                                <div className="flex items-center gap-2">
-                                    <label className="text-2xs uppercase tracking-wide text-white/50 font-medium"># NFTs</label>
-                                    <input type="number" min={1} max={5000} value={qty} onChange={e => setQty(Math.min(5000, Math.max(1, parseInt(e.target.value) || 1)))} className="w-24 bg-white/5 rounded px-2 py-1 text-sm" title="Number of NFTs" aria-label="Number of NFTs" />
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <label className="text-2xs uppercase tracking-wide text-white/50 font-medium">Years</label>
-                                    <input type="number" min={1} max={15} value={years} onChange={e => setYears(Math.min(15, Math.max(1, parseInt(e.target.value) || 1)))} className="w-20 bg-white/5 rounded px-2 py-1 text-sm" title="Projection years" aria-label="Projection years" />
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <label className="text-2xs uppercase tracking-wide text-white/50 font-medium">Compound</label>
-                                    <Button onClick={() => setCompound(v => !v)} className={"px-3 py-1 text-sm font-medium border transition-colors " + (compound ? 'bg-teal-600/60 border-teal-500 text-white' : 'bg-white/5 border-white/15 text-white/70 hover:text-white')}>{compound ? 'ON' : 'OFF'}</Button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 min-w-[320px]">
-                            <InlineStat label="Ref. Entry" value={`$${floor.toFixed(2)}`} />
-                            <InlineStat label="Band" value="$0.75–$0.85" />
-                            <InlineStat label="Yield" value={`${aprLow.toFixed(1)}%–${aprHigh.toFixed(1)}%`} />
-                            <InlineStat label="Mode" value={compound ? 'Compounding' : 'Simple'} />
-                            <InlineStat label="Years" value={years} />
-                            <InlineStat label="NFTs" value={qty} />
-                        </div>
-                    </div>
-                    <div className="flex flex-wrap gap-4">
-                        <Metric label="APR Range" value={`${aprLow.toFixed(1)}% – ${aprHigh.toFixed(1)}%`} />
-                        <Metric label="Annual $ / NFT" value="$0.75 – $0.85" />
-                        <Metric label="Annual $ (Total)" value={`$${(0.75 * qty).toFixed(2)} – $${(0.85 * qty).toFixed(2)}`} />
-                        <Metric label="Projection (Low)" value={`$${ptsLow[ptsLow.length - 1].value.toFixed(2)}`} />
-                        <Metric label="Projection (High)" value={`$${ptsHigh[ptsHigh.length - 1].value.toFixed(2)}`} />
-                    </div>
+                        );
+                    })}
                 </div>
-                <div className="h-56 relative">
-                    <svg ref={svgRef} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" className="absolute inset-0 w-full h-full select-none"
-                        onMouseMove={onMove} onMouseLeave={onLeave} role="img" aria-label="Projected value over time (low/high scenarios)">
-                        <defs>
-                            <linearGradient id="gLow" x1="0" x2="0" y1="0" y2="1">
-                                <stop offset="0%" stopColor="#0ea5e9" stopOpacity={0.6} />
-                                <stop offset="100%" stopColor="#0ea5e9" stopOpacity={0} />
-                            </linearGradient>
-                            <linearGradient id="gHigh" x1="0" x2="0" y1="0" y2="1">
-                                <stop offset="0%" stopColor="#10b981" stopOpacity={0.7} />
-                                <stop offset="100%" stopColor="#10b981" stopOpacity={0} />
-                            </linearGradient>
-                        </defs>
-                        {Array.from({ length: years + 1 }).map((_, i) => (
-                            <line key={'v' + i} x1={(i / years) * 100} x2={(i / years) * 100} y1={0} y2={100} stroke="rgba(255,255,255,0.08)" strokeWidth={0.3} />
-                        ))}
-                        {Array.from({ length: 5 }).map((_, i) => (
-                            <line key={'h' + i} x1={0} x2={100} y1={(i / 4) * 100} y2={(i / 4) * 100} stroke="rgba(255,255,255,0.08)" strokeWidth={0.3} />
-                        ))}
-                        <polyline fill="none" stroke="#0ea5e9" strokeWidth={1.6} vectorEffect="non-scaling-stroke" points={pathFor(ptsLow)} />
-                        <polyline fill="none" stroke="#10b981" strokeWidth={1.6} vectorEffect="non-scaling-stroke" points={pathFor(ptsHigh)} />
-                        {Array.from({ length: years + 1 }).map((_, i) => (
-                            <text key={i} x={(i / years) * 100} y={100} dy={-1} fontSize={4} textAnchor="middle" fill="rgba(255,255,255,0.5)">{i}</text>
-                        ))}
-                        {hoverYear != null && (
-                            <g>
-                                <line x1={(hoverYear / years) * 100} x2={(hoverYear / years) * 100} y1={0} y2={100} stroke="rgba(255,255,255,0.25)" strokeWidth={0.6} />
-                                {hoverLow && <circle cx={(hoverYear / years) * 100} cy={yPct(hoverLow.value)} r={1.8} fill="#0ea5e9" stroke="#fff" strokeWidth={0.4} />}
-                                {hoverHigh && <circle cx={(hoverYear / years) * 100} cy={yPct(hoverHigh.value)} r={1.8} fill="#10b981" stroke="#fff" strokeWidth={0.4} />}
-                            </g>
-                        )}
-                    </svg>
-                    <div className="absolute top-2 right-2 flex gap-3 text-2xs">
-                        <span className="flex items-center gap-1 text-cyan-300"><span className="w-2 h-2 bg-cyan-400 rounded-full" />Low</span>
-                        <span className="flex items-center gap-1 text-emerald-300"><span className="w-2 h-2 bg-emerald-400 rounded-full" />High</span>
-                    </div>
-                </div>
-                <p className="text-2xs leading-relaxed text-white/40">Illustrative only. Constant target band; reinvestment assumes purchases at input price. Does not model slippage, premiums/discounts, tax or execution costs. Refer to Terms & Risk Factors.</p>
-            </section>
-        </div>
-    );
-}
-
-function Metric({ label, value }: { label: string; value: React.ReactNode }) {
-    return (
-        <div className="rounded-md bg-white/[0.04] border border-white/10 p-3 flex flex-col gap-1 min-w-[150px] flex-[1_1_160px]">
-            <div className="text-3xs uppercase tracking-wide text-white/45 font-medium">{label}</div>
-            <div className="text-sm font-semibold text-white/90 tabular-nums">{value}</div>
-        </div>
-    );
-}
-
-function HeroStat({ label, value, image }: { label: string; value: React.ReactNode; image?: string }) {
-    return (
-        <div className={"relative rounded-lg border border-white/10 bg-white/[0.045] px-4 py-2 min-w-[150px] " + (image ? 'pr-16' : '')}>
-            <div className="flex flex-col leading-tight gap-0.5">
-                <span className="text-3xs uppercase tracking-wide text-white/55 font-medium">{label}</span>
-                <span className="text-sm font-semibold text-white tabular-nums">{value}</span>
             </div>
-            {image && (
-                <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={image} alt="" className="w-14 h-14 object-contain rounded-md shadow shadow-black/40" loading="lazy" />
-                </div>
-            )}
-        </div>
-    );
-}
-
-// Distribution dropdown menu component
-function DistMenu({ code, items }: { code: string; items: { label: string; tx: string }[] }) {
-    const [open, setOpen] = useState(false);
-    return (
-        <div className="rounded-lg border border-white/10 bg-white/[0.035] overflow-hidden">
-            <Button
-                type="button"
-                onClick={() => setOpen(o => !o)}
-                className="w-full flex items-center justify-between px-4 py-2 text-left text-sm font-medium tracking-wide hover:bg-white/5 transition-colors"
-                variant="ghost"
-                aria-controls={`dist-${code}`}
-            >
-                <span className="flex items-center gap-2">
-                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-teal-600/20 text-teal-300 text-2xs font-medium">{code.slice(-3)}</span>
-                    {code} Distributions
-                </span>
-                <svg className={"h-4 w-4 text-white/60 transition-transform " + (open ? 'rotate-180' : '')} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
-            </Button>
-            {open && (
-                <ul id={`dist-${code}`} className="divide-y divide-white/5 text-sm" aria-label={`${code} distribution transactions`}>
-                    {items.map((it, idx) => (
-                        <li key={idx} className="flex">
-                            {it.tx ? (
-                                <a href={`https://scan.coredao.org/tx/${it.tx}`} target="_blank" rel="noopener noreferrer" className="flex-1 px-4 py-2 hover:bg-white/5 flex items-center justify-between gap-3">
-                                    <span className="text-white/75">{it.label}</span>
-                                    <span className="text-3xs uppercase tracking-wide text-teal-300">View Tx</span>
-                                </a>
-                            ) : (
-                                <div className="flex-1 px-4 py-2 text-white/40">{it.label}</div>
+            {portalTarget && openBundle && panelPos && createPortal(
+                <div className="fixed inset-0 z-[90] pointer-events-none">
+                    <div
+                        ref={overlayRef}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label={`${openBundle} legal documents`}
+                        className="pointer-events-auto overflow-hidden rounded-2xl border border-white/15 bg-[#0d1116]/96 p-4 shadow-[0_32px_80px_rgba(0,0,0,0.6)] backdrop-blur text-xs text-white/70"
+                        style={{
+                            position: 'absolute',
+                            top: panelPos.top,
+                            left: panelPos.left,
+                            width: panelPos.width,
+                            maxWidth: 'min(520px, calc(100vw - 32px))',
+                        }}
+                    >
+                        <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-3">
+                            <div className="space-y-1">
+                                <span className={`${STAT_CAPTION_CLASS} text-white/45`}>Bundle</span>
+                                <div className="text-lg font-semibold text-white">{openBundle}</div>
+                                <div className="text-[10px] uppercase tracking-[0.24em] text-teal-300">Verified documents</div>
+                            </div>
+                            <Button
+                                type="button"
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => setOpenBundle(null)}
+                                className="border border-white/10 bg-white/5 px-2 py-1 text-[10px] uppercase tracking-[0.24em] text-white/60 hover:bg-white/10 hover:text-white"
+                            >
+                                Close
+                            </Button>
+                        </div>
+                        <ul
+                            className="mt-3 space-y-1.5 overflow-y-auto pr-1"
+                            style={{ maxHeight: 'min(65vh, 420px)' }}
+                        >
+                            {activeFiles.map((file) => {
+                                const path = `/legal/${openBundle!.toLowerCase()}/${encodeURIComponent(file)}`;
+                                return (
+                                    <li key={file}>
+                                        <a
+                                            href={path}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center justify-between gap-2 rounded-md border border-white/10 bg-black/35 px-2 py-1.5 transition hover:border-teal-400/40 hover:text-white"
+                                        >
+                                            <span className="truncate" title={file}>{file}</span>
+                                            <span className="text-[10px] uppercase tracking-[0.24em] text-teal-300">View</span>
+                                        </a>
+                                    </li>
+                                );
+                            })}
+                            {activeFiles.length === 0 && (
+                                <li className="rounded-md border border-white/10 bg-black/30 px-3 py-2 text-center text-[11px] uppercase tracking-[0.24em] text-white/40">
+                                    Documents will publish here
+                                </li>
                             )}
-                        </li>
-                    ))}
-                </ul>
+                        </ul>
+                    </div>
+                </div>,
+                portalTarget,
             )}
+        </section>
+    );
+}
+
+function MintTable({ rows }: { rows: MintTableRow[] }) {
+    const [openDistribution, setOpenDistribution] = useState<string | null>(null);
+
+    return (
+        <div className="relative">
+            <div className="overflow-x-auto overflow-y-visible">
+                <div className="min-w-[960px] space-y-3">
+                    <div className="grid px-3 text-[10px] uppercase tracking-[0.26em] text-white/55" style={{ gridTemplateColumns: MINT_TABLE_TEMPLATE }}>
+                        <span>Property</span>
+                        <span>Availability</span>
+                        <span>Marketplaces</span>
+                        <span>Yield / Occupancy</span>
+                        <span>Distributions</span>
+                        <span>Capital</span>
+                        <span>Network / Raise</span>
+                    </div>
+                    <div className="space-y-3">
+                        {rows.map((row) => (
+                            <MintTableRowComponent
+                                key={row.key}
+                                row={row}
+                                isDistributionOpen={openDistribution === row.key}
+                                onToggleDistribution={() => setOpenDistribution((prev) => (prev === row.key ? null : row.key))}
+                                closeDistributions={() => setOpenDistribution(null)}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
 
-function InlineStat({ label, value }: { label: string; value: React.ReactNode }) {
+function MintTableRowComponent({
+    row,
+    isDistributionOpen,
+    onToggleDistribution,
+    closeDistributions,
+}: {
+    row: MintTableRow;
+    isDistributionOpen: boolean;
+    onToggleDistribution: () => void;
+    closeDistributions: () => void;
+}) {
     return (
-        <div className="flex flex-col text-left">
-            <span className="text-3xs uppercase tracking-wide text-white/40">{label}</span>
-            <span className="text-xs font-medium text-white/85 tabular-nums">{value}</span>
+        <div
+            className={`relative grid items-center gap-3 rounded-xl bg-white/[0.02] px-3 py-2 shadow-[0_12px_26px_rgba(0,0,0,0.28)] transition-all hover:-translate-y-0.5 hover:bg-white/[0.035] ${isDistributionOpen ? 'z-30 bg-white/[0.045]' : ''
+                }`}
+            style={{ gridTemplateColumns: MINT_TABLE_TEMPLATE }}
+        >
+            <CollectionCell row={row} />
+            <AvailabilityCell row={row} />
+            <MarketplaceCell items={row.marketplaces} />
+            <YieldOccupancyCell row={row} />
+            <DistributionCell
+                row={row}
+                open={isDistributionOpen}
+                onToggle={onToggleDistribution}
+                onClose={closeDistributions}
+            />
+            <CapitalCell row={row} />
+            <NetworkRaiseCell row={row} />
         </div>
     );
+}
+
+function CollectionCell({ row }: { row: MintTableRow }) {
+    const showSymbol = row.status === 'live' && row.symbol;
+    const showPipelineUnit = row.status === 'pipeline' && row.unit && row.showUnitInfo !== false;
+    const secondary = showPipelineUnit ? `Unit #${row.unit}` : null;
+    const showAddress = row.status === 'live' && !!row.address;
+    const displayAddress = row.address ? formatAddressPreview(row.address) : '';
+    const explorerUrl = showAddress ? getExplorerUrl(row) : null;
+    const [copied, setCopied] = useState(false);
+    const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (copyTimerRef.current) {
+                clearTimeout(copyTimerRef.current);
+            }
+        };
+    }, []);
+
+    const handleCopy = useCallback(async () => {
+        if (!row.address) return;
+        try {
+            if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+                await navigator.clipboard.writeText(row.address);
+            } else if (typeof document !== 'undefined') {
+                const textarea = document.createElement('textarea');
+                textarea.value = row.address;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.focus();
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+            setCopied(true);
+            if (copyTimerRef.current) {
+                clearTimeout(copyTimerRef.current);
+            }
+            copyTimerRef.current = setTimeout(() => setCopied(false), 1500);
+        } catch (error) {
+            console.error('Failed to copy address', error);
+        }
+    }, [row.address]);
+
+    return (
+        <div className="flex items-center gap-2.5">
+            <div className="relative">
+                <div className="h-11 w-11 overflow-hidden rounded-lg bg-white/[0.06]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={row.image} alt={`${row.name} emblem`} className="h-full w-full object-cover" loading="lazy" />
+                </div>
+                {showSymbol && (
+                    <span className="absolute -bottom-1 -right-1 inline-flex items-center justify-center rounded-full border border-white/20 bg-black/60 px-1.5 py-0.5 text-[8px] uppercase tracking-[0.22em] text-white/65">
+                        {row.symbol}
+                    </span>
+                )}
+            </div>
+            <div className="flex flex-col gap-1">
+                <span className="text-[12px] font-medium text-white/85 leading-tight">{row.name}</span>
+                {showAddress ? (
+                    <div className="flex items-start gap-1.5 text-[9px] font-mono text-white/55">
+                        {explorerUrl ? (
+                            <a
+                                href={explorerUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="leading-tight text-white/60 underline-offset-4 hover:text-white"
+                                title="View on explorer"
+                            >
+                                {displayAddress}
+                            </a>
+                        ) : (
+                            <span className="leading-tight" title={row.address}>
+                                {displayAddress}
+                            </span>
+                        )}
+                        <button
+                            type="button"
+                            onClick={handleCopy}
+                            className={`rounded-md p-0.5 transition ${copied ? 'text-teal-300' : 'text-white/45 hover:text-white'
+                                }`}
+                            aria-label={copied ? 'Copied address' : 'Copy contract address'}
+                            title={copied ? 'Copied!' : 'Copy address'}
+                        >
+                            <CopyIcon copied={copied} />
+                            <span className="sr-only">{copied ? 'Copied' : 'Copy'}</span>
+                        </button>
+                    </div>
+                ) : (
+                    secondary && <span className="text-[9px] uppercase tracking-[0.2em] text-white/38">{secondary}</span>
+                )}
+            </div>
+        </div>
+    );
+}
+function AvailabilityCell({ row }: { row: MintTableRow }) {
+    if (row.status === 'live') {
+        return (
+            <Button
+                disabled
+                variant="outline"
+                size="sm"
+                className="w-full max-w-[105px] justify-center border-emerald-400/40 bg-emerald-500/10 text-[5px] uppercase tracking-[0.18em] text-emerald-200/75"
+            >
+                Sold Out
+            </Button>
+        );
+    }
+    return (
+        <Button
+            disabled
+            variant="outline"
+            size="sm"
+            className="w-full max-w-[115px] justify-center border-white/16 bg-white/[0.045] text-[5px] uppercase tracking-[0.18em] text-white/55"
+        >
+            Coming Soon
+        </Button>
+    );
+}
+
+function MarketplaceCell({ items }: { items: MarketplaceLinkInfo[] }) {
+    if (!items || items.length === 0) {
+        return <span className={STAT_CAPTION_CLASS}>TBA</span>;
+    }
+    return (
+        <div className="flex flex-wrap items-center gap-2">
+            {items.map((item) => (
+                <a
+                    key={item.url}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-md bg-white/[0.04] px-2.5 py-1.5 text-[10px] font-medium text-white/75 transition hover:bg-white/[0.08] hover:text-white"
+                >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={item.icon} alt={`${item.name} logo`} className="h-4 w-4 rounded-sm object-contain" loading="lazy" />
+                    <span>{item.name}</span>
+                </a>
+            ))}
+        </div>
+    );
+}
+
+function YieldOccupancyCell({ row }: { row: MintTableRow }) {
+    if (row.status === 'live') {
+        return (
+            <div className="flex flex-col gap-0.5">
+                <span className="text-[11px] font-medium text-white/85">{formatPercent(row.apr)}</span>
+                <span className={`${STAT_CAPTION_CLASS} text-white/40`}>Launch ARR</span>
+            </div>
+        );
+    }
+    return (
+        <div className="flex flex-col gap-0.5">
+            <span className="text-[11px] font-medium text-white/85">{row.occupancy ?? '—'}</span>
+            <span className={`${STAT_CAPTION_CLASS} text-white/40`}>Occupancy</span>
+        </div>
+    );
+}
+function DistributionCell({
+    row,
+    open,
+    onToggle,
+    onClose,
+}: {
+    row: MintTableRow;
+    open: boolean;
+    onToggle: () => void;
+    onClose: () => void;
+}) {
+    const triggerRef = useRef<HTMLDivElement | null>(null);
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
+    const [panelPos, setPanelPos] = useState<DropdownPosition | null>(null);
+    const portalTarget = typeof document !== 'undefined' ? document.body : null;
+
+    const updatePosition = useCallback(() => {
+        if (row.status !== 'live' || !open || typeof window === 'undefined' || !triggerRef.current) return;
+        const rect = triggerRef.current.getBoundingClientRect();
+        const margin = 16;
+        const scrollY = window.scrollY || window.pageYOffset;
+        const scrollX = window.scrollX || window.pageXOffset;
+        const maxWidth = Math.max(280, Math.min(420, window.innerWidth - margin * 2));
+        const width = Math.min(Math.max(rect.width + 140, 280), maxWidth);
+        const left = Math.min(Math.max(rect.left + scrollX - (width - rect.width) / 2, margin), scrollX + window.innerWidth - width - margin);
+        const top = rect.bottom + scrollY + 12;
+        setPanelPos({ top, left, width });
+    }, [open, row.status]);
+
+    useLayoutEffect(() => {
+        if (row.status !== 'live' || !open) return;
+        updatePosition();
+    }, [open, row.status, updatePosition]);
+
+    useEffect(() => {
+        if (row.status !== 'live' || !open) {
+            setPanelPos(null);
+            return undefined;
+        }
+        const handler = () => updatePosition();
+        window.addEventListener('resize', handler);
+        window.addEventListener('scroll', handler, true);
+        return () => {
+            window.removeEventListener('resize', handler);
+            window.removeEventListener('scroll', handler, true);
+        };
+    }, [open, row.status, updatePosition]);
+
+    useEffect(() => {
+        if (row.status !== 'live' || !open) return undefined;
+        const handle = (event: MouseEvent | TouchEvent) => {
+            const target = event.target as Node;
+            if (dropdownRef.current?.contains(target)) return;
+            if (triggerRef.current?.contains(target)) return;
+            onClose();
+        };
+        document.addEventListener('mousedown', handle);
+        document.addEventListener('touchstart', handle);
+        return () => {
+            document.removeEventListener('mousedown', handle);
+            document.removeEventListener('touchstart', handle);
+        };
+    }, [open, onClose, row.status]);
+
+    useEffect(() => {
+        if (row.status !== 'live' || !open) return undefined;
+        const handler = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') onClose();
+        };
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    }, [open, onClose, row.status]);
+
+    if (row.status === 'pipeline') {
+        const showUnitDetails = row.unit && row.showUnitInfo !== false;
+        return (
+            <div className="flex flex-col gap-0.5">
+                <span className="text-[11px] font-medium text-white/85">
+                    {showUnitDetails ? `Unit #${row.unit}` : 'TBA'}
+                </span>
+                <span className={`${STAT_CAPTION_CLASS} text-white/40`}>{showUnitDetails ? 'Stack' : 'Distributions'}</span>
+            </div>
+        );
+    }
+
+    const drops = row.distributionTxs?.length ?? 0;
+    const hasDistributions = drops > 0;
+    const dropdown =
+        portalTarget && open && panelPos
+            ? createPortal(
+                <div className="fixed inset-0 z-[80] pointer-events-none">
+                    <div
+                        ref={dropdownRef}
+                        className="pointer-events-auto overflow-hidden rounded-2xl border border-white/15 bg-[#0d1116]/96 p-4 shadow-[0_32px_80px_rgba(0,0,0,0.6)] backdrop-blur text-xs text-white/75"
+                        style={{
+                            position: 'absolute',
+                            top: panelPos.top,
+                            left: panelPos.left,
+                            width: panelPos.width,
+                            maxWidth: 'min(420px, calc(100vw - 32px))',
+                        }}
+                    >
+                        <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-3">
+                            <div className="space-y-0.5">
+                                <span className={`${STAT_CAPTION_CLASS} text-white/45`}>Distribution Ledger</span>
+                                <div className="text-sm font-semibold text-white">{row.name}</div>
+                                <div className="text-[10px] uppercase tracking-[0.24em] text-teal-300">
+                                    {drops} drop{drops === 1 ? '' : 's'}
+                                </div>
+                            </div>
+                            <Button
+                                type="button"
+                                size="sm"
+                                variant="ghost"
+                                onClick={onClose}
+                                className="border border-white/10 bg-white/5 px-2 py-1 text-[9px] uppercase tracking-[0.24em] text-white/60 hover:bg-white/10 hover:text-white"
+                            >
+                                Close
+                            </Button>
+                        </div>
+                        {hasDistributions && row.distributionTxs ? (
+                            <ul className="mt-3 max-h-60 space-y-1.5 overflow-y-auto pr-1 text-[11px] text-white/80">
+                                {row.distributionTxs.map((tx) => (
+                                    <li key={tx.tx}>
+                                        <a
+                                            href={`https://scan.coredao.org/tx/${tx.tx}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center justify-between gap-2 rounded-md border border-white/10 bg-black/30 px-2 py-1.5 transition hover:border-teal-400/40 hover:text-white"
+                                        >
+                                            <span>{tx.label}</span>
+                                            <span className="text-[10px] uppercase tracking-[0.22em] text-teal-300">View</span>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <div className="mt-3 rounded-md border border-white/10 bg-black/25 px-3 py-2 text-center text-[11px] uppercase tracking-[0.24em] text-white/45">
+                                No distributions yet
+                            </div>
+                        )}
+                    </div>
+                </div>,
+                portalTarget,
+            )
+            : null;
+
+    return (
+        <>
+            <div ref={triggerRef}>
+                <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    aria-expanded={open}
+                    onClick={onToggle}
+                    className="border-white/15 bg-white/[0.045] px-3 text-[5px] uppercase tracking-[0.18em] text-white/70 hover:border-teal-400/35 hover:text-white"
+                >
+                    View ({drops})
+                </Button>
+            </div>
+            {dropdown}
+        </>
+    );
+}
+
+function CapitalCell({ row }: { row: MintTableRow }) {
+    if (row.status === 'live') {
+        const value = formatSupply(row.supply, row.targetSupply);
+        return (
+            <div className="flex flex-col gap-0.5">
+                <span className="text-[11px] font-medium text-white/85">{value}</span>
+                <span className={`${STAT_CAPTION_CLASS} text-white/40`}>Supply minted</span>
+            </div>
+        );
+    }
+    return (
+        <div className="flex flex-col gap-0.5">
+            <span className="text-[11px] font-medium text-white/85">{row.valuation ?? '—'}</span>
+            <span className={`${STAT_CAPTION_CLASS} text-white/40`}>Launch valuation</span>
+        </div>
+    );
+}
+
+function NetworkRaiseCell({ row }: { row: MintTableRow }) {
+    const showNetwork = Boolean(row.networkLabel || row.networkIcon);
+    const explorerUrl = getExplorerUrl(row);
+    const iconContent = row.networkIcon ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={row.networkIcon} alt={`${row.networkLabel ?? 'Network'} icon`} className="h-5 w-5" loading="lazy" />
+    ) : (
+        <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">
+            {row.networkLabel?.slice(0, 3) ?? '—'}
+        </span>
+    );
+    const iconWrapperClass = 'flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]';
+
+    return (
+        <div className="flex items-center gap-2">
+            {showNetwork && (
+                explorerUrl ? (
+                    <a
+                        href={explorerUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`${iconWrapperClass} text-white/80 transition hover:border-teal-400/40 hover:text-white`}
+                        title="View contract on explorer"
+                    >
+                        {iconContent}
+                    </a>
+                ) : (
+                    <span className={iconWrapperClass}>{iconContent}</span>
+                )
+            )}
+            <div className="flex flex-col gap-0.5">
+                {showNetwork && (
+                    <>
+                        <span className="text-[11px] font-medium text-white/85">{row.networkLabel ?? '—'}</span>
+
+                    </>
+                )}
+                <span className="text-[11px] font-medium text-white/85">{row.maxRaise ?? '—'}</span>
+
+            </div>
+        </div>
+    );
+}
+
+function MobilePropertyList({
+    rows,
+    openKey,
+    onToggle,
+}: {
+    rows: MintTableRow[];
+    openKey: string | null;
+    onToggle: (key: string) => void;
+}) {
+    return (
+        <div className="space-y-3">
+            {rows.map((row) => {
+                const open = openKey === row.key;
+                const highlights = buildMobileHighlights(row);
+                return (
+                    <div key={row.key} className="rounded-2xl border border-white/10 bg-white/[0.03] shadow-[0_16px_40px_rgba(0,0,0,0.32)]">
+                        <button
+                            type="button"
+                            onClick={() => onToggle(row.key)}
+                            className="flex w-full items-center justify-between gap-4 px-4 py-3"
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="h-10 w-10 overflow-hidden rounded-lg border border-white/10 bg-white/[0.05]">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img src={row.image} alt={`${row.name} emblem`} className="h-full w-full object-cover" loading="lazy" />
+                                </div>
+                                <div className="flex flex-col text-left">
+                                    <span className="text-[12px] font-medium text-white/85 leading-tight">{row.name}</span>
+                                    <span className={STAT_CAPTION_CLASS}>
+                                        {row.status === 'live' ? formatPercent(row.apr) : row.occupancy ?? 'Details'}
+                                    </span>
+                                </div>
+                            </div>
+                            <svg
+                                aria-hidden="true"
+                                className={`h-3 w-3 shrink-0 text-white/60 transition-transform ${open ? 'rotate-180' : ''}`}
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                        {open && (
+                            <div className="space-y-3 border-t border-white/10 px-4 py-3 text-xs text-white/75">
+                                <div className="grid gap-2 sm:grid-cols-2">
+                                    {highlights.map((item) => (
+                                        <div key={`${row.key}-${item.label}`} className="flex flex-col gap-0.5 rounded-lg border border-white/12 bg-white/[0.05] px-3 py-2">
+                                            <span className={STAT_CAPTION_CLASS}>{item.label}</span>
+                                            <span className="text-[12px] font-medium text-white/85">{item.value}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                {row.marketplaces.length > 0 && (
+                                    <div className="flex flex-wrap items-center gap-2">
+                                        {row.marketplaces.map((item) => (
+                                            <a
+                                                key={item.url}
+                                                href={item.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 rounded-md bg-white/[0.04] px-2.5 py-1.5 text-[10px] font-medium text-white/75 transition hover:bg-white/[0.08] hover:text-white"
+                                            >
+                                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                <img src={item.icon} alt={`${item.name} logo`} className="h-4 w-4 rounded-sm object-contain" loading="lazy" />
+                                                <span>{item.name}</span>
+                                            </a>
+                                        ))}
+                                    </div>
+                                )}
+                                {row.status === 'live' && row.distributionTxs && row.distributionTxs.length > 0 && (
+                                    <div>
+                                        <div className={`${STAT_CAPTION_CLASS} mb-1`}>Distribution ledger</div>
+                                        <ul className="space-y-1.5">
+                                            {row.distributionTxs.map((tx) => (
+                                                <li key={tx.tx}>
+                                                    <a
+                                                        href={`https://scan.coredao.org/tx/${tx.tx}`}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="flex items-center justify-between gap-2 rounded-md border border-white/5 bg-black/25 px-2 py-1 transition hover:border-teal-400/40 hover:text-white"
+                                                    >
+                                                        <span>{tx.label}</span>
+                                                        <span className="text-[10px] uppercase tracking-[0.24em] text-teal-300">View</span>
+                                                    </a>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                                <div className={`flex flex-wrap items-center gap-3 ${STAT_CAPTION_CLASS}`}>
+                                    {row.status === 'live' ? (
+                                        <>
+                                            <span>Network {row.networkLabel ?? 'Core'}</span>
+                                            <span>Distributions {row.distributionTxs?.length ?? 0}</span>
+                                        </>
+                                    ) : (
+                                        <span>Max raise {row.maxRaise ?? '—'}</span>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+
+function buildMobileHighlights(row: MintTableRow) {
+    if (row.status === 'live') {
+        return [
+            { label: 'Launch ARR', value: formatPercent(row.apr) },
+            { label: 'Supply', value: formatSupply(row.supply, row.targetSupply) },
+            { label: 'Distributions', value: `${row.distributionTxs?.length ?? 0}` },
+            { label: 'Max Raise', value: row.maxRaise ?? '—' },
+        ];
+    }
+    const highlights = [
+        { label: 'Occupancy', value: row.occupancy ?? '—' },
+    ];
+    if (row.unit && row.showUnitInfo !== false) {
+        highlights.push({ label: 'Unit #', value: row.unit });
+    }
+    highlights.push(
+        { label: 'Valuation', value: row.valuation ?? '—' },
+        { label: 'Max Raise', value: row.maxRaise ?? '—' },
+    );
+    return highlights;
+}
+
+function formatAddressPreview(address: string | undefined) {
+    if (!address) return '';
+    if (address.length <= 8) return address;
+    const prefix = address.slice(0, 5);
+    const suffix = address.slice(-3);
+    return `${prefix}...${suffix}`;
+}
+
+function getExplorerUrl(row: MintTableRow) {
+    if (!row.address) return null;
+    const network = row.networkLabel?.toLowerCase();
+    if (network === 'core') {
+        return `https://scan.coredao.org/address/${row.address}`;
+    }
+    if (network && (network.includes('bnb') || network.includes('binance') || network.includes('bsc'))) {
+        return `https://bscscan.com/address/${row.address}`;
+    }
+    return `https://etherscan.io/address/${row.address}`;
+}
+
+function CopyIcon({ copied }: { copied: boolean }) {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className={`h-3.5 w-3.5 ${copied ? 'text-teal-300' : 'text-current'}`}
+            aria-hidden="true"
+        >
+            <path
+                d="M9 9V5.5A1.5 1.5 0 0 1 10.5 4h7A1.5 1.5 0 0 1 19 5.5v7A1.5 1.5 0 0 1 17.5 14H14"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <rect x="5" y="9" width="9" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+        </svg>
+    );
+}
+
+function formatPercent(value: number | null | undefined) {
+    if (value == null || Number.isNaN(value)) return '--';
+    const pct = value * 100;
+    return pct >= 10 ? `${pct.toFixed(1)}%` : `${pct.toFixed(2)}%`;
+}
+
+function formatSupply(current: number | null | undefined, target: number | null | undefined) {
+    const cur = current != null ? formatNumber(current) : '--';
+    if (!target) return cur;
+    return `${cur} / ${formatNumber(target)}`;
+}
+
+function formatNumber(value: number | null | undefined) {
+    if (value == null || Number.isNaN(value)) return '--';
+    return value.toLocaleString();
 }

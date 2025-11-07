@@ -26,18 +26,18 @@ const NftDashboard = dynamic(() => import('@/components/nft/Dashboard'), {
 
 interface TabDef { key: string; label: string; }
 const TABS: TabDef[] = [
-    { key: 'intro', label: 'Overview & Model' },
-    { key: 'nfts', label: 'Your NFTs' },
+    { key: 'mint', label: 'MINT' },
+    { key: 'overview', label: 'Overivew' },
 ];
 
 export function RwaTabs() {
-    const [active, setActive] = useState<string>('intro');
+    const [active, setActive] = useState<string>('mint');
     const onSelect = useCallback((k: string) => setActive(k), []);
 
     // Prefetch dashboard after first paint if user likely to click soon (small delay)
     useEffect(() => {
         const id = setTimeout(() => {
-            if (active === 'intro') {
+            if (active === 'mint') {
                 // Trigger dynamic import in background
                 import('@/components/nft/Dashboard');
             }
@@ -49,13 +49,13 @@ export function RwaTabs() {
         <div className="space-y-8">
             <TabBar tabs={TABS} active={active} onSelect={onSelect} />
             <div>
-                {active === 'intro' && (
-                    <div className="space-y-10" key="intro">
+                {active === 'mint' && (
+                    <div className="space-y-10" key="mint">
                         <YieldIntro />
                     </div>
                 )}
-                {active === 'nfts' && (
-                    <div key="nfts">
+                {active === 'overview' && (
+                    <div key="overview">
                         <NftDashboard />
                     </div>
                 )}
