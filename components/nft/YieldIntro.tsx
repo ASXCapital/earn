@@ -20,6 +20,11 @@ interface DistributionTx {
 
 type PropertyStatus = 'live' | 'pipeline';
 
+interface NetworkMeta {
+    label: string;
+    icon?: string;
+}
+
 interface MintTableRow {
     key: string;
     status: PropertyStatus;
@@ -33,6 +38,7 @@ interface MintTableRow {
     address?: string;
     networkLabel?: string;
     networkIcon?: string;
+    networks?: NetworkMeta[];
     legalBundle?: LegalBundleKey;
     distributionTxs?: DistributionTx[];
     unit?: string;
@@ -67,6 +73,9 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         targetSupply: 3000,
         networkLabel: 'Core',
         networkIcon: '/images/nft/coreIcon.svg',
+        networks: [
+            { label: 'Core', icon: '/images/nft/coreIcon.svg' },
+        ],
         legalBundle: 'ASXRWA002',
         distributionTxs: [
             { label: 'Distribution #1', tx: '0x460df738975ccfce048a2fa04589443c28fad4cef763ddf5cc8a53f001e88d97' },
@@ -98,6 +107,9 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         targetSupply: 5000,
         networkLabel: 'Core',
         networkIcon: '/images/nft/coreIcon.svg',
+        networks: [
+            { label: 'Core', icon: '/images/nft/coreIcon.svg' },
+        ],
         legalBundle: 'ASXRWA001',
         distributionTxs: [
             { label: 'Mint Refund', tx: '0xb297a8ac9fd4202e7b308a118624d5097a7c768ab2e7088309abbb7c94016369' },
@@ -118,8 +130,12 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         valuation: '$18.5M',
         maxRaise: '$100,000',
         showUnitInfo: false,
-        networkLabel: 'BNB',
+        networkLabel: 'BNB + Core',
         networkIcon: 'https://assets.coingecko.com/coins/images/825/thumb/bnb-icon2_2x.png',
+        networks: [
+            { label: 'BNB', icon: 'https://assets.coingecko.com/coins/images/825/thumb/bnb-icon2_2x.png' },
+            { label: 'Core', icon: '/images/nft/coreIcon.svg' },
+        ],
     },
     {
         key: 'bvt',
@@ -131,8 +147,12 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         valuation: '$35.5M',
         maxRaise: '$100,000',
         showUnitInfo: false,
-        networkLabel: 'BNB',
+        networkLabel: 'BNB + Core',
         networkIcon: 'https://assets.coingecko.com/coins/images/825/thumb/bnb-icon2_2x.png',
+        networks: [
+            { label: 'BNB', icon: 'https://assets.coingecko.com/coins/images/825/thumb/bnb-icon2_2x.png' },
+            { label: 'Core', icon: '/images/nft/coreIcon.svg' },
+        ],
     },
 ];
 
@@ -201,7 +221,8 @@ function LegalShowcase({ entries }: { entries: [LegalBundleKey, string[]][] }) {
 
     const updatePosition = useCallback(() => {
         if (!openBundle || typeof window === 'undefined') return;
-        const trigger = triggersRef.current[openBundle];
+        const bundleKey = String(openBundle);
+        const trigger = triggersRef.current[bundleKey];
         if (!trigger) return;
         const rect = trigger.getBoundingClientRect();
         const margin = 16;
@@ -235,7 +256,8 @@ function LegalShowcase({ entries }: { entries: [LegalBundleKey, string[]][] }) {
         const handle = (event: MouseEvent | TouchEvent) => {
             const target = event.target as Node;
             if (overlayRef.current?.contains(target)) return;
-            const trigger = triggersRef.current[openBundle];
+            const bundleKey = String(openBundle);
+            const trigger = triggersRef.current[bundleKey];
             if (trigger?.contains(target)) return;
             setOpenBundle(null);
         };
@@ -283,16 +305,17 @@ function LegalShowcase({ entries }: { entries: [LegalBundleKey, string[]][] }) {
                 </header>
                 <div className="grid gap-4 lg:grid-cols-2">
                     {entries.map(([bundle, files]) => {
+                        const bundleKey = String(bundle);
                         const active = openBundle === bundle;
                         return (
                             <div
-                                key={bundle}
-                                id={`legal-${bundle.toLowerCase()}`}
+                                key={bundleKey}
+                                id={`legal-${bundleKey.toLowerCase()}`}
                                 ref={(node) => {
                                     if (node) {
-                                        triggersRef.current[bundle] = node;
+                                        triggersRef.current[bundleKey] = node;
                                     } else {
-                                        delete triggersRef.current[bundle];
+                                        delete triggersRef.current[bundleKey];
                                     }
                                 }}
                                 className={`flex flex-col gap-3 rounded-xl border border-white/10 bg-white/[0.05] p-4 backdrop-blur transition ${active ? 'border-teal-400/60 shadow-[0_24px_60px_rgba(45,212,191,0.15)]' : 'hover:border-teal-400/40 hover:bg-white/[0.08]'
@@ -808,17 +831,44 @@ function CapitalCell({ row }: { row: MintTableRow }) {
 }
 
 function NetworkRaiseCell({ row }: { row: MintTableRow }) {
-    const showNetwork = Boolean(row.networkLabel || row.networkIcon);
     const explorerUrl = getExplorerUrl(row);
-    const iconContent = row.networkIcon ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={row.networkIcon} alt={`${row.networkLabel ?? 'Network'} icon`} className="h-5 w-5" loading="lazy" />
-    ) : (
-        <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">
-            {row.networkLabel?.slice(0, 3) ?? '—'}
-        </span>
-    );
+    const fallbackNetworks = row.networkLabel || row.networkIcon ? [{ label: row.networkLabel ?? '—', icon: row.networkIcon }] : [];
+    const networks = row.networks && row.networks.length > 0 ? row.networks : fallbackNetworks;
+    const showNetwork = networks.length > 0;
     const iconWrapperClass = 'flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]';
+
+    const renderIcon = (network: NetworkMeta, index: number) => {
+        const content = network.icon ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={network.icon} alt={`${network.label} icon`} className="h-5 w-5" loading="lazy" />
+        ) : (
+            <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">
+                {network.label.slice(0, 3)}
+            </span>
+        );
+        return (
+            <span
+                key={`${network.label}-${index}`}
+                className={`${iconWrapperClass} ${index > 0 ? '-ml-3 ring-2 ring-[#0c111a]' : ''}`}
+                aria-hidden="true"
+            >
+                {content}
+            </span>
+        );
+    };
+
+    const iconStack = (
+        <div className="flex items-center">
+            {networks.slice(0, 2).map((network, index) => renderIcon(network, index))}
+            {networks.length > 2 && (
+                <span className="-ml-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">
+                    +{networks.length - 2}
+                </span>
+            )}
+        </div>
+    );
+
+    const networkLabelText = row.networkLabel || networks.map((network) => network.label).join(' • ') || '—';
 
     return (
         <div className="flex items-center gap-2">
@@ -828,19 +878,20 @@ function NetworkRaiseCell({ row }: { row: MintTableRow }) {
                         href={explorerUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`${iconWrapperClass} text-white/80 transition hover:border-teal-400/40 hover:text-white`}
+                        className="text-white/80 transition hover:text-white"
                         title="View contract on explorer"
+                        aria-label="View contract on explorer"
                     >
-                        {iconContent}
+                        {iconStack}
                     </a>
                 ) : (
-                    <span className={iconWrapperClass}>{iconContent}</span>
+                    iconStack
                 )
             )}
             <div className="flex flex-col gap-0.5">
                 {showNetwork && (
                     <>
-                        <span className="text-[11px] font-medium text-white/85">{row.networkLabel ?? '—'}</span>
+                        <span className="text-[11px] font-medium text-white/85">{networkLabelText}</span>
 
                     </>
                 )}

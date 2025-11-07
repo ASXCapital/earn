@@ -1,0 +1,81 @@
+> function NetworkRaiseCell({ row }: { row: MintTableRow }) {
+      const explorerUrl = getExplorerUrl(row);
+      const fallbackNetworks = row.networkLabel || row.networkIcon ? [{ label: row.networkLabel ?? '—', icon: row.networkIcon }] : [];
+      const networks = row.networks && row.networks.length > 0 ? row.networks : fallbackNetworks;
+      const showNetwork = networks.length > 0;
+      const iconWrapperClass = 'flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]';
+  
+      const renderIcon = (network: NetworkMeta, index: number) => {
+          const content = network.icon ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={network.icon} alt={`${network.label} icon`} className="h-5 w-5" loading="lazy" />
+          ) : (
+              <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">
+                  {network.label.slice(0, 3)}
+              </span>
+          );
+          return (
+              <span
+                  key={`${network.label}-${index}`}
+                  className={`${iconWrapperClass} ${index > 0 ? '-ml-3 ring-2 ring-[#0c111a]' : ''}`}
+                  aria-hidden="true"
+              >
+                  {content}
+              </span>
+          );
+      };
+  
+      const iconStack = (
+          <div className="flex items-center">
+              {networks.slice(0, 2).map((network, index) => renderIcon(network, index))}
+              {networks.length > 2 && (
+                  <span className="-ml-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">
+                      +{networks.length - 2}
+                  </span>
+              )}
+          </div>
+      );
+  
+      const networkLabelText = row.networkLabel || networks.map((network) => network.label).join(' • ') || '—';
+  
+      return (
+          <div className="flex items-center gap-2">
+              {showNetwork && (
+                  explorerUrl ? (
+                      <a
+                          href={explorerUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white/80 transition hover:text-white"
+                          title="View contract on explorer"
+                          aria-label="View contract on explorer"
+                      >
+                          {iconStack}
+                      </a>
+                  ) : (
+                      iconStack
+                  )
+              )}
+              <div className="flex flex-col gap-0.5">
+                  {showNetwork && (
+                      <>
+                          <span className="text-[11px] font-medium text-white/85">{networkLabelText}</span>
+                          <span className={`${STAT_CAPTION_CLASS} text-white/40`}>Network</span>
+                      </>
+                  )}
+                  <span className="text-[11px] font-medium text-white/85">{row.maxRaise ?? '—'}</span>
+                  <span className={`${STAT_CAPTION_CLASS} text-white/40`}>Max Raise</span>
+              </div>
+          </div>
+      );
+  }function MobilePropertyList({
+      rows,
+      openKey,
+      onToggle,
+  }: {
+      rows: MintTableRow[];
+      openKey: string | null;
+      onToggle: (key: string) => void;
+  }) {
+      return (
+          <div className="space-y-3">
