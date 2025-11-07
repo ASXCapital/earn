@@ -392,7 +392,8 @@ function LegalShowcase({ entries }: { entries: [LegalBundleKey, string[]][] }) {
                             style={{ maxHeight: 'min(65vh, 420px)' }}
                         >
                             {activeFiles.map((file) => {
-                                const path = `/legal/${openBundle!.toLowerCase()}/${encodeURIComponent(file)}`;
+                                const bundleSegment = openBundle ? String(openBundle).toLowerCase() : '';
+                                const path = `/legal/${bundleSegment}/${encodeURIComponent(file)}`;
                                 return (
                                     <li key={file}>
                                         <a
