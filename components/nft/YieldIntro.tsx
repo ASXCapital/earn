@@ -551,13 +551,17 @@ function CollectionCell({ row }: { row: MintTableRow }) {
     );
 }
 function AvailabilityCell({ row }: { row: MintTableRow }) {
+    return <AvailabilityButton row={row} className="w-full max-w-[115px]" />;
+}
+
+function AvailabilityButton({ row, className = '' }: { row: MintTableRow; className?: string }) {
     if (row.status === 'live') {
         return (
             <Button
                 disabled
                 variant="outline"
                 size="sm"
-                className="w-full max-w-[105px] justify-center border-emerald-400/40 bg-emerald-500/10 text-[4px] uppercase tracking-[0.18em] text-emerald-200/75"
+                className={`justify-center border-emerald-400/40 bg-emerald-500/10 text-[4px] uppercase tracking-[0.18em] text-emerald-200/75 ${className}`}
             >
                 Sold Out
             </Button>
@@ -568,7 +572,7 @@ function AvailabilityCell({ row }: { row: MintTableRow }) {
             disabled
             variant="outline"
             size="sm"
-            className="w-full max-w-[115px] justify-center border-white/16 bg-white/[0.045] text-[4px] uppercase tracking-[0.18em] text-white/55"
+            className={`justify-center border-white/16 bg-white/[0.045] text-[4px] uppercase tracking-[0.18em] text-white/55 ${className}`}
         >
             Coming Soon
         </Button>
@@ -884,22 +888,25 @@ function MobilePropertyList({
                                 <path d="M6 9l6 6 6-6" />
                             </svg>
                         </button>
-                                {open && (
-                                    <div className="space-y-3 border-t border-white/10 px-4 py-3 text-xs text-white/75">
-                                        <div className="grid gap-2 sm:grid-cols-2">
-                                            {highlights.map((item) => (
-                                                <div key={`${row.key}-${item.label}`} className="flex flex-col gap-0.5 rounded-lg border border-white/12 bg-white/[0.05] px-3 py-2">
-                                                    <span className={STAT_CAPTION_CLASS}>{item.label}</span>
-                                                    <span className="text-[12px] font-medium text-white/85">{item.value}</span>
-                                                </div>
-                                            ))}
+                        {open && (
+                            <div className="space-y-3 border-t border-white/10 px-4 py-3 text-xs text-white/75">
+                                <div className="grid gap-2 sm:grid-cols-2">
+                                    {highlights.map((item) => (
+                                        <div key={`${row.key}-${item.label}`} className="flex flex-col gap-0.5 rounded-lg border border-white/12 bg-white/[0.05] px-3 py-2">
+                                            <span className={STAT_CAPTION_CLASS}>{item.label}</span>
+                                            <span className="text-[12px] font-medium text-white/85">{item.value}</span>
                                         </div>
+                                    ))}
+                                </div>
+                                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                                    <AvailabilityButton row={row} className="w-full sm:w-auto" />
                                         <MobileContractSection row={row} />
-                                        {row.marketplaces.length > 0 && (
-                                            <div className="flex flex-wrap items-center gap-2">
-                                                {row.marketplaces.map((item) => (
-                                                    <a
-                                                        key={item.url}
+                                </div>
+                                {row.marketplaces.length > 0 && (
+                                    <div className="flex flex-wrap items-center gap-2">
+                                        {row.marketplaces.map((item) => (
+                                            <a
+                                                key={item.url}
                                                 href={item.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
