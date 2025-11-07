@@ -204,9 +204,7 @@ export function YieldIntro() {
                         />
                     </div>
                     <div className="text-xs text-white/45 max-w-4xl leading-relaxed">
-                        Target figures are indicative and subject to change with occupancy, operating costs, timing and other variables. NFTs convey no equity,
-                        governance, redemption right or direct real estate ownership; economic value is derived solely from participation in the promisory note distribution
-                        mechanism. Review Terms &amp; Risk Factors before allocating capital.
+                        Target figures are indicative and subject to change with occupancy, operating costs, timing and other variables. NFTs convey no equity,governance, redemption right or direct real estate ownership; economic value is derived solely from participation in the promisory note distribution mechanism. Review Terms &amp; Risk Factors before allocating capital.
                     </div>
                 </div>
             </section>
@@ -301,9 +299,7 @@ function LegalShowcase({ entries }: { entries: [LegalBundleKey, string[]][] }) {
                         Legal
                     </span>
 
-                    <p className="text-sm text-white/70 leading-relaxed">
-                        Each ASX housing drop is structured through enforceable loan agreements and promissory notes. All legal paperwork is published and accessible for review here.
-                    </p>
+
                 </header>
                 <div className="grid gap-4 lg:grid-cols-2">
                     {entries.map(([bundle, files]) => {
@@ -898,7 +894,7 @@ function MobilePropertyList({
                                 </div>
                                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                                     <AvailabilityButton row={row} className="w-full sm:w-auto" />
-                                        <MobileContractSection row={row} />
+                                    <MobileContractSection row={row} />
                                 </div>
                                 {row.marketplaces.length > 0 && (
                                     <div className="flex flex-wrap items-center gap-2">
