@@ -962,10 +962,10 @@ function MobileContractSection({ row }: { row: MintTableRow }) {
     const hasAddress = row.status === 'live' && !!row.address;
     const fallbackNetworks = row.networkLabel || row.networkIcon ? [{ label: row.networkLabel ?? '—', icon: row.networkIcon }] : [];
     const networks = row.networks && row.networks.length > 0 ? row.networks : fallbackNetworks;
+    const { copied, handleCopy } = useCopyToClipboard(row.address);
     if (!hasAddress && networks.length === 0) {
         return null;
     }
-    const { copied, handleCopy } = useCopyToClipboard(hasAddress ? row.address : undefined);
     const explorerUrl = hasAddress ? getExplorerUrl(row) : null;
     const displayAddress = row.address ? formatAddressPreview(row.address) : '';
     const networkLabelText = row.networkLabel || networks.map((network) => network.label).join(' • ') || '—';
