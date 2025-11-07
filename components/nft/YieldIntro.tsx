@@ -128,6 +128,7 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         name: 'Greens At Alvamar',
         image: '/images/nft/GWT.webp',
         marketplaces: [],
+        apr: 0.064,
         occupancy: '98.68%',
         valuation: '$18.5M',
         maxRaise: '$100,000',
@@ -145,6 +146,7 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         name: 'Brookwood Village Townhomes',
         image: '/images/nft/BVT.webp',
         marketplaces: [],
+        apr: 0.068,
         occupancy: '97.22%',
         valuation: '$35.5M',
         maxRaise: '$100,000',
@@ -159,7 +161,7 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
 ];
 
 const MINT_TABLE_TEMPLATE =
-    'minmax(220px,1.3fr) minmax(120px,0.7fr) minmax(220px,1.1fr) minmax(150px,0.9fr) minmax(150px,0.95fr) minmax(150px,1fr) minmax(140px,0.9fr)';
+    'minmax(220px,1.3fr) minmax(120px,0.7fr) minmax(150px,0.9fr) minmax(150px,0.95fr) minmax(220px,1.1fr) minmax(150px,1fr) minmax(140px,0.9fr)';
 
 const STAT_CAPTION_CLASS = 'text-[6px] uppercase tracking-[0.12em] text-white/45';
 
@@ -430,7 +432,7 @@ function MintTable({ rows }: { rows: MintTableRow[] }) {
                     <div className="grid px-3 text-[10px] uppercase tracking-[0.26em] text-white/55" style={{ gridTemplateColumns: MINT_TABLE_TEMPLATE }}>
                         <span>Property</span>
                         <span>Availability</span>
-                        <span>Yield / Occupancy</span>
+                        <span>Launch APR</span>
                         <span>Distributions</span>
                         <span>Marketplaces</span>
                         <span>Valuation</span>
@@ -610,18 +612,10 @@ function MarketplaceCell({ items }: { items: MarketplaceLinkInfo[] }) {
 }
 
 function YieldOccupancyCell({ row }: { row: MintTableRow }) {
-    if (row.status === 'live') {
-        return (
-            <div className="flex flex-col gap-0.5">
-                <span className="text-[11px] font-medium text-white/85">{formatPercent(row.apr)}</span>
-                <span className={`${STAT_CAPTION_CLASS} text-white/40`}>Launch ARR</span>
-            </div>
-        );
-    }
     return (
         <div className="flex flex-col gap-0.5">
-            <span className="text-[11px] font-medium text-white/85">{row.occupancy ?? '—'}</span>
-            <span className={`${STAT_CAPTION_CLASS} text-white/40`}>Occupancy</span>
+            <span className="text-[11px] font-medium text-white/85">{formatPercent(row.apr)}</span>
+
         </div>
     );
 }
@@ -864,9 +858,7 @@ function MobilePropertyList({
                                 </div>
                                 <div className="flex flex-col text-left">
                                     <span className="text-[12px] font-medium text-white/85 leading-tight">{row.name}</span>
-                                    <span className={STAT_CAPTION_CLASS}>
-                                        {row.status === 'live' ? formatPercent(row.apr) : row.occupancy ?? 'Details'}
-                                    </span>
+                                    <span className={STAT_CAPTION_CLASS}>{formatPercent(row.apr)}</span>
                                 </div>
                             </div>
                             <svg
@@ -1051,9 +1043,7 @@ function buildMobileHighlights(row: MintTableRow) {
             { label: 'Max Raise', value: row.maxRaise ?? '-' },
         ];
     }
-    const highlights = [
-        { label: 'Occupancy', value: row.occupancy ?? '-' },
-    ];
+    const highlights = [{ label: 'Launch APR', value: formatPercent(row.apr) }];
     if (row.unit && row.showUnitInfo !== false) {
         highlights.push({ label: 'Unit #', value: row.unit });
     }
@@ -1153,4 +1143,3 @@ function formatNumber(value: number | null | undefined) {
     if (value == null || Number.isNaN(value)) return '--';
     return value.toLocaleString();
 }
-
