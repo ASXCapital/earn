@@ -25,6 +25,8 @@ interface NetworkMeta {
     icon?: string;
 }
 
+type NetworkStackSize = 'sm' | 'md';
+
 interface MintTableRow {
     key: string;
     status: PropertyStatus;
@@ -172,9 +174,9 @@ export function YieldIntro() {
     const [mobileOpen, setMobileOpen] = useState<string | null>(null);
 
     return (
-        <div className="space-y-10">
+        <div className="space-y-10 px-3 sm:px-0">
             <LegalShowcase entries={legalEntries} />
-            <section className="relative overflow-visible rounded-2xl border border-white/10 bg-[#0c111a]/80 p-6 shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
+            <section className="relative overflow-visible rounded-2xl border border-white/10 bg-[#0c111a]/80 p-4 sm:p-6 shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
                 <div className="pointer-events-none absolute -top-32 right-16 h-72 w-72 rounded-full bg-teal-500/20 blur-[140px]" />
                 <div className="pointer-events-none absolute bottom-0 left-10 h-44 w-44 rounded-full bg-blue-500/15 blur-[120px]" />
                 <div className="relative space-y-6">
@@ -191,10 +193,10 @@ export function YieldIntro() {
                             <span>Issuer snapshot updated</span>
                         </div>
                     </header>
-                    <div className="hidden md:block">
+                    <div className="hidden xl:block">
                         <MintTable rows={MINT_TABLE_ROWS} />
                     </div>
-                    <div className="md:hidden">
+                    <div className="xl:hidden">
                         <MobilePropertyList
                             rows={MINT_TABLE_ROWS}
                             openKey={mobileOpen}
@@ -290,7 +292,7 @@ function LegalShowcase({ entries }: { entries: [LegalBundleKey, string[]][] }) {
     }
 
     return (
-        <section className="relative overflow-hidden rounded-2xl border border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-[#0c111a]/90 to-[#0c111a] p-6 shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
+        <section className="relative overflow-hidden rounded-2xl border border-teal-500/30 bg-gradient-to-br from-teal-500/10 via-[#0c111a]/90 to-[#0c111a] p-4 sm:p-6 shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
             <div className="pointer-events-none absolute -top-24 left-12 h-40 w-40 rounded-full bg-teal-500/30 blur-[120px]" />
             <div className="pointer-events-none absolute bottom-0 right-10 h-44 w-44 rounded-full bg-blue-500/15 blur-[140px]" />
             <div className="relative space-y-5">
@@ -368,7 +370,7 @@ function LegalShowcase({ entries }: { entries: [LegalBundleKey, string[]][] }) {
                             top: panelPos.top,
                             left: panelPos.left,
                             width: panelPos.width,
-                            maxWidth: 'min(520px, calc(100vw - 32px))',
+                            maxWidth: 'min(520px, calc(100vw - 24px))',
                         }}
                     >
                         <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-3">
@@ -426,8 +428,8 @@ function MintTable({ rows }: { rows: MintTableRow[] }) {
     const [openDistribution, setOpenDistribution] = useState<string | null>(null);
 
     return (
-        <div className="relative">
-            <div className="overflow-x-auto overflow-y-visible">
+        <div className="relative w-full">
+            <div className="max-w-full overflow-x-auto overflow-y-visible">
                 <div className="min-w-[960px] space-y-3">
                     <div className="grid px-3 text-[10px] uppercase tracking-[0.26em] text-white/55" style={{ gridTemplateColumns: MINT_TABLE_TEMPLATE }}>
                         <span>Property</span>
@@ -495,42 +497,7 @@ function CollectionCell({ row }: { row: MintTableRow }) {
     const showAddress = row.status === 'live' && !!row.address;
     const displayAddress = row.address ? formatAddressPreview(row.address) : '';
     const explorerUrl = showAddress ? getExplorerUrl(row) : null;
-    const [copied, setCopied] = useState(false);
-    const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    useEffect(() => {
-        return () => {
-            if (copyTimerRef.current) {
-                clearTimeout(copyTimerRef.current);
-            }
-        };
-    }, []);
-
-    const handleCopy = useCallback(async () => {
-        if (!row.address) return;
-        try {
-            if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
-                await navigator.clipboard.writeText(row.address);
-            } else if (typeof document !== 'undefined') {
-                const textarea = document.createElement('textarea');
-                textarea.value = row.address;
-                textarea.style.position = 'fixed';
-                textarea.style.opacity = '0';
-                document.body.appendChild(textarea);
-                textarea.focus();
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-            }
-            setCopied(true);
-            if (copyTimerRef.current) {
-                clearTimeout(copyTimerRef.current);
-            }
-            copyTimerRef.current = setTimeout(() => setCopied(false), 1500);
-        } catch (error) {
-            console.error('Failed to copy address', error);
-        }
-    }, [row.address]);
+    const { copied, handleCopy } = useCopyToClipboard(row.address);
 
     return (
         <div className="flex items-center gap-2.5">
@@ -746,7 +713,7 @@ function DistributionCell({
                             top: panelPos.top,
                             left: panelPos.left,
                             width: panelPos.width,
-                            maxWidth: 'min(420px, calc(100vw - 32px))',
+                            maxWidth: 'min(420px, calc(100vw - 24px))',
                         }}
                     >
                         <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-3">
@@ -836,38 +803,6 @@ function NetworkRaiseCell({ row }: { row: MintTableRow }) {
     const fallbackNetworks = row.networkLabel || row.networkIcon ? [{ label: row.networkLabel ?? '—', icon: row.networkIcon }] : [];
     const networks = row.networks && row.networks.length > 0 ? row.networks : fallbackNetworks;
     const showNetwork = networks.length > 0;
-    const iconWrapperClass = 'flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]';
-
-    const renderIcon = (network: NetworkMeta, index: number) => {
-        const content = network.icon ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={network.icon} alt={`${network.label} icon`} className="h-5 w-5" loading="lazy" />
-        ) : (
-            <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">
-                {network.label.slice(0, 3)}
-            </span>
-        );
-        return (
-            <span
-                key={`${network.label}-${index}`}
-                className={`${iconWrapperClass} ${index > 0 ? '-ml-3 ring-2 ring-[#0c111a]' : ''}`}
-                aria-hidden="true"
-            >
-                {content}
-            </span>
-        );
-    };
-
-    const iconStack = (
-        <div className="flex items-center">
-            {networks.slice(0, 2).map((network, index) => renderIcon(network, index))}
-            {networks.length > 2 && (
-                <span className="-ml-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">
-                    +{networks.length - 2}
-                </span>
-            )}
-        </div>
-    );
 
     const networkLabelText = row.networkLabel || networks.map((network) => network.label).join(' • ') || '—';
 
@@ -883,10 +818,10 @@ function NetworkRaiseCell({ row }: { row: MintTableRow }) {
                         title="View contract on explorer"
                         aria-label="View contract on explorer"
                     >
-                        {iconStack}
+                        <NetworkStack networks={networks} />
                     </a>
                 ) : (
-                    iconStack
+                    <NetworkStack networks={networks} />
                 )
             )}
             <div className="flex flex-col gap-0.5">
@@ -949,21 +884,22 @@ function MobilePropertyList({
                                 <path d="M6 9l6 6 6-6" />
                             </svg>
                         </button>
-                        {open && (
-                            <div className="space-y-3 border-t border-white/10 px-4 py-3 text-xs text-white/75">
-                                <div className="grid gap-2 sm:grid-cols-2">
-                                    {highlights.map((item) => (
-                                        <div key={`${row.key}-${item.label}`} className="flex flex-col gap-0.5 rounded-lg border border-white/12 bg-white/[0.05] px-3 py-2">
-                                            <span className={STAT_CAPTION_CLASS}>{item.label}</span>
-                                            <span className="text-[12px] font-medium text-white/85">{item.value}</span>
+                                {open && (
+                                    <div className="space-y-3 border-t border-white/10 px-4 py-3 text-xs text-white/75">
+                                        <div className="grid gap-2 sm:grid-cols-2">
+                                            {highlights.map((item) => (
+                                                <div key={`${row.key}-${item.label}`} className="flex flex-col gap-0.5 rounded-lg border border-white/12 bg-white/[0.05] px-3 py-2">
+                                                    <span className={STAT_CAPTION_CLASS}>{item.label}</span>
+                                                    <span className="text-[12px] font-medium text-white/85">{item.value}</span>
+                                                </div>
+                                            ))}
                                         </div>
-                                    ))}
-                                </div>
-                                {row.marketplaces.length > 0 && (
-                                    <div className="flex flex-wrap items-center gap-2">
-                                        {row.marketplaces.map((item) => (
-                                            <a
-                                                key={item.url}
+                                        <MobileContractSection row={row} />
+                                        {row.marketplaces.length > 0 && (
+                                            <div className="flex flex-wrap items-center gap-2">
+                                                {row.marketplaces.map((item) => (
+                                                    <a
+                                                        key={item.url}
                                                 href={item.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
@@ -1015,6 +951,96 @@ function MobilePropertyList({
     );
 }
 
+function MobileContractSection({ row }: { row: MintTableRow }) {
+    const hasAddress = row.status === 'live' && !!row.address;
+    const fallbackNetworks = row.networkLabel || row.networkIcon ? [{ label: row.networkLabel ?? '—', icon: row.networkIcon }] : [];
+    const networks = row.networks && row.networks.length > 0 ? row.networks : fallbackNetworks;
+    if (!hasAddress && networks.length === 0) {
+        return null;
+    }
+    const { copied, handleCopy } = useCopyToClipboard(hasAddress ? row.address : undefined);
+    const explorerUrl = hasAddress ? getExplorerUrl(row) : null;
+    const displayAddress = row.address ? formatAddressPreview(row.address) : '';
+    const networkLabelText = row.networkLabel || networks.map((network) => network.label).join(' • ') || '—';
+
+    return (
+        <div className="space-y-2 rounded-2xl border border-white/10 bg-white/[0.02] p-3">
+            {hasAddress && (
+                <div className="flex items-center justify-between gap-3 text-[10px] font-mono text-white/65">
+                    <span className="truncate" title={row.address}>
+                        {displayAddress}
+                    </span>
+                    <div className="flex items-center gap-1.5">
+                        {explorerUrl && (
+                            <a
+                                href={explorerUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="rounded-md border border-white/15 px-1.5 py-0.5 text-[9px] uppercase tracking-[0.18em] text-white/60 transition hover:border-teal-400/40 hover:text-white"
+                            >
+                                View
+                            </a>
+                        )}
+                        <button
+                            type="button"
+                            onClick={handleCopy}
+                            className={`rounded-md p-0.5 transition ${copied ? 'text-teal-300' : 'text-white/45 hover:text-white'}`}
+                            aria-label={copied ? 'Copied address' : 'Copy contract address'}
+                            title={copied ? 'Copied!' : 'Copy address'}
+                        >
+                            <CopyIcon copied={copied} />
+                        </button>
+                    </div>
+                </div>
+            )}
+            {networks.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2">
+                    <NetworkStack networks={networks} size="sm" />
+                    <div className="flex flex-col text-[10px] text-white/65">
+                        <span className="text-[11px] font-medium text-white/85">{networkLabelText}</span>
+                        <span className={`${STAT_CAPTION_CLASS} text-white/40`}>Networks</span>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+
+function useCopyToClipboard(value?: string) {
+    const [copied, setCopied] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => () => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+    }, []);
+
+    const handleCopy = useCallback(async () => {
+        if (!value) return;
+        try {
+            if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+                await navigator.clipboard.writeText(value);
+            } else if (typeof document !== 'undefined') {
+                const textarea = document.createElement('textarea');
+                textarea.value = value;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.focus();
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+            setCopied(true);
+            if (timerRef.current) clearTimeout(timerRef.current);
+            timerRef.current = setTimeout(() => setCopied(false), 1500);
+        } catch (error) {
+            console.error('Failed to copy value', error);
+        }
+    }, [value]);
+
+    return { copied, handleCopy };
+}
+
 function buildMobileHighlights(row: MintTableRow) {
     if (row.status === 'live') {
         return [
@@ -1043,6 +1069,38 @@ function formatAddressPreview(address: string | undefined) {
     const prefix = address.slice(0, 5);
     const suffix = address.slice(-3);
     return `${prefix}...${suffix}`;
+}
+
+function NetworkStack({ networks, size = 'md' }: { networks: NetworkMeta[]; size?: NetworkStackSize }) {
+    if (!networks || networks.length === 0) return null;
+    const wrapperClass =
+        size === 'sm'
+            ? 'flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]'
+            : 'flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]';
+    const overlapClass = size === 'sm' ? '-ml-2.5 ring-2 ring-[#0c111a]' : '-ml-3 ring-2 ring-[#0c111a]';
+    const extraBadgeClass =
+        size === 'sm'
+            ? '-ml-2.5 flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-[9px] font-semibold uppercase tracking-[0.22em] text-white/70'
+            : '-ml-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70';
+    const iconSize = size === 'sm' ? 'h-4 w-4' : 'h-5 w-5';
+
+    return (
+        <div className="flex items-center">
+            {networks.slice(0, 2).map((network, index) => (
+                <span key={`${network.label}-${index}`} className={`${wrapperClass} ${index > 0 ? overlapClass : ''}`} aria-hidden="true">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    {network.icon ? (
+                        <img src={network.icon} alt={`${network.label} icon`} className={iconSize} loading="lazy" />
+                    ) : (
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/70">
+                            {network.label.slice(0, 3)}
+                        </span>
+                    )}
+                </span>
+            ))}
+            {networks.length > 2 && <span className={extraBadgeClass}>+{networks.length - 2}</span>}
+        </div>
+    );
 }
 
 function getExplorerUrl(row: MintTableRow) {
