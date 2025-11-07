@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
@@ -70,7 +70,7 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
                 icon: '/images/nft/okx.webp',
             },
         ],
-        apr: 0.084,
+        apr: 0.072,
         supply: 3000,
         targetSupply: 3000,
         networkLabel: 'Core',
@@ -104,7 +104,7 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
                 icon: '/images/nft/okx.webp',
             },
         ],
-        apr: 0.075,
+        apr: 0.085,
         supply: 5000,
         targetSupply: 5000,
         networkLabel: 'Core',
@@ -434,10 +434,10 @@ function MintTable({ rows }: { rows: MintTableRow[] }) {
                     <div className="grid px-3 text-[10px] uppercase tracking-[0.26em] text-white/55" style={{ gridTemplateColumns: MINT_TABLE_TEMPLATE }}>
                         <span>Property</span>
                         <span>Availability</span>
-                        <span>Marketplaces</span>
                         <span>Yield / Occupancy</span>
                         <span>Distributions</span>
-                        <span>Capital</span>
+                        <span>Marketplaces</span>
+                        <span>Valuation</span>
                         <span>Network / Raise</span>
                     </div>
                     <div className="space-y-3">
@@ -476,7 +476,6 @@ function MintTableRowComponent({
         >
             <CollectionCell row={row} />
             <AvailabilityCell row={row} />
-            <MarketplaceCell items={row.marketplaces} />
             <YieldOccupancyCell row={row} />
             <DistributionCell
                 row={row}
@@ -484,7 +483,8 @@ function MintTableRowComponent({
                 onToggle={onToggleDistribution}
                 onClose={closeDistributions}
             />
-            <CapitalCell row={row} />
+            <MarketplaceCell items={row.marketplaces} />
+            <ValuationCell row={row} />
             <NetworkRaiseCell row={row} />
         </div>
     );
@@ -551,7 +551,12 @@ function CollectionCell({ row }: { row: MintTableRow }) {
     );
 }
 function AvailabilityCell({ row }: { row: MintTableRow }) {
-    return <AvailabilityButton row={row} className="w-full max-w-[115px]" />;
+    return (
+        <div className="flex flex-col gap-1">
+            <AvailabilityButton row={row} className="w-full max-w-[115px]" />
+            <AvailabilityCaption row={row} className="text-right text-[9px] text-white/55" />
+        </div>
+    );
 }
 
 function AvailabilityButton({ row, className = '' }: { row: MintTableRow; className?: string }) {
@@ -577,6 +582,12 @@ function AvailabilityButton({ row, className = '' }: { row: MintTableRow; classN
             Coming Soon
         </Button>
     );
+}
+
+function AvailabilityCaption({ row, className = '' }: { row: MintTableRow; className?: string }) {
+    if (row.status !== 'live') return null;
+    const value = formatSupply(row.supply, row.targetSupply);
+    return <span className={className}>{value}</span>;
 }
 
 function MarketplaceCell({ items }: { items: MarketplaceLinkInfo[] }) {
@@ -784,22 +795,9 @@ function DistributionCell({
     );
 }
 
-function CapitalCell({ row }: { row: MintTableRow }) {
-    if (row.status === 'live') {
-        const value = formatSupply(row.supply, row.targetSupply);
-        return (
-            <div className="flex flex-col gap-0.5">
-                <span className="text-[11px] font-medium text-white/85">{value}</span>
-                <span className={`${STAT_CAPTION_CLASS} text-white/40`}>Supply minted</span>
-            </div>
-        );
-    }
-    return (
-        <div className="flex flex-col gap-0.5">
-            <span className="text-[11px] font-medium text-white/85">{row.valuation ?? '—'}</span>
-            <span className={`${STAT_CAPTION_CLASS} text-white/40`}>Launch valuation</span>
-        </div>
-    );
+function ValuationCell({ row }: { row: MintTableRow }) {
+    const value = row.valuation ?? 'TBC';
+    return <span className="text-[11px] font-medium text-white/85">{value}</span>;
 }
 
 function NetworkRaiseCell({ row }: { row: MintTableRow }) {
@@ -1054,18 +1052,18 @@ function buildMobileHighlights(row: MintTableRow) {
             { label: 'Launch ARR', value: formatPercent(row.apr) },
             { label: 'Supply', value: formatSupply(row.supply, row.targetSupply) },
             { label: 'Distributions', value: `${row.distributionTxs?.length ?? 0}` },
-            { label: 'Max Raise', value: row.maxRaise ?? '—' },
+            { label: 'Max Raise', value: row.maxRaise ?? '-' },
         ];
     }
     const highlights = [
-        { label: 'Occupancy', value: row.occupancy ?? '—' },
+        { label: 'Occupancy', value: row.occupancy ?? '-' },
     ];
     if (row.unit && row.showUnitInfo !== false) {
         highlights.push({ label: 'Unit #', value: row.unit });
     }
     highlights.push(
-        { label: 'Valuation', value: row.valuation ?? '—' },
-        { label: 'Max Raise', value: row.maxRaise ?? '—' },
+        { label: 'Valuation', value: row.valuation ?? 'TBC' },
+        { label: 'Max Raise', value: row.maxRaise ?? '-' },
     );
     return highlights;
 }
@@ -1159,3 +1157,4 @@ function formatNumber(value: number | null | undefined) {
     if (value == null || Number.isNaN(value)) return '--';
     return value.toLocaleString();
 }
+
