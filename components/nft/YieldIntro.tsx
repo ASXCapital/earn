@@ -577,7 +577,7 @@ function CollectionCell({ row }: { row: MintTableRow }) {
                         </button>
                     </div>
                 ) : (
-                    secondary && <span className="text-[9px] uppercase tracking-[0.2em] text-white/38">{secondary}</span>
+                    secondary && <span className="text-[8px] uppercase tracking-[0.2em] text-white/38">{secondary}</span>
                 )}
             </div>
         </div>
@@ -590,7 +590,7 @@ function AvailabilityCell({ row }: { row: MintTableRow }) {
                 disabled
                 variant="outline"
                 size="sm"
-                className="w-full max-w-[105px] justify-center border-emerald-400/40 bg-emerald-500/10 text-[5px] uppercase tracking-[0.18em] text-emerald-200/75"
+                className="w-full max-w-[105px] justify-center border-emerald-400/40 bg-emerald-500/10 text-[4px] uppercase tracking-[0.18em] text-emerald-200/75"
             >
                 Sold Out
             </Button>
@@ -601,7 +601,7 @@ function AvailabilityCell({ row }: { row: MintTableRow }) {
             disabled
             variant="outline"
             size="sm"
-            className="w-full max-w-[115px] justify-center border-white/16 bg-white/[0.045] text-[5px] uppercase tracking-[0.18em] text-white/55"
+            className="w-full max-w-[115px] justify-center border-white/16 bg-white/[0.045] text-[4px] uppercase tracking-[0.18em] text-white/55"
         >
             Coming Soon
         </Button>
@@ -778,7 +778,7 @@ function DistributionCell({
                                             className="flex items-center justify-between gap-2 rounded-md border border-white/10 bg-black/30 px-2 py-1.5 transition hover:border-teal-400/40 hover:text-white"
                                         >
                                             <span>{tx.label}</span>
-                                            <span className="text-[10px] uppercase tracking-[0.22em] text-teal-300">View</span>
+                                            <span className="text-[8px] uppercase tracking-[0.18em] text-teal-300">View</span>
                                         </a>
                                     </li>
                                 ))}
@@ -803,7 +803,7 @@ function DistributionCell({
                     size="sm"
                     aria-expanded={open}
                     onClick={onToggle}
-                    className="border-white/15 bg-white/[0.045] px-3 text-[5px] uppercase tracking-[0.18em] text-white/70 hover:border-teal-400/35 hover:text-white"
+                    className="border-white/15 bg-white/[0.045] px-3 text-[4px] uppercase tracking-[0.14em] text-white/70 hover:border-teal-400/35 hover:text-white"
                 >
                     View ({drops})
                 </Button>
