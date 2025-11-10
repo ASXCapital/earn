@@ -61,7 +61,7 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         marketplaces: [
             {
                 name: 'Blockz',
-                url: 'https://blockz.gg/collection/0x8a747b5797b3164a64759a3d77f5a0f4e758283b/',
+                url: 'https://blockz.gg/collection/0x649edd9af91646348aa4ba197d71eb05b9546d5a/',
                 icon: '/images/nft/BZ%20Cadre%20White.png',
             },
             {
@@ -80,8 +80,11 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         ],
         legalBundle: 'ASXRWA002',
         distributionTxs: [
-            { label: 'Distribution #1', tx: '0x460df738975ccfce048a2fa04589443c28fad4cef763ddf5cc8a53f001e88d97' },
-            { label: 'Distribution #2', tx: '0x608b485aeae90cdfcb3b95c604a31b709708100c29710c160a00702b3bc892e7' },
+            { label: 'Mint Refund', tx: '0xb297a8ac9fd4202e7b308a118624d5097a7c768ab2e7088309abbb7c94016369' },
+            { label: 'Distribution #1', tx: '0x67ca14b93e139289570481e7978928e16f275e85211ecf0d46d416bac1dc12ca' },
+            { label: 'Distribution #2', tx: '0x0d54db5f939f4d46a368502fdc7829cc9a62811bb7d546a620fb343d54667f69' },
+            { label: 'Distribution #3', tx: '0x8360b962c4a38e2aa909949b5bb590c7599e325142cdb1a8b94cca0893f9f2b6' },
+            { label: 'Distribution #4', tx: '0xbc091fe5b55b0812d546f3898a928c69425b5dee83b831724fe74cad88f314f5' },
         ],
         maxRaise: '$30,000',
     },
@@ -95,7 +98,7 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         marketplaces: [
             {
                 name: 'Blockz',
-                url: 'https://blockz.gg/collection/0x649edd9af91646348aa4ba197d71eb05b9546d5a/',
+                url: 'https://blockz.gg/collection/0x8a747b5797b3164a64759a3d77f5a0f4e758283b/',
                 icon: '/images/nft/BZ%20Cadre%20White.png',
             },
             {
@@ -114,11 +117,8 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         ],
         legalBundle: 'ASXRWA001',
         distributionTxs: [
-            { label: 'Mint Refund', tx: '0xb297a8ac9fd4202e7b308a118624d5097a7c768ab2e7088309abbb7c94016369' },
-            { label: 'Distribution #1', tx: '0x67ca14b93e139289570481e7978928e16f275e85211ecf0d46d416bac1dc12ca' },
-            { label: 'Distribution #2', tx: '0x0d54db5f939f4d46a368502fdc7829cc9a62811bb7d546a620fb343d54667f69' },
-            { label: 'Distribution #3', tx: '0x8360b962c4a38e2aa909949b5bb590c7599e325142cdb1a8b94cca0893f9f2b6' },
-            { label: 'Distribution #4', tx: '0xbc091fe5b55b0812d546f3898a928c69425b5dee83b831724fe74cad88f314f5' },
+            { label: 'Distribution #1', tx: '0x460df738975ccfce048a2fa04589443c28fad4cef763ddf5cc8a53f001e88d97' },
+            { label: 'Distribution #2', tx: '0x608b485aeae90cdfcb3b95c604a31b709708100c29710c160a00702b3bc892e7' },
         ],
         maxRaise: '$50,000',
     },
@@ -126,6 +126,7 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         key: 'gwt',
         status: 'pipeline',
         name: 'Greens At Alvamar',
+
         image: '/images/nft/GWT.webp',
         marketplaces: [],
         apr: 0.064,
@@ -171,14 +172,21 @@ type DropdownPosition = {
     width: number;
 };
 
+type LaunchpadStats = ReturnType<typeof buildLaunchpadStats>;
+
 export function YieldIntro() {
     const legalEntries = Object.entries(LEGAL_BUNDLES) as [LegalBundleKey, string[]][];
     const [mobileOpen, setMobileOpen] = useState<string | null>(null);
+    const launchpadStats = buildLaunchpadStats(MINT_TABLE_ROWS);
 
     return (
-        <div className="space-y-10 px-3 sm:px-0">
+        <div className="space-y-8 px-3 sm:space-y-10 sm:px-0">
+
             <LegalShowcase entries={legalEntries} />
-            <section className="relative overflow-visible rounded-2xl border border-white/10 bg-[#0c111a]/80 p-4 sm:p-6 shadow-[0_24px_60px_rgba(0,0,0,0.45)]">
+            <section
+                id="launchpad-table"
+                className="relative overflow-visible rounded-2xl border border-white/10 bg-[#0c111a]/80 p-4 sm:p-6 shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
+            >
                 <div className="pointer-events-none absolute -top-32 right-16 h-72 w-72 rounded-full bg-teal-500/20 blur-[140px]" />
                 <div className="pointer-events-none absolute bottom-0 left-10 h-44 w-44 rounded-full bg-blue-500/15 blur-[120px]" />
                 <div className="relative space-y-6">
@@ -210,6 +218,39 @@ export function YieldIntro() {
                     </div>
                 </div>
             </section>
+        </div>
+    );
+}
+
+function MobileLaunchpadHero({ stats }: { stats: LaunchpadStats }) {
+    return (
+        <section className="sm:hidden">
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-cyan-500/20 via-indigo-500/10 to-transparent p-5 text-white shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
+                <div className="pointer-events-none absolute -top-16 right-0 h-40 w-40 rounded-full bg-emerald-400/30 blur-[120px]" aria-hidden="true" />
+                <div className="pointer-events-none absolute -bottom-10 left-0 h-32 w-32 rounded-full bg-blue-500/20 blur-[120px]" aria-hidden="true" />
+                <div className="relative space-y-4">
+                    <p className="text-[9px] uppercase tracking-[0.36em] text-white/65">ASX Yield Desk</p>
+                    <h2 className="text-xl font-semibold leading-snug">Own real-world yield in a few taps</h2>
+
+                    <div className="grid grid-cols-2 gap-2.5">
+                        <MobileHeroStat label="Live Assets" value={stats.live} />
+                        <MobileHeroStat label="Pipeline" value={stats.pipeline} />
+                        <MobileHeroStat label="Avg APR" value={formatPercent(stats.avgApr)} />
+                        <MobileHeroStat label="Target Units" value={formatCompactNumber(stats.totalTargetSupply)} />
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function MobileHeroStat({ label, value }: { label: string; value: string | number | null | undefined }) {
+    const display = value ?? '--';
+    return (
+        <div className="rounded-2xl border border-white/15 bg-black/30 px-2.5 py-2 text-left">
+            <div className="text-[9px] uppercase tracking-[0.34em] text-white/55">{label}</div>
+            <div className="text-base font-semibold text-white">{display}</div>
         </div>
     );
 }
@@ -726,7 +767,7 @@ function DistributionCell({
                                 <span className={`${STAT_CAPTION_CLASS} text-white/45`}>Distribution Ledger</span>
                                 <div className="text-sm font-semibold text-white">{row.name}</div>
                                 <div className="text-[10px] uppercase tracking-[0.24em] text-teal-300">
-                                    {drops} drop{drops === 1 ? '' : 's'}
+                                    {drops}
                                 </div>
                             </div>
                             <Button
@@ -840,30 +881,57 @@ function MobilePropertyList({
     onToggle: (key: string) => void;
 }) {
     return (
-        <div className="space-y-3">
+        <div className="space-y-4 sm:space-y-3">
             {rows.map((row) => {
                 const open = openKey === row.key;
                 const highlights = buildMobileHighlights(row);
+                const statusTheme = getStatusTheme(row.status);
+                const detailId = `property-${row.key}-details`;
+                const legalDocs = row.legalBundle ? LEGAL_BUNDLES[row.legalBundle] : null;
+
                 return (
-                    <div key={row.key} className="rounded-2xl border border-white/10 bg-white/[0.03] shadow-[0_16px_40px_rgba(0,0,0,0.32)]">
+                    <article
+                        key={row.key}
+                        className="rounded-2xl border border-white/8 bg-[#070c13]/95 shadow-[0_8px_30px_rgba(0,0,0,0.45)]"
+                    >
                         <button
                             type="button"
                             onClick={() => onToggle(row.key)}
-                            className="flex w-full items-center justify-between gap-4 px-4 py-3"
+                            aria-expanded={open}
+                            aria-controls={detailId}
+                            className="flex w-full items-center gap-3 px-3.5 py-3 text-left"
                         >
-                            <div className="flex items-center gap-3">
-                                <div className="h-10 w-10 overflow-hidden rounded-lg border border-white/10 bg-white/[0.05]">
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src={row.image} alt={`${row.name} emblem`} className="h-full w-full object-cover" loading="lazy" />
+                            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl border border-white/10">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                    src={row.image}
+                                    alt={`${row.name} emblem`}
+                                    className={`h-full w-full object-cover ${row.status === 'pipeline' ? 'grayscale' : ''}`}
+                                    loading="lazy"
+                                />
+                                {row.status === 'live' && (
+                                    <span className="absolute bottom-1 left-1 inline-flex items-center rounded-full border border-emerald-400/40 bg-emerald-500/10 px-1.5 py-0.5 text-[7px] font-semibold uppercase tracking-[0.18em] text-emerald-100">
+                                        Live
+                                    </span>
+                                )}
+                            </div>
+                            <div className="flex flex-1 flex-col gap-1.5">
+                                <div>
+                                    <p className="text-sm font-semibold text-white">{row.name}</p>
                                 </div>
-                                <div className="flex flex-col text-left">
-                                    <span className="text-[12px] font-medium text-white/85 leading-tight">{row.name}</span>
-                                    <span className={STAT_CAPTION_CLASS}>{formatPercent(row.apr)}</span>
+                                <div className="flex flex-wrap gap-1.5 text-[9px] font-medium uppercase tracking-[0.2em] text-white/70">
+                                    <span className="inline-flex items-center gap-1 rounded-md border border-white/15 px-2 py-0.5">
+                                        <span className="text-white/45">APR</span> {formatPercent(row.apr)}
+                                    </span>
+                                    <span className="inline-flex items-center gap-1 rounded-md border border-white/15 px-2 py-0.5">
+                                        <NetworkIconStack row={row} />
+                                        <span className="text-white/60">{formatNetworkNames(row)}</span>
+                                    </span>
                                 </div>
                             </div>
                             <svg
                                 aria-hidden="true"
-                                className={`h-3 w-3 shrink-0 text-white/60 transition-transform ${open ? 'rotate-180' : ''}`}
+                                className={`h-3.5 w-3.5 shrink-0 text-white/60 transition-transform ${open ? 'rotate-180' : ''}`}
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="currentColor"
@@ -875,69 +943,29 @@ function MobilePropertyList({
                             </svg>
                         </button>
                         {open && (
-                            <div className="space-y-3 border-t border-white/10 px-4 py-3 text-xs text-white/75">
-                                <div className="grid gap-2 sm:grid-cols-2">
+                            <div
+                                id={detailId}
+                                className="space-y-3 border-t border-white/10 px-3.5 pb-3.5 pt-3 text-[12px] text-white/80"
+                            >
+                                <div className="grid gap-2 min-[360px]:grid-cols-2">
                                     {highlights.map((item) => (
-                                        <div key={`${row.key}-${item.label}`} className="flex flex-col gap-0.5 rounded-lg border border-white/12 bg-white/[0.05] px-3 py-2">
-                                            <span className={STAT_CAPTION_CLASS}>{item.label}</span>
-                                            <span className="text-[12px] font-medium text-white/85">{item.value}</span>
+                                        <div
+                                            key={`${row.key}-${item.label}`}
+                                            className="flex items-center justify-between rounded-xl border border-white/12 bg-white/[0.02] px-3 py-2"
+                                        >
+                                            <span className={`${STAT_CAPTION_CLASS} text-white/55`}>{item.label}</span>
+                                            <span className="text-[12px] font-semibold text-white">{item.value}</span>
                                         </div>
                                     ))}
                                 </div>
-                                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                                    <AvailabilityButton row={row} className="w-full sm:w-auto" />
-                                    <MobileContractSection row={row} />
-                                </div>
-                                {row.marketplaces.length > 0 && (
-                                    <div className="flex flex-wrap items-center gap-2">
-                                        {row.marketplaces.map((item) => (
-                                            <a
-                                                key={item.url}
-                                                href={item.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-2 rounded-md bg-white/[0.04] px-2.5 py-1.5 text-[10px] font-medium text-white/75 transition hover:bg-white/[0.08] hover:text-white"
-                                            >
-                                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                <img src={item.icon} alt={`${item.name} logo`} className="h-4 w-4 rounded-sm object-contain" loading="lazy" />
-                                                <span>{item.name}</span>
-                                            </a>
-                                        ))}
-                                    </div>
-                                )}
-                                {row.status === 'live' && row.distributionTxs && row.distributionTxs.length > 0 && (
-                                    <div>
-                                        <div className={`${STAT_CAPTION_CLASS} mb-1`}>Distribution ledger</div>
-                                        <ul className="space-y-1.5">
-                                            {row.distributionTxs.map((tx) => (
-                                                <li key={tx.tx}>
-                                                    <a
-                                                        href={`https://scan.coredao.org/tx/${tx.tx}`}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="flex items-center justify-between gap-2 rounded-md border border-white/5 bg-black/25 px-2 py-1 transition hover:border-teal-400/40 hover:text-white"
-                                                    >
-                                                        <span>{tx.label}</span>
-                                                        <span className="text-[10px] uppercase tracking-[0.24em] text-teal-300">View</span>
-                                                    </a>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
-                                <div className={`flex flex-wrap items-center gap-3 ${STAT_CAPTION_CLASS}`}>
-                                    {row.status === 'live' ? (
-                                        <>
-                                            <span>Network {row.networkLabel ?? 'Core'}</span>
-                                            <span>Distributions {row.distributionTxs?.length ?? 0}</span>
-                                        </>
-                                    ) : (
-                                        <span>Max raise {row.maxRaise ?? '—'}</span>
-                                    )}
-                                </div>
+
+                                <MobileDistributionList row={row} />
+                                <MobileLegalSection bundle={row.legalBundle} docs={legalDocs} />
+                                <MobileContractSection row={row} />
+                                <MobileActionBar row={row} />
                             </div>
                         )}
-                    </div>
+                    </article>
                 );
             })}
         </div>
@@ -959,7 +987,7 @@ function MobileContractSection({ row }: { row: MintTableRow }) {
     return (
         <div className="space-y-2 rounded-2xl border border-white/10 bg-white/[0.02] p-3">
             {hasAddress && (
-                <div className="flex items-center justify-between gap-3 text-[10px] font-mono text-white/65">
+                <div className="flex items-center justify-between gap-3 text-[9px] font-mono text-white/65">
                     <span className="truncate" title={row.address}>
                         {displayAddress}
                     </span>
@@ -989,11 +1017,192 @@ function MobileContractSection({ row }: { row: MintTableRow }) {
             {networks.length > 0 && (
                 <div className="flex flex-wrap items-center gap-2">
                     <NetworkStack networks={networks} size="sm" />
-                    <div className="flex flex-col text-[10px] text-white/65">
-                        <span className="text-[11px] font-medium text-white/85">{networkLabelText}</span>
+                    <div className="flex flex-col text-[9px] text-white/60">
+                        <span className="text-[10px] font-medium text-white/85">{networkLabelText}</span>
                         <span className={`${STAT_CAPTION_CLASS} text-white/40`}>Networks</span>
                     </div>
                 </div>
+            )}
+        </div>
+    );
+}
+
+
+
+function NetworkIconStack({ row }: { row: MintTableRow }) {
+    const networks = row.networks && row.networks.length > 0
+        ? row.networks
+        : row.networkLabel || row.networkIcon
+            ? [{ label: row.networkLabel ?? '-', icon: row.networkIcon }]
+            : [];
+    if (networks.length === 0) return <span className="text-white/70">-</span>;
+    return (
+        <span className="inline-flex items-center gap-1">
+            {networks.slice(0, 2).map((network) => (
+                <span key={network.label} className="flex h-4 w-4 items-center justify-center rounded-full border border-white/15 bg-white/[0.06]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    {network.icon ? (
+                        <img src={network.icon} alt={`${network.label} icon`} className="h-3 w-3 object-contain" loading="lazy" />
+                    ) : (
+                        <span className="text-[8px] font-semibold text-white/70">
+                            {network.label.slice(0, 2).toUpperCase()}
+                        </span>
+                    )}
+                </span>
+            ))}
+            {networks.length > 2 && (
+                <span className="text-[8px] font-semibold text-white/70">+{networks.length - 2}</span>
+            )}
+        </span>
+    );
+}
+
+function MobileDistributionList({ row }: { row: MintTableRow }) {
+    const [open, setOpen] = useState(false);
+    if (row.status !== 'live') return null;
+    const drops = row.distributionTxs ?? [];
+    return (
+        <div className="rounded-lg border border-white/12 bg-white/[0.015] px-2.5 py-2">
+            <button
+                type="button"
+                className="flex w-full items-center justify-between gap-4 text-[9px] uppercase tracking-[0.26em] text-white/60"
+                onClick={() => setOpen((prev) => !prev)}
+            >
+                <span>Distributions</span>
+                <span className="flex items-center gap-2">
+                    <span>{drops.length === 0 ? 'Pending' : drops.length}</span>
+                    <svg
+                        aria-hidden="true"
+                        className={`h-3 w-3 transition-transform ${open ? 'rotate-180' : ''}`}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    >
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </span>
+            </button>
+            {open && (
+                <>
+                    {drops.length === 0 ? (
+                        <p className="mt-2 text-[10px] leading-relaxed text-white/60">
+                            First distribution posts here as soon as occupancy and operating checkpoints settle.
+                        </p>
+                    ) : (
+                        <ol className="mt-2 space-y-1">
+                            {drops.map((drop) => (
+                                <li
+                                    key={drop.tx}
+                                    className="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-white/[0.02] px-2.5 py-1.5"
+                                >
+                                    <div className="flex flex-col">
+                                        <span className="text-[10px] font-semibold text-white">{drop.label}</span>
+                                        <span className="font-mono text-[9px] text-white/45">{formatHashPreview(drop.tx)}</span>
+                                    </div>
+                                    <a
+                                        href={getTransactionExplorer(drop.tx, row)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="rounded-full border border-white/20 px-2.5 py-0.5 text-[9px] uppercase tracking-[0.24em] text-teal-200 transition hover:border-teal-400/40 hover:text-white"
+                                    >
+                                        View
+                                    </a>
+                                </li>
+                            ))}
+                        </ol>
+                    )}
+                </>
+            )}
+        </div>
+    );
+}
+
+function MobileLegalSection({ bundle, docs }: { bundle?: string; docs: string[] | null }) {
+    const [open, setOpen] = useState(false);
+    if (!bundle) return null;
+    return (
+        <div className="rounded-lg border border-white/12 bg-white/[0.015] px-2 py-1.5">
+            <button
+                type="button"
+                className="flex w-full items-center justify-between gap-3 text-[8px] uppercase tracking-[0.24em] text-white/55"
+                onClick={() => setOpen((prev) => !prev)}
+            >
+                <span>Legal Bundle</span>
+                <span className="flex items-center gap-2">
+                    <span>{bundle}</span>
+                    <svg
+                        aria-hidden="true"
+                        className={`h-3 w-3 transition-transform ${open ? 'rotate-180' : ''}`}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    >
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </span>
+            </button>
+            {open && (
+                <div className="mt-1.5 space-y-1 text-[9px]">
+                    {docs && docs.length > 0 ? (
+                        <div className="flex flex-wrap gap-1">
+                            {docs.map((doc) => (
+                                <span
+                                    key={doc}
+                                    className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-white/70"
+                                >
+                                    {doc}
+                                </span>
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="text-white/55">Documents will publish here.</p>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+}
+
+function MobileActionBar({ row }: { row: MintTableRow }) {
+    const marketplaces = row.marketplaces ?? [];
+    const blockz = marketplaces.find((m) => /blockz/i.test(m.name));
+    const okx = marketplaces.find((m) => /okx/i.test(m.name));
+    return (
+        <div className="flex flex-wrap items-center gap-2">
+            <AvailabilityButton
+                row={row}
+                className="flex-[2] rounded-full border border-white/30 bg-white/[0.02] px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white"
+            />
+            {blockz && (
+                <a
+                    href={blockz.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-1 items-center justify-center rounded-full border border-white/30 bg-white/[0.02] px-4 py-1.5 transition hover:border-teal-400/40"
+                    aria-label="Blockz"
+                >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/images/nft/logo_white (1).svg" alt="Blockz logo" className="h-4 object-contain" loading="lazy" />
+                </a>
+            )}
+            {okx && (
+                <a
+                    href={okx.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex flex-1 items-center justify-center gap-1 rounded-full border border-white/30 bg-white/[0.02] px-4 py-1.5 text-[10px] font-semibold text-white transition hover:border-teal-400/40"
+                    aria-label="OKX Marketplace"
+                >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={okx.icon} alt="OKX logo" className="h-4 w-4 object-contain" loading="lazy" />
+                    <span>OKX</span>
+                </a>
             )}
         </div>
     );
@@ -1039,8 +1248,6 @@ function buildMobileHighlights(row: MintTableRow) {
         return [
             { label: 'Launch ARR', value: formatPercent(row.apr) },
             { label: 'Supply', value: formatSupply(row.supply, row.targetSupply) },
-            { label: 'Distributions', value: `${row.distributionTxs?.length ?? 0}` },
-            { label: 'Max Raise', value: row.maxRaise ?? '-' },
         ];
     }
     const highlights = [{ label: 'Launch APR', value: formatPercent(row.apr) }];
@@ -1054,12 +1261,33 @@ function buildMobileHighlights(row: MintTableRow) {
     return highlights;
 }
 
+function getStatusTheme(status: PropertyStatus) {
+    if (status === 'live') {
+        return {
+            label: 'Live',
+            badgeClass: 'border-emerald-400/50 bg-emerald-500/15 text-emerald-100',
+            auraClass: 'from-emerald-500/25',
+        };
+    }
+    return {
+        label: '',
+        badgeClass: '',
+        auraClass: 'from-amber-400/20',
+    };
+}
+
 function formatAddressPreview(address: string | undefined) {
     if (!address) return '';
     if (address.length <= 8) return address;
     const prefix = address.slice(0, 5);
     const suffix = address.slice(-3);
     return `${prefix}...${suffix}`;
+}
+
+function formatHashPreview(hash: string | undefined) {
+    if (!hash) return '';
+    if (hash.length <= 12) return hash;
+    return `${hash.slice(0, 6)}...${hash.slice(-4)}`;
 }
 
 function NetworkStack({ networks, size = 'md' }: { networks: NetworkMeta[]; size?: NetworkStackSize }) {
@@ -1106,6 +1334,17 @@ function getExplorerUrl(row: MintTableRow) {
     return `https://etherscan.io/address/${row.address}`;
 }
 
+function getTransactionExplorer(tx: string, row: MintTableRow) {
+    const network = row.networkLabel?.toLowerCase();
+    if (network === 'core') {
+        return `https://scan.coredao.org/tx/${tx}`;
+    }
+    if (network && (network.includes('bnb') || network.includes('binance') || network.includes('bsc'))) {
+        return `https://bscscan.com/tx/${tx}`;
+    }
+    return `https://etherscan.io/tx/${tx}`;
+}
+
 function CopyIcon({ copied }: { copied: boolean }) {
     return (
         <svg
@@ -1142,4 +1381,31 @@ function formatSupply(current: number | null | undefined, target: number | null 
 function formatNumber(value: number | null | undefined) {
     if (value == null || Number.isNaN(value)) return '--';
     return value.toLocaleString();
+}
+
+function buildLaunchpadStats(rows: MintTableRow[]) {
+    const live = rows.filter((row) => row.status === 'live').length;
+    const pipeline = rows.filter((row) => row.status === 'pipeline').length;
+    const aprValues = rows
+        .map((row) => row.apr)
+        .filter((value): value is number => typeof value === 'number' && !Number.isNaN(value));
+    const avgApr = aprValues.length ? aprValues.reduce((sum, value) => sum + value, 0) / aprValues.length : null;
+    const totalTargetSupply = rows.reduce((sum, row) => sum + (row.targetSupply ?? row.supply ?? 0), 0);
+    const distributionCount = rows.reduce((sum, row) => sum + (row.distributionTxs?.length ?? 0), 0);
+    return { live, pipeline, avgApr, totalTargetSupply, distributionCount };
+}
+
+function formatCompactNumber(value: number | null | undefined) {
+    if (value == null || Number.isNaN(value)) return '--';
+    return new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(value);
+}
+
+function formatNetworkNames(row: MintTableRow) {
+    const networks = row.networks && row.networks.length > 0
+        ? row.networks.map((n) => n.label)
+        : row.networkLabel
+            ? [row.networkLabel]
+            : [];
+    if (networks.length === 0) return '-';
+    return networks.map((name) => name.toUpperCase()).join(' + ');
 }

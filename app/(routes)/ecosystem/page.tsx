@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { STAKING_POOLS } from '@/data/staking';
 import { EcosystemSwitcher } from '@/components/ecosystem/EcosystemSwitcher';
 import { PoolsTable } from '@/components/overview/PoolsTable';
+import { safeFetch } from '@/lib/safeFetch';
 import { UPDATES_FEED_URL, parseRss, stripHtml, formatRssDate } from '@/lib/rss';
 
 export const revalidate = 600;
@@ -12,7 +13,7 @@ export default async function Page() {
   // Fetch a small subset of updates server-side for expanded view (no scroll box)
   let previewArticles: ReturnType<typeof parseRss> = [];
   try {
-    const res = await fetch(UPDATES_FEED_URL, { next: { revalidate } });
+    const res = await safeFetch(UPDATES_FEED_URL, { cacheSeconds: revalidate, retries: 4, timeoutMs: 15000 });
     if (res.ok) {
       const xml = await res.text();
       previewArticles = parseRss(xml).slice(0, 3);

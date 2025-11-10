@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { safeFetch } from '@/lib/safeFetch';
 import { UPDATES_FEED_URL, parseRss, stripHtml, formatRssDate, Article } from '@/lib/rss';
 
 // Revalidate RSS every 10 minutes
@@ -12,7 +13,7 @@ export default async function UpdatesPage({ searchParams }: { searchParams: { [k
   let articles: Article[] = [];
   let error: string | undefined;
   try {
-    const res = await fetch(UPDATES_FEED_URL, { next: { revalidate } });
+    const res = await safeFetch(UPDATES_FEED_URL, { cacheSeconds: revalidate, retries: 4, timeoutMs: 15000 });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const xml = await res.text();
     articles = parseRss(xml);
