@@ -960,7 +960,7 @@ function MobilePropertyList({
                                 </div>
 
                                 <MobileDistributionList row={row} />
-                                <MobileLegalSection bundle={row.legalBundle} docs={legalDocs} />
+                                <MobileLegalSection bundle={row.legalBundle ? String(row.legalBundle) : undefined} docs={legalDocs} />
                                 <MobileContractSection row={row} />
                                 <MobileActionBar row={row} />
                             </div>
