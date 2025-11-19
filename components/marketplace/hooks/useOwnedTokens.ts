@@ -229,8 +229,12 @@ async function fetchErc721TokensViaTransfers(
     });
 
     for (const log of sorted) {
-      const args = log.args as Record<string, unknown> | undefined;
-      const rawTokenId = args?.tokenId;
+      const args = log.args;
+      if (!args || Array.isArray(args)) {
+        continue;
+      }
+      const recordArgs = args as Record<string, unknown>;
+      const rawTokenId = recordArgs.tokenId;
       if (rawTokenId === undefined || rawTokenId === null) continue;
       const key =
         typeof rawTokenId === "bigint"
@@ -238,35 +242,32 @@ async function fetchErc721TokensViaTransfers(
           : typeof rawTokenId === "number"
             ? rawTokenId.toString()
             : String(rawTokenId);
-      let tokenId: bigint;
-      try {
-        tokenId =
-          typeof rawTokenId === "bigint"
-            ? rawTokenId
-            : typeof rawTokenId === "number"
-              ? BigInt(rawTokenId)
-              : BigInt(key);
-      } catch {
-        continue;
-      }
       if (observed.has(key)) continue;
       observed.add(key);
 
-      const rawTo = args?.to;
-      const toAddr =
-        typeof rawTo === "string" ? rawTo.toLowerCase() : String(rawTo ?? "").toLowerCase();
+      const toValue = recordArgs.to;
+      const toAddr = typeof toValue === "string" ? toValue.toLowerCase() : "";
       if (toAddr !== accountLower) {
         continue;
       }
 
+      const tokenIdInput: string | number | bigint =
+        typeof rawTokenId === "bigint" || typeof rawTokenId === "number"
+          ? rawTokenId
+          : typeof rawTokenId === "string"
+            ? rawTokenId
+            : key;
+      const normalizedTokenId =
+        typeof tokenIdInput === "bigint" ? tokenIdInput : BigInt(tokenIdInput);
+
       try {
-        const owner = await ownerOf({ contract, tokenId });
+        const owner = await ownerOf({ contract, tokenId: normalizedTokenId });
         if (owner?.toLowerCase() !== accountLower) {
           continue;
         }
         const nft = await getErc721NFT({
           contract,
-          tokenId,
+          tokenId: normalizedTokenId,
           useIndexer: false,
         });
         owned.push({
