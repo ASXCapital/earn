@@ -2,17 +2,29 @@
 
 import { ConnectButton, darkTheme } from "thirdweb/react";
 import { Menu } from "lucide-react";
-import { createWallet } from "thirdweb/wallets";
+import { createWallet, inAppWallet } from "thirdweb/wallets";
 import { client, supportedChains } from "@/lib/thirdweb";
 import { Button } from "@/components/common/Button";
 
 // Keep original simple wallet list
 const wallets = [
+  // Thirdweb's in-app wallet enables passwordless + social logins inside the modal
+
   createWallet("io.metamask"),
   createWallet("com.coinbase.wallet"),
   createWallet("io.rabby"),
   createWallet("com.okex.wallet"),
   createWallet("global.safe"),
+  inAppWallet({
+    auth: {
+      options: [
+        "google",
+        "apple",
+        "x",
+        "discord",
+      ],
+    },
+  }),
 ];
 
 interface TopbarProps { onOpenSidebar?: () => void; }
