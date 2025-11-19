@@ -194,13 +194,14 @@ async function fetchErc721TokensViaTransfers(
   contract: ReturnType<typeof getContract>,
   accountAddress: Address,
 ): Promise<OwnedToken[]> {
+  type TransferLogs = Awaited<ReturnType<typeof getEventsWithRateLimitRetry>>;
   const accountLower = accountAddress.toLowerCase();
   const observed = new Set<string>();
   const owned: OwnedToken[] = [];
   let toBlock: bigint | undefined = undefined;
 
   for (let chunk = 0; chunk < FALLBACK_TRANSFER_MAX_CHUNKS; chunk++) {
-    const logs = await getEventsWithRateLimitRetry({
+    const logs: TransferLogs = await getEventsWithRateLimitRetry({
       contract,
       events: [erc721TransferEvent()],
       blockRange: FALLBACK_TRANSFER_CHUNK,
@@ -228,13 +229,32 @@ async function fetchErc721TokensViaTransfers(
     });
 
     for (const log of sorted) {
-      const tokenId = log.args?.tokenId;
-      if (tokenId === undefined) continue;
-      const key = tokenId.toString();
+      const args = log.args as Record<string, unknown> | undefined;
+      const rawTokenId = args?.tokenId;
+      if (rawTokenId === undefined || rawTokenId === null) continue;
+      const key =
+        typeof rawTokenId === "bigint"
+          ? rawTokenId.toString()
+          : typeof rawTokenId === "number"
+            ? rawTokenId.toString()
+            : String(rawTokenId);
+      let tokenId: bigint;
+      try {
+        tokenId =
+          typeof rawTokenId === "bigint"
+            ? rawTokenId
+            : typeof rawTokenId === "number"
+              ? BigInt(rawTokenId)
+              : BigInt(key);
+      } catch {
+        continue;
+      }
       if (observed.has(key)) continue;
       observed.add(key);
 
-      const toAddr = (log.args?.to ?? "").toLowerCase();
+      const rawTo = args?.to;
+      const toAddr =
+        typeof rawTo === "string" ? rawTo.toLowerCase() : String(rawTo ?? "").toLowerCase();
       if (toAddr !== accountLower) {
         continue;
       }

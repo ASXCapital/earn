@@ -224,19 +224,18 @@ function OfferComposer({
     } catch {
       throw new Error("Enter a valid quantity.");
     }
-    const expiration = BigInt(
+    const expirationSeconds = BigInt(
       Math.floor(Date.now() / 1000 + Number(expiryHours || "24") * 3600),
     );
+    const expirationDate = new Date(Number(expirationSeconds) * 1000);
     return makeOffer({
       contract,
-      params: {
-        assetContract: assetContract as Address,
-        tokenId: BigInt(tokenId),
-        quantity: quantityBigInt,
-        currency: MARKETPLACE_LISTING_CURRENCY as Address,
-        totalPrice: totalPriceWei,
-        expirationTimestamp: expiration,
-      },
+      assetContractAddress: assetContract as Address,
+      tokenId: BigInt(tokenId),
+      quantity: quantityBigInt,
+      currencyContractAddress: MARKETPLACE_LISTING_CURRENCY as Address,
+      totalOfferWei: totalPriceWei,
+      offerExpiresAt: expirationDate,
     });
   };
 

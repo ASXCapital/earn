@@ -76,7 +76,7 @@ export function useCurrencyAllowance({
         const [balance, currentAllowance] = await Promise.all([
           balanceOf({
             contract: currencyContract,
-            owner: accountAddress,
+            address: accountAddress,
           }),
           allowance({
             contract: currencyContract,

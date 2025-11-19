@@ -33,9 +33,20 @@ export const MARKETPLACE_V3_ADDRESS = fallbackAddress;
 export const MARKETPLACE_V3_CHAIN = resolvedChain;
 export const MARKETPLACE_V3_CHAIN_ID = resolvedChain.id;
 export const MARKETPLACE_V3_CHAIN_NAME = resolvedChain.name;
+const resolvedExplorer = (() => {
+  const explorers = resolvedChain.blockExplorers as
+    | undefined
+    | Array<{ url?: string }>
+    | { default?: { url?: string } };
+  if (!explorers) return undefined;
+  if (Array.isArray(explorers)) {
+    return explorers[0]?.url;
+  }
+  return explorers.default?.url;
+})();
+
 export const MARKETPLACE_V3_EXPLORER =
-  resolvedChain.blockExplorers?.default?.url ||
-  (isTestnet ? "https://testnet.bscscan.com" : "https://bscscan.com");
+  resolvedExplorer || (isTestnet ? "https://testnet.bscscan.com" : "https://bscscan.com");
 export const MARKETPLACE_V3_PLATFORM_FEE_BPS = Number(
   process.env.NEXT_PUBLIC_MARKETPLACE_PLATFORM_FEE_BPS || "100",
 );

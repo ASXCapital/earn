@@ -14,7 +14,7 @@ export const bsc = defineChain({
   name: "BNB Smart Chain",
   nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
   // Provide flat rpc field (some thirdweb internals may rely on chain.rpc)
-  rpc: BSC_RPC,
+  rpc: BSC_RPC_LIST,
   rpcUrls: {
     default: { http: BSC_RPC_LIST },
   },

@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { isAddress, type Address } from "viem";
-import { grantRole, hasRole, revokeRole, setPlatformFeeInfo } from "thirdweb/extensions/permissions";
+import { grantRole, hasRole, revokeRole } from "thirdweb/extensions/permissions";
+import { setPlatformFeeInfo } from "thirdweb/extensions/common";
 import { TransactionButton } from "thirdweb/react";
 import { ShieldCheck } from "lucide-react";
 

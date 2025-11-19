@@ -18,13 +18,13 @@ export async function fetchRoleMembersFromChain(
     if (!count || count === 0n) {
       return [];
     }
-    const limitedCount = count > BigInt(maxMembers) ? maxMembers : Number(count);
+    const limitedCount = Number(count > BigInt(maxMembers) ? BigInt(maxMembers) : count);
     const memberAddresses = await Promise.all(
       Array.from({ length: limitedCount }).map((_, index) =>
         getRoleMember({
           contract: MARKETPLACE_CONTRACT,
           role,
-          index,
+          index: BigInt(index),
         }),
       ),
     );

@@ -171,7 +171,7 @@ function AuctionCard({
     return bidInAuction({
       contract,
       auctionId: auction.id,
-      bidAmount: bidAmountWei,
+      bidAmountWei,
     });
   };
 

@@ -114,9 +114,10 @@ export function MarketplaceExperience() {
       .sort((a, b) => sortListings(a, b, sortKey));
   }, [listings, onlyLive, search, sortKey]);
 
+  const chainName = MARKETPLACE_V3_CHAIN_NAME ?? "BNB Chain";
+  const chainNameLower = chainName.toLowerCase();
   const currencySymbol =
-    stats.symbol ||
-    (MARKETPLACE_V3_CHAIN_NAME.toLowerCase().includes("testnet") ? "tBNB" : "BNB");
+    stats.symbol || (chainNameLower.includes("testnet") ? "tBNB" : "BNB");
 
   const notifySuccess = useCallback(
     (title: string, description?: string) =>

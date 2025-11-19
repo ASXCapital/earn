@@ -129,7 +129,7 @@ type IndexerLog = {
   blockTimestamp: number;
 };
 
-async function fetchIndexerEventPages(event: PreparedEvent): Promise<IndexerLog[]> {
+async function fetchIndexerEventPages(event: PreparedEvent<any>): Promise<IndexerLog[]> {
   const aggregated: IndexerLog[] = [];
   for (let page = 0; page < INDEXER_ACTIVITY_MAX_PAGES; page++) {
     const batch = await getIndexerEvents({
@@ -165,7 +165,7 @@ async function fetchIndexerEventPages(event: PreparedEvent): Promise<IndexerLog[
 async function fetchActivityViaRpc(): Promise<ActivityEntry[]> {
   const logs = await getRpcEvents({
     contract: MARKETPLACE_CONTRACT,
-    events: EVENT_FILTERS,
+    events: [...EVENT_FILTERS],
     blockRange: RPC_ACTIVITY_BLOCK_RANGE,
     useIndexer: false,
   }).catch((err) => {
@@ -181,7 +181,9 @@ async function fetchActivityViaRpc(): Promise<ActivityEntry[]> {
         args: log.args,
         transactionHash: log.transactionHash,
         logIndex: log.logIndex,
-        blockTimestamp: log.blockTimestamp,
+        blockTimestamp: ("blockTimestamp" in log && log.blockTimestamp
+          ? Number(log.blockTimestamp)
+          : 0) as number,
       }),
     )
     .filter((entry): entry is ActivityEntry => Boolean(entry))
