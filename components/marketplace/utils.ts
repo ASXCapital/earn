@@ -88,15 +88,16 @@ const MIN_BLOCK_RANGE = 128n;
 export async function getEventsWithRateLimitRetry(
   options: Parameters<typeof getContractEvents>[0],
   attempt = 0,
-): Promise<Awaited<ReturnType<typeof getContractEvents>>> {
+  ): Promise<Awaited<ReturnType<typeof getContractEvents>>> {
   try {
     return await getContractEvents(options as any);
   } catch (err) {
     if (isRateLimitError(err) && attempt < RATE_LIMIT_BACKOFF_MS.length) {
       const waitMs = RATE_LIMIT_BACKOFF_MS[attempt];
       const nextOptions = { ...options };
-      if (options.blockRange && options.blockRange > MIN_BLOCK_RANGE) {
-        const halved = options.blockRange / 2n;
+      const blockRange = (options as any).blockRange as bigint | undefined;
+      if (blockRange && blockRange > MIN_BLOCK_RANGE) {
+        const halved = blockRange / 2n;
         nextOptions.blockRange = halved > MIN_BLOCK_RANGE ? halved : MIN_BLOCK_RANGE;
         if (options.fromBlock && !options.toBlock) {
           // ensure next call still pages forward when using fromBlock+blockRange

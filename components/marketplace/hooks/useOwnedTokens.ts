@@ -285,11 +285,14 @@ async function fetchErc721TokensViaTransfers(
     }
 
     const minBlock = sorted.reduce<bigint | null>((min, log) => {
-      const block = log.blockNumber ?? 0n;
+      const rawBlock = log.blockNumber;
+      if (rawBlock === undefined || rawBlock === null) return min;
+      const block =
+        typeof rawBlock === "bigint" ? rawBlock : BigInt(rawBlock);
       if (min === null || block < min) return block;
       return min;
     }, null);
-    if (!minBlock || minBlock === 0n) {
+    if (minBlock === null || minBlock <= 0n) {
       break;
     }
     toBlock = minBlock - 1n;
@@ -315,9 +318,13 @@ async function scanErc721TokensBySupply(
     return [];
   }
   const owned: OwnedToken[] = [];
-  const range = supply < BigInt(SUPPLY_SCAN_LIMIT) ? supply : BigInt(SUPPLY_SCAN_LIMIT);
+  const supplyBigInt = typeof supply === "bigint" ? supply : BigInt(supply);
+  const range =
+    supplyBigInt < BigInt(SUPPLY_SCAN_LIMIT)
+      ? supplyBigInt
+      : BigInt(SUPPLY_SCAN_LIMIT);
   for (let offset = 0n; offset < range; offset++) {
-    const tokenId = supply - 1n - offset;
+    const tokenId = supplyBigInt - 1n - offset;
     try {
       const owner = await ownerOf({
         contract,

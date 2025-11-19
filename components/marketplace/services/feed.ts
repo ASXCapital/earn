@@ -173,8 +173,25 @@ async function fetchActivityViaRpc(): Promise<ActivityEntry[]> {
     return [];
   });
 
-  return logs
-    .sort((a, b) => Number((b.blockNumber ?? 0n) - (a.blockNumber ?? 0n)))
+  const sortedLogs = [...logs].sort((a, b) => {
+    const aRaw = a.blockNumber;
+    const bRaw = b.blockNumber;
+    const aBlock =
+      typeof aRaw === "bigint"
+        ? Number(aRaw)
+        : typeof aRaw === "number"
+          ? aRaw
+          : 0;
+    const bBlock =
+      typeof bRaw === "bigint"
+        ? Number(bRaw)
+        : typeof bRaw === "number"
+          ? bRaw
+          : 0;
+    return bBlock - aBlock;
+  });
+
+  return sortedLogs
     .map((log) =>
       mapLogToActivity({
         eventName: log.eventName,
