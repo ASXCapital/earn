@@ -1,0 +1,88 @@
+type Listing @entity(immutable: false) {
+  id: ID!
+  listingId: BigInt!
+  creator: Bytes!
+  assetContract: Bytes!
+  tokenId: BigInt!
+  quantity: BigInt!
+  pricePerToken: BigInt!
+  currency: Bytes!
+  startTimestamp: BigInt!
+  endTimestamp: BigInt!
+  reserved: Boolean!
+  status: String!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+  sales: [Sale!]! @derivedFrom(field: "listing")
+}
+
+type Sale @entity(immutable: true) {
+  id: ID!
+  listing: Listing!
+  buyer: Bytes!
+  quantity: BigInt!
+  totalPrice: BigInt!
+  txHash: Bytes!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+}
+
+type Auction @entity(immutable: false) {
+  id: ID!
+  auctionId: BigInt!
+  creator: Bytes!
+  assetContract: Bytes!
+  tokenId: BigInt!
+  quantity: BigInt!
+  minimumBidAmount: BigInt!
+  buyoutBidAmount: BigInt!
+  currency: Bytes!
+  startTimestamp: BigInt!
+  endTimestamp: BigInt!
+  bidBufferBps: BigInt!
+  timeBufferInSeconds: BigInt!
+  status: String!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+  bids: [Bid!]! @derivedFrom(field: "auction")
+}
+
+type Bid @entity(immutable: true) {
+  id: ID!
+  auction: Auction!
+  bidder: Bytes!
+  amount: BigInt!
+  txHash: Bytes!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+}
+
+type Offer @entity(immutable: false) {
+  id: ID!
+  offerId: BigInt!
+  offeror: Bytes!
+  assetContract: Bytes!
+  tokenId: BigInt!
+  quantity: BigInt!
+  totalPrice: BigInt!
+  currency: Bytes!
+  expirationTimestamp: BigInt!
+  status: String!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+  acceptedTx: Bytes
+}
+
+type MarketplaceEvent @entity(immutable: true) {
+  id: ID!
+  kind: String!
+  txHash: Bytes!
+  logIndex: BigInt!
+  blockNumber: BigInt!
+  timestamp: BigInt!
+  listing: Listing
+  auction: Auction
+  offer: Offer
+  actor: Bytes
+  metadata: String
+}

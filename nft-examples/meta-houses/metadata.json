@@ -1,0 +1,3602 @@
+[
+  {
+    "name": "Meta Houses #000",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/0.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "0"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #001",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/1.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "1"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #002",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/2.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "2"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #003",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/3.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "3"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #004",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/4.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "4"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #005",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/5.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "5"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #006",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/6.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "6"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #007",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/7.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "7"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #008",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/8.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "8"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #009",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/9.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "9"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #010",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/10.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "10"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #011",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/11.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "11"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #012",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/12.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "12"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #013",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/13.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "13"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #014",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/14.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "14"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #015",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/15.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "15"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #016",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/16.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "16"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #017",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/17.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "17"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #018",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/18.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "18"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #019",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/19.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "19"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #020",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/20.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "20"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #021",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/21.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "21"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #022",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/22.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "22"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #023",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/23.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "23"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #024",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/24.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "24"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #025",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/25.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "25"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #026",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/26.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "26"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #027",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/27.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "27"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #028",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/28.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "28"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #029",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/29.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "29"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #030",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/30.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "30"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #031",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/31.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "31"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #032",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/32.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "32"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #033",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/33.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "33"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #034",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/34.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "34"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #035",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/35.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "35"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #036",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/36.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "36"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #037",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/37.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "37"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #038",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/38.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "38"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #039",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/39.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "39"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #040",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/40.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "40"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #041",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/41.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "41"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #042",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/42.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "42"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #043",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/43.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "43"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #044",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/44.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "44"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #045",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/45.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "45"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #046",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/46.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "46"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #047",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/47.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "47"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #048",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/48.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "48"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #049",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/49.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "49"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #050",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/50.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "50"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #051",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/51.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "51"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #052",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/52.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "52"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #053",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/53.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "53"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #054",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/54.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "54"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #055",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/55.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "55"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #056",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/56.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "56"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #057",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/57.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "57"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #058",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/58.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "58"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #059",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/59.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "59"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #060",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/60.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "60"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #061",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/61.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "61"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #062",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/62.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "62"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #063",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/63.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "63"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #064",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/64.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "64"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #065",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/65.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "65"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #066",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/66.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "66"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #067",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/67.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "67"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #068",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/68.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "68"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #069",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/69.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "69"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #070",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/70.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "70"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #071",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/71.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "71"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #072",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/72.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "72"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #073",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/73.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "73"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #074",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/74.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "74"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #075",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/75.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "75"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #076",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/76.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "76"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #077",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/77.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "77"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #078",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/78.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "78"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #079",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/79.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "79"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #080",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/80.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "80"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #081",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/81.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "81"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #082",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/82.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "82"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #083",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/83.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "83"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #084",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/84.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "84"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #085",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/85.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "85"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Biophilic"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #086",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/86.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "86"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #087",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/87.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "87"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #088",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/88.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "88"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #089",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/89.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "89"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #090",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/90.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "90"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #091",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/91.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "91"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #092",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/92.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "92"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A+"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #093",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/93.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "93"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Brutalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Industrial"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #094",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/94.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "94"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Skyline"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #095",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ffd166",
+    "image": "assets/meta-houses/95.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "95"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Forest Edge"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Cyber Deco"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Calm"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #096",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#a4c3b2",
+    "image": "assets/meta-houses/96.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "96"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #097",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#ff8fb1",
+    "image": "assets/meta-houses/97.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "97"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #098",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#c3f584",
+    "image": "assets/meta-houses/98.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "98"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Harbor"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Futuristic"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "SS"
+      }
+    ]
+  },
+  {
+    "name": "Meta Houses #099",
+    "description": "Architectural renders of dream homes for virtual living, textured with generative materials.",
+    "background_color": "#72efdd",
+    "image": "assets/meta-houses/99.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "99"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Meta Houses"
+      },
+      {
+        "trait_type": "District",
+        "value": "Desert Bloom"
+      },
+      {
+        "trait_type": "Style",
+        "value": "Minimalist"
+      },
+      {
+        "trait_type": "Interior Mood",
+        "value": "Vibrant"
+      },
+      {
+        "trait_type": "Energy Rating",
+        "value": "A"
+      }
+    ]
+  }
+]

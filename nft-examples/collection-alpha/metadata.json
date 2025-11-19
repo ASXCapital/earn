@@ -1,0 +1,722 @@
+[
+  {
+    "name": "Aurora Skies #0",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "0.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "0"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #1",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "1.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "1"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #2",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "2.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "2"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #3",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "3.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "3"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #4",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "4.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "4"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #5",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "5.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "5"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #6",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "6.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "6"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #7",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "7.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "7"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #8",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "8.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "8"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #9",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "9.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "9"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #10",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "10.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "10"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #11",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "11.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "11"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #12",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "12.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "12"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #13",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "13.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "13"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #14",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "14.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "14"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #15",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "15.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "15"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #16",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "16.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "16"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #17",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "17.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "17"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #18",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "18.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "18"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  },
+  {
+    "name": "Aurora Skies #19",
+    "description": "A 20-piece Aurora Skies study generated for demo purposes.",
+    "background_color": "#050814",
+    "image": "19.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Aurora Skies"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "19"
+      },
+      {
+        "trait_type": "Format",
+        "value": "SVG"
+      },
+      {
+        "trait_type": "Background",
+        "value": "#050814"
+      },
+      {
+        "trait_type": "Network",
+        "value": "BNB Chain Testnet"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Aurora"
+      },
+      {
+        "trait_type": "Drop",
+        "value": "Alpha Wave"
+      }
+    ]
+  }
+]

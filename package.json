@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "verify:supply": "node scripts/verify-supply-chain.cjs"
+    "verify:supply": "node scripts/verify-supply-chain.cjs",
+    "deploy:marketplace": "node scripts/deploy-marketplace.mjs"
   },
   "dependencies": {
     "clsx": "2.1.1",
@@ -17,7 +18,8 @@
     "pino-pretty": "^10.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "thirdweb": "5.105.37",
+    "superjson": "^2.2.5",
+    "thirdweb": "^5.105.37",
     "zod": "3.23.8"
   },
   "devDependencies": {

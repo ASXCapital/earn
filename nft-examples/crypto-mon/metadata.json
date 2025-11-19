@@ -1,0 +1,3602 @@
+[
+  {
+    "name": "CryptoMon #000",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/0.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "0"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Fire"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #001",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/1.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "1"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #002",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/2.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "2"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #003",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/3.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "3"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #004",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/4.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "4"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #005",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/5.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "5"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #006",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/6.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "6"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #007",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/7.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "7"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #008",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/8.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "8"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #009",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/9.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "9"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #010",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/10.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "10"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #011",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/11.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "11"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #012",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/12.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "12"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #013",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/13.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "13"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #014",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/14.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "14"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #015",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/15.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "15"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #016",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/16.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "16"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #017",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/17.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "17"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #018",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/18.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "18"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Fire"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #019",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/19.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "19"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #020",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/20.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "20"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #021",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/21.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "21"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #022",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/22.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "22"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #023",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/23.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "23"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #024",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/24.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "24"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #025",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/25.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "25"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #026",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/26.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "26"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #027",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/27.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "27"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #028",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/28.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "28"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Fire"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #029",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/29.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "29"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #030",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/30.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "30"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #031",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/31.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "31"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #032",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/32.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "32"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #033",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/33.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "33"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #034",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/34.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "34"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #035",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/35.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "35"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #036",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/36.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "36"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #037",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/37.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "37"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Fire"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #038",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/38.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "38"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #039",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/39.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "39"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #040",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/40.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "40"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #041",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/41.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "41"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #042",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/42.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "42"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #043",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/43.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "43"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #044",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/44.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "44"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Fire"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #045",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/45.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "45"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #046",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/46.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "46"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #047",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/47.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "47"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #048",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/48.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "48"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #049",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/49.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "49"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #050",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/50.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "50"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Fire"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #051",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/51.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "51"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #052",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/52.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "52"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #053",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/53.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "53"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #054",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/54.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "54"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #055",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/55.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "55"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #056",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/56.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "56"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #057",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/57.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "57"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #058",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/58.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "58"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #059",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/59.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "59"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #060",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/60.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "60"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #061",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/61.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "61"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #062",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/62.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "62"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #063",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/63.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "63"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #064",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/64.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "64"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Fire"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #065",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/65.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "65"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #066",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/66.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "66"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #067",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/67.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "67"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #068",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/68.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "68"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Fire"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #069",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/69.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "69"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #070",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/70.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "70"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #071",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/71.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "71"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #072",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/72.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "72"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #073",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/73.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "73"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #074",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/74.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "74"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #075",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/75.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "75"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #076",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/76.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "76"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #077",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/77.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "77"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #078",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/78.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "78"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #079",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/79.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "79"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Fire"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #080",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/80.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "80"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #081",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/81.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "81"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #082",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/82.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "82"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #083",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/83.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "83"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #084",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/84.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "84"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Fire"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #085",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/85.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "85"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #086",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/86.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "86"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #087",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/87.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "87"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #088",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/88.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "88"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #089",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/89.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "89"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #090",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/90.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "90"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Shadow"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Mischievous"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #091",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/91.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "91"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #092",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ff8fb1",
+    "image": "assets/crypto-mon/92.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "92"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Mythic"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #093",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/93.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "93"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Plasma"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #094",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/94.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "94"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Gold"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #095",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/95.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "95"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Air"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Loyal"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #096",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#ffd166",
+    "image": "assets/crypto-mon/96.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "96"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Quantum"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #097",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#c3f584",
+    "image": "assets/crypto-mon/97.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "97"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Bio"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #098",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#72efdd",
+    "image": "assets/crypto-mon/98.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "98"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Water"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Playful"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Solar"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Silver"
+      }
+    ]
+  },
+  {
+    "name": "CryptoMon #099",
+    "description": "AI-sculpted pixel companions roaming the metaverse, minted with procedurally generated stats.",
+    "background_color": "#a4c3b2",
+    "image": "assets/crypto-mon/99.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "99"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "CryptoMon"
+      },
+      {
+        "trait_type": "Element",
+        "value": "Earth"
+      },
+      {
+        "trait_type": "Temperament",
+        "value": "Cunning"
+      },
+      {
+        "trait_type": "Energy Core",
+        "value": "Prismatic"
+      },
+      {
+        "trait_type": "Tier",
+        "value": "Bronze"
+      }
+    ]
+  }
+]

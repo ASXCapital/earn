@@ -1,0 +1,12 @@
+{
+  "network": "BNB Chain Mainnet",
+  "chainId": 56,
+  "rpc": "https://bsc-dataseed1.binance.org",
+  "contract": "MarketplaceV3",
+  "address": "0x7Bfe606904C37E397A9e80F6AC0015d164658011",
+  "admin": "0xb77fA696Fd4013E20C56615e66c8EA6d12eaB56c",
+  "platformFeeRecipient": "0xb77fA696Fd4013E20C56615e66c8EA6d12eaB56c",
+  "platformFeeBps": 100,
+  "deployerScript": "MARKETPLACE_NETWORK=mainnet npm run deploy:marketplace",
+  "deployedAt": "2025-11-11T20:45:20.523Z"
+}

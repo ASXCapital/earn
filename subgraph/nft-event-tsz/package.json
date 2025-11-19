@@ -1,0 +1,14 @@
+{
+  "name": "nft-event-tsz",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "codegen": "graph codegen --output-dir generated",
+    "build": "graph build",
+    "prepare": "npm run codegen && npm run build"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.98.1",
+    "@graphprotocol/graph-ts": "^0.38.2"
+  }
+}

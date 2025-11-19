@@ -1,0 +1,3602 @@
+[
+  {
+    "name": "Toy Soldiers #000",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/0.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "0"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #001",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/1.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "1"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #002",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/2.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "2"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #003",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/3.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "3"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #004",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/4.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "4"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #005",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/5.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "5"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #006",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/6.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "6"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #007",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/7.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "7"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #008",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/8.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "8"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #009",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/9.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "9"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #010",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/10.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "10"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #011",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/11.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "11"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #012",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/12.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "12"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #013",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/13.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "13"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #014",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#a4c3b2",
+    "image": "assets/toy-soldiers/14.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "14"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #015",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/15.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "15"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #016",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/16.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "16"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #017",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/17.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "17"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #018",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/18.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "18"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #019",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/19.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "19"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #020",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#a4c3b2",
+    "image": "assets/toy-soldiers/20.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "20"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #021",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/21.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "21"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #022",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/22.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "22"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #023",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#a4c3b2",
+    "image": "assets/toy-soldiers/23.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "23"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #024",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/24.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "24"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #025",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/25.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "25"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #026",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/26.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "26"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #027",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/27.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "27"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #028",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/28.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "28"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #029",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/29.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "29"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #030",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/30.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "30"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #031",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/31.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "31"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #032",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/32.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "32"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #033",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/33.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "33"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #034",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/34.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "34"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #035",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/35.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "35"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #036",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#a4c3b2",
+    "image": "assets/toy-soldiers/36.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "36"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #037",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/37.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "37"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #038",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/38.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "38"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #039",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#a4c3b2",
+    "image": "assets/toy-soldiers/39.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "39"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #040",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/40.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "40"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #041",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/41.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "41"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #042",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/42.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "42"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #043",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/43.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "43"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #044",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/44.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "44"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #045",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#a4c3b2",
+    "image": "assets/toy-soldiers/45.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "45"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #046",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/46.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "46"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #047",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/47.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "47"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #048",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/48.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "48"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #049",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/49.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "49"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #050",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/50.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "50"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #051",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/51.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "51"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #052",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/52.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "52"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #053",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/53.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "53"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #054",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#a4c3b2",
+    "image": "assets/toy-soldiers/54.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "54"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #055",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/55.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "55"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #056",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/56.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "56"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #057",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/57.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "57"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #058",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/58.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "58"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #059",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#a4c3b2",
+    "image": "assets/toy-soldiers/59.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "59"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #060",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/60.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "60"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #061",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/61.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "61"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #062",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/62.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "62"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #063",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/63.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "63"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #064",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/64.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "64"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #065",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/65.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "65"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #066",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/66.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "66"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #067",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/67.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "67"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #068",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/68.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "68"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #069",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/69.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "69"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #070",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/70.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "70"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #071",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/71.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "71"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #072",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/72.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "72"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #073",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/73.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "73"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #074",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/74.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "74"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #075",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/75.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "75"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #076",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/76.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "76"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #077",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/77.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "77"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #078",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/78.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "78"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #079",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/79.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "79"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #080",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/80.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "80"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #081",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/81.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "81"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #082",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/82.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "82"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #083",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#a4c3b2",
+    "image": "assets/toy-soldiers/83.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "83"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #084",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/84.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "84"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #085",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#a4c3b2",
+    "image": "assets/toy-soldiers/85.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "85"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #086",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/86.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "86"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #087",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/87.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "87"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #088",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#a4c3b2",
+    "image": "assets/toy-soldiers/88.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "88"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #089",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/89.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "89"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #090",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/90.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "90"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #091",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#72efdd",
+    "image": "assets/toy-soldiers/91.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "91"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #092",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/92.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "92"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #093",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/93.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "93"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Elite"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Radio Pack"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #094",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/94.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "94"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #095",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ffd166",
+    "image": "assets/toy-soldiers/95.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "95"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rocket Launcher"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #096",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/96.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "96"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Aviation"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Modern Composite"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #097",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#c3f584",
+    "image": "assets/toy-soldiers/97.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "97"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Infantry"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Retro Plastic"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Rifle"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #098",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#a4c3b2",
+    "image": "assets/toy-soldiers/98.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "98"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Artillery"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Rare"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  },
+  {
+    "name": "Toy Soldiers #099",
+    "description": "Hand-crafted battalions of miniature defenders, forged in the ASX workshop for tabletop tacticians.",
+    "background_color": "#ff8fb1",
+    "image": "assets/toy-soldiers/99.svg",
+    "attributes": [
+      {
+        "trait_type": "Collection",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Edition",
+        "value": "99"
+      },
+      {
+        "trait_type": "Theme",
+        "value": "Toy Soldiers"
+      },
+      {
+        "trait_type": "Faction",
+        "value": "Naval"
+      },
+      {
+        "trait_type": "Rarity",
+        "value": "Common"
+      },
+      {
+        "trait_type": "Era",
+        "value": "Classic Tin"
+      },
+      {
+        "trait_type": "Loadout",
+        "value": "Scout Drone"
+      }
+    ]
+  }
+]

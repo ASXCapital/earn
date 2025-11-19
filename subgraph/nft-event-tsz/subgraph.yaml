@@ -1,0 +1,48 @@
+specVersion: 0.0.5
+description: Indexes Thirdweb Marketplace V3 events for the Earn deployment on BNB Chain Testnet (Chapel).
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: MarketplaceV3
+    network: bsc-testnet
+    source:
+      address: "0xfbEe1219180604f9cEF2E9A7C1fCF5392417182f"
+      abi: MarketplaceV3
+      startBlock: 36750000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Listing
+        - Sale
+        - Auction
+        - Bid
+        - Offer
+        - MarketplaceEvent
+      abis:
+        - name: MarketplaceV3
+          file: ./abis/MarketplaceV3.json
+      eventHandlers:
+        - event: NewListing(indexed address,indexed uint256,indexed address,(uint256,uint256,uint256,uint256,uint128,uint128,address,address,address,uint8,uint8,bool))
+          handler: handleNewListing
+        - event: UpdatedListing(indexed address,indexed uint256,indexed address,(uint256,uint256,uint256,uint256,uint128,uint128,address,address,address,uint8,uint8,bool))
+          handler: handleUpdatedListing
+        - event: CancelledListing(indexed address,indexed uint256)
+          handler: handleCancelledListing
+        - event: NewSale(indexed address,indexed uint256,indexed address,uint256,address,uint256,uint256)
+          handler: handleNewSale
+        - event: NewAuction(indexed address,indexed uint256,indexed address,(uint256,uint256,uint256,uint256,uint256,uint64,uint64,uint64,uint64,address,address,address,uint8,uint8))
+          handler: handleNewAuction
+        - event: NewBid(indexed uint256,indexed address,indexed address,uint256,(uint256,uint256,uint256,uint256,uint256,uint64,uint64,uint64,uint64,address,address,address,uint8,uint8))
+          handler: handleNewBid
+        - event: AuctionClosed(indexed uint256,indexed address,indexed address,uint256,address,address,bool,uint256,uint256)
+          handler: handleAuctionClosed
+        - event: NewOffer(indexed address,indexed uint256,indexed address,(uint256,uint256,uint256,uint256,uint256,address,address,address,uint8,uint8))
+          handler: handleNewOffer
+        - event: AcceptedOffer(indexed address,indexed uint256,indexed address,uint256,address,uint256,uint256)
+          handler: handleAcceptedOffer
+        - event: CancelledOffer(indexed address,indexed uint256)
+          handler: handleCancelledOffer
+      file: ./src/mapping.ts

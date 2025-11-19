@@ -46,3 +46,17 @@ export const MARKETPLACE_WHITELISTED_COLLECTIONS =
     .split(",")
     .map((value) => value.trim())
     .filter((value) => value.length > 0);
+
+const listingCurrency =
+  process.env.NEXT_PUBLIC_MARKETPLACE_LISTING_CURRENCY ||
+  process.env.MARKETPLACE_LISTING_CURRENCY ||
+  "";
+
+if (!listingCurrency) {
+  // eslint-disable-next-line no-console
+  console.warn(
+    "NEXT_PUBLIC_MARKETPLACE_LISTING_CURRENCY is not set. Listings default to the zero address.",
+  );
+}
+
+export const MARKETPLACE_V3_LISTING_CURRENCY = listingCurrency;

@@ -2,19 +2,42 @@ import { createThirdwebClient } from "thirdweb";
 import { defineChain } from "thirdweb/chains";
 
 // --- Chains ---
+const PRIMARY_BSC_RPC = process.env.RPC_BSC_HTTP || "https://bsc-dataseed1.binance.org";
+const FALLBACK_BSC_RPC = process.env.RPC_BSC_QNODE_HTTP;
+const BSC_RPC_LIST = [PRIMARY_BSC_RPC, FALLBACK_BSC_RPC].filter(
+  (url): url is string => Boolean(url),
+);
+const BSC_RPC = BSC_RPC_LIST[0];
+
 export const bsc = defineChain({
   id: 56,
   name: "BNB Smart Chain",
   nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 },
   // Provide flat rpc field (some thirdweb internals may rely on chain.rpc)
-  rpc: [process.env.RPC_BSC_QNODE_HTTP || "https://bsc-dataseed1.binance.org"],
+  rpc: BSC_RPC,
   rpcUrls: {
-    default: { http: [process.env.RPC_BSC_QNODE_HTTP || "https://bsc-dataseed1.binance.org"] },
+    default: { http: BSC_RPC_LIST },
   },
   blockExplorers: {
     default: { name: "BscScan", url: "https://bscscan.com" },
   },
   testnet: false,
+});
+
+export const bscTestnet = defineChain({
+  id: 97,
+  name: "BNB Smart Chain Testnet",
+  nativeCurrency: { name: "BNB Chain Native Token", symbol: "tBNB", decimals: 18 },
+  rpc: [process.env.RPC_BSC_TESTNET_HTTP || "https://data-seed-prebsc-1-s1.binance.org:8545"],
+  rpcUrls: {
+    default: {
+      http: [process.env.RPC_BSC_TESTNET_HTTP || "https://data-seed-prebsc-1-s1.binance.org:8545"],
+    },
+  },
+  blockExplorers: {
+    default: { name: "BscScan Testnet", url: "https://testnet.bscscan.com" },
+  },
+  testnet: true,
 });
 
 export const core = defineChain({
@@ -31,11 +54,17 @@ export const core = defineChain({
   testnet: false,
 });
 
-export const supportedChains = [bsc, core];
+export const supportedChains = [bsc, bscTestnet, core];
 
 // Minimal helper expected by staking page for RPC rotation (currently returns primary list only)
-export function getRpcHttpUrls(chainKey: 'bsc' | 'core'): string[] {
-  return chainKey === 'bsc' ? (bsc as any).rpcUrls.default.http : (core as any).rpcUrls.default.http;
+export function getRpcHttpUrls(chainKey: "bsc" | "bscTestnet" | "core"): string[] {
+  if (chainKey === "core") {
+    return (core as any).rpcUrls.default.http;
+  }
+  if (chainKey === "bscTestnet") {
+    return (bscTestnet as any).rpcUrls.default.http;
+  }
+  return (bsc as any).rpcUrls.default.http;
 }
 
 // --- Thirdweb client ---
