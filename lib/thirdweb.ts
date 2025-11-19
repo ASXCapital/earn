@@ -3,10 +3,8 @@ import { defineChain } from "thirdweb/chains";
 
 // --- Chains ---
 const PRIMARY_BSC_RPC = process.env.RPC_BSC_HTTP || "https://bsc-dataseed1.binance.org";
-const FALLBACK_BSC_RPC = process.env.RPC_BSC_QNODE_HTTP;
-const BSC_RPC_LIST = [PRIMARY_BSC_RPC, FALLBACK_BSC_RPC].filter(
-  (url): url is string => Boolean(url),
-);
+// Only use the primary RPC in-app; ignore any fallback/QNode URLs from env.
+const BSC_RPC_LIST = [PRIMARY_BSC_RPC];
 const BSC_RPC = BSC_RPC_LIST[0];
 
 export const bsc = defineChain({
