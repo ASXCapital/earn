@@ -28,11 +28,17 @@ export function computeStats(
 
   for (const listing of listings) {
     const price = safeNumber(listing.currencyValuePerToken.displayValue);
-    const qty = Number(listing.quantity || 1n) || 1;
-    totalListingsValue += price * qty;
+    const hasPrice = Number.isFinite(price) && price > 0 && price <= 1_000_000_000;
+    const rawQty = Number(listing.quantity ?? 1n);
+    const qty = Number.isFinite(rawQty) && rawQty > 0 && rawQty <= 1_000 ? rawQty : 1;
+    if (hasPrice) {
+      totalListingsValue += price * qty;
+    }
     if (isListingLive(listing, now)) {
       liveListings += 1;
-      floor = Math.min(floor, price);
+      if (hasPrice) {
+        floor = Math.min(floor, price);
+      }
     }
     if (!symbol && listing.currencyValuePerToken.symbol) {
       symbol = listing.currencyValuePerToken.symbol;

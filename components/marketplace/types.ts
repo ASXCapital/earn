@@ -29,6 +29,28 @@ export type CollectionInfo = {
   image?: string | null;
 };
 
+export type CatalogAsset = {
+  id: string;
+  tokenId: string;
+  assetContractAddress: Address;
+  name: string;
+  description?: string | null;
+  image?: string | null;
+  collectionName?: string;
+  collectionAddress: Address;
+  source: "listing" | "auction" | "offer";
+  live: boolean;
+};
+
+export type CollectionSnapshot = {
+  address: Address;
+  name?: string;
+  symbol?: string;
+  image?: string | null;
+  live: number;
+  total: number;
+};
+
 export type MarketplaceStats = {
   liveListings: number;
   liveAuctions: number;

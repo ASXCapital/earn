@@ -1,7 +1,8 @@
 import "server-only";
 
+import { getContract } from "thirdweb";
+import type { Address } from "viem";
 import { getContractEvents as getIndexerEvents } from "thirdweb/insight";
-import { getContractEvents as getRpcEvents } from "thirdweb";
 import {
   getAllValidAuctions,
   getAllValidListings,
@@ -9,11 +10,15 @@ import {
 } from "thirdweb/extensions/marketplace";
 import type { PreparedEvent } from "thirdweb";
 
-import { EVENT_FILTERS, MARKETPLACE_CONTRACT } from "@/components/marketplace/constants";
+import { EVENT_FILTERS } from "@/components/marketplace/constants";
 import type { ActivityEntry } from "@/components/marketplace/types";
-import { mapLogToActivity } from "@/components/marketplace/utils";
-import { client } from "@/lib/thirdweb";
-import { MARKETPLACE_V3_CHAIN } from "@/marketplace/config";
+import {
+  getEventsWithRateLimitRetry,
+  isRateLimitError,
+  mapLogToActivity,
+} from "@/components/marketplace/utils";
+import { serverClient } from "@/lib/thirdweb-server";
+import { MARKETPLACE_V3_ADDRESS, MARKETPLACE_V3_CHAIN } from "@/marketplace/config";
 
 const ACTIVITY_LIMIT = 30;
 const INDEXER_ACTIVITY_PAGE_SIZE = 120;
@@ -26,6 +31,12 @@ type FeedSource = {
   offers: "rpc";
   activity: "indexer" | "rpc";
 };
+
+const MARKETPLACE_CONTRACT_SERVER = getContract({
+  client: serverClient,
+  chain: MARKETPLACE_V3_CHAIN,
+  address: MARKETPLACE_V3_ADDRESS as Address,
+});
 
 export type MarketplaceFeed = {
   listings: Awaited<ReturnType<typeof getAllValidListings>>;
@@ -40,21 +51,21 @@ export async function fetchMarketplaceFeed(): Promise<MarketplaceFeed> {
   const [listings, auctions, offers] = await Promise.all([
     fetchWithContext("listings", () =>
       getAllValidListings({
-        contract: MARKETPLACE_CONTRACT,
+        contract: MARKETPLACE_CONTRACT_SERVER,
         start: 0,
         count: 200n,
       }),
     ),
     fetchWithContext("auctions", () =>
       getAllValidAuctions({
-        contract: MARKETPLACE_CONTRACT,
+        contract: MARKETPLACE_CONTRACT_SERVER,
         start: 0,
         count: 200n,
       }),
     ),
     fetchWithContext("offers", () =>
       getAllValidOffers({
-        contract: MARKETPLACE_CONTRACT,
+        contract: MARKETPLACE_CONTRACT_SERVER,
         start: 0,
         count: 200n,
       }),
@@ -116,7 +127,13 @@ async function fetchActivityViaIndexer(): Promise<ActivityEntry[] | null> {
       .slice(0, ACTIVITY_LIMIT);
     return entries;
   } catch (err) {
-    console.warn("[marketplace] Insight activity fetch failed", err);
+    const message =
+      err instanceof Error ? err.message : typeof err === "string" ? err : "unknown";
+    const isGateway = message.toLowerCase().includes("502") || message.includes("Bad Gateway");
+    console.info(
+      "[marketplace] Insight activity unavailable",
+      isGateway ? "502 Bad Gateway" : message,
+    );
     return null;
   }
 }
@@ -133,9 +150,9 @@ async function fetchIndexerEventPages(event: PreparedEvent<any>): Promise<Indexe
   const aggregated: IndexerLog[] = [];
   for (let page = 0; page < INDEXER_ACTIVITY_MAX_PAGES; page++) {
     const batch = await getIndexerEvents({
-      client,
+      client: serverClient,
       chains: [MARKETPLACE_V3_CHAIN],
-      contractAddress: MARKETPLACE_CONTRACT.address,
+      contractAddress: MARKETPLACE_V3_ADDRESS,
       event,
       decodeLogs: true,
       queryOptions: {
@@ -163,12 +180,18 @@ async function fetchIndexerEventPages(event: PreparedEvent<any>): Promise<Indexe
 }
 
 async function fetchActivityViaRpc(): Promise<ActivityEntry[]> {
-  const logs = await getRpcEvents({
-    contract: MARKETPLACE_CONTRACT,
-    events: [...EVENT_FILTERS],
-    blockRange: RPC_ACTIVITY_BLOCK_RANGE,
-    useIndexer: false,
-  }).catch((err) => {
+  const logs = await getEventsWithRateLimitRetry(
+    {
+      contract: MARKETPLACE_CONTRACT_SERVER,
+      events: [...EVENT_FILTERS],
+      blockRange: RPC_ACTIVITY_BLOCK_RANGE,
+      useIndexer: false,
+    } as any,
+  ).catch((err) => {
+    if (isRateLimitError(err)) {
+      console.info("[marketplace] RPC activity rate limited, skipping activity hydration");
+      return [];
+    }
     console.warn("[marketplace] RPC activity fetch failed", err);
     return [];
   });

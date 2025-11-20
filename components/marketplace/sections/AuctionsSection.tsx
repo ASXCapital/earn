@@ -28,6 +28,7 @@ type AuctionsSectionProps = {
   onRefetch: () => void;
   notifySuccess: (title: string, description?: string) => void;
   notifyError: (message: string) => void;
+  comingSoon?: boolean;
 };
 
 export function AuctionsSection({
@@ -37,7 +38,9 @@ export function AuctionsSection({
   onRefetch,
   notifySuccess,
   notifyError,
+  comingSoon = false,
 }: AuctionsSectionProps) {
+  const isLocked = comingSoon;
   const liveAuctions = auctions.filter((auction) =>
     isAuctionLive(auction, Date.now() / 1000),
   );
@@ -50,23 +53,33 @@ export function AuctionsSection({
       />
       {liveAuctions.length === 0 ? (
         <p className="rounded-3xl border border-white/10 bg-white/5 px-6 py-5 text-sm text-white/70">
-          Auctions synchronize automatically whenever creators list collateral. Check back shortly or
-          switch to test listings on staging.
+          {comingSoon
+            ? "English auctions are being staged for launch. Listings will surface here once the module opens."
+            : "Auctions synchronize automatically whenever creators list collateral. Check back shortly or switch to test listings on staging."}
         </p>
       ) : (
-        <div className="grid gap-6 lg:grid-cols-2">
-          {liveAuctions.map((auction) => (
-            <AuctionCard
-              key={auction.id.toString()}
-              auction={auction}
-              contract={contract}
-              currencySymbol={currencySymbol}
-              onRefetch={onRefetch}
-              notifySuccess={notifySuccess}
-              notifyError={notifyError}
-            />
-          ))}
-        </div>
+        <>
+          {comingSoon && (
+            <div className="rounded-3xl border border-white/10 bg-white/5 px-6 py-4 text-sm text-white/70">
+              English auctions are coming soon. Browse inventory below; bidding and buyouts are
+              temporarily disabled.
+            </div>
+          )}
+          <div className="grid gap-6 lg:grid-cols-2">
+            {liveAuctions.map((auction) => (
+              <AuctionCard
+                key={auction.id.toString()}
+                auction={auction}
+                contract={contract}
+                currencySymbol={currencySymbol}
+                onRefetch={onRefetch}
+                notifySuccess={notifySuccess}
+                notifyError={notifyError}
+                disabled={isLocked}
+              />
+            ))}
+          </div>
+        </>
       )}
     </section>
   );
@@ -79,6 +92,7 @@ type AuctionCardProps = {
   onRefetch: () => void;
   notifySuccess: (title: string, description?: string) => void;
   notifyError: (message: string) => void;
+  disabled?: boolean;
 };
 
 function AuctionCard({
@@ -88,11 +102,13 @@ function AuctionCard({
   onRefetch,
   notifySuccess,
   notifyError,
+  disabled = false,
 }: AuctionCardProps) {
   const account = useActiveAccount();
   const [bidAmount, setBidAmount] = useState(
     safeNumber(auction.minimumBidCurrencyValue.displayValue).toString(),
   );
+  const locked = disabled;
 
   const media = resolveMediaUrl(auction.asset?.metadata?.image as string | undefined);
   const name =
@@ -118,18 +134,20 @@ function AuctionCard({
   });
   const checkingCurrency = allowanceState.loading;
   const currencyError = allowanceState.error;
-  const needsBidApproval = bidAmountWei > 0n && allowanceState.needsApproval;
+  const needsBidApproval = !locked && bidAmountWei > 0n && allowanceState.needsApproval;
   const needsBuyoutApproval =
-    !allowanceState.isNativeCurrency && buyoutWei > allowanceState.allowanceWei;
+    !locked && !allowanceState.isNativeCurrency && buyoutWei > allowanceState.allowanceWei;
   const hasBuyoutBalance =
     allowanceState.isNativeCurrency || allowanceState.balanceWei >= buyoutWei;
   const buyoutAvailable = safeNumber(auction.buyoutCurrencyValue.displayValue) > 0;
   const canBid =
+    !locked &&
     !!account &&
     bidAmountWei > 0n &&
     allowanceState.hasSufficientBalance &&
     !needsBidApproval;
   const canBuyout =
+    !locked &&
     !!account &&
     buyoutAvailable &&
     buyoutWei > 0n &&
@@ -149,6 +167,7 @@ function AuctionCard({
         ? "text-amber-200/90"
         : "text-white/60";
   const currencyStatusMessage = (() => {
+    if (locked) return "English auctions are coming soon.";
     if (allowanceState.isNativeCurrency) return null;
     if (!account) return "Connect wallet to check allowance.";
     if (checkingCurrency) return "Checking ERC20 allowance...";
@@ -160,11 +179,17 @@ function AuctionCard({
   const refreshAllowance = allowanceState.refresh;
   const currencyContract = allowanceState.currencyContract;
   const showBidApprovalButton =
-    !allowanceState.isNativeCurrency && needsBidApproval && bidAmountWei > 0n;
+    !locked &&
+    !allowanceState.isNativeCurrency &&
+    needsBidApproval &&
+    bidAmountWei > 0n;
   const showBuyoutApprovalButton =
-    buyoutAvailable && needsBuyoutApproval && buyoutWei > 0n;
+    !locked && buyoutAvailable && needsBuyoutApproval && buyoutWei > 0n;
 
   const handleBid = () => {
+    if (locked) {
+      throw new Error("English auctions are launching soon. Bidding is disabled.");
+    }
     if (bidAmountWei <= 0n) {
       throw new Error("Enter a valid bid amount.");
     }
@@ -176,7 +201,9 @@ function AuctionCard({
   };
 
   return (
-    <article className="flex flex-col gap-5 rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+    <article
+      className={`flex flex-col gap-5 rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm ${locked ? "opacity-75" : ""}`}
+    >
       <div className="flex flex-col gap-5 sm:flex-row">
         <div className="relative aspect-square w-full max-w-[220px] flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/0">
           {media ? (
@@ -225,20 +252,28 @@ function AuctionCard({
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+      {locked && (
+        <div className="rounded-xl border border-dashed border-white/15 bg-black/30 px-3 py-2 text-xs text-white/70">
+          English auctions are in preview mode. Bidding and buyouts are disabled until launch.
+        </div>
+      )}
+      <div
+        className={`flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between ${locked ? "pointer-events-none" : ""}`}
+      >
         <div className="flex flex-1 flex-col gap-2">
           <div className="flex flex-wrap items-center gap-3">
             <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70">
               <p className="text-xs uppercase tracking-widest text-white/40">Your bid</p>
               <div className="flex items-center gap-2">
                 <input
-                  type="number"
-                  min="0"
-                  step="0.0001"
-                  value={bidAmount}
-                  onChange={(event) => setBidAmount(event.target.value)}
-                  className="w-28 rounded-lg border border-white/10 bg-black/30 px-2 py-1 text-white focus:border-cyan-300/60 focus:outline-none"
-                />
+                type="number"
+                min="0"
+                step="0.0001"
+                value={bidAmount}
+                onChange={(event) => setBidAmount(event.target.value)}
+                disabled={locked}
+                className="w-28 rounded-lg border border-white/10 bg-black/30 px-2 py-1 text-white focus:border-cyan-300/60 focus:outline-none"
+              />
                 <span className="text-xs uppercase tracking-widest text-white/50">
                   {approvalSymbol}
                 </span>
@@ -304,7 +339,7 @@ function AuctionCard({
           Place bid
         </TransactionButton>
       </div>
-      {buyoutAvailable && (
+      {buyoutAvailable && !locked && (
         <div className="flex flex-col gap-2 sm:w-fit">
           {showBuyoutApprovalButton && currencyContract && (
             <TransactionButton
