@@ -55,7 +55,7 @@ export function AuctionsSection({
         <p className="rounded-3xl border border-white/10 bg-white/5 px-6 py-5 text-sm text-white/70">
           {comingSoon
             ? "English auctions are being staged for launch. Listings will surface here once the module opens."
-            : "Auctions synchronize automatically whenever creators list collateral. Check back shortly or switch to test listings on staging."}
+            : "Auctions synchronize automatically whenever ASX lists collateral. Check back shortly or switch to test listings on staging."}
         </p>
       ) : (
         <>

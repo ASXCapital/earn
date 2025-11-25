@@ -4,20 +4,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import type { Address } from "viem";
-import {
-  Boxes,
-  Clock3,
-  Copy,
-  ExternalLink,
-  LayoutGrid,
-  Megaphone,
-  RefreshCcw,
-  Rows,
-  Search,
-  ShieldCheck,
-  Sparkles,
-  TrendingUp,
-} from "lucide-react";
+import { Boxes, Copy, ExternalLink, Megaphone, RefreshCcw, Search, ShieldCheck, Sparkles, TrendingUp } from "lucide-react";
 import { useActiveAccount } from "thirdweb/react";
 
 import { Button } from "@/components/common/Button";
@@ -33,7 +20,6 @@ import { ListingCard, ListingSkeleton } from "@/components/marketplace/component
 import { ListingComposer } from "@/components/marketplace/components/ListingComposer";
 import { AdminPanel } from "@/components/marketplace/sections/AdminPanel";
 import { ActivitySection } from "@/components/marketplace/sections/ActivitySection";
-import { AuctionsSection } from "@/components/marketplace/sections/AuctionsSection";
 import { OffersSection } from "@/components/marketplace/sections/OffersSection";
 import { MARKETPLACE_CONTRACT } from "@/components/marketplace/constants";
 import { useMarketplaceAdmin } from "@/components/marketplace/hooks/useMarketplaceAdmin";
@@ -43,8 +29,8 @@ import { useMarketplaceSync } from "@/components/marketplace/hooks/useMarketplac
 import type { SortKey, ViewMode } from "@/components/marketplace/types";
 import {
   computeStats,
+  getListingState,
   integerFormatter,
-  isListingLive,
   numberFormatter,
   resolveMediaUrl,
   shortAddress,
@@ -64,13 +50,11 @@ export function MarketplaceExperience() {
   type MarketplaceTab = "listings" | "offers" | "activity";
 
   const [search, setSearch] = useState("");
-  const [onlyLive, setOnlyLive] = useState(true);
-  const [onlyMine, setOnlyMine] = useState(false);
   const [sortKey, setSortKey] = useState<SortKey>("featured");
-  const [viewMode, setViewMode] = useState<ViewMode>("mosaic");
   const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
   const [selectedCollections, setSelectedCollections] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<MarketplaceTab>("listings");
+  const viewMode: ViewMode = "mosaic";
 
   const handleSyncError = useCallback(
     (_message?: string) => {
@@ -150,6 +134,7 @@ export function MarketplaceExperience() {
     const now = Date.now() / 1000;
     const query = search.trim().toLowerCase();
     return [...listings]
+      .filter((listing) => getListingState(listing).state !== "closed")
       .filter((listing) => {
         if (
           selectedCollectionSet.size > 0 &&
@@ -157,23 +142,13 @@ export function MarketplaceExperience() {
         ) {
           return false;
         }
-        if (onlyLive && !isListingLive(listing, now)) return false;
-        if (onlyMine) {
-          if (!accountAddress) return false;
-          if (listing.creatorAddress.toLowerCase() !== accountAddress.toLowerCase()) {
-            return false;
-          }
-        }
         if (!query) return true;
         const haystack = `${listing.asset?.metadata?.name ?? ""} ${listing.asset?.metadata?.description ?? ""} ${listing.assetContractAddress} ${listing.creatorAddress}`.toLowerCase();
         return haystack.includes(query);
       })
       .sort((a, b) => sortListings(a, b, sortKey));
   }, [
-    accountAddress,
     listings,
-    onlyLive,
-    onlyMine,
     search,
     selectedCollectionSet,
     sortKey,
@@ -222,30 +197,36 @@ export function MarketplaceExperience() {
 
   return (
     <div className="space-y-12">
-      <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-cyan-900/40 via-slate-950 to-black p-8">
+      <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-950 to-black p-8 shadow-[0_20px_80px_-32px_rgba(0,0,0,0.8)]">
         <BackgroundGlow />
         <div className="flex flex-col gap-10 xl:flex-row xl:items-center">
-          <div className="space-y-6 xl:w-3/5">
+          <div className="space-y-6 xl:w-2/3">
             <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-cyan-100">
               <Sparkles size={16} />
               {MARKETPLACE_V3_CHAIN_NAME} thirdweb Marketplace V3
             </div>
             <div className="space-y-4">
               <h1 className="text-4xl font-semibold tracking-tight text-white md:text-5xl">
-                ASX Marketplace board — multi-collection drops & offers
+                ASX marketplace desk — curated by us
               </h1>
               <p className="text-base text-white/70 md:text-lg">
-                Blur-inspired desk with fast filters, compact media, role-gated controls, and
-                collection-aware scopes. English auctions stay in preview until launch; listings and
-                offers are live now.
+                Official ASX storefront for our collections. Sweep floors with a slider, filter by our
+                curated collections, and jump into the ASX desk to send or list inventory directly
+                from the vault.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
               <Link
-                href="#marketplace-grid"
-                className="inline-flex items-center justify-center rounded-xl bg-white text-sm font-semibold tracking-wide text-black shadow-lg shadow-cyan-500/30 transition hover:-translate-y-[1px] hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                href="#market"
+                className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold tracking-wide text-black shadow-lg shadow-cyan-500/30 transition hover:-translate-y-[1px] hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
               >
-                <span className="px-6 py-3">Browse live drops</span>
+                Browse listings
+              </Link>
+              <Link
+                href="#portfolio"
+                className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:text-white/90"
+              >
+                Open ASX desk
               </Link>
               <Link
                 href={`${MARKETPLACE_V3_EXPLORER}/address/${MARKETPLACE_V3_ADDRESS}`}
@@ -261,17 +242,17 @@ export function MarketplaceExperience() {
               <StatPill
                 label="Live listings"
                 value={integerFormatter.format(stats.liveListings)}
-                detail="ready to mint"
-              />
-              <StatPill
-                label="Active auctions"
-                value={integerFormatter.format(stats.liveAuctions)}
-                detail="English auctions on-chain"
+                detail="ready to collect"
               />
               <StatPill
                 label="Open offers"
                 value={integerFormatter.format(stats.openOffers)}
                 detail="bids awaiting acceptance"
+              />
+              <StatPill
+                label="Listed value"
+                value={`${numberFormatter.format(stats.totalListingsValue)} ${currencySymbol}`}
+                detail="notional on-market"
               />
               <StatPill
                 label={`Floor (${currencySymbol})`}
@@ -282,7 +263,7 @@ export function MarketplaceExperience() {
               />
             </div>
           </div>
-          <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm xl:w-2/5">
+          <div className="w-full rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm xl:w-1/3">
             <div className="space-y-4 text-sm text-white/80">
               <div className="flex items-center justify-between text-xs uppercase text-white/60">
                 <span>Marketplace telemetry</span>
@@ -295,19 +276,18 @@ export function MarketplaceExperience() {
                   progress={Math.min(100, stats.totalListingsValue * 4)}
                 />
                 <ProgressRow
-                  label="Auction demand"
-                  value={`${stats.liveAuctions} live - ${stats.auctionsEndingSoon} ending soon`}
-                  progress={Math.min(100, stats.liveAuctions * 8)}
+                  label="Live inventory"
+                  value={`${stats.liveListings} active listings`}
+                  progress={Math.min(100, stats.liveListings * 3)}
                 />
                 <ProgressRow
-                  label="Offer fill-rate"
+                  label="Offer depth"
                   value={`${stats.openOffers} open offers`}
                   progress={Math.min(100, stats.openOffers * 5)}
                 />
               </div>
               <div className="flex flex-wrap gap-3">
                 <HighlightChip icon={<ShieldCheck size={16} />} label="role-gated listers" />
-                <HighlightChip icon={<Clock3 size={16} />} label="buffered auctions" />
                 <HighlightChip icon={<TrendingUp size={16} />} label="multi-currency support" />
               </div>
             </div>
@@ -315,46 +295,53 @@ export function MarketplaceExperience() {
         </div>
       </section>
 
-      <section className="space-y-4">
-        <div className="space-y-3 rounded-3xl border border-white/10 bg-white/5 p-4">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
+      <section id="market" className="grid gap-6 xl:grid-cols-[320px,1fr]">
+        <aside className="space-y-4 rounded-3xl border border-white/10 bg-gradient-to-b from-[#0e1622] via-[#0c111a] to-black p-5 shadow-[0_18px_60px_-40px_rgba(0,0,0,0.9)]">
+          <div className="flex items-center justify-between">
+            <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/60">
               <Boxes size={16} />
-              Collection scope
+              ASX collections
             </div>
             <button
               type="button"
               onClick={() => setSelectedCollections([])}
-              className="text-xs uppercase tracking-widest text-white/60 underline-offset-4 transition hover:text-white hover:underline"
+              className="text-[11px] uppercase tracking-[0.2em] text-white/50 underline-offset-4 transition hover:text-white hover:underline"
             >
-              Clear filters
+              Clear
             </button>
           </div>
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <div className="space-y-3 rounded-2xl border border-white/10 bg-gradient-to-r from-white/5 via-white/0 to-white/5 p-4 shadow-inner shadow-black/40">
+            <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-white/60">
+              <span>Feed status</span>
+              <span className="text-white/80">{lastUpdatedLabel}</span>
+            </div>
+            <p className="text-xs text-white/70">
+              ASX-curated inventory only. Connect a wallet if you need to manage listings on-chain.
+            </p>
+          </div>
+          <div className="space-y-2 max-h-[760px] overflow-y-auto pr-1">
             <button
               type="button"
               onClick={() => setSelectedCollections([])}
               className={clsx(
-                "flex flex-col gap-2 rounded-2xl border px-4 py-3 text-left transition",
+                "flex w-full items-center justify-between gap-3 rounded-2xl border px-3 py-3 text-left transition shadow-sm",
                 selectedCollectionSet.size === 0
-                  ? "border-cyan-400/50 bg-cyan-400/10 text-white"
+                  ? "border-cyan-400/50 bg-gradient-to-r from-cyan-500/20 via-cyan-500/10 to-transparent text-white"
                   : "border-white/10 bg-black/30 text-white/70 hover:border-white/30 hover:text-white",
               )}
             >
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-black/30 text-xs text-white/60">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-black/40 text-xs text-white/60">
                   All
                 </div>
                 <div>
                   <p className="text-sm font-semibold">All collections</p>
-                  <p className="text-xs text-white/60">
+                  <p className="text-[11px] uppercase tracking-widest text-white/50">
                     {collectionRail.length} tracked • {stats.liveListings} live
                   </p>
                 </div>
               </div>
-              <p className="text-[11px] text-white/50">
-                Includes every whitelisted or discovered collection, even if no listings are live.
-              </p>
+              <div className="text-[11px] text-white/60">Everything indexed</div>
             </button>
             {collectionRail.map((collection) => {
               const active = selectedCollectionSet.has(collection.address.toLowerCase());
@@ -365,14 +352,14 @@ export function MarketplaceExperience() {
                   type="button"
                   onClick={() => toggleCollection(collection.address)}
                   className={clsx(
-                    "flex flex-col gap-2 rounded-2xl border px-4 py-3 text-left transition",
+                    "flex w-full items-center justify-between gap-3 rounded-2xl border px-3 py-3 text-left transition shadow-sm",
                     active
-                      ? "border-cyan-400/50 bg-cyan-400/10 text-white"
+                      ? "border-cyan-400/60 bg-gradient-to-r from-cyan-500/20 via-cyan-500/10 to-transparent text-white"
                       : "border-white/10 bg-black/30 text-white/70 hover:border-white/30 hover:text-white",
                   )}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="relative h-12 w-12 overflow-hidden rounded-xl border border-white/10 bg-black/30">
+                    <div className="relative h-12 w-12 overflow-hidden rounded-xl border border-white/10 bg-black/40">
                       {image ? (
                         <img
                           src={image}
@@ -390,12 +377,12 @@ export function MarketplaceExperience() {
                       <p className="text-sm font-semibold">
                         {collection.name ?? shortAddress(collection.address)}
                       </p>
-                      <p className="text-xs text-white/60">
-                        {collection.symbol ?? "NFT"} • {collection.live} live • {collection.total} total
+                      <p className="text-[11px] uppercase tracking-widest text-white/50">
+                        {collection.symbol ?? "NFT"} • {collection.live} live • {collection.total} indexed
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-wrap items-center gap-2 text-[11px] text-white/60">
+                  <div className="flex flex-col items-end gap-1 text-[11px] text-white/60">
                     <button
                       type="button"
                       onClick={(event) => {
@@ -405,7 +392,7 @@ export function MarketplaceExperience() {
                       className="inline-flex items-center gap-1 rounded-full border border-white/10 px-2 py-1 hover:text-white"
                     >
                       <Copy size={12} />
-                      Copy address
+                      Copy
                     </button>
                     <Link
                       href={`${MARKETPLACE_V3_EXPLORER}/address/${collection.address}`}
@@ -422,200 +409,160 @@ export function MarketplaceExperience() {
               );
             })}
           </div>
-        </div>
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
-            <div className="relative flex-1">
-              <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
-              <input
-                type="search"
-                placeholder="Search artists, assets, contract addresses"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                className="w-full rounded-2xl border border-white/10 bg-white/5 px-10 py-3 text-sm text-white placeholder:text-white/40 focus:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/30"
-              />
-            </div>
-            <button
-              type="button"
-              onClick={() => setOnlyLive((prev) => !prev)}
-              className={clsx(
-                "inline-flex items-center justify-center gap-2 rounded-2xl border px-4 py-2 text-sm font-semibold text-white transition",
-                onlyLive
-                  ? "border-cyan-400/60 bg-cyan-400/20"
-                  : "border-white/10 bg-white/5 hover:border-white/30",
-              )}
-            >
-              <ShieldCheck size={16} />
-              {onlyLive ? "Showing live drops" : "Showing all drops"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setOnlyMine((prev) => !prev)}
-              disabled={!accountAddress}
-              className={clsx(
-                "inline-flex items-center justify-center gap-2 rounded-2xl border px-4 py-2 text-sm font-semibold transition",
-                onlyMine
-                  ? "border-cyan-400/60 bg-cyan-400/20 text-white"
-                  : "border-white/10 bg-white/5 text-white/70 hover:border-white/30 hover:text-white",
-                !accountAddress && "opacity-40 cursor-not-allowed",
-              )}
-            >
-              <Sparkles size={16} />
-              {onlyMine ? "My listings" : "All creators"}
-            </button>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-white/60">
-            <button
-              type="button"
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1.5 text-xs uppercase tracking-widest text-white/60 transition hover:border-white/30 hover:text-white"
-              onClick={() => syncMarketplace({ silent: true })}
-              disabled={refreshing}
-            >
-              <RefreshCcw size={14} className={refreshing ? "animate-spin" : undefined} />
-              {refreshing ? "Refreshing..." : "Sync now"}
-            </button>
-            <div className="flex items-center gap-2 rounded-full border border-white/10 px-3 py-1.5 text-xs uppercase tracking-widest text-white/60">
-              {viewMode === "mosaic" ? <LayoutGrid size={16} /> : <Rows size={16} />}
-              <button
-                type="button"
-                onClick={() => setViewMode((prev) => (prev === "mosaic" ? "immersive" : "mosaic"))}
-                className="text-white/80"
-              >
-                {viewMode === "mosaic" ? "Mosaic view" : "Immersive view"}
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {["listings", "offers", "activity"].map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              onClick={() => setActiveTab(tab as MarketplaceTab)}
-              className={clsx(
-                "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-widest transition",
-                activeTab === tab
-                  ? "bg-white text-black"
-                  : "border border-white/10 text-white/60 hover:border-white/30 hover:text-white",
-              )}
-            >
-              {tab === "listings" ? "Listings" : tab === "offers" ? "Offers" : "Activity"}
-            </button>
-          ))}
-        </div>
-      </section>
+        </aside>
 
-      {activeTab === "listings" && (
-        <>
-          <section className="space-y-6">
-            <SectionHeading
-              title="Create a listing"
-              description="List approved NFT collections against the marketplace trade currency."
-              icon={<Megaphone size={18} />}
-            />
-            <ListingComposer
+        <div className="space-y-4">
+          <div className="space-y-3 rounded-3xl border border-white/10 bg-gradient-to-r from-[#0f1722] via-[#0b1018] to-[#0f1722] p-4 shadow-[0_16px_52px_-32px_rgba(0,0,0,0.85)]">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div className="relative flex-1">
+                <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
+                <input
+                  type="search"
+                  placeholder="Search traits, assets, or contract addresses"
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-10 py-3 text-sm text-white placeholder:text-white/40 shadow-[0_10px_36px_-28px_rgba(0,0,0,0.95)] focus:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/30"
+                />
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1.5 text-xs uppercase tracking-widest text-white/70 transition hover:border-cyan-200/60 hover:text-white"
+                  onClick={() => syncMarketplace({ silent: true })}
+                  disabled={refreshing}
+                >
+                  <RefreshCcw size={14} className={refreshing ? "animate-spin" : undefined} />
+                  {refreshing ? "Refreshing..." : "Sync now"}
+                </button>
+              <Link
+                href="#portfolio"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:-translate-y-[1px] hover:border-cyan-200/60"
+              >
+                <Megaphone size={14} />
+                ASX desk (internal)
+              </Link>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                {(["listings", "offers", "activity"] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    type="button"
+                    onClick={() => setActiveTab(tab)}
+                    className={clsx(
+                      "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition",
+                      activeTab === tab
+                        ? "bg-white text-black shadow-[0_10px_30px_-18px_rgba(0,0,0,0.7)]"
+                        : "border border-white/10 text-white/60 hover:border-cyan-200/60 hover:text-white",
+                    )}
+                  >
+                    {tab === "listings" ? "Listings" : tab === "offers" ? "Offers" : "Activity"}
+                  </button>
+                ))}
+              </div>
+              <div className="text-[11px] uppercase tracking-[0.2em] text-white/50">
+                {filteredListings.length} ASX items match filters
+              </div>
+            </div>
+          </div>
+
+              {activeTab === "listings" ? (
+            <div className="space-y-4">
+              <div className="flex flex-wrap gap-2">
+                {["featured", "price-low", "price-high", "newest"].map((option) => (
+                  <button
+                    key={option}
+                    type="button"
+                    onClick={() => setSortKey(option as SortKey)}
+                    className={clsx(
+                      "rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] transition",
+                      sortKey === option
+                        ? "bg-white text-black shadow-[0_10px_30px_-18px_rgba(0,0,0,0.7)]"
+                        : "border border-white/10 text-white/60 hover:border-cyan-200/60 hover:text-white",
+                    )}
+                  >
+                    {option === "featured"
+                      ? "Curated"
+                      : option === "price-low"
+                        ? "Price low"
+                        : option === "price-high"
+                          ? "Price high"
+                          : "Newest"}
+                  </button>
+                ))}
+              </div>
+              {error && (
+                <div className="rounded-2xl border border-red-500/40 bg-red-500/10 p-4 text-sm text-red-100">
+                  {error}
+                </div>
+              )}
+              <div id="marketplace-grid">
+                {loading ? (
+                  <ListingSkeleton viewMode={viewMode} />
+                ) : filteredListings.length === 0 ? (
+                  <EmptyState onRefresh={() => syncMarketplace({ silent: true })} />
+                ) : (
+                  <div className="space-y-2">
+                  <div className="hidden rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-white/50 md:grid md:grid-cols-[auto,200px,220px,140px]">
+                    <span>Collection</span>
+                    <span>Price</span>
+                    <span>Wallet</span>
+                    <span className="text-right">Action</span>
+                  </div>
+                    <div className="space-y-2">
+                      {filteredListings.map((listing) => (
+                        <ListingCard
+                          key={listing.id.toString()}
+                          listing={listing}
+                          variant={viewMode}
+                          contract={MARKETPLACE_CONTRACT}
+                          onRefetch={() => syncMarketplace({ silent: true })}
+                          notifySuccess={notifySuccess}
+                          notifyError={notifyError}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : activeTab === "offers" ? (
+            <OffersSection
+              offers={offers}
+              contract={MARKETPLACE_CONTRACT}
               collections={collections}
-              collectionsLoading={collectionsLoading}
-              collectionsError={collectionsError}
+              catalogAssets={catalogAssets}
               onRefetch={() => syncMarketplace({ silent: true })}
               notifySuccess={notifySuccess}
               notifyError={notifyError}
             />
-          </section>
+          ) : (
+            <ActivitySection activity={activity} />
+          )}
+        </div>
+      </section>
 
-          <section className="space-y-4">
-            <div className="flex flex-wrap gap-2">
-              {["featured", "price-low", "price-high", "newest"].map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => setSortKey(option as SortKey)}
-                  className={clsx(
-                    "rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest transition",
-                    sortKey === option
-                      ? "bg-white text-black"
-                      : "border border-white/10 text-white/50 hover:border-white/30 hover:text-white",
-                  )}
-                >
-                  {option === "featured"
-                    ? "Curated"
-                    : option === "price-low"
-                      ? "Price low"
-                      : option === "price-high"
-                        ? "Price high"
-                        : "Newest"}
-                </button>
-              ))}
-            </div>
-            {error && (
-              <div className="rounded-2xl border border-red-500/40 bg-red-500/10 p-4 text-sm text-red-100">
-                {error}
-              </div>
-            )}
-            <div id="marketplace-grid">
-              {loading ? (
-                <ListingSkeleton viewMode={viewMode} />
-              ) : filteredListings.length === 0 ? (
-                <EmptyState onRefresh={() => syncMarketplace({ silent: true })} />
-              ) : viewMode === "mosaic" ? (
-                <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
-                  {filteredListings.map((listing) => (
-                    <ListingCard
-                      key={listing.id.toString()}
-                      listing={listing}
-                      variant="mosaic"
-                      contract={MARKETPLACE_CONTRACT}
-                      onRefetch={() => syncMarketplace({ silent: true })}
-                      notifySuccess={notifySuccess}
-                      notifyError={notifyError}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {filteredListings.map((listing) => (
-                    <ListingCard
-                      key={listing.id.toString()}
-                      listing={listing}
-                      variant="immersive"
-                      contract={MARKETPLACE_CONTRACT}
-                      onRefetch={() => syncMarketplace({ silent: true })}
-                      notifySuccess={notifySuccess}
-                      notifyError={notifyError}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          </section>
-
-          <AuctionsSection
-            auctions={auctions}
-            currencySymbol={currencySymbol}
-            contract={MARKETPLACE_CONTRACT}
-            onRefetch={() => syncMarketplace({ silent: true })}
-            notifySuccess={notifySuccess}
-            notifyError={notifyError}
-            comingSoon
-          />
-        </>
-      )}
-
-      {activeTab === "offers" && (
-        <OffersSection
-          offers={offers}
-          contract={MARKETPLACE_CONTRACT}
+      <section
+        id="portfolio"
+        className="space-y-6 rounded-3xl border border-white/10 bg-white/5 p-6"
+      >
+        <SectionHeading
+          title="ASX desk"
+          description="Send NFTs to another wallet, list individual pieces, or bulk list directly from ASX-held collections."
+          icon={<Megaphone size={18} />}
+        />
+        <ListingComposer
           collections={collections}
-          catalogAssets={catalogAssets}
+          collectionsLoading={collectionsLoading}
+          collectionsError={collectionsError}
           onRefetch={() => syncMarketplace({ silent: true })}
           notifySuccess={notifySuccess}
           notifyError={notifyError}
         />
-      )}
+      </section>
 
-      {activeTab === "activity" && <ActivitySection activity={activity} />}
-
-      <div className="mt-10 flex flex-col items-end gap-2">
+      <div className="flex flex-col items-end gap-2">
         <Button
           type="button"
           variant="primary"

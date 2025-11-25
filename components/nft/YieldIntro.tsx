@@ -78,13 +78,14 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         networks: [
             { label: 'Core', icon: '/images/nft/coreIcon.svg' },
         ],
-        legalBundle: 'ASXRWA002',
+        legalBundle: 'ASXRWA001',
         distributionTxs: [
             { label: 'Mint Refund', tx: '0xb297a8ac9fd4202e7b308a118624d5097a7c768ab2e7088309abbb7c94016369' },
             { label: 'Distribution #1', tx: '0x67ca14b93e139289570481e7978928e16f275e85211ecf0d46d416bac1dc12ca' },
             { label: 'Distribution #2', tx: '0x0d54db5f939f4d46a368502fdc7829cc9a62811bb7d546a620fb343d54667f69' },
             { label: 'Distribution #3', tx: '0x8360b962c4a38e2aa909949b5bb590c7599e325142cdb1a8b94cca0893f9f2b6' },
             { label: 'Distribution #4', tx: '0xbc091fe5b55b0812d546f3898a928c69425b5dee83b831724fe74cad88f314f5' },
+            { label: 'Distribution #5', tx: '0x62dccdcdf36dc72f5b35fe4f79a7b94ba03e032274e48dc719136b1627dbdaf3' },
         ],
         maxRaise: '$30,000',
     },
@@ -115,10 +116,11 @@ const MINT_TABLE_ROWS: MintTableRow[] = [
         networks: [
             { label: 'Core', icon: '/images/nft/coreIcon.svg' },
         ],
-        legalBundle: 'ASXRWA001',
+        legalBundle: 'ASXRWA002',
         distributionTxs: [
             { label: 'Distribution #1', tx: '0x460df738975ccfce048a2fa04589443c28fad4cef763ddf5cc8a53f001e88d97' },
             { label: 'Distribution #2', tx: '0x608b485aeae90cdfcb3b95c604a31b709708100c29710c160a00702b3bc892e7' },
+            { label: 'Distribution #3', tx: '0x3c05b514fd3dacdcef85d5a1c33ae9ab75ed18c50938146f042a9091d47b7ed8' },
         ],
         maxRaise: '$50,000',
     },

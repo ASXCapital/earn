@@ -22,8 +22,8 @@ export function EmptyState({ onRefresh }: EmptyStateProps) {
       <Sparkles size={32} className="text-cyan-300" />
       <p className="text-lg font-semibold text-white">No listings match your filters</p>
       <p className="max-w-2xl text-sm text-white/70">
-        New direct listings, English auctions, and offers appear the moment they land on-chain.
-        Adjust filters or sync again to see the freshest drops.
+        New direct listings and offers appear the moment they land on-chain. Adjust filters or sync
+        again to see the latest inventory.
       </p>
       <Button type="button" onClick={onRefresh} variant="primary">
         Refresh marketplace feed

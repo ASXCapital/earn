@@ -4,12 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import clsx from "clsx";
-import { BookText, Boxes, Coins, LayoutDashboard, Layers3, X } from "lucide-react";
+import { BookText, Boxes, Coins, LayoutDashboard, Layers3, Store, X } from "lucide-react";
 import { Button } from "@/components/common/Button";
 
 const NAV = [
   { href: "/", label: "Overview", icon: LayoutDashboard },
   { href: "/rwa", label: "NFT/RWA", icon: Layers3 },
+  { href: "/marketplace", label: "Marketplace", icon: Store },
   { href: "/staking", label: "Staking", icon: Coins },
   { href: "/ecosystem", label: "Ecosystem", icon: Boxes },
 ];

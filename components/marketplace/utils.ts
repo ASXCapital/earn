@@ -118,25 +118,25 @@ export async function getEventsWithRateLimitRetry(
 }
 
 export function isListingLive(listing: DirectListing, nowSeconds: number) {
-  const start = Number(listing.startTimeInSeconds);
-  const end = Number(listing.endTimeInSeconds);
+  const { start, end } = getListingTimes(listing);
   return start <= nowSeconds && end > nowSeconds;
 }
 
 export function isAuctionLive(auction: EnglishAuction, nowSeconds: number) {
-  const start = Number(auction.startTimeInSeconds);
-  const end = Number(auction.endTimeInSeconds);
+  const { start, end } = getAuctionTimes(auction);
   return start <= nowSeconds && end > nowSeconds;
 }
 
 export function isOfferLive(offer: Offer, nowSeconds: number) {
-  return Number(offer.endTimeInSeconds) > nowSeconds;
+  const end = Number(
+    (offer as any).endTimeInSeconds ?? (offer as any).endTimestamp ?? 0,
+  );
+  return end > nowSeconds;
 }
 
 export function getListingState(listing: DirectListing) {
   const now = Date.now() / 1000;
-  const start = Number(listing.startTimeInSeconds);
-  const end = Number(listing.endTimeInSeconds);
+  const { start, end } = getListingTimes(listing);
 
   if (start > now) {
     return {
@@ -157,7 +157,7 @@ export function getListingState(listing: DirectListing) {
   return {
     state: "live",
     label: "Live now",
-    detail: `Ends in ${formatRelative(end - now)}`,
+    detail: end > 0 ? `Ends in ${formatRelative(end - now)}` : "Open",
   } as const;
 }
 
@@ -205,14 +205,14 @@ export function sortListings(a: DirectListing, b: DirectListing, key: SortKey) {
   if (key === "price-low") return priceA - priceB;
   if (key === "price-high") return priceB - priceA;
   if (key === "newest") {
-    return Number(b.startTimeInSeconds) - Number(a.startTimeInSeconds);
+    return getListingTimes(b).start - getListingTimes(a).start;
   }
 
   const now = Date.now() / 1000;
   const aLive = isListingLive(a, now);
   const bLive = isListingLive(b, now);
   if (aLive !== bLive) return aLive ? -1 : 1;
-  return Number(a.endTimeInSeconds) - Number(b.endTimeInSeconds);
+  return getListingTimes(a).end - getListingTimes(b).end;
 }
 
 export function mapLogToActivity(log: any): ActivityEntry | null {
@@ -304,4 +304,24 @@ export function extractTimestamp(log: any) {
     }
   }
   return new Date();
+}
+
+function getListingTimes(listing: DirectListing) {
+  const start = Number(
+    (listing as any).startTimeInSeconds ?? (listing as any).startTimestamp ?? 0,
+  );
+  const end = Number(
+    (listing as any).endTimeInSeconds ?? (listing as any).endTimestamp ?? 0,
+  );
+  return { start, end };
+}
+
+function getAuctionTimes(auction: EnglishAuction) {
+  const start = Number(
+    (auction as any).startTimeInSeconds ?? (auction as any).startTimestamp ?? 0,
+  );
+  const end = Number(
+    (auction as any).endTimeInSeconds ?? (auction as any).endTimestamp ?? 0,
+  );
+  return { start, end };
 }

@@ -2,12 +2,15 @@ import clsx from "clsx";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Address } from "viem";
 import { createListing } from "thirdweb/extensions/marketplace";
+import { sendTransaction } from "thirdweb";
 import { TransactionButton, useActiveAccount } from "thirdweb/react";
 import {
   setApprovalForAll as setErc721ApprovalForAll,
+  transferFrom,
 } from "thirdweb/extensions/erc721";
 import {
   setApprovalForAll as setErc1155ApprovalForAll,
+  safeTransferFrom,
 } from "thirdweb/extensions/erc1155";
 import Image from "next/image";
 import { RefreshCcw } from "lucide-react";
@@ -42,8 +45,11 @@ export function ListingComposer({
   const [selectedCollection, setSelectedCollection] = useState<string>("");
   const [tokenId, setTokenId] = useState("");
   const [pricePerToken, setPricePerToken] = useState("");
-  const [startDelayHours, setStartDelayHours] = useState("0");
-  const [durationHours, setDurationHours] = useState("72");
+  const [transferTo, setTransferTo] = useState("");
+  const [transferQuantity, setTransferQuantity] = useState("1");
+  const [selectedTokenIds, setSelectedTokenIds] = useState<string[]>([]);
+  const [bulkPricePerToken, setBulkPricePerToken] = useState("");
+  const [bulkListingLoading, setBulkListingLoading] = useState(false);
 
   useEffect(() => {
     if (!selectedCollection && collections.length > 0) {
@@ -91,6 +97,10 @@ export function ListingComposer({
     () => ownedTokens.find((token) => token.tokenId === tokenId),
     [ownedTokens, tokenId],
   );
+  const selectedBulkTokens = useMemo(
+    () => ownedTokens.filter((token) => selectedTokenIds.includes(token.tokenId)),
+    [ownedTokens, selectedTokenIds],
+  );
 
   const quantityNumber = 1;
   const detectedStandard = standard ?? selectedOwnedToken?.standard ?? null;
@@ -102,6 +112,15 @@ export function ListingComposer({
     if (detectedStandard === "erc721") return effectiveOwnedBalance >= 1;
     return effectiveOwnedBalance >= quantityNumber;
   }, [account, detectedStandard, effectiveOwnedBalance, quantityNumber]);
+
+  const transferAmount = useMemo(() => {
+    const parsed = Number(transferQuantity || "1");
+    const base = Number.isNaN(parsed) ? 1 : parsed;
+    if (detectedStandard === "erc1155") {
+      return Math.min(Math.max(1, base), Math.max(1, effectiveOwnedBalance));
+    }
+    return 1;
+  }, [transferQuantity, detectedStandard, effectiveOwnedBalance]);
 
   const handleListing = () => {
     if (!selectedCollection) {
@@ -115,8 +134,8 @@ export function ListingComposer({
       throw new Error("Select or enter a token ID.");
     }
     const now = Math.floor(Date.now() / 1000);
-    const start = now + Math.max(0, Number(startDelayHours || "0")) * 3600;
-    const duration = Math.max(1, Number(durationHours || "72")) * 3600;
+    const start = now; // list immediately
+    const duration = 365 * 24 * 3600; // keep live for 1 year
     const startDate = new Date(start * 1000);
     const endDate = new Date((start + duration) * 1000);
 
@@ -142,13 +161,126 @@ export function ListingComposer({
     });
   };
 
+  const handleTransfer = () => {
+    if (!selectedCollection) {
+      throw new Error("Select a whitelisted collection.");
+    }
+    const resolvedTokenId = (tokenId || "").trim();
+    if (!resolvedTokenId) {
+      throw new Error("Select or enter a token ID.");
+    }
+    if (!account) {
+      throw new Error("Connect your wallet to send assets.");
+    }
+    if (!assetContract || !detectedStandard) {
+      throw new Error("Select a compatible NFT before sending.");
+    }
+    const destination = transferTo.trim();
+    if (!destination) {
+      throw new Error("Enter a destination address.");
+    }
+    if (!ownershipSatisfied) {
+      throw new Error("You do not hold this token.");
+    }
+    if (detectedStandard === "erc721") {
+      return transferFrom({
+        contract: assetContract,
+        from: account.address as Address,
+        to: destination as Address,
+        tokenId: BigInt(resolvedTokenId),
+      });
+    }
+    return safeTransferFrom({
+      contract: assetContract,
+      from: account.address as Address,
+      to: destination as Address,
+      tokenId: BigInt(resolvedTokenId),
+      value: BigInt(transferAmount),
+      data: "0x",
+    });
+  };
+
   const selectedCollectionInfo = collections.find(
     (collection) => collection.address === selectedCollection,
   );
 
+  const toggleBulkToken = useCallback(
+    (token: OwnedToken) => {
+      setSelectedTokenIds((prev) =>
+        prev.includes(token.tokenId)
+          ? prev.filter((id) => id !== token.tokenId)
+          : [...prev, token.tokenId],
+      );
+    },
+    [],
+  );
+
+  const clearBulkSelection = useCallback(() => setSelectedTokenIds([]), []);
+
+  const handleBulkListing = async () => {
+    if (!selectedCollection) {
+      throw new Error("Select a whitelisted collection.");
+    }
+    if (selectedBulkTokens.length === 0) {
+      throw new Error("Select at least one owned token to list.");
+    }
+    if (!bulkPricePerToken) {
+      throw new Error("Set a price for your listings.");
+    }
+    if (!account) {
+      throw new Error("Connect your wallet to list assets.");
+    }
+    const now = Math.floor(Date.now() / 1000);
+    const start = now;
+    const duration = 365 * 24 * 3600;
+    const startDate = new Date(start * 1000);
+    const endDate = new Date((start + duration) * 1000);
+
+    if (!hasApproval) {
+      throw new Error("Grant marketplace approvals before listing.");
+    }
+
+    setBulkListingLoading(true);
+    try {
+      let created = 0;
+      for (const token of selectedBulkTokens) {
+        const tx = createListing({
+          contract: MARKETPLACE_CONTRACT,
+          assetContractAddress: selectedCollection as Address,
+          tokenId: BigInt(token.tokenId),
+          quantity: 1n,
+          currencyContractAddress: MARKETPLACE_LISTING_CURRENCY,
+          pricePerToken: bulkPricePerToken,
+          startTimestamp: startDate,
+          endTimestamp: endDate,
+          isReservedListing: false,
+        });
+        await sendTransaction({
+          account,
+          transaction: tx,
+        });
+        created += 1;
+      }
+      notifySuccess(
+        "Bulk listings created",
+        `${created} token${created === 1 ? "" : "s"} will appear once indexed.`,
+      );
+      onRefetch();
+      setBulkPricePerToken("");
+      setSelectedTokenIds([]);
+    } finally {
+      setBulkListingLoading(false);
+    }
+  };
+
   return (
-    <div className="space-y-4 rounded-3xl border border-white/10 bg-white/5 p-5">
-      <p className="text-sm font-semibold text-white">Your wallets eligible NFTs</p>
+    <div className="space-y-5 rounded-3xl border border-white/10 bg-white/5 p-5">
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm font-semibold text-white">Your wallet inventory & actions</p>
+        <p className="text-xs text-white/60">
+          Send, single-list, or bulk-list directly against the marketplace trade currency.
+        </p>
+      </div>
       {collectionsLoading ? (
         <LoadingPanel label="Detecting collections" description="Fetching all ASSET_ROLE contracts..." />
       ) : collections.length === 0 ? (
@@ -239,42 +371,81 @@ export function ListingComposer({
               </div>
               <div className="inline-flex items-center gap-3 rounded-xl border border-white/15 bg-black/40 px-3 py-2 text-xs text-white/60">
                 <div>
-                  <p className="text-[11px] uppercase tracking-widest text-white/40">Start delay</p>
-                  <p className="text-sm text-white">{startDelayHours} hrs</p>
+                  <p className="text-[11px] uppercase tracking-widest text-white/40">Start</p>
+                  <p className="text-sm text-white">Immediate</p>
                 </div>
                 <div>
                   <p className="text-[11px] uppercase tracking-widest text-white/40">Duration</p>
-                  <p className="text-sm text-white">{durationHours} hrs</p>
+                  <p className="text-sm text-white">1 year (max)</p>
                 </div>
               </div>
             </div>
           )}
         </>
       )}
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white/70">
-              <label className="text-xs uppercase tracking-widest text-white/40">Start delay (hrs)</label>
-          <input
-            type="number"
-            min="0"
-            value={startDelayHours}
-            onChange={(event) => setStartDelayHours(event.target.value)}
-            className="w-20 rounded-md border border-white/10 bg-black/50 px-2 py-1 text-white focus:border-cyan-300/60 focus:outline-none"
-          />
+
+      <div className="grid gap-3 lg:grid-cols-3">
+        <div className="col-span-2 rounded-xl border border-white/10 bg-black/30 px-3 py-3 text-sm text-white/70">
+          <p className="text-xs uppercase tracking-widest text-white/40">Timing</p>
+          <p className="text-sm text-white">Lists immediately and stays live for 1 year.</p>
+          <p className="text-xs text-white/50">No manual scheduling or expiry controls are exposed.</p>
         </div>
-        <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white/70">
-          <label className="text-xs uppercase tracking-widest text-white/40">Duration (hrs)</label>
+        <div className="space-y-2 rounded-xl border border-white/10 bg-black/30 px-3 py-3 text-sm text-white/70">
+          <p className="text-xs uppercase tracking-widest text-white/40">Send selected token</p>
           <input
-            type="number"
-            min="1"
-            value={durationHours}
-            onChange={(event) => setDurationHours(event.target.value)}
-            className="w-24 rounded-md border border-white/10 bg-black/50 px-2 py-1 text-white focus:border-cyan-300/60 focus:outline-none"
+            type="text"
+            placeholder="Destination wallet address"
+            value={transferTo}
+            onChange={(event) => setTransferTo(event.target.value)}
+            className="w-full rounded-lg border border-white/10 bg-black/50 px-3 py-2 text-sm text-white placeholder:text-white/40 focus:border-cyan-300/60 focus:outline-none"
           />
+          {detectedStandard === "erc1155" && (
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                min="1"
+                value={transferQuantity}
+                onChange={(event) => setTransferQuantity(event.target.value)}
+                className="w-24 rounded-md border border-white/10 bg-black/50 px-2 py-1 text-white focus:border-cyan-300/60 focus:outline-none"
+              />
+              <span className="text-[11px] text-white/50">
+                You own {effectiveOwnedBalance}
+              </span>
+            </div>
+          )}
+          <TransactionButton
+            disabled={
+              !account ||
+              !detectedStandard ||
+              !tokenId ||
+              !ownershipSatisfied ||
+              !transferTo ||
+              collections.length === 0
+            }
+            transaction={() => {
+              return handleTransfer();
+            }}
+            onTransactionConfirmed={() => {
+              const destination = transferTo.trim();
+              notifySuccess("Asset sent", `Token #${tokenId} sent to ${shortAddress(destination)}`);
+              refreshAsset();
+              refreshOwnedTokens();
+              setTransferTo("");
+              setTransferQuantity("1");
+            }}
+            onError={(err) => notifyError(err instanceof Error ? err.message : String(err))}
+          >
+            Send NFT
+          </TransactionButton>
+          <p className="text-[11px] text-white/50">
+            Uses safe transfer with your connected wallet as the sender.
+          </p>
         </div>
-          <div className="text-xs text-white/60">
-            Listings settle in {shortAddress(MARKETPLACE_LISTING_CURRENCY)}. Ensure your NFT approvals are set so the marketplace contract can transfer them on sale.
-          </div>
+      </div>
+
+      <div className="text-xs text-white/60">
+        Listings settle in {shortAddress(MARKETPLACE_LISTING_CURRENCY)}. Ensure your NFT approvals are set so the
+        marketplace contract can transfer them on sale.
       </div>
 
       <OwnedTokensGallery
@@ -283,6 +454,9 @@ export function ListingComposer({
         error={ownedTokensError}
         selectedTokenId={tokenId}
         onSelect={(token) => handleTokenSelection(token.tokenId)}
+        selectedTokenIds={selectedTokenIds}
+        onToggleSelect={toggleBulkToken}
+        onClearSelection={clearBulkSelection}
         onRefresh={() => refreshOwnedTokens()}
         onDeepScan={() => refreshOwnedTokens({ deep: true })}
         deepScanAvailable={deepScanAvailable}
@@ -373,6 +547,76 @@ export function ListingComposer({
       >
         List asset
       </TransactionButton>
+
+      <div className="space-y-3 rounded-2xl border border-white/10 bg-black/30 p-4">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <p className="text-sm font-semibold text-white">Bulk list selected</p>
+          <div className="text-xs text-white/60">
+            {selectedBulkTokens.length} selected
+            {selectedBulkTokens.length > 0 && (
+              <button
+                type="button"
+                onClick={clearBulkSelection}
+                className="ml-2 text-cyan-300 underline-offset-2 hover:underline"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+        </div>
+        <div className="grid gap-3 md:grid-cols-3">
+          <div className="rounded-xl border border-white/10 bg-black/40 px-3 py-2">
+            <label className="text-xs uppercase tracking-widest text-white/50">Price (ERC20)</label>
+            <input
+              type="number"
+              placeholder="Set listing price"
+              value={bulkPricePerToken}
+              onChange={(event) => setBulkPricePerToken(event.target.value)}
+              className="mt-1 w-full rounded-lg border border-white/10 bg-black/60 px-3 py-2 text-sm text-white placeholder:text-white/40 focus:border-cyan-300/60 focus:outline-none"
+            />
+          </div>
+          <div className="rounded-xl border border-white/10 bg-black/40 px-3 py-2">
+            <label className="text-xs uppercase tracking-widest text-white/50">Timing</label>
+            <p className="text-sm text-white">Lists immediately and stays live for 1 year.</p>
+            <p className="text-[11px] text-white/50">No scheduling controls for bulk listings.</p>
+          </div>
+          <div className="rounded-xl border border-white/10 bg-black/40 px-3 py-2">
+            <label className="text-xs uppercase tracking-widest text-white/50">Notes</label>
+            <p className="text-sm text-white">Approvals must be set before bulk listing.</p>
+            <p className="text-[11px] text-white/50">Wallet will prompt once per token.</p>
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={() => {
+            handleBulkListing().catch((err) =>
+              notifyError(err instanceof Error ? err.message : String(err)),
+            );
+          }}
+          disabled={
+            bulkListingLoading ||
+            !account ||
+            selectedBulkTokens.length === 0 ||
+            !hasApproval ||
+            !bulkPricePerToken
+          }
+          className={clsx(
+            "w-full rounded-2xl border px-4 py-3 text-sm font-semibold transition",
+            bulkListingLoading
+              ? "border-white/20 bg-white/10 text-white/50"
+              : "border-white/10 bg-black/40 text-white hover:border-white/30",
+            (!account ||
+              selectedBulkTokens.length === 0 ||
+              !hasApproval ||
+              !bulkPricePerToken) &&
+              "opacity-60 cursor-not-allowed",
+          )}
+        >
+          {bulkListingLoading
+            ? "Listing selected..."
+            : `List ${selectedBulkTokens.length || 0} selected tokens`}
+        </button>
+      </div>
     </div>
   );
 }
@@ -457,7 +701,10 @@ type OwnedTokensGalleryProps = {
   loading: boolean;
   error: string | null;
   selectedTokenId: string;
+  selectedTokenIds?: string[];
   onSelect: (token: OwnedToken) => void;
+  onToggleSelect?: (token: OwnedToken) => void;
+  onClearSelection?: () => void;
   onRefresh: () => void;
   onDeepScan?: () => void;
   deepScanAvailable?: boolean;
@@ -470,7 +717,10 @@ function OwnedTokensGallery({
   loading,
   error,
   selectedTokenId,
+  selectedTokenIds = [],
   onSelect,
+  onToggleSelect,
+  onClearSelection,
   onRefresh,
   onDeepScan,
   deepScanAvailable,
@@ -482,6 +732,15 @@ function OwnedTokensGallery({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm font-semibold text-white">Tokens you hold</p>
         <div className="flex items-center gap-2 text-xs text-white/60">
+          {onClearSelection && selectedTokenIds.length > 0 && (
+            <button
+              type="button"
+              onClick={onClearSelection}
+              className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-black/40 px-3 py-1 text-xs text-white/60 transition hover:text-white"
+            >
+              Clear {selectedTokenIds.length} selected
+            </button>
+          )}
           {deepScanAvailable && onDeepScan && (
             <button
               type="button"
@@ -534,40 +793,59 @@ function OwnedTokensGallery({
           {tokens.map((token) => {
             const image = resolveMediaUrl(token.metadata?.image || token.metadata?.image_url);
             const isSelected = token.tokenId === selectedTokenId;
+            const inBulk = selectedTokenIds?.includes(token.tokenId);
             return (
-              <button
+              <div
                 key={token.tokenId}
-                type="button"
-                onClick={() => onSelect(token)}
                 className={clsx(
                   "flex flex-col gap-1 rounded-lg border p-2 text-left transition",
                   isSelected
                     ? "border-cyan-400/60 bg-cyan-400/10"
                     : "border-white/10 bg-white/5 hover:border-white/30",
+                  inBulk && "ring-1 ring-cyan-400/40",
                 )}
               >
-                <div className="relative w-full overflow-hidden rounded-md border border-white/10 bg-black/20 pt-[100%]">
-                  {image ? (
-                    <Image
-                      src={image}
-                      alt={token.metadata?.name ?? `Token #${token.tokenId}`}
-                      fill
-                      sizes="100px"
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 flex items-center justify-center text-[10px] text-white/60">
-                      No preview
+                <div className="flex items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={() => onSelect(token)}
+                    className="flex-1 text-left"
+                  >
+                    <div className="relative w-full overflow-hidden rounded-md border border-white/10 bg-black/20 pt-[100%]">
+                      {image ? (
+                        <Image
+                          src={image}
+                          alt={token.metadata?.name ?? `Token #${token.tokenId}`}
+                          fill
+                          sizes="100px"
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center text-[10px] text-white/60">
+                          No preview
+                        </div>
+                      )}
                     </div>
+                    <div className="space-y-0.5 text-[10px] leading-tight text-white/60">
+                      <p className="text-white/80">
+                        {token.metadata?.name ?? `Token #${token.tokenId}`}
+                      </p>
+                      <div>{token.standard === "erc721" ? "ERC721" : "ERC1155"}</div>
+                    </div>
+                  </button>
+                  {onToggleSelect && (
+                    <label className="inline-flex items-center gap-1 text-[11px] text-white/70">
+                      <input
+                        type="checkbox"
+                        checked={inBulk}
+                        onChange={() => onToggleSelect(token)}
+                        className="h-4 w-4 rounded border-white/20 bg-black/40 text-cyan-400 focus:ring-cyan-300"
+                      />
+                      Bulk
+                    </label>
                   )}
                 </div>
-                <div className="space-y-0.5 text-[10px] leading-tight text-white/60">
-                  <p className="text-white/80">
-                    {token.metadata?.name ?? `Token #${token.tokenId}`}
-                  </p>
-                  <div>{token.standard === "erc721" ? "ERC721" : "ERC1155"}</div>
-                </div>
-              </button>
+              </div>
             );
           })}
         </div>

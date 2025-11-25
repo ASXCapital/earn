@@ -13,8 +13,8 @@ export function RwaHero() {
                     <p className="mt-2 text-sm sm:text-base text-white/70 max-w-3xl leading-relaxed">A professionally structured, on-chain instrument offering pro-rata access to a targeted annual cash distribution sourced from net apartment rental operations - delivered via a secured loan &amp; promissory note framework.</p>
                 </div>
                 <div className="grid gap-3 md:grid-cols-4 items-stretch">
-                    <HeroStat label="Total ASX Distributed" value="8510.58" image="/images/nft/B2.png" />
-                    <HeroStat label="Distributions Made" value="6" image="/images/nft/Vinyl.png" />
+                    <HeroStat label="Total ASX Distributed" value="13,195.58" image="/images/nft/B2.png" />
+                    <HeroStat label="Distributions Made" value="8" image="/images/nft/Vinyl.png" />
                     <HeroStat label="Aggregate Supply" value="8,000" image="/images/nft/Garden.png" />
                     <div className="flex items-stretch"><LegalTile compact /></div>
                 </div>
