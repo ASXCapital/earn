@@ -45,8 +45,10 @@ export function useMarketplaceSync(
       else setLoading(true);
 
       try {
-        const response = await fetch("/api/marketplace-feed", {
+        // Cache-bust each request so fresh listings render on initial load (CDNs occasionally served stale)
+        const response = await fetch(`/api/marketplace-feed?ts=${Date.now()}`, {
           cache: "no-store",
+          headers: { "Cache-Control": "no-cache" },
         });
         if (!response.ok) {
           const message = await response.text();

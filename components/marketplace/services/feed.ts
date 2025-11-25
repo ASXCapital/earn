@@ -7,6 +7,9 @@ import {
   getAllValidAuctions,
   getAllValidListings,
   getAllValidOffers,
+  totalAuctions,
+  totalListings,
+  totalOffers,
 } from "thirdweb/extensions/marketplace";
 import type { PreparedEvent } from "thirdweb";
 
@@ -49,27 +52,9 @@ export type MarketplaceFeed = {
 
 export async function fetchMarketplaceFeed(): Promise<MarketplaceFeed> {
   const [listings, auctions, offers] = await Promise.all([
-    fetchWithContext("listings", () =>
-      getAllValidListings({
-        contract: MARKETPLACE_CONTRACT_SERVER,
-        start: 0,
-        count: 200n,
-      }),
-    ),
-    fetchWithContext("auctions", () =>
-      getAllValidAuctions({
-        contract: MARKETPLACE_CONTRACT_SERVER,
-        start: 0,
-        count: 200n,
-      }),
-    ),
-    fetchWithContext("offers", () =>
-      getAllValidOffers({
-        contract: MARKETPLACE_CONTRACT_SERVER,
-        start: 0,
-        count: 200n,
-      }),
-    ),
+    fetchWithContext("listings", () => fetchAllValidListings()),
+    fetchWithContext("auctions", () => fetchAllValidAuctions()),
+    fetchWithContext("offers", () => fetchAllValidOffers()),
   ]);
 
   const { activity, source: activitySource } = await fetchActivity();
@@ -87,6 +72,36 @@ export async function fetchMarketplaceFeed(): Promise<MarketplaceFeed> {
       activity: activitySource,
     },
   };
+}
+
+async function fetchAllValidListings() {
+  const total = await totalListings({ contract: MARKETPLACE_CONTRACT_SERVER });
+  if (total === 0n) return [];
+  return getAllValidListings({
+    contract: MARKETPLACE_CONTRACT_SERVER,
+    start: 0,
+    count: total,
+  });
+}
+
+async function fetchAllValidAuctions() {
+  const total = await totalAuctions({ contract: MARKETPLACE_CONTRACT_SERVER });
+  if (total === 0n) return [];
+  return getAllValidAuctions({
+    contract: MARKETPLACE_CONTRACT_SERVER,
+    start: 0,
+    count: total,
+  });
+}
+
+async function fetchAllValidOffers() {
+  const total = await totalOffers({ contract: MARKETPLACE_CONTRACT_SERVER });
+  if (total === 0n) return [];
+  return getAllValidOffers({
+    contract: MARKETPLACE_CONTRACT_SERVER,
+    start: 0,
+    count: total,
+  });
 }
 
 async function fetchActivity(): Promise<{

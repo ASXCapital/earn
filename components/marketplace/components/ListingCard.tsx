@@ -28,6 +28,7 @@ export type ListingCardProps = {
   variant: ViewMode;
   contract: MarketplaceContract;
   onRefetch?: () => void;
+  onOpenDetail?: (listing: DirectListing) => void;
   notifySuccess: (title: string, description?: string) => void;
   notifyError: (message: string) => void;
 };
@@ -37,6 +38,7 @@ export function ListingCard({
   variant: _variant,
   contract,
   onRefetch,
+  onOpenDetail,
   notifySuccess,
   notifyError,
 }: ListingCardProps) {
@@ -123,6 +125,15 @@ export function ListingCard({
         "group relative grid w-full grid-cols-2 items-center gap-3 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-white/5 via-white/[0.02] to-white/[0.05] px-3 py-2 text-sm text-white shadow-[0_8px_30px_-18px_rgba(0,0,0,0.75)] transition hover:-translate-y-[1px] hover:border-cyan-200/60 hover:shadow-[0_14px_42px_-16px_rgba(0,0,0,0.9)]",
         "md:grid-cols-[auto,200px,220px,140px]",
       )}
+      role="button"
+      tabIndex={0}
+      onClick={() => onOpenDetail?.(listing)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onOpenDetail?.(listing);
+        }
+      }}
     >
       <div className="absolute inset-0 opacity-0 blur-2xl transition duration-300 group-hover:opacity-100">
         <div className="h-full w-full bg-gradient-to-r from-cyan-500/10 via-emerald-400/5 to-blue-500/5" />
@@ -152,7 +163,10 @@ export function ListingCard({
             <span className="truncate">{shortAddress(listing.assetContractAddress)}</span>
             <button
               type="button"
-              onClick={() => handleCopy("Asset address", listing.assetContractAddress)}
+              onClick={(event) => {
+                event.stopPropagation();
+                handleCopy("Asset address", listing.assetContractAddress);
+              }}
               className="rounded border border-white/10 p-1 text-white/50 transition hover:text-white"
             >
               <Copy size={12} />
@@ -180,7 +194,10 @@ export function ListingCard({
             <span className="font-semibold tracking-tight">{shortAddress(listing.creatorAddress)}</span>
             <button
               type="button"
-              onClick={() => handleCopy("Wallet address", listing.creatorAddress)}
+              onClick={(event) => {
+                event.stopPropagation();
+                handleCopy("Wallet address", listing.creatorAddress);
+              }}
               className="rounded border border-white/10 p-1 text-white/50 transition hover:text-white"
             >
               <Copy size={12} />
@@ -196,7 +213,10 @@ export function ListingCard({
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-end gap-2">
+      <div
+        className="flex flex-wrap items-center justify-end gap-2"
+        onClick={(event) => event.stopPropagation()}
+      >
         {!isCreator &&
           !isNativeCurrency &&
           !manualApprovalSatisfied &&

@@ -35,7 +35,7 @@ export function EmptyState({ onRefresh }: EmptyStateProps) {
 type StatPillProps = {
   label: string;
   value: string;
-  detail: string;
+  detail?: string;
 };
 
 export function StatPill({ label, value, detail }: StatPillProps) {
@@ -43,7 +43,7 @@ export function StatPill({ label, value, detail }: StatPillProps) {
     <div className="rounded-2xl border border-white/10 bg-black/30 p-4 backdrop-blur">
       <p className="text-xs uppercase tracking-widest text-white/50">{label}</p>
       <p className="text-2xl font-semibold text-white">{value}</p>
-      <p className="text-xs text-white/60">{detail}</p>
+      {detail ? <p className="text-xs text-white/60">{detail}</p> : null}
     </div>
   );
 }

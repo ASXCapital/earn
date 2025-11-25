@@ -4,14 +4,14 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import type { Address } from "viem";
-import { Boxes, Copy, ExternalLink, Megaphone, RefreshCcw, Search, ShieldCheck, Sparkles, TrendingUp } from "lucide-react";
+import { Boxes, Copy, ExternalLink, Megaphone, RefreshCcw, Sparkles, X } from "lucide-react";
 import { useActiveAccount } from "thirdweb/react";
+import type { DirectListing } from "thirdweb/extensions/marketplace";
 
 import { Button } from "@/components/common/Button";
 import {
   BackgroundGlow,
   EmptyState,
-  HighlightChip,
   ProgressRow,
   SectionHeading,
   StatPill,
@@ -33,6 +33,7 @@ import {
   integerFormatter,
   numberFormatter,
   resolveMediaUrl,
+  safeNumber,
   shortAddress,
   sortListings,
 } from "@/components/marketplace/utils";
@@ -43,17 +44,19 @@ import {
   MARKETPLACE_V3_EXPLORER,
 } from "@/marketplace/config";
 
+const TOTAL_SUPPLY = 8000;
+
 export function MarketplaceExperience() {
   const { pushToast } = useToast();
   const account = useActiveAccount();
   const accountAddress = account?.address as Address | undefined;
   type MarketplaceTab = "listings" | "offers" | "activity";
 
-  const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("featured");
   const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
   const [selectedCollections, setSelectedCollections] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<MarketplaceTab>("listings");
+  const [selectedListing, setSelectedListing] = useState<DirectListing | null>(null);
   const viewMode: ViewMode = "mosaic";
 
   const handleSyncError = useCallback(
@@ -132,7 +135,6 @@ export function MarketplaceExperience() {
 
   const filteredListings = useMemo(() => {
     const now = Date.now() / 1000;
-    const query = search.trim().toLowerCase();
     return [...listings]
       .filter((listing) => getListingState(listing).state !== "closed")
       .filter((listing) => {
@@ -142,17 +144,15 @@ export function MarketplaceExperience() {
         ) {
           return false;
         }
-        if (!query) return true;
-        const haystack = `${listing.asset?.metadata?.name ?? ""} ${listing.asset?.metadata?.description ?? ""} ${listing.assetContractAddress} ${listing.creatorAddress}`.toLowerCase();
-        return haystack.includes(query);
+        return true;
       })
       .sort((a, b) => sortListings(a, b, sortKey));
-  }, [
-    listings,
-    search,
-    selectedCollectionSet,
-    sortKey,
-  ]);
+  }, [listings, selectedCollectionSet, sortKey]);
+
+  const supplyListedPercent = useMemo(() => {
+    if (!TOTAL_SUPPLY) return 0;
+    return Math.min(100, Math.max(0, (stats.liveListings / TOTAL_SUPPLY) * 100));
+  }, [stats.liveListings]);
 
   const chainName = MARKETPLACE_V3_CHAIN_NAME ?? "BNB Chain";
   const chainNameLower = chainName.toLowerCase();
@@ -207,12 +207,10 @@ export function MarketplaceExperience() {
             </div>
             <div className="space-y-4">
               <h1 className="text-4xl font-semibold tracking-tight text-white md:text-5xl">
-                ASX marketplace desk — curated by us
+                ASX Marketplace
               </h1>
               <p className="text-base text-white/70 md:text-lg">
-                Official ASX storefront for our collections. Sweep floors with a slider, filter by our
-                curated collections, and jump into the ASX desk to send or list inventory directly
-                from the vault.
+                buy, sell and trade ASX RWA NFTs
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -242,24 +240,20 @@ export function MarketplaceExperience() {
               <StatPill
                 label="Live listings"
                 value={integerFormatter.format(stats.liveListings)}
-                detail="ready to collect"
               />
               <StatPill
                 label="Open offers"
                 value={integerFormatter.format(stats.openOffers)}
-                detail="bids awaiting acceptance"
               />
               <StatPill
                 label="Listed value"
                 value={`${numberFormatter.format(stats.totalListingsValue)} ${currencySymbol}`}
-                detail="notional on-market"
               />
               <StatPill
                 label={`Floor (${currencySymbol})`}
                 value={
                   stats.floor !== null ? `${numberFormatter.format(stats.floor)} ${currencySymbol}` : ""
                 }
-                detail="current lowest ask"
               />
             </div>
           </div>
@@ -276,19 +270,15 @@ export function MarketplaceExperience() {
                   progress={Math.min(100, stats.totalListingsValue * 4)}
                 />
                 <ProgressRow
-                  label="Live inventory"
-                  value={`${stats.liveListings} active listings`}
-                  progress={Math.min(100, stats.liveListings * 3)}
+                  label="% of supply listed"
+                  value={`${numberFormatter.format(supplyListedPercent)}% of ${numberFormatter.format(TOTAL_SUPPLY)} supply`}
+                  progress={supplyListedPercent}
                 />
                 <ProgressRow
-                  label="Offer depth"
-                  value={`${stats.openOffers} open offers`}
-                  progress={Math.min(100, stats.openOffers * 5)}
+                  label="Best APR"
+                  value="Coming soon"
+                  progress={0}
                 />
-              </div>
-              <div className="flex flex-wrap gap-3">
-                <HighlightChip icon={<ShieldCheck size={16} />} label="role-gated listers" />
-                <HighlightChip icon={<TrendingUp size={16} />} label="multi-currency support" />
               </div>
             </div>
           </div>
@@ -337,7 +327,7 @@ export function MarketplaceExperience() {
                 <div>
                   <p className="text-sm font-semibold">All collections</p>
                   <p className="text-[11px] uppercase tracking-widest text-white/50">
-                    {collectionRail.length} tracked • {stats.liveListings} live
+                    {collectionRail.length} tracked | {stats.liveListings} live
                   </p>
                 </div>
               </div>
@@ -378,7 +368,7 @@ export function MarketplaceExperience() {
                         {collection.name ?? shortAddress(collection.address)}
                       </p>
                       <p className="text-[11px] uppercase tracking-widest text-white/50">
-                        {collection.symbol ?? "NFT"} • {collection.live} live • {collection.total} indexed
+                        {collection.symbol ?? "NFT"} | {collection.live} live | {collection.total} indexed
                       </p>
                     </div>
                   </div>
@@ -413,16 +403,9 @@ export function MarketplaceExperience() {
 
         <div className="space-y-4">
           <div className="space-y-3 rounded-3xl border border-white/10 bg-gradient-to-r from-[#0f1722] via-[#0b1018] to-[#0f1722] p-4 shadow-[0_16px_52px_-32px_rgba(0,0,0,0.85)]">
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-              <div className="relative flex-1">
-                <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={18} />
-                <input
-                  type="search"
-                  placeholder="Search traits, assets, or contract addresses"
-                  value={search}
-                  onChange={(event) => setSearch(event.target.value)}
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-10 py-3 text-sm text-white placeholder:text-white/40 shadow-[0_10px_36px_-28px_rgba(0,0,0,0.95)] focus:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-400/30"
-                />
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="text-xs uppercase tracking-[0.2em] text-white/50">
+                {filteredListings.length} ASX items indexed
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <button
@@ -434,13 +417,13 @@ export function MarketplaceExperience() {
                   <RefreshCcw size={14} className={refreshing ? "animate-spin" : undefined} />
                   {refreshing ? "Refreshing..." : "Sync now"}
                 </button>
-              <Link
-                href="#portfolio"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:-translate-y-[1px] hover:border-cyan-200/60"
-              >
-                <Megaphone size={14} />
-                ASX desk (internal)
-              </Link>
+                <Link
+                  href="#portfolio"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:-translate-y-[1px] hover:border-cyan-200/60"
+                >
+                  <Megaphone size={14} />
+                  ASX desk (internal)
+                </Link>
               </div>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-2">
@@ -460,9 +443,6 @@ export function MarketplaceExperience() {
                     {tab === "listings" ? "Listings" : tab === "offers" ? "Offers" : "Activity"}
                   </button>
                 ))}
-              </div>
-              <div className="text-[11px] uppercase tracking-[0.2em] text-white/50">
-                {filteredListings.length} ASX items match filters
               </div>
             </div>
           </div>
@@ -518,6 +498,7 @@ export function MarketplaceExperience() {
                           variant={viewMode}
                           contract={MARKETPLACE_CONTRACT}
                           onRefetch={() => syncMarketplace({ silent: true })}
+                          onOpenDetail={(item) => setSelectedListing(item)}
                           notifySuccess={notifySuccess}
                           notifyError={notifyError}
                         />
@@ -606,6 +587,123 @@ export function MarketplaceExperience() {
           notifyError={notifyError}
         />
       )}
+
+      {selectedListing && (
+        <ListingDetailModal
+          listing={selectedListing}
+          currencySymbol={currencySymbol}
+          onClose={() => setSelectedListing(null)}
+        />
+      )}
+    </div>
+  );
+}
+
+type ListingDetailModalProps = {
+  listing: DirectListing;
+  onClose: () => void;
+  currencySymbol: string;
+};
+
+function ListingDetailModal({ listing, onClose, currencySymbol }: ListingDetailModalProps) {
+  const media = resolveMediaUrl(listing.asset?.metadata?.image as string | undefined);
+  const name =
+    listing.asset?.metadata?.name ||
+    `Token #${listing.tokenId.toString()} ${shortAddress(listing.assetContractAddress)}`;
+  const description = listing.asset?.metadata?.description;
+  const attributes =
+    Array.isArray((listing.asset?.metadata as any)?.attributes) &&
+    (listing.asset?.metadata as any)?.attributes.length > 0
+      ? (listing.asset?.metadata as any).attributes
+      : [];
+  const state = getListingState(listing);
+  const pricePerToken = safeNumber(listing.currencyValuePerToken.displayValue);
+  const quantity = Number(listing.quantity ?? 1n);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-2xl overflow-hidden rounded-2xl border border-white/10 bg-[#0c1118] shadow-2xl"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
+          <div className="space-y-1">
+            <p className="text-xs uppercase tracking-[0.2em] text-white/60">Listing preview</p>
+            <p className="text-lg font-semibold text-white">{name}</p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-full border border-white/15 p-2 text-white/70 transition hover:border-white/40 hover:text-white"
+          >
+            <X size={16} />
+          </button>
+        </div>
+
+        <div className="grid gap-5 px-5 py-4 sm:grid-cols-[1.1fr,1fr]">
+          <div className="space-y-3">
+            <div className="relative overflow-hidden rounded-xl border border-white/10 bg-black/40">
+              {media ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={media} alt={name} className="h-full w-full object-cover" />
+              ) : (
+                <div className="flex h-64 items-center justify-center text-sm text-white/60">
+                  No preview available
+                </div>
+              )}
+            </div>
+            {description ? (
+              <p className="text-sm leading-relaxed text-white/70 line-clamp-4">{description}</p>
+            ) : null}
+          </div>
+
+          <div className="space-y-4 text-sm text-white/80">
+            <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+              <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-white/60">
+                <span>{state.label}</span>
+                <span>{state.detail}</span>
+              </div>
+              <div className="mt-3 text-2xl font-semibold text-white">
+                {numberFormatter.format(pricePerToken)} {listing.currencyValuePerToken.symbol || currencySymbol}
+              </div>
+              <div className="text-xs text-white/60">
+                {integerFormatter.format(quantity)} available from {shortAddress(listing.creatorAddress)}
+              </div>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-white/50">Contract</p>
+                <p className="text-sm font-semibold text-white">{shortAddress(listing.assetContractAddress)}</p>
+              </div>
+              <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-white/50">Listing ID</p>
+                <p className="text-sm font-semibold text-white">{listing.id.toString()}</p>
+              </div>
+            </div>
+
+            {attributes && attributes.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-white/50">Traits</p>
+                <div className="flex flex-wrap gap-2">
+                  {attributes.map((attr: any, index: number) => (
+                    <div
+                      key={`${attr?.trait_type ?? "trait"}-${index}`}
+                      className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80"
+                    >
+                      <span className="font-semibold">{attr?.trait_type || "Trait"}:</span>{" "}
+                      <span className="text-white/70">{String(attr?.value ?? "N/A")}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
