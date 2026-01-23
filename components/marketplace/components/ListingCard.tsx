@@ -105,6 +105,7 @@ export function ListingCard({
   const effectiveAllowanceReady =
     allowanceCheckPassed || manualApprovalSatisfied || currencyCheckUnavailable;
   const canCollect = state.state === "live" && effectiveBalanceReady && effectiveAllowanceReady;
+  const nftAddress = listing.asset?.tokenAddress || listing.assetContractAddress;
 
   const handleCopy = async (label: string, value?: string | null) => {
     if (!value) {
@@ -119,34 +120,41 @@ export function ListingCard({
     }
   };
 
+  const actionButtonBase =
+    "relative inline-flex min-w-[120px] items-center justify-center rounded-lg px-3 py-1 text-[11px] font-semibold tracking-tight transition backdrop-blur-sm focus:outline-none focus:ring-0 disabled:opacity-45 disabled:cursor-not-allowed";
+  const approveTheme =
+    "border border-emerald-300/40 bg-gradient-to-r from-emerald-500/30 via-teal-400/20 to-cyan-400/25 text-emerald-50 shadow-[0_12px_35px_-18px_rgba(16,185,129,0.8)] hover:border-emerald-200/70 hover:from-emerald-400/35 hover:to-cyan-300/35";
+  const buyTheme =
+    "border border-emerald-300/35 bg-gradient-to-r from-emerald-500/25 via-cyan-500/18 to-sky-500/25 text-emerald-50 shadow-[0_12px_35px_-18px_rgba(14,165,233,0.7)] hover:border-emerald-200/60 hover:from-emerald-400/35 hover:to-sky-400/35";
+  const connectTheme =
+    "border border-cyan-300/45 bg-gradient-to-r from-cyan-500/28 via-blue-500/24 to-indigo-500/28 text-white shadow-[0_12px_35px_-18px_rgba(59,130,246,0.75)] hover:border-cyan-200/65 hover:from-cyan-400/35 hover:to-indigo-400/35";
+  const cancelTheme =
+    "border border-white/15 bg-white/8 text-white shadow-[0_10px_30px_-20px_rgba(255,255,255,0.65)] hover:border-white/30";
+
   return (
     <article
       className={clsx(
-        "group relative grid w-full grid-cols-2 items-center gap-3 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-white/5 via-white/[0.02] to-white/[0.05] px-3 py-2 text-sm text-white shadow-[0_8px_30px_-18px_rgba(0,0,0,0.75)] transition hover:-translate-y-[1px] hover:border-cyan-200/60 hover:shadow-[0_14px_42px_-16px_rgba(0,0,0,0.9)]",
-        "md:grid-cols-[auto,200px,220px,140px]",
+        "group relative grid w-full grid-cols-1 items-center gap-1 overflow-hidden border-b border-white/10 bg-white/[0.01] px-3 py-2 text-[11px] text-white transition hover:bg-white/[0.03] first:border-t first:rounded-t-md last:rounded-b-md",
+        "md:grid-cols-[minmax(0,1.1fr),150px,165px,140px]",
       )}
-      role="button"
-      tabIndex={0}
-      onClick={() => onOpenDetail?.(listing)}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          onOpenDetail?.(listing);
-        }
-      }}
     >
       <div className="absolute inset-0 opacity-0 blur-2xl transition duration-300 group-hover:opacity-100">
         <div className="h-full w-full bg-gradient-to-r from-cyan-500/10 via-emerald-400/5 to-blue-500/5" />
       </div>
-      <div className="flex items-center gap-3">
-        <div className="rounded-xl bg-gradient-to-br from-white/15 via-white/5 to-white/0 p-[1.5px] shadow-inner shadow-black/60">
-          <div className="relative h-12 w-12 overflow-hidden rounded-[10px] bg-black/60">
+
+      <div className="flex min-w-0 items-center gap-3">
+        <button
+          type="button"
+          onClick={() => onOpenDetail?.(listing)}
+          className="rounded-xl bg-gradient-to-br from-white/12 via-white/5 to-white/0 p-[1.5px] shadow-inner shadow-black/60 transition hover:from-white/20 hover:via-white/8 hover:to-white/5 focus:outline-none"
+        >
+          <div className="relative h-11 w-11 overflow-hidden rounded-[9px] bg-black/60">
             {media ? (
               <Image
                 src={media}
                 alt={name}
                 fill
-                sizes="48px"
+                sizes="44px"
                 className="object-cover"
                 loading="lazy"
               />
@@ -156,18 +164,40 @@ export function ListingCard({
               </div>
             )}
           </div>
-        </div>
-        <div className="space-y-0.5">
-          <p className="line-clamp-1 text-xs font-semibold tracking-tight text-white/90">{name}</p>
-          <div className="flex items-center gap-2 text-[9px] uppercase tracking-[0.18em] text-white/50">
-            <span className="truncate">{shortAddress(listing.assetContractAddress)}</span>
+        </button>
+        <div className="min-w-0 space-y-1">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => onOpenDetail?.(listing)}
+              className="line-clamp-1 text-left text-[13px] font-semibold tracking-tight text-white hover:text-white/90 focus:outline-none"
+            >
+              {name}
+            </button>
+            {state.state !== "live" && (
+              <span
+                className={clsx(
+                  "inline-flex items-center gap-1 rounded-sm border px-1.5 py-[2px] text-[10px] font-semibold uppercase tracking-[0.12em]",
+                  state.state === "scheduled"
+                    ? "border-cyan-300/30 bg-cyan-400/10 text-cyan-100"
+                    : "border-white/10 bg-white/5 text-white/70",
+                )}
+              >
+                {state.label}
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-white/60">
+            <span className="rounded-sm border border-white/10 bg-white/5 px-1.5 py-[1px] text-[10px] font-medium text-white/80 font-mono">
+              {shortAddress(nftAddress)}
+            </span>
             <button
               type="button"
               onClick={(event) => {
                 event.stopPropagation();
-                handleCopy("Asset address", listing.assetContractAddress);
+                handleCopy("NFT address", nftAddress);
               }}
-              className="rounded border border-white/10 p-1 text-white/50 transition hover:text-white"
+              className="rounded border border-white/10 p-1 text-white/50 transition hover:border-white/30 hover:text-white"
             >
               <Copy size={12} />
             </button>
@@ -175,54 +205,60 @@ export function ListingCard({
         </div>
       </div>
 
-      <div className="flex flex-col gap-1">
-        <div className="flex items-center gap-2">
-          <span className="text-base font-semibold text-white">
+      <div className="space-y-1 self-center text-center md:text-left">
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-[13px] font-semibold text-white">
             {numberFormatter.format(pricePerToken)} {symbol}
           </span>
+          {maxQuantity > 1 && (
+            <span className="text-[11px] text-white/60">
+              Stock {integerFormatter.format(maxQuantity)}
+            </span>
+          )}
         </div>
-        {maxQuantity > 1 && (
-          <div className="text-[10px] text-white/60">
-            {integerFormatter.format(maxQuantity)} available
-          </div>
+        {state.state !== "live" && state.detail && (
+          <p className="text-[11px] text-white/50">{state.detail}</p>
         )}
       </div>
 
-      <div className="text-xs text-white/70">
-        <div className="flex flex-col gap-1 rounded-xl border border-white/5 bg-white/[0.03] px-2.5 py-1.5">
-          <div className="flex items-center gap-2">
-            <span className="font-semibold tracking-tight">{shortAddress(listing.creatorAddress)}</span>
-            <button
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation();
-                handleCopy("Wallet address", listing.creatorAddress);
-              }}
-              className="rounded border border-white/10 p-1 text-white/50 transition hover:text-white"
-            >
-              <Copy size={12} />
-            </button>
-          </div>
-          <div className="text-[11px] text-white/60">
-            {holdingsLoading
-              ? "Checking holdings..."
-              : sellerHoldings !== null
-                ? `holds ${integerFormatter.format(sellerHoldings)}`
-                : "Holdings unavailable"}
-          </div>
+      <div className="space-y-1 text-[11px] text-white/80">
+        <div className="flex items-center gap-1.5">
+          <span className="rounded-sm border border-white/10 bg-white/5 px-1.5 py-[1px] text-[10px] font-medium text-white/80 font-mono">
+            {shortAddress(listing.creatorAddress)}
+          </span>
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              handleCopy("Wallet address", listing.creatorAddress);
+            }}
+            className="rounded border border-white/10 p-1 text-white/50 transition hover:border-white/30 hover:text-white"
+          >
+            <Copy size={12} />
+          </button>
+        </div>
+        <div className="text-[11px] text-white/60">
+          {holdingsLoading
+            ? "Checking holdings..."
+            : sellerHoldings !== null
+              ? `Holds ${integerFormatter.format(sellerHoldings)}`
+              : "Holdings unavailable"}
         </div>
       </div>
 
       <div
-        className="flex flex-wrap items-center justify-end gap-2"
+        className="flex flex-wrap items-center justify-center gap-1.5 self-center text-center"
         onClick={(event) => event.stopPropagation()}
       >
-        {!isCreator &&
+        {!!account &&
+          !isCreator &&
           !isNativeCurrency &&
           !manualApprovalSatisfied &&
           (!hasSufficientAllowance || currencyCheckUnavailable) && (
             <TransactionButton
+              unstyled
               disabled={!account || !currencyContract || checkingCurrency}
+              className={clsx(actionButtonBase, approveTheme)}
               transaction={() => {
                 if (!account) {
                   throw new Error("Connect your wallet to continue.");
@@ -253,7 +289,9 @@ export function ListingCard({
           )}
         {isCreator ? (
           <TransactionButton
+            unstyled
             disabled={!account}
+            className={clsx(actionButtonBase, cancelTheme)}
             transaction={() => {
               if (!account) {
                 throw new Error("Connect your wallet to manage this listing.");
@@ -279,7 +317,13 @@ export function ListingCard({
           </TransactionButton>
         ) : (
           <TransactionButton
+            unstyled
             disabled={!account || !canCollect}
+            className={clsx(
+              account
+                ? clsx(actionButtonBase, buyTheme)
+                : clsx(actionButtonBase, connectTheme),
+            )}
             transaction={() => {
               if (!account) {
                 throw new Error("Connect your wallet to continue.");
@@ -352,7 +396,7 @@ export function ListingSkeleton({ viewMode }: ListingSkeletonProps) {
     return (
       <div className="space-y-2">
         {blocks.map((_, index) => (
-          <div key={index} className="grid animate-pulse grid-cols-2 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-3 py-2 md:grid-cols-[auto,200px,220px,140px]">
+          <div key={index} className="grid animate-pulse grid-cols-1 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-3 py-2 md:grid-cols-[minmax(0,1.1fr),150px,165px,140px]">
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-md bg-white/10" />
               <div className="space-y-2">
@@ -372,7 +416,7 @@ export function ListingSkeleton({ viewMode }: ListingSkeletonProps) {
   return (
     <div className="space-y-2">
       {blocks.map((_, index) => (
-        <div key={index} className="grid animate-pulse grid-cols-2 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-3 py-2 md:grid-cols-[auto,200px,220px,140px]">
+        <div key={index} className="grid animate-pulse grid-cols-1 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-3 py-2 md:grid-cols-[minmax(0,1.1fr),150px,165px,140px]">
           <div className="flex items-center gap-3">
             <div className="h-12 w-12 rounded-md bg-white/10" />
             <div className="space-y-2">
