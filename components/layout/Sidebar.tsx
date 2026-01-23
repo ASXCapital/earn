@@ -4,15 +4,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import clsx from "clsx";
-import { BookText, Boxes, Coins, LayoutDashboard, Layers3, Store, X } from "lucide-react";
+import { BookText, Boxes, Coins, LayoutDashboard, Layers3, Sparkles, Store, X } from "lucide-react";
 import { Button } from "@/components/common/Button";
 
-const NAV = [
+const PRIMARY_NAV = [
   { href: "/", label: "Overview", icon: LayoutDashboard },
   { href: "/rwa", label: "NFT/RWA", icon: Layers3 },
-  { href: "/marketplace", label: "Marketplace", icon: Store },
   { href: "/staking", label: "Staking", icon: Coins },
   { href: "/ecosystem", label: "Ecosystem", icon: Boxes },
+];
+
+const COMING_NAV = [
+  { href: "/marketplace", label: "Marketplace", icon: Store },
+  { href: "/rwa-defi", label: "RWA DeFi", icon: Sparkles },
 ];
 
 interface SidebarProps {
@@ -44,7 +48,7 @@ export function Sidebar({ variant = 'desktop', open, onClose }: SidebarProps) {
         )}
       </div>
       <nav className="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
-        {NAV.map((item) => {
+        {PRIMARY_NAV.map((item) => {
           const Icon = item.icon;
           const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
           return (
@@ -60,6 +64,35 @@ export function Sidebar({ variant = 'desktop', open, onClose }: SidebarProps) {
             </Link>
           );
         })}
+        <div className="pt-3">
+          <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.05] via-white/[0.02] to-transparent p-3 shadow-[0_20px_60px_-40px_rgba(20,180,180,0.35)]">
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.32em] text-white/55">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-300/80 shadow-[0_0_14px_rgba(251,191,36,0.65)]" />
+              Coming Late Jan
+            </div>
+            <div className="mt-2 space-y-1">
+              {COMING_NAV.map((item) => {
+                const Icon = item.icon;
+                const active = pathname.startsWith(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={clsx(
+                      "nav-item text-[12px] px-2.5 py-2 text-white/75",
+                      active && "nav-item-active",
+                    )}
+                    onClick={onClose}
+                  >
+                    <Icon size={16} />
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </nav>
       <div className="px-3 py-4 border-t border-white/5">
         <Link href="/docs" className="nav-item" onClick={onClose}>

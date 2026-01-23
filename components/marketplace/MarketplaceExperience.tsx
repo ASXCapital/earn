@@ -233,21 +233,26 @@ export function MarketplaceExperience() {
 
   if (isComingSoon) {
     return (
-      <section className="relative overflow-hidden rounded-3xl border border-cyan-200/15 bg-gradient-to-br from-[#050910] via-[#0b1220] to-[#0d1326] px-6 py-16 text-center shadow-[0_30px_120px_-60px_rgba(14,165,233,0.55)] md:px-10">
-        <BackgroundGlow />
-        <div className="pointer-events-none absolute inset-0 opacity-50">
-          <div className="absolute -left-20 -top-24 h-52 w-52 rounded-full bg-cyan-400/20 blur-3xl" />
-          <div className="absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-emerald-300/15 blur-3xl" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_60%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.08),transparent_40%,rgba(255,255,255,0.05))]" />
+      <section className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#060b12] via-[#0b1220] to-[#0c1628] px-6 py-10 text-center shadow-[0_20px_70px_-50px_rgba(34,211,238,0.4)] md:px-10">
+        <div className="pointer-events-none absolute inset-0 opacity-65">
+          <div className="absolute -left-14 top-6 h-40 w-40 rounded-full bg-cyan-400/20 blur-[120px]" />
+          <div className="absolute -right-16 bottom-2 h-48 w-48 rounded-full bg-emerald-300/15 blur-[140px]" />
+          <div className="absolute inset-x-12 top-8 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.1),transparent_60%)]" />
         </div>
-        <div className="relative flex min-h-[50vh] flex-col items-center justify-center gap-6">
-          <h1 className="text-3xl font-semibold leading-tight text-white md:text-4xl">
-            <span className="bg-gradient-to-r from-cyan-100 via-white to-emerald-100 bg-clip-text text-transparent">
-              ASX Marketplace - Coming Soon
-            </span>
-          </h1>
-          <div className="h-px w-40 bg-gradient-to-r from-transparent via-cyan-200/60 to-transparent" />
+        <div className="relative mx-auto flex max-w-xl flex-col items-center gap-4">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.34em] text-white/60">
+            Coming Late Jan
+          </span>
+          <h1 className="text-2xl font-semibold text-white md:text-3xl">ASX Marketplace</h1>
+          <p className="text-sm leading-relaxed text-white/65 md:text-base">
+            A curated trading desk for ASX real-world asset NFTs with clean listing, sweep, and
+            settlement flows.
+          </p>
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-cyan-200/60 to-transparent" />
+          <div className="text-[11px] uppercase tracking-[0.28em] text-white/45">
+            Listings • Offers • Auctions
+          </div>
         </div>
       </section>
     );
