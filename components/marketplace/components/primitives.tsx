@@ -18,14 +18,14 @@ type EmptyStateProps = {
 
 export function EmptyState({ onRefresh }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center gap-4 rounded-3xl border border-white/15 bg-white/5 p-10 text-center">
-      <Sparkles size={32} className="text-cyan-300" />
-      <p className="text-lg font-semibold text-white">No listings match your filters</p>
-      <p className="max-w-2xl text-sm text-white/70">
+    <div className="flex flex-col items-center gap-2 rounded-2xl border border-cyan-200/15 bg-gradient-to-b from-[#0b1425] via-[#0e1a30] to-[#0b1425] p-7 text-center shadow-[0_22px_100px_-60px_rgba(34,211,238,0.45)]">
+      <Sparkles size={24} className="text-cyan-200 drop-shadow-[0_0_20px_rgba(34,211,238,0.45)]" />
+      <p className="text-base font-semibold text-white">No listings match your filters</p>
+      <p className="max-w-2xl text-sm leading-relaxed text-white/70">
         New direct listings and offers appear the moment they land on-chain. Adjust filters or sync
         again to see the latest inventory.
       </p>
-      <Button type="button" onClick={onRefresh} variant="primary">
+      <Button type="button" onClick={onRefresh} variant="primary" className="rounded-md px-4 py-2 text-sm">
         Refresh marketplace feed
       </Button>
     </div>
@@ -40,9 +40,11 @@ type StatPillProps = {
 
 export function StatPill({ label, value, detail }: StatPillProps) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/30 p-4 backdrop-blur">
-      <p className="text-xs uppercase tracking-widest text-white/50">{label}</p>
-      <p className="text-2xl font-semibold text-white">{value}</p>
+    <div className="rounded-xl border border-cyan-200/15 bg-gradient-to-br from-white/5 via-white/2 to-white/5 p-3 shadow-[0_14px_60px_-48px_rgba(34,211,238,0.4)] backdrop-blur">
+      <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-white/60">{label}</p>
+      <p className="text-lg font-semibold leading-tight text-white drop-shadow-[0_6px_24px_rgba(34,211,238,0.35)]">
+        {value}
+      </p>
       {detail ? <p className="text-xs text-white/60">{detail}</p> : null}
     </div>
   );
@@ -57,13 +59,13 @@ type ProgressRowProps = {
 export function ProgressRow({ label, value, progress }: ProgressRowProps) {
   return (
     <div className="space-y-1">
-      <div className="flex items-center justify-between text-xs text-white/60">
-        <span>{label}</span>
-        <span className="text-white/80">{value}</span>
+      <div className="flex items-center justify-between text-xs text-white/65">
+        <span className="tracking-wide">{label}</span>
+        <span className="text-white/85">{value}</span>
       </div>
-      <div className="h-1.5 rounded-full bg-white/10">
+      <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400"
+          className="h-full rounded-full bg-gradient-to-r from-cyan-300 via-emerald-300 to-blue-400 shadow-[0_0_18px_rgba(34,211,238,0.45)]"
           style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
         />
       </div>
@@ -93,12 +95,12 @@ type SectionHeadingProps = {
 
 export function SectionHeading({ title, description, icon }: SectionHeadingProps) {
   return (
-    <div className="flex flex-col gap-2">
-      <div className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
+    <div className="flex flex-col gap-1.5">
+      <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-200/80">
         {icon}
         {title}
       </div>
-      <p className="text-base text-white/70">{description}</p>
+      <p className="text-sm leading-relaxed text-white/70 md:text-base">{description}</p>
     </div>
   );
 }
@@ -106,9 +108,10 @@ export function SectionHeading({ title, description, icon }: SectionHeadingProps
 export function BackgroundGlow() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-      <div className="absolute -right-6 top-6 h-64 w-64 rounded-full bg-cyan-500/30 blur-[120px]" />
-      <div className="absolute -left-10 bottom-0 h-72 w-72 rounded-full bg-purple-600/20 blur-[140px]" />
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+      <div className="absolute -right-10 top-0 h-64 w-64 rounded-full bg-cyan-400/25 blur-[120px]" />
+      <div className="absolute -left-14 bottom-2 h-72 w-72 rounded-full bg-indigo-500/18 blur-[150px]" />
+      <div className="absolute inset-x-6 top-6 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(94,234,212,0.08),transparent_35%)]" />
     </div>
   );
 }
@@ -120,8 +123,8 @@ type AnalyticsChipProps = {
 
 export function AnalyticsChip({ label, value }: AnalyticsChipProps) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/40 p-3 text-sm text-white/70">
-      <p className="text-xs uppercase tracking-widest text-white/40">{label}</p>
+    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-3 text-sm text-white/70">
+      <p className="text-[11px] uppercase tracking-[0.12em] text-white/40">{label}</p>
       <p className="text-base font-semibold text-white">{value}</p>
     </div>
   );
@@ -145,7 +148,7 @@ export function ActivityTypeBadge({ type }: ActivityTypeBadgeProps) {
               ? <CheckCircle2 size={16} />
               : <HandCoins size={16} />;
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-white/60">
+    <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/70">
       {icon}
       {type.replace("-", " ")}
     </span>

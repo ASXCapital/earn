@@ -105,17 +105,54 @@ export function ListingCard({
   const effectiveAllowanceReady =
     allowanceCheckPassed || manualApprovalSatisfied || currencyCheckUnavailable;
   const canCollect = state.state === "live" && effectiveBalanceReady && effectiveAllowanceReady;
-  const nftAddress = listing.asset?.tokenAddress || listing.assetContractAddress;
+  const nftAddress =
+    (listing.asset as any)?.tokenAddress ??
+    (listing.asset as any)?.token_address ??
+    (listing.asset as any)?.contractAddress ??
+    (listing.asset as any)?.contract_address ??
+    listing.assetContractAddress;
+  const nftIdentifier = `${nftAddress}/${listing.tokenId.toString()}`;
+  const explorerBase = (MARKETPLACE_V3_EXPLORER || "").replace(/\/$/, "");
+  const nftExplorerUrl = explorerBase
+    ? `${explorerBase}/token/${nftAddress}?a=${listing.tokenId.toString()}`
+    : undefined;
+  const sellerExplorerUrl = explorerBase
+    ? `${explorerBase}/address/${listing.creatorAddress}#asset-nfts`
+    : undefined;
 
   const handleCopy = async (label: string, value?: string | null) => {
     if (!value) {
       notifyError(`No ${label} to copy.`);
       return;
     }
-    try {
-      await navigator.clipboard.writeText(value);
+    const textToCopy = String(value);
+    const fallbackCopy = () => {
+      const textarea = document.createElement("textarea");
+      textarea.value = textToCopy;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      const succeeded = document.execCommand("copy");
+      document.body.removeChild(textarea);
+      return succeeded;
+    };
+
+    if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        notifySuccess(`${label} copied`);
+        return;
+      } catch {
+        // fall through to fallback
+      }
+    }
+
+    const copied = fallbackCopy();
+    if (copied) {
       notifySuccess(`${label} copied`);
-    } catch {
+    } else {
       notifyError(`Unable to copy ${label}.`);
     }
   };
@@ -134,27 +171,27 @@ export function ListingCard({
   return (
     <article
       className={clsx(
-        "group relative grid w-full grid-cols-1 items-center gap-1 overflow-hidden border-b border-white/10 bg-white/[0.01] px-3 py-2 text-[11px] text-white transition hover:bg-white/[0.03] first:border-t first:rounded-t-md last:rounded-b-md",
+        "group relative isolate grid w-full grid-cols-1 items-center gap-1 overflow-hidden border-b border-cyan-200/5 bg-gradient-to-r from-[#0b101a] via-[#0e1424] to-[#0b101a] px-3 py-[2px] text-[11px] text-white transition hover:border-cyan-300/20 hover:from-[#111a2c] hover:via-[#132038] hover:to-[#0f182c] first:border-t first:rounded-t-md last:rounded-b-md",
         "md:grid-cols-[minmax(0,1.1fr),150px,165px,140px]",
       )}
     >
-      <div className="absolute inset-0 opacity-0 blur-2xl transition duration-300 group-hover:opacity-100">
-        <div className="h-full w-full bg-gradient-to-r from-cyan-500/10 via-emerald-400/5 to-blue-500/5" />
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-0 blur-2xl transition duration-300 group-hover:opacity-100">
+        <div className="h-full w-full bg-[radial-gradient(circle_at_20%_30%,rgba(94,234,212,0.12),transparent_45%),radial-gradient(circle_at_80%_70%,rgba(56,189,248,0.12),transparent_40%)]" />
       </div>
 
-      <div className="flex min-w-0 items-center gap-3">
+      <div className="relative z-10 flex min-w-0 items-center gap-2">
         <button
           type="button"
           onClick={() => onOpenDetail?.(listing)}
-          className="rounded-xl bg-gradient-to-br from-white/12 via-white/5 to-white/0 p-[1.5px] shadow-inner shadow-black/60 transition hover:from-white/20 hover:via-white/8 hover:to-white/5 focus:outline-none"
+          className="focus:outline-none"
         >
-          <div className="relative h-11 w-11 overflow-hidden rounded-[9px] bg-black/60">
+          <div className="relative h-16 w-16 overflow-hidden bg-black/60">
             {media ? (
               <Image
                 src={media}
                 alt={name}
                 fill
-                sizes="44px"
+                sizes="64px"
                 className="object-cover"
                 loading="lazy"
               />
@@ -165,7 +202,7 @@ export function ListingCard({
             )}
           </div>
         </button>
-        <div className="min-w-0 space-y-1">
+        <div className="min-w-0 space-y-0.5">
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -189,25 +226,37 @@ export function ListingCard({
           </div>
           <div className="flex items-center gap-1.5 text-xs text-white/60">
             <span className="rounded-sm border border-white/10 bg-white/5 px-1.5 py-[1px] text-[10px] font-medium text-white/80 font-mono">
-              {shortAddress(nftAddress)}
+              {shortAddress(nftAddress)} · #{listing.tokenId.toString()}
             </span>
             <button
               type="button"
               onClick={(event) => {
+                event.preventDefault();
                 event.stopPropagation();
-                handleCopy("NFT address", nftAddress);
+                handleCopy("NFT address", nftIdentifier);
               }}
-              className="rounded border border-white/10 p-1 text-white/50 transition hover:border-white/30 hover:text-white"
+              className="rounded border border-white/10 p-1 text-white/50 transition hover:border-white/30 hover:text-white cursor-pointer"
             >
               <Copy size={12} />
             </button>
+            {nftExplorerUrl && (
+              <Link
+                href={nftExplorerUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(event) => event.stopPropagation()}
+                className="rounded border border-white/10 p-1 text-white/50 transition hover:border-white/30 hover:text-white"
+              >
+                <ExternalLink size={12} />
+              </Link>
+            )}
           </div>
         </div>
       </div>
 
-      <div className="space-y-1 self-center text-center md:text-left">
+      <div className="relative z-10 space-y-1 self-center text-center md:text-left">
         <div className="flex items-baseline gap-1.5">
-          <span className="text-[13px] font-semibold text-white">
+          <span className="text-[13px] font-semibold text-emerald-100">
             {numberFormatter.format(pricePerToken)} {symbol}
           </span>
           {maxQuantity > 1 && (
@@ -221,21 +270,33 @@ export function ListingCard({
         )}
       </div>
 
-      <div className="space-y-1 text-[11px] text-white/80">
+      <div className="relative z-10 space-y-1 text-[11px] text-white/80">
         <div className="flex items-center gap-1.5">
-          <span className="rounded-sm border border-white/10 bg-white/5 px-1.5 py-[1px] text-[10px] font-medium text-white/80 font-mono">
+          <span className="rounded-sm border border-white/10 bg-white/5 px-1 py-[1px] text-[10px] font-medium text-white/80 font-mono">
             {shortAddress(listing.creatorAddress)}
           </span>
           <button
             type="button"
             onClick={(event) => {
+              event.preventDefault();
               event.stopPropagation();
               handleCopy("Wallet address", listing.creatorAddress);
             }}
-            className="rounded border border-white/10 p-1 text-white/50 transition hover:border-white/30 hover:text-white"
+            className="rounded border border-white/10 p-1 text-white/50 transition hover:border-white/30 hover:text-white cursor-pointer"
           >
             <Copy size={12} />
           </button>
+          {sellerExplorerUrl && (
+            <Link
+              href={sellerExplorerUrl}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(event) => event.stopPropagation()}
+              className="rounded border border-white/10 p-1 text-white/50 transition hover:border-white/30 hover:text-white"
+            >
+              <ExternalLink size={12} />
+            </Link>
+          )}
         </div>
         <div className="text-[11px] text-white/60">
           {holdingsLoading
@@ -247,7 +308,7 @@ export function ListingCard({
       </div>
 
       <div
-        className="flex flex-wrap items-center justify-center gap-1.5 self-center text-center"
+        className="relative z-10 flex flex-wrap items-center justify-center gap-1.5 self-center text-center"
         onClick={(event) => event.stopPropagation()}
       >
         {!!account &&

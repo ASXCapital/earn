@@ -201,13 +201,19 @@ export function shortAddress(address: string) {
 export function sortListings(a: DirectListing, b: DirectListing, key: SortKey) {
   const priceA = safeNumber(a.currencyValuePerToken.displayValue);
   const priceB = safeNumber(b.currencyValuePerToken.displayValue);
+  const nameA = (a.asset?.metadata?.name ?? "").toLowerCase();
+  const nameB = (b.asset?.metadata?.name ?? "").toLowerCase();
+  const sellerA = a.creatorAddress.toLowerCase();
+  const sellerB = b.creatorAddress.toLowerCase();
 
-  if (key === "price-low") return priceA - priceB;
-  if (key === "price-high") return priceB - priceA;
-  if (key === "newest") {
-    return getListingTimes(b).start - getListingTimes(a).start;
-  }
+  if (key === "price-asc") return priceA - priceB;
+  if (key === "price-desc") return priceB - priceA;
+  if (key === "collection-asc") return nameA.localeCompare(nameB) || a.assetContractAddress.localeCompare(b.assetContractAddress);
+  if (key === "collection-desc") return nameB.localeCompare(nameA) || b.assetContractAddress.localeCompare(a.assetContractAddress);
+  if (key === "seller-asc") return sellerA.localeCompare(sellerB);
+  if (key === "seller-desc") return sellerB.localeCompare(sellerA);
 
+  // default to live-first, then end time soonest
   const now = Date.now() / 1000;
   const aLive = isListingLive(a, now);
   const bLive = isListingLive(b, now);

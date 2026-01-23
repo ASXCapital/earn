@@ -19,6 +19,7 @@ type MarketplaceSyncResult = {
   auctions: EnglishAuction[];
   offers: Offer[];
   activity: ActivityEntry[];
+  grossVolume: number;
   loading: boolean;
   refreshing: boolean;
   error: string | null;
@@ -33,6 +34,7 @@ export function useMarketplaceSync(
   const [auctions, setAuctions] = useState<EnglishAuction[]>([]);
   const [offers, setOffers] = useState<Offer[]>([]);
   const [activity, setActivity] = useState<ActivityEntry[]>([]);
+  const [grossVolume, setGrossVolume] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -60,6 +62,7 @@ export function useMarketplaceSync(
         setAuctions(payload.auctions ?? []);
         setOffers(payload.offers ?? []);
         setActivity(payload.activity ?? []);
+        setGrossVolume(payload.grossVolume ?? 0);
         setLastUpdated(payload.lastUpdated ? new Date(payload.lastUpdated) : new Date());
       } catch (err) {
         const message = err instanceof Error ? err.message : "Unable to sync marketplace.";
@@ -82,6 +85,7 @@ export function useMarketplaceSync(
     auctions,
     offers,
     activity,
+    grossVolume,
     loading,
     refreshing,
     error,

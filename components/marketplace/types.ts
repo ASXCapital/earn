@@ -1,6 +1,12 @@
 import type { Address } from "viem";
 
-export type SortKey = "featured" | "price-low" | "price-high" | "newest";
+export type SortKey =
+  | "collection-asc"
+  | "collection-desc"
+  | "price-asc"
+  | "price-desc"
+  | "seller-asc"
+  | "seller-desc";
 
 export type ViewMode = "mosaic" | "immersive";
 
