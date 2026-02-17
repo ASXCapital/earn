@@ -11,6 +11,7 @@ const ASX_REWARD_TOKEN: Record<SupportedChainKey, string | null> = {
     bsc: '0xebd3619642d78f0c98c84f6fa9a678653fb5a99b',
     core: null,
 };
+const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 interface Options { debug?: boolean; chainKey: SupportedChainKey; prices: any; }
 
@@ -24,7 +25,7 @@ export function useStakingPools({ debug, chainKey, prices }: Options): UseStakin
     const pools = useMemo(() => STAKING_POOLS.filter(p => {
         if (p.chain !== chainKey) return false;
         if ((p as any).enabled === false) return false;
-        return !!(p.address && p.address !== '0x0000000000000000000000000000000000000000');
+        return typeof p.address === 'string' && p.address.toLowerCase() !== ZERO_ADDRESS;
     }), [chainKey]);
 
     // auto refresh once on connect
