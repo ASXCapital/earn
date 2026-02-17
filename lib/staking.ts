@@ -1,6 +1,8 @@
 import { client, bsc, core } from './thirdweb';
 import { getContract, readContract, prepareContractCall, sendTransaction } from 'thirdweb';
 
+export type StakingContractType = 'stakingRewards' | 'rewardPool';
+
 export const STAKING_ABI = [
     { "inputs": [{ "internalType": "address", "name": "_stakingToken", "type": "address" }], "stateMutability": "nonpayable", "type": "constructor" },
     { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" },
@@ -42,20 +44,49 @@ export const STAKING_ABI = [
     { "inputs": [{ "internalType": "address", "name": "", "type": "address" }, { "internalType": "address", "name": "", "type": "address" }], "name": "userRewardPerTokenPaid", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
     { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "withdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" }
 ];
+
+export const REWARD_POOL_ABI = [
+    { "inputs": [{ "internalType": "address", "name": "_stakeToken", "type": "address" }, { "internalType": "address", "name": "_rewardToken", "type": "address" }, { "internalType": "uint256", "name": "_rewardPerBlock", "type": "uint256" }], "stateMutability": "nonpayable", "type": "constructor" },
+    { "inputs": [], "name": "rewardToken", "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "stakeToken", "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "rewardPerBlock", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "totalStaked", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [], "name": "accRewardPerShare", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "userInfo", "outputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "uint256", "name": "rewardDebt", "type": "uint256" }], "stateMutability": "view", "type": "function" },
+    { "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }], "name": "deposit", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+    { "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }], "name": "withdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+];
 // Factory
-export function getStakingContract(address: string, chain: 'bsc' | 'core' = 'core') {
+export function getStakingContract(address: string, chain: 'bsc' | 'core' = 'core', contractType: StakingContractType = 'stakingRewards') {
     // Provide ABI so method signature decoding works even if using raw fragments
-    return getContract({ address, abi: STAKING_ABI as any, client, chain: chain === 'bsc' ? bsc : core });
+    const abi = contractType === 'rewardPool' ? REWARD_POOL_ABI : STAKING_ABI;
+    return getContract({ address, abi: abi as any, client, chain: chain === 'bsc' ? bsc : core });
 }
 
 // Read helpers
-export async function getStakedBalance(contract: any, account: string) {
+export async function getStakedBalance(contract: any, account: string, contractType: StakingContractType = 'stakingRewards') {
+    if (contractType === 'rewardPool') {
+        const info: any = await readContract({ contract, method: 'function userInfo(address) view returns (uint256 amount,uint256 rewardDebt)', params: [account] } as any);
+        return info?.amount ?? info?.[0] ?? 0n;
+    }
     return await readContract({ contract, method: 'function balanceOf(address user) view returns (uint256 amount)', params: [account] } as any);
 }
-export async function getTotalSupply(contract: any) {
+export async function getTotalSupply(contract: any, contractType: StakingContractType = 'stakingRewards') {
+    if (contractType === 'rewardPool') {
+        return await readContract({ contract, method: 'function totalStaked() view returns (uint256)' } as any);
+    }
     return await readContract({ contract, method: 'function totalSupply() view returns (uint256)' } as any);
 }
-export async function getClaimableRewards(contract: any, account: string) {
+export async function getClaimableRewards(contract: any, account: string, contractType: StakingContractType = 'stakingRewards') {
+    if (contractType === 'rewardPool') {
+        const info: any = await readContract({ contract, method: 'function userInfo(address) view returns (uint256 amount,uint256 rewardDebt)', params: [account] } as any);
+        const amount = BigInt(info?.amount ?? info?.[0] ?? 0);
+        const rewardDebt = BigInt(info?.rewardDebt ?? info?.[1] ?? 0);
+        const acc: any = await readContract({ contract, method: 'function accRewardPerShare() view returns (uint256)', params: [] } as any);
+        const accRewardPerShare = BigInt(acc ?? 0);
+        const pending = amount > 0n ? (amount * accRewardPerShare) / 1_000_000_000_000n - rewardDebt : 0n;
+        return pending > 0n ? pending : 0n;
+    }
     const signatures = [
         'function claimableRewards(address) view returns (tuple(address token,uint256 amount)[])',
         'function claimableRewards(address) view returns (tuple(address,uint256)[])',
@@ -69,7 +100,12 @@ export async function getClaimableRewards(contract: any, account: string) {
     }
     throw lastErr;
 }
-export async function getRewardTokens(contract: any) {
+export async function getRewardTokens(contract: any, contractType: StakingContractType = 'stakingRewards') {
+    if (contractType === 'rewardPool') {
+        const token: any = await readContract({ contract, method: 'function rewardToken() view returns (address)' } as any);
+        const t = String(Array.isArray(token) ? token[0] : token);
+        return t ? [t] : [];
+    }
     // Try first 8 indices
     const tokens: string[] = [];
     for (let i = 0; i < 8; i++) {
@@ -82,15 +118,24 @@ export async function getRewardTokens(contract: any) {
     }
     return tokens;
 }
-export async function getRewardData(contract: any, token: string) {
+export async function getRewardData(contract: any, token: string, contractType: StakingContractType = 'stakingRewards') {
+    if (contractType === 'rewardPool') {
+        const raw: any = await readContract({ contract, method: 'function rewardPerBlock() view returns (uint256)' } as any);
+        return { rewardPerBlock: raw };
+    }
     const raw: any = await readContract({ contract, method: 'function rewardData(address) view returns (uint256 periodFinish,uint256 rewardRate,uint256 lastUpdateTime,uint256 rewardPerTokenStored)', params: [token] } as any);
     if (raw && Array.isArray(raw) && raw.length >= 4) {
         return { periodFinish: raw[0], rewardRate: raw[1], lastUpdateTime: raw[2], rewardPerTokenStored: raw[3] };
     }
     return raw; // might already be decoded object in future versions
 }
-export async function getRewardRate(contract: any, token: string) {
-    const data: any = await getRewardData(contract, token);
+export async function getRewardRate(contract: any, token: string, contractType: StakingContractType = 'stakingRewards', chain: 'bsc' | 'core' = 'core') {
+    const data: any = await getRewardData(contract, token, contractType);
+    if (contractType === 'rewardPool') {
+        const rewardPerBlock = BigInt((data && typeof data === 'object' && 'rewardPerBlock' in data) ? data.rewardPerBlock : 0n);
+        const blockTime = chain === 'bsc' ? 3n : 3n;
+        return blockTime > 0n ? rewardPerBlock / blockTime : rewardPerBlock;
+    }
     if (data && typeof data === 'object' && 'rewardRate' in data) return (data as any).rewardRate;
     if (Array.isArray(data) && data.length >= 2) return data[1];
     return 0n;
@@ -98,7 +143,10 @@ export async function getRewardRate(contract: any, token: string) {
 export async function getRewardsDuration(contract: any) {
     return await readContract({ contract, method: 'function rewardsDuration() view returns (uint256)' } as any);
 }
-export async function getStakingToken(contract: any) {
+export async function getStakingToken(contract: any, contractType: StakingContractType = 'stakingRewards') {
+    if (contractType === 'rewardPool') {
+        return await readContract({ contract, method: 'function stakeToken() view returns (address)' } as any);
+    }
     return await readContract({ contract, method: 'function stakingToken() view returns (address)' } as any);
 }
 export async function getCanWithdraw(contract: any, account: string) {
@@ -149,16 +197,19 @@ export async function approveErc20(token: string, spender: string, amount: bigin
 }
 
 // Staking writes
-export async function stakeTokens(contract: any, amount: bigint, account: any) {
-    const tx = prepareContractCall({ contract, method: 'function stake(uint256 amount)', params: [amount] } as any);
+export async function stakeTokens(contract: any, amount: bigint, account: any, contractType: StakingContractType = 'stakingRewards') {
+    const method = contractType === 'rewardPool' ? 'function deposit(uint256 amount)' : 'function stake(uint256 amount)';
+    const tx = prepareContractCall({ contract, method, params: [amount] } as any);
     return await sendTransaction({ transaction: tx, account });
 }
-export async function withdrawTokens(contract: any, amount: bigint, account: any) {
+export async function withdrawTokens(contract: any, amount: bigint, account: any, contractType: StakingContractType = 'stakingRewards') {
     const tx = prepareContractCall({ contract, method: 'function withdraw(uint256 amount)', params: [amount] } as any);
     return await sendTransaction({ transaction: tx, account });
 }
-export async function claimRewards(contract: any, account: any) {
-    const tx = prepareContractCall({ contract, method: 'function getReward()' } as any);
+export async function claimRewards(contract: any, account: any, contractType: StakingContractType = 'stakingRewards') {
+    const method = contractType === 'rewardPool' ? 'function deposit(uint256 amount)' : 'function getReward()';
+    const params = contractType === 'rewardPool' ? [0n] : undefined;
+    const tx = prepareContractCall({ contract, method, params } as any);
     return await sendTransaction({ transaction: tx, account });
 }
 export async function exitStaking(contract: any, account: any) {

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import { STAKING_POOLS } from '@/data/staking';
 import { priceForSymbol } from '@/lib/pricing';
-import { getStakingContract, getStakedBalance, getTotalSupply, getClaimableRewards, getRewardTokens, getRewardRate, getStakingToken, getErc20Decimals, getErc20Symbol, getErc20Balance } from '@/lib/staking';
+import { getStakingContract, getStakedBalance, getTotalSupply, getClaimableRewards, getRewardTokens, getRewardRate, getStakingToken, getErc20Decimals, getErc20Symbol, getErc20Balance, type StakingContractType } from '@/lib/staking';
 import { bsc, core, getRpcHttpUrls } from '@/lib/thirdweb';
 import type { PoolRawState, PoolComputedView, SupportedChainKey, UseStakingPoolsResult } from '@/types/staking';
 import { useActiveAccount } from 'thirdweb/react';
@@ -21,7 +21,11 @@ export function useStakingPools({ debug, chainKey, prices }: Options): UseStakin
     const [reloadNonce, setReloadNonce] = useState(0);
     const [autoRefreshedOnConnect, setAutoRefreshedOnConnect] = useState(false);
     const [states, setStates] = useState<Record<string, PoolRawState>>({});
-    const pools = useMemo(() => STAKING_POOLS.filter(p => p.chain === chainKey), [chainKey]);
+    const pools = useMemo(() => STAKING_POOLS.filter(p => {
+        if (p.chain !== chainKey) return false;
+        if ((p as any).enabled === false) return false;
+        return !!(p.address && p.address !== '0x0000000000000000000000000000000000000000');
+    }), [chainKey]);
 
     // auto refresh once on connect
     const poolKeys = pools.map(p => p.key).join(',');
@@ -60,7 +64,8 @@ export function useStakingPools({ debug, chainKey, prices }: Options): UseStakin
                     try {
                         push('BEGIN ' + new Date().toISOString());
                         const wallet = account?.address;
-                        const contract = getStakingContract(pool.address, pool.chain as SupportedChainKey);
+                        const contractType = ((pool as any).contractType as StakingContractType) || 'stakingRewards';
+                        const contract = getStakingContract(pool.address, pool.chain as SupportedChainKey, contractType);
                         // helpers
                         const cache = new Map<string, any>();
                         const call = async <T,>(k: string, fn: () => Promise<T>): Promise<T> => { if (cache.has(k)) return cache.get(k); const v = await fn(); cache.set(k, v); return v; };
@@ -70,12 +75,12 @@ export function useStakingPools({ debug, chainKey, prices }: Options): UseStakin
                         };
                         // core reads
                         let totalStaked: bigint = 0n; let userStaked: bigint = 0n; let stakingToken: string | undefined;
-                        try { const ts: any = await retry('totalSupply', () => getTotalSupply(contract)); totalStaked = typeof ts === 'bigint' ? ts : BigInt(ts?.[0] ?? ts ?? 0); push('totalStaked=' + totalStaked); } catch (e: any) { push('totalSupply err ' + (e?.message || e)); }
-                        if (wallet) { try { const ub: any = await getStakedBalance(contract, wallet); userStaked = typeof ub === 'bigint' ? ub : BigInt(ub?.[0] ?? ub ?? 0); push('userStaked=' + userStaked); } catch (e: any) { push('userStaked err ' + (e?.message || e)); } }
+                        try { const ts: any = await retry('totalSupply', () => getTotalSupply(contract, contractType)); totalStaked = typeof ts === 'bigint' ? ts : BigInt(ts?.[0] ?? ts ?? 0); push('totalStaked=' + totalStaked); } catch (e: any) { push('totalSupply err ' + (e?.message || e)); }
+                        if (wallet) { try { const ub: any = await getStakedBalance(contract, wallet, contractType); userStaked = typeof ub === 'bigint' ? ub : BigInt(ub?.[0] ?? ub ?? 0); push('userStaked=' + userStaked); } catch (e: any) { push('userStaked err ' + (e?.message || e)); } }
                         let rewardTokens: string[] = [];
-                        try { rewardTokens = await retry('rewardTokens', () => getRewardTokens(contract)); push('rewardTokens=' + rewardTokens.length); } catch { }
+                        try { rewardTokens = await retry('rewardTokens', () => getRewardTokens(contract, contractType)); push('rewardTokens=' + rewardTokens.length); } catch { }
                         if (!rewardTokens.length) { const fb = ASX_REWARD_TOKEN[pool.chain as SupportedChainKey]; if (fb) { rewardTokens = [fb]; push('fallbackReward'); } }
-                        try { const st: any = await retry('stakingToken', () => getStakingToken(contract)); stakingToken = String(Array.isArray(st) ? st[0] : st); push('stakingToken=' + stakingToken); } catch { }
+                        try { const st: any = await retry('stakingToken', () => getStakingToken(contract, contractType)); stakingToken = String(Array.isArray(st) ? st[0] : st); push('stakingToken=' + stakingToken); } catch { }
                         let decimals = 18; let symbol = '';
                         if (stakingToken) { try { decimals = await getErc20Decimals(stakingToken, pool.chain as any); } catch { } try { symbol = await getErc20Symbol(stakingToken, pool.chain as any); } catch { } }
                         // wallet balance
@@ -83,11 +88,27 @@ export function useStakingPools({ debug, chainKey, prices }: Options): UseStakin
                         if (stakingToken && wallet) { try { const bal: any = await getErc20Balance(stakingToken, wallet, pool.chain as SupportedChainKey); walletBalance = typeof bal === 'bigint' ? bal : BigInt(bal?.[0] ?? bal ?? 0); } catch { } }
                         // reward rates aggregate
                         let rewardRateTotal: bigint = 0n;
-                        for (const rt of rewardTokens) { try { const r: any = await getRewardRate(contract, rt); const val = typeof r === 'bigint' ? r : BigInt(r?.[1] ?? r?.rewardRate ?? r ?? 0); rewardRateTotal += val; } catch { } }
+                        for (const rt of rewardTokens) { try { const r: any = await getRewardRate(contract, rt, contractType, pool.chain as SupportedChainKey); const val = typeof r === 'bigint' ? r : BigInt(r?.[1] ?? r?.rewardRate ?? r ?? 0); rewardRateTotal += val; } catch { } }
                         // claimable
                         let claimable: bigint | undefined;
                         if (wallet) {
-                            try { const list: any = await getClaimableRewards(contract, wallet); let tot = 0n; if (Array.isArray(list)) for (const item of list) { try { const amt = typeof item === 'object' ? (item.amount ?? item[1]) : (Array.isArray(item) ? item[1] : 0); tot += BigInt(amt || 0); } catch { } } claimable = tot; } catch { }
+                            try {
+                                const list: any = await getClaimableRewards(contract, wallet, contractType);
+                                if (typeof list === 'bigint') {
+                                    claimable = list;
+                                } else {
+                                    let tot = 0n;
+                                    if (Array.isArray(list)) {
+                                        for (const item of list) {
+                                            try {
+                                                const amt = typeof item === 'object' ? (item.amount ?? item[1]) : (Array.isArray(item) ? item[1] : 0);
+                                                tot += BigInt(amt || 0);
+                                            } catch { }
+                                        }
+                                    }
+                                    claimable = tot;
+                                }
+                            } catch { }
                         }
                         // LP meta (only if pool has >1 tokens)
                         let lpMeta: PoolRawState['lp'];

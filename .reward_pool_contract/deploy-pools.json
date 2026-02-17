@@ -1,0 +1,22 @@
+{
+  "rewardToken": "0xebd3619642d78f0c98c84f6fa9a678653fb5a99b",
+  "pools": [
+    {
+      "label": "ASX/USDC",
+      "stakeToken": "0xcdA88b440ba9D1096678CECdDc6F823C56a24E5E",
+      "rewardPerBlock": "0",
+      "address": "0x31F7AF4aEa590E0C7FD3D572B33e7709C9b91B4d"
+    },
+    {
+      "label": "ASX/WBNB",
+      "stakeToken": "0x9f0faa9668cA7f0a0c1CeF0d267fcd3af388941B",
+      "rewardPerBlock": "0",
+      "address": "0xe79c2769Ed26607B8ee923C8b46585De45Bc67eD"
+    },
+    {
+      "label": "ASX/XAUM",
+      "stakeToken": "0x8639c5b3e536a06a38f1e3aa1e89ed9280b50434",
+      "rewardPerBlock": "0"
+    }
+  ]
+}

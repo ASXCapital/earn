@@ -2,6 +2,8 @@ export const TOKENS = [
   // BSC
   { chain: "bsc", symbol: "ASX", name: "ASX Token", address: "0xebd3619642d78f0c98c84f6fa9a678653fb5a99b" },
   { chain: "bsc", symbol: "WBNB", name: "Wrapped BNB", address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c" },
+  { chain: "bsc", symbol: "USDC", name: "USD Coin (BSC)", address: "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d" },
+  { chain: "bsc", symbol: "XAUM", name: "XAUM", address: "0x23AE4fd8E7844cdBc97775496eBd0E8248656028" },
   { chain: "bsc", symbol: "ETH", name: "Ethereum (BSC)", address: "0x2170Ed0880ac9A755fd29B2688956BD959F933F8" },
   { chain: "bsc", symbol: "BTCB", name: "Bitcoin (BSC)", address: "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c" },
   { chain: "bsc", symbol: "SOL", name: "Solana (BSC-PEG)", address: "0x570A5D26f7765Ecb712C0924E4De545B89fD43dF" },

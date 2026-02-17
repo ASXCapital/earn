@@ -9,6 +9,7 @@ export function priceForSymbol(symRaw: string, prices: any, chainKey: SupportedC
     if (s === 'ETH' || s === 'WETH') return prices.eth;
     if (s === 'BTC' || s === 'WBTC' || s === 'BTCB') return prices.btcb;
     if (s === 'SOL' || s === 'WSOL') return prices.sol;
+    if (s === 'XAUM') return prices.xaum;
     return null;
 }
 

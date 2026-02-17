@@ -11,10 +11,11 @@ const contracts = {
   weth: "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
   btcb: "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
   sol: "0x570A5D26f7765Ecb712C0924E4De545B89fD43dF",
+  xaum: "0x23AE4fd8E7844cdBc97775496eBd0E8248656028",
 };
 
-type PricesShape = { asxBsc: number | null; asxCore: number | null; bnb: number | null; eth: number | null; btcb: number | null; sol: number | null };
-const NULL_PRICES: PricesShape = { asxBsc: null, asxCore: null, bnb: null, eth: null, btcb: null, sol: null };
+type PricesShape = { asxBsc: number | null; asxCore: number | null; bnb: number | null; eth: number | null; btcb: number | null; sol: number | null; xaum: number | null };
+const NULL_PRICES: PricesShape = { asxBsc: null, asxCore: null, bnb: null, eth: null, btcb: null, sol: null, xaum: null };
 
 // Lightweight in-memory cache to reduce upstream calls & mitigate transient errors.
 let cache: { data: PricesShape; ts: number } | null = null;
@@ -27,7 +28,8 @@ function fromJson(json: any): PricesShape {
   const eth = json?.[contracts.weth.toLowerCase()]?.usd ?? null;
   const btcb = json?.[contracts.btcb.toLowerCase()]?.usd ?? null;
   const sol = json?.[contracts.sol.toLowerCase()]?.usd ?? null;
-  return { asxBsc, asxCore, bnb, eth, btcb, sol };
+  const xaum = json?.[contracts.xaum.toLowerCase()]?.usd ?? null;
+  return { asxBsc, asxCore, bnb, eth, btcb, sol, xaum };
 }
 
 export async function getPricesServer(): Promise<PricesShape> {
@@ -41,7 +43,7 @@ export async function getPricesServer(): Promise<PricesShape> {
   }
 
   const url = new URL(`https://pro-api.coingecko.com/api/v3/simple/token_price/${BSC_CHAIN_SLUG}`);
-  url.searchParams.set("contract_addresses", [contracts.asxBsc, contracts.wbnb, contracts.weth, contracts.btcb, contracts.sol].join(","));
+  url.searchParams.set("contract_addresses", [contracts.asxBsc, contracts.wbnb, contracts.weth, contracts.btcb, contracts.sol, contracts.xaum].join(","));
   url.searchParams.set("vs_currencies", "usd");
 
   try {

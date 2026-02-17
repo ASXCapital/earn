@@ -1,16 +1,16 @@
 import { useCallback, useState } from 'react';
-import { getStakingContract, stakeTokens, withdrawTokens, claimRewards, approveErc20, getErc20Allowance } from '@/lib/staking';
+import { getStakingContract, stakeTokens, withdrawTokens, claimRewards, approveErc20, getErc20Allowance, type StakingContractType } from '@/lib/staking';
 import type { SupportedChainKey } from '@/types/staking';
 import { useActiveAccount } from 'thirdweb/react';
 
 interface ActionState { pending: boolean; error?: string; hash?: string; }
 interface Step { id: string; label: string; status: 'idle' | 'pending' | 'done' | 'error'; txHash?: string; }
 interface ActionsHook {
-    stake(amount: string, decimals: number, stakingToken: string | undefined, poolAddress: string, chain: SupportedChainKey): Promise<void>;
-    unstake(amount: string, decimals: number, poolAddress: string, chain: SupportedChainKey): Promise<void>;
-    claim(poolAddress: string, chain: SupportedChainKey): Promise<void>;
-    compound(amount: string, decimals: number, stakingToken: string | undefined, poolAddress: string, chain: SupportedChainKey): Promise<void>;
-    compoundClaimable(claimableAmount: string, decimals: number, stakingToken: string | undefined, poolAddress: string, chain: SupportedChainKey): Promise<void>;
+    stake(amount: string, decimals: number, stakingToken: string | undefined, poolAddress: string, chain: SupportedChainKey, contractType?: StakingContractType): Promise<void>;
+    unstake(amount: string, decimals: number, poolAddress: string, chain: SupportedChainKey, contractType?: StakingContractType): Promise<void>;
+    claim(poolAddress: string, chain: SupportedChainKey, contractType?: StakingContractType): Promise<void>;
+    compound(amount: string, decimals: number, stakingToken: string | undefined, poolAddress: string, chain: SupportedChainKey, contractType?: StakingContractType): Promise<void>;
+    compoundClaimable(claimableAmount: string, decimals: number, stakingToken: string | undefined, poolAddress: string, chain: SupportedChainKey, contractType?: StakingContractType): Promise<void>;
     state: Record<string, ActionState>;
     steps: Record<string, Step[]>;
     reset(key: string): void;
@@ -60,7 +60,7 @@ export function useStakingActions(refresh?: () => void): ActionsHook {
         } catch (e) { throw e; }
     };
 
-    const stake = useCallback(async (amount: string, decimals: number, stakingToken: string | undefined, poolAddress: string, chain: SupportedChainKey) => {
+    const stake = useCallback(async (amount: string, decimals: number, stakingToken: string | undefined, poolAddress: string, chain: SupportedChainKey, contractType: StakingContractType = 'stakingRewards') => {
         if (!account) return; const key = poolAddress + ':stake'; start(key);
         try {
             const amt = big(amount, decimals); if (amt <= 0) throw new Error('Amount must be > 0');
@@ -70,7 +70,7 @@ export function useStakingActions(refresh?: () => void): ActionsHook {
                     { id: 'stake', label: 'Stake', status: 'idle' }
                 ]
             }));
-            const contract = getStakingContract(poolAddress, chain);
+            const contract = getStakingContract(poolAddress, chain, contractType);
             if (stakingToken) {
                 const ready = await ensureAllowance(stakingToken, poolAddress, amt, chain, key);
                 if (!ready) {
@@ -86,7 +86,7 @@ export function useStakingActions(refresh?: () => void): ActionsHook {
                 }
             }
             setSteps(s => ({ ...s, [key]: (s[key] || []).map(st => st.id === 'stake' ? { ...st, status: 'pending' } : st) }));
-            const r: any = await withRefresh(() => stakeTokens(contract, amt, account));
+            const r: any = await withRefresh(() => stakeTokens(contract, amt, account, contractType));
             setSteps(s => ({ ...s, [key]: (s[key] || []).map(st => st.id === 'stake' ? { ...st, status: 'done', txHash: r?.transactionHash || r?.hash } : st) }));
             done(key, r?.transactionHash || r?.hash);
         } catch (e: any) {
@@ -99,8 +99,8 @@ export function useStakingActions(refresh?: () => void): ActionsHook {
                     const cur = typeof now === 'bigint' ? now : BigInt(now || 0);
                     if (cur > 0n) {
                         setSteps(s => ({ ...s, [key]: (s[key] || []).map(st => st.id === 'stake' ? { ...st, status: 'pending' } : st) }));
-                        const contract = getStakingContract(poolAddress, chain);
-                        const r2: any = await withRefresh(() => stakeTokens(contract, big(amount, decimals), account));
+                    const contract = getStakingContract(poolAddress, chain, contractType);
+                    const r2: any = await withRefresh(() => stakeTokens(contract, big(amount, decimals), account, contractType));
                         setSteps(s => ({ ...s, [key]: (s[key] || []).map(st => st.id === 'stake' ? { ...st, status: 'done', txHash: r2?.transactionHash || r2?.hash } : st) }));
                         done(key, r2?.transactionHash || r2?.hash);
                         return;
@@ -112,38 +112,38 @@ export function useStakingActions(refresh?: () => void): ActionsHook {
         }
     }, [account]);
 
-    const unstake = useCallback(async (amount: string, decimals: number, poolAddress: string, chain: SupportedChainKey) => {
+    const unstake = useCallback(async (amount: string, decimals: number, poolAddress: string, chain: SupportedChainKey, contractType: StakingContractType = 'stakingRewards') => {
         if (!account) return; const key = poolAddress + ':unstake'; start(key);
         try {
             const amt = big(amount, decimals); if (amt <= 0) throw new Error('Amount must be > 0');
             setSteps(s => ({ ...s, [key]: [{ id: 'unstake', label: 'Unstake', status: 'pending' }] }));
-            const contract = getStakingContract(poolAddress, chain);
-            const r: any = await withRefresh(() => withdrawTokens(contract, amt, account));
+            const contract = getStakingContract(poolAddress, chain, contractType);
+            const r: any = await withRefresh(() => withdrawTokens(contract, amt, account, contractType));
             setSteps(s => ({ ...s, [key]: [{ id: 'unstake', label: 'Unstake', status: 'done', txHash: r?.transactionHash || r?.hash }] }));
             done(key, r?.transactionHash || r?.hash);
         } catch (e) { fail(key, e); setSteps(s => ({ ...s, [key]: [{ id: 'unstake', label: 'Unstake', status: 'error' }] })); }
     }, [account]);
 
-    const claim = useCallback(async (poolAddress: string, chain: SupportedChainKey) => {
+    const claim = useCallback(async (poolAddress: string, chain: SupportedChainKey, contractType: StakingContractType = 'stakingRewards') => {
         if (!account) return; const key = poolAddress + ':claim'; start(key);
         try {
             setSteps(s => ({ ...s, [key]: [{ id: 'claim', label: 'Claim', status: 'pending' }] }));
-            const contract = getStakingContract(poolAddress, chain);
-            const r: any = await withRefresh(() => claimRewards(contract, account));
+            const contract = getStakingContract(poolAddress, chain, contractType);
+            const r: any = await withRefresh(() => claimRewards(contract, account, contractType));
             setSteps(s => ({ ...s, [key]: [{ id: 'claim', label: 'Claim', status: 'done', txHash: r?.transactionHash || r?.hash }] }));
             done(key, r?.transactionHash || r?.hash);
         } catch (e) { fail(key, e); setSteps(s => ({ ...s, [key]: [{ id: 'claim', label: 'Claim', status: 'error' }] })); }
     }, [account]);
 
-    const compound = useCallback(async (amount: string, decimals: number, stakingToken: string | undefined, poolAddress: string, chain: SupportedChainKey) => {
+    const compound = useCallback(async (amount: string, decimals: number, stakingToken: string | undefined, poolAddress: string, chain: SupportedChainKey, contractType: StakingContractType = 'stakingRewards') => {
         if (!account) return; const key = poolAddress + ':compound'; start(key);
         try {
-            const contract = getStakingContract(poolAddress, chain);
+            const contract = getStakingContract(poolAddress, chain, contractType);
             // First claim
-            await claim(poolAddress, chain);
+            await claim(poolAddress, chain, contractType);
             const amt = big(amount, decimals); if (amt > 0n) {
                 if (stakingToken) await ensureAllowance(stakingToken, poolAddress, amt, chain, key);
-                const r: any = await withRefresh(() => stakeTokens(contract, amt, account));
+                const r: any = await withRefresh(() => stakeTokens(contract, amt, account, contractType));
                 done(key, r?.transactionHash || r?.hash);
             } else {
                 done(key);
@@ -151,12 +151,12 @@ export function useStakingActions(refresh?: () => void): ActionsHook {
         } catch (e) { fail(key, e); }
     }, [account, claim]);
 
-    const compoundClaimable = useCallback(async (claimableAmount: string, decimals: number, stakingToken: string | undefined, poolAddress: string, chain: SupportedChainKey) => {
+    const compoundClaimable = useCallback(async (claimableAmount: string, decimals: number, stakingToken: string | undefined, poolAddress: string, chain: SupportedChainKey, contractType: StakingContractType = 'stakingRewards') => {
         if (!account) return; const key = poolAddress + ':compound'; start(key);
         try {
-            const contract = getStakingContract(poolAddress, chain);
+            const contract = getStakingContract(poolAddress, chain, contractType);
             // claim rewards
-            const rClaim: any = await withRefresh(() => claimRewards(contract, account));
+            const rClaim: any = await withRefresh(() => claimRewards(contract, account, contractType));
             // parse amount
             const amt = big(claimableAmount, decimals);
             if (amt > 0n) {
@@ -169,7 +169,7 @@ export function useStakingActions(refresh?: () => void): ActionsHook {
                 }));
                 if (stakingToken) await ensureAllowance(stakingToken, poolAddress, amt, chain, key);
                 setSteps(s => ({ ...s, [key]: (s[key] || []).map(st => st.id === 'stake' ? { ...st, status: 'pending' } : st) }));
-                const rStake: any = await withRefresh(() => stakeTokens(contract, amt, account));
+                const rStake: any = await withRefresh(() => stakeTokens(contract, amt, account, contractType));
                 setSteps(s => ({ ...s, [key]: (s[key] || []).map(st => st.id === 'stake' ? { ...st, status: 'done', txHash: rStake?.transactionHash || rStake?.hash } : st) }));
                 done(key, rStake?.transactionHash || rStake?.hash || rClaim?.transactionHash);
             } else {

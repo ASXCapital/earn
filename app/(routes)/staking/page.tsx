@@ -18,7 +18,7 @@ export default function Page() {
   const activeChain = useActiveWalletChain();
   const prices = usePrices();
   const { view, refresh } = useStakingPools({ chainKey, prices, debug: false });
-  const pools = STAKING_POOLS.filter(p => p.chain === chainKey);
+  const pools = STAKING_POOLS.filter(p => p.chain === chainKey && (p as any).enabled !== false && !!p.address);
 
   const expectedChainId = chainKey === 'bsc' ? 56 : 1116;
   const networkMismatch = !!account?.address && (!!activeChain && activeChain.id !== expectedChainId);

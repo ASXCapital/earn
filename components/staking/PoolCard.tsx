@@ -16,6 +16,7 @@ export function PoolCard({ poolKey, view, chainKey, accountAddress, refresh, net
     const stakedFloat = useMemo(() => safeParse(st?.userStakedDisplay), [st?.userStakedDisplay]);
     const claimableFloat = useMemo(() => safeParse(st?.claimableDisplay), [st?.claimableDisplay]);
     const { stake, unstake, claim, state, steps } = useStakingActions(refresh);
+    const contractType = (pool as any).contractType;
     const poolAddress = pool.address;
     const stakeState = state[poolAddress + ':stake'];
     const unstakeState = state[poolAddress + ':unstake'];
@@ -187,9 +188,9 @@ export function PoolCard({ poolKey, view, chainKey, accountAddress, refresh, net
                         stakeLabel={stakeState?.pending ? 'Staking…' : 'Stake'}
                         unstakeLabel={unstakeState?.pending ? 'Unstaking…' : 'Unstake'}
                         claimLabel={claimState?.pending ? 'Claiming…' : 'Claim Rewards'}
-                        onStake={() => stake(stakeAmount, st?.decimals || 18, st?.stakingTokenAddress, poolAddress, chainKey)}
-                        onUnstake={() => unstake(unstakeAmount, st?.decimals || 18, poolAddress, chainKey)}
-                        onClaim={() => claim(poolAddress, chainKey)}
+                        onStake={() => stake(stakeAmount, st?.decimals || 18, st?.stakingTokenAddress, poolAddress, chainKey, contractType)}
+                        onUnstake={() => unstake(unstakeAmount, st?.decimals || 18, poolAddress, chainKey, contractType)}
+                        onClaim={() => claim(poolAddress, chainKey, contractType)}
                     />
                 </div>
             </div>

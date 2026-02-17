@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { ZapTest } from "@/components/rwa-defi/ZapTest";
 
 export const metadata: Metadata = {
   title: "RWA DeFi | ASX",
-  description: "RWA DeFi is launching late January with new yield and liquidity tooling.",
+  description: "Single-asset zap into ASX LP staking.",
 };
 
 export default function RwaDefiPage() {
@@ -17,14 +18,10 @@ export default function RwaDefiPage() {
         </div>
         <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-4">
           <h1 className="text-3xl font-semibold text-white md:text-4xl">RWA DeFi</h1>
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.05] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.34em] text-white/60">
-            Coming Late Jan
-          </span>
-          <p className="text-sm leading-relaxed text-white/65 md:text-base">
-            Maximise your $ASX on BNB like never before
-          </p>
         </div>
       </section>
+
+      <ZapTest />
     </div>
   );
 }
